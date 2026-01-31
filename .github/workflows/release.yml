@@ -113,7 +113,7 @@ jobs:
           CHECKSUM_146=$(cat ../artifacts/okapi-bridge-${TAG}-okapi1.46.0.tar.gz.sha256 | awk '{print $1}')
 
           VERSION="${TAG#v}"
-          BASE_URL="https://github.com/gokapi/java-bridge/releases/download/${TAG}"
+          BASE_URL="https://github.com/gokapi/okapi-bridge/releases/download/${TAG}"
 
           # Read capabilities generated from the bridge JAR
           CAPABILITIES=$(cat ../artifacts/capabilities.json)
