@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        okapi-version: ['1.46.0', '1.47.0', '1.48.0']
+        okapi-version: ['1.46.0', '1.47.0']
     steps:
       - uses: actions/checkout@v4
 
@@ -94,7 +94,6 @@ jobs:
           cd registry
 
           # Read checksums
-          CHECKSUM_148=$(cat ../artifacts/okapi-bridge-${TAG}-okapi1.48.0.tar.gz.sha256 | awk '{print $1}')
           CHECKSUM_147=$(cat ../artifacts/okapi-bridge-${TAG}-okapi1.47.0.tar.gz.sha256 | awk '{print $1}')
           CHECKSUM_146=$(cat ../artifacts/okapi-bridge-${TAG}-okapi1.46.0.tar.gz.sha256 | awk '{print $1}')
 
@@ -107,17 +106,6 @@ jobs:
             "plugins": [
               {
                 "name": "okapi-bridge",
-                "version": "${VERSION}",
-                "description": "Okapi Framework bridge — 40+ document format filters (Okapi 1.48.0)",
-                "plugin_type": "bridge",
-                "install_type": "bridge",
-                "platform": "",
-                "checksum": "${CHECKSUM_148}",
-                "download_url": "${BASE_URL}/okapi-bridge-${TAG}-okapi1.48.0.tar.gz",
-                "min_host_version": "0.1.0"
-              },
-              {
-                "name": "okapi-bridge-1.47",
                 "version": "${VERSION}",
                 "description": "Okapi Framework bridge — 40+ document format filters (Okapi 1.47.0)",
                 "plugin_type": "bridge",
