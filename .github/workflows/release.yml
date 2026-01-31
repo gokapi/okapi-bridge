@@ -1,0 +1,152 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        okapi-version: ['1.46.0', '1.47.0', '1.48.0']
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+          cache: maven
+
+      - name: Build with Okapi ${{ matrix.okapi-version }}
+        run: mvn -B package -Dokapi.version=${{ matrix.okapi-version }}
+
+      - name: Package release archive
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          OKAPI_VERSION="${{ matrix.okapi-version }}"
+          ARCHIVE_NAME="okapi-bridge-${TAG}-okapi${OKAPI_VERSION}"
+
+          mkdir -p staging
+          cp target/gokapi-bridge-1.0.0-jar-with-dependencies.jar staging/gokapi-bridge-jar-with-dependencies.jar
+          cp okapi.bridge.json staging/
+
+          cd staging
+          tar czf "../${ARCHIVE_NAME}.tar.gz" .
+          cd ..
+
+          sha256sum "${ARCHIVE_NAME}.tar.gz" > "${ARCHIVE_NAME}.tar.gz.sha256"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: okapi-bridge-${{ matrix.okapi-version }}
+          path: |
+            okapi-bridge-*.tar.gz
+            okapi-bridge-*.tar.gz.sha256
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            artifacts/okapi-bridge-*.tar.gz
+            artifacts/okapi-bridge-*.tar.gz.sha256
+          generate_release_notes: true
+
+  update-registry:
+    needs: release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+          merge-multiple: true
+
+      - name: Checkout registry
+        uses: actions/checkout@v4
+        with:
+          repository: gokapi/registry
+          token: ${{ secrets.GOKAPI_REGISTRY_TOKEN }}
+          path: registry
+
+      - name: Update plugins.json
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          cd registry
+
+          # Read checksums
+          CHECKSUM_148=$(cat ../artifacts/okapi-bridge-${TAG}-okapi1.48.0.tar.gz.sha256 | awk '{print $1}')
+          CHECKSUM_147=$(cat ../artifacts/okapi-bridge-${TAG}-okapi1.47.0.tar.gz.sha256 | awk '{print $1}')
+          CHECKSUM_146=$(cat ../artifacts/okapi-bridge-${TAG}-okapi1.46.0.tar.gz.sha256 | awk '{print $1}')
+
+          VERSION="${TAG#v}"
+          BASE_URL="https://github.com/gokapi/java-bridge/releases/download/${TAG}"
+
+          cat > plugins.json <<PLUGINS_EOF
+          {
+            "version": 1,
+            "plugins": [
+              {
+                "name": "okapi-bridge",
+                "version": "${VERSION}",
+                "description": "Okapi Framework bridge — 40+ document format filters (Okapi 1.48.0)",
+                "plugin_type": "bridge",
+                "install_type": "bridge",
+                "platform": "",
+                "checksum": "${CHECKSUM_148}",
+                "download_url": "${BASE_URL}/okapi-bridge-${TAG}-okapi1.48.0.tar.gz",
+                "min_host_version": "0.1.0"
+              },
+              {
+                "name": "okapi-bridge-1.47",
+                "version": "${VERSION}",
+                "description": "Okapi Framework bridge — 40+ document format filters (Okapi 1.47.0)",
+                "plugin_type": "bridge",
+                "install_type": "bridge",
+                "platform": "",
+                "checksum": "${CHECKSUM_147}",
+                "download_url": "${BASE_URL}/okapi-bridge-${TAG}-okapi1.47.0.tar.gz",
+                "min_host_version": "0.1.0"
+              },
+              {
+                "name": "okapi-bridge-1.46",
+                "version": "${VERSION}",
+                "description": "Okapi Framework bridge — 40+ document format filters (Okapi 1.46.0)",
+                "plugin_type": "bridge",
+                "install_type": "bridge",
+                "platform": "",
+                "checksum": "${CHECKSUM_146}",
+                "download_url": "${BASE_URL}/okapi-bridge-${TAG}-okapi1.46.0.tar.gz",
+                "min_host_version": "0.1.0"
+              }
+            ]
+          }
+          PLUGINS_EOF
+
+      - name: Commit and push registry update
+        run: |
+          cd registry
+          git config user.name "gokapi-bot"
+          git config user.email "bot@gokapi.dev"
+          git add plugins.json
+          git commit -m "Update okapi-bridge to ${GITHUB_REF_NAME}"
+          git push
