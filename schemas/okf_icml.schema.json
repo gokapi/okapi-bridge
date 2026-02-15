@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_icml.schema.json",
+  "$version": "1.0.0",
+  "title": "InCopy ICML Filter",
+  "description": "Configuration for the Okapi InCopy ICML Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_icml",
+    "class": "net.sf.okapi.filters.icml.ICMLFilter",
+    "extensions": [
+      ".icml"
+    ],
+    "mimeTypes": []
+  },
+  "properties": {
+    "extractNotes": {
+      "type": "boolean",
+      "default": false
+    },
+    "simplifyCodes": {
+      "type": "boolean",
+      "default": true
+    },
+    "extractMasterSpreads": {
+      "type": "boolean",
+      "default": true
+    },
+    "skipThreshold": {
+      "type": "integer",
+      "default": 1000
+    },
+    "newTuOnBr": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "additionalProperties": false
+}

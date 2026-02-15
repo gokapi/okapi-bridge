@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_openoffice.schema.json",
+  "$version": "1.0.0",
+  "title": "OpenDocument (ODF) Filter",
+  "description": "Configuration for the Okapi OpenDocument (ODF) Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_openoffice",
+    "class": "net.sf.okapi.filters.openoffice.OpenOfficeFilter",
+    "extensions": [
+      ".odt",
+      ".ods",
+      ".odp"
+    ],
+    "mimeTypes": [
+      "application/vnd.oasis.opendocument.text",
+      "application/vnd.oasis.opendocument.spreadsheet",
+      "application/vnd.oasis.opendocument.presentation"
+    ]
+  },
+  "properties": {
+    "extractNotes": {
+      "type": "boolean",
+      "default": false
+    },
+    "extractReferences": {
+      "type": "boolean",
+      "default": false
+    },
+    "extractMetadata": {
+      "type": "boolean",
+      "default": true
+    },
+    "encodeCharacterEntityReferenceGlyphs": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "additionalProperties": false
+}

@@ -2,9 +2,11 @@ package com.gokapi.bridge;
 
 import com.gokapi.bridge.model.*;
 import com.gokapi.bridge.util.FilterRegistry;
+import com.gokapi.bridge.util.ParameterApplier;
 import com.google.gson.*;
 
 import net.sf.okapi.common.Event;
+import net.sf.okapi.common.IParameters;
 import net.sf.okapi.common.LocaleId;
 import net.sf.okapi.common.filters.IFilter;
 import net.sf.okapi.common.filterwriter.IFilterWriter;
@@ -75,6 +77,9 @@ public class CommandHandler {
         String encoding = params.has("encoding") ? params.get("encoding").getAsString() : "UTF-8";
         String contentBase64 = params.has("content_base64") ? params.get("content_base64").getAsString() : "";
         String mimeType = params.has("mime_type") ? params.get("mime_type").getAsString() : null;
+        
+        // Get optional filter parameters
+        JsonObject filterParams = params.has("filter_params") ? params.getAsJsonObject("filter_params") : null;
 
         // Decode content.
         byte[] content = Base64.getDecoder().decode(contentBase64);
@@ -85,6 +90,21 @@ public class CommandHandler {
         currentFilter = FilterRegistry.createFilter(filterClass);
         if (currentFilter == null) {
             return ResponseMessage.error("cannot instantiate filter: " + filterClass);
+        }
+
+        // Apply filter parameters if provided
+        if (filterParams != null && filterParams.size() > 0) {
+            IParameters filterParameters = currentFilter.getParameters();
+            if (filterParameters != null) {
+                boolean success = ParameterApplier.applyParameters(filterParameters, filterParams);
+                if (success) {
+                    System.err.println("[bridge] Applied " + filterParams.size() + " filter parameters");
+                } else {
+                    System.err.println("[bridge] Warning: Some filter parameters could not be applied");
+                }
+            } else {
+                System.err.println("[bridge] Warning: Filter does not support parameters");
+            }
         }
 
         // Write content to a temp file so filters that need random access (e.g., OpenXML/ZIP) work.
@@ -133,6 +153,9 @@ public class CommandHandler {
         String encoding = params.has("encoding") ? params.get("encoding").getAsString() : "UTF-8";
         String originalBase64 = params.has("original_content_base64")
                 ? params.get("original_content_base64").getAsString() : "";
+        
+        // Get optional filter parameters
+        JsonObject filterParams = params.has("filter_params") ? params.getAsJsonObject("filter_params") : null;
 
         byte[] originalContent = Base64.getDecoder().decode(originalBase64);
 
@@ -147,6 +170,14 @@ public class CommandHandler {
         IFilter filter = FilterRegistry.createFilter(filterClass);
         if (filter == null) {
             return ResponseMessage.error("cannot instantiate filter: " + filterClass);
+        }
+
+        // Apply filter parameters if provided
+        if (filterParams != null && filterParams.size() > 0) {
+            IParameters filterParameters = filter.getParameters();
+            if (filterParameters != null) {
+                ParameterApplier.applyParameters(filterParameters, filterParams);
+            }
         }
 
         // Create filter writer.

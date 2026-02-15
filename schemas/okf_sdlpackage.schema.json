@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_sdlpackage.schema.json",
+  "$version": "1.0.0",
+  "title": "SDL Package (SDLPPX) Filter",
+  "description": "Configuration for the Okapi SDL Package (SDLPPX) Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_sdlpackage",
+    "class": "net.sf.okapi.filters.sdlpackage.SdlPackageFilter",
+    "extensions": [
+      ".sdlppx",
+      ".sdlrpx"
+    ],
+    "mimeTypes": []
+  },
+  "properties": {
+    "mimeType": {
+      "type": "string",
+      "default": "application/x-archive"
+    },
+    "fileNames": {
+      "type": "string",
+      "default": "*.tmx,*.xlf,*.xlff"
+    },
+    "configIds": {
+      "type": "string",
+      "default": "okf_tmx,okf_xliff,okf_xliff"
+    }
+  },
+  "additionalProperties": false
+}

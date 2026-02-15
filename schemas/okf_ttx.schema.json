@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_ttx.schema.json",
+  "$version": "1.0.0",
+  "title": "TTX (Trados Tag Exchange) Filter",
+  "description": "Configuration for the Okapi TTX (Trados Tag Exchange) Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_ttx",
+    "class": "net.sf.okapi.filters.ttx.TTXFilter",
+    "extensions": [
+      ".ttx"
+    ],
+    "mimeTypes": []
+  },
+  "properties": {
+    "segmentMode": {
+      "type": "integer",
+      "default": 0
+    }
+  },
+  "additionalProperties": false
+}
