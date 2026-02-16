@@ -184,8 +184,10 @@ jobs:
         if: matrix.okapi-version == '1.47.0'
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
-          java -jar target/gokapi-bridge-${VERSION}-jar-with-dependencies.jar list_filters \
-            | jq '[.[] | {
+          # Send list_filters command via stdin, parse JSON response (skip ready message)
+          echo '{"command":"list_filters"}' | java -jar target/gokapi-bridge-${VERSION}-jar-with-dependencies.jar 2>/dev/null \
+            | tail -1 \
+            | jq '.data.filters | [.[] | {
                 type: "format",
                 name: .name,
                 display_name: .display_name,
