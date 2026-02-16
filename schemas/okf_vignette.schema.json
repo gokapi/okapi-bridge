@@ -11,6 +11,55 @@
     "extensions": [],
     "mimeTypes": []
   },
-  "properties": {},
+  "properties": {
+    "partsConfigurations": {
+      "type": "string",
+      "default": "default, okf_html, okf_html, default, default, okf_html, default, default, okf_html, default, okf_html, okf_html, default",
+      "title": "Corresponding filter configurations (or 'default')",
+      "description": "Comma-separated list of the filter configurations to use, use 'default' for none"
+    },
+    "partsNames": {
+      "type": "string",
+      "default": "SMCCONTENT-TITLE, SMCCONTENT-ABSTRACT, SMCCONTENT-BODY, SMCCONTENT-ALT, SMCCHANNELDESCRIPTOR-TITLE, SMCCHANNELDESCRIPTOR-ABSTRACT, SMCCHANNELDESCRIPTOR-ALT, SMCLINKCOLLECTIONS-LINKCOLLECTION-TITLE, SMCLINKCOLLECTIONS-LINKCOLLECTION-DESCRIPTION, SMCLINKS-TITLE, SMCLINKS-ABSTRACT, SMCLINKS-BODY, SMCLINKS-ALT",
+      "title": "Names of the <attribute> elements to extract",
+      "description": "Comma-separated list of the names of the <attribute> elements to extract."
+    },
+    "sourceId": {
+      "type": "string",
+      "default": "SOURCE_ID",
+      "title": "Name for source ID element",
+      "description": "Name of the <attribute> element containing the source ID"
+    },
+    "localeId": {
+      "type": "string",
+      "default": "LOCALE_ID",
+      "title": "Name for locale ID element",
+      "description": "Name of the <attribute> element containing the locale ID"
+    },
+    "quoteModeDefined": {
+      "type": "boolean",
+      "default": false
+    },
+    "quoteMode": {
+      "type": "boolean",
+      "default": false
+    },
+    "monolingual": {
+      "type": "boolean",
+      "default": false,
+      "title": "Monolingual mode"
+    },
+    "useCDATA": {
+      "type": "boolean",
+      "default": true,
+      "title": "Use CDATA",
+      "description": "Create CDATA sections in the output file"
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
+    }
+  },
   "additionalProperties": false
 }

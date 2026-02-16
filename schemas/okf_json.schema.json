@@ -158,6 +158,11 @@
       "default": "",
       "x-widget": "regexBuilder",
       "description": "Regex for keys whose values set max width constraints."
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "x-groups": [

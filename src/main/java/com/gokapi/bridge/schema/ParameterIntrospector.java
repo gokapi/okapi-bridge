@@ -1,9 +1,13 @@
 package com.gokapi.bridge.schema;
 
 import net.sf.okapi.common.IParameters;
+import net.sf.okapi.common.ISimplifierRulesParameters;
+import net.sf.okapi.common.ParameterDescriptor;
+import net.sf.okapi.common.ParametersDescription;
 import net.sf.okapi.common.StringParameters;
 import net.sf.okapi.common.filters.IFilter;
 import net.sf.okapi.common.filters.InlineCodeFinder;
+import net.sf.okapi.common.uidescription.IEditorDescriptionProvider;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -17,6 +21,11 @@ import java.util.*;
  * 1. StringParameters subclasses - key-value based with typed accessors
  * 2. AbstractMarkupParameters - YAML-based TaggedFilterConfiguration
  * 3. Direct field access - public fields or getter/setter pairs
+ * 
+ * Also extracts descriptions from:
+ * - getParametersDescription() method
+ * - IEditorDescriptionProvider interface
+ * - ISimplifierRulesParameters interface constants
  */
 public class ParameterIntrospector {
 
@@ -28,6 +37,7 @@ public class ParameterIntrospector {
         public String type;          // "boolean", "string", "integer", "object", "array"
         public Object defaultValue;
         public String description;
+        public String displayName;
         public boolean deprecated;
         public String okapiFormat;   // For complex types like codeFinderRules
         public List<String> enumValues;  // For enum parameters
@@ -68,6 +78,14 @@ public class ParameterIntrospector {
                 introspectByAccessors(paramsClass, params, result);
             }
             
+            // Extract descriptions from ParametersDescription if available
+            enrichWithParametersDescription(paramsClass, params, result);
+            
+            // Add parameters from ISimplifierRulesParameters if implemented
+            if (params instanceof ISimplifierRulesParameters) {
+                addSimplifierRulesParams((ISimplifierRulesParameters) params, result);
+            }
+            
             return result;
             
         } catch (ClassNotFoundException e) {
@@ -78,6 +96,72 @@ public class ParameterIntrospector {
             return null;
         }
     }
+    
+    /**
+     * Enrich parameter info with descriptions from getParametersDescription().
+     */
+    private void enrichWithParametersDescription(Class<?> paramsClass, IParameters params,
+                                                  Map<String, ParamInfo> result) {
+        try {
+            Method descMethod = paramsClass.getMethod("getParametersDescription");
+            ParametersDescription desc = (ParametersDescription) descMethod.invoke(params);
+            
+            if (desc != null) {
+                for (Map.Entry<String, ParameterDescriptor> entry : desc.getDescriptors().entrySet()) {
+                    String paramName = entry.getKey();
+                    ParameterDescriptor pd = entry.getValue();
+                    
+                    ParamInfo info = result.get(paramName);
+                    if (info != null) {
+                        // Enrich existing parameter with description
+                        if (pd.getDisplayName() != null) {
+                            info.displayName = pd.getDisplayName();
+                        }
+                        if (pd.getShortDescription() != null) {
+                            info.description = pd.getShortDescription();
+                        }
+                    } else {
+                        // Parameter discovered via description but not found by field scan
+                        // Try to determine its type and add it
+                        info = extractParamInfo(paramsClass, params, paramName);
+                        if (info != null) {
+                            if (pd.getDisplayName() != null) {
+                                info.displayName = pd.getDisplayName();
+                            }
+                            if (pd.getShortDescription() != null) {
+                                info.description = pd.getShortDescription();
+                            }
+                            result.put(paramName, info);
+                        }
+                    }
+                }
+            }
+        } catch (NoSuchMethodException e) {
+            // No getParametersDescription method - that's OK
+        } catch (Exception e) {
+            // Ignore other errors
+        }
+    }
+    
+    /**
+     * Add simplifier rules parameters from the ISimplifierRulesParameters interface.
+     */
+    private void addSimplifierRulesParams(ISimplifierRulesParameters params,
+                                          Map<String, ParamInfo> result) {
+        // simplifierRules - the main parameter from this interface
+        String simplifierRulesKey = "simplifierRules";
+        if (!result.containsKey(simplifierRulesKey)) {
+            ParamInfo info = new ParamInfo(simplifierRulesKey, "string");
+            info.displayName = "Simplifier Rules";
+            info.description = "Simplifier Rules as defined in the Okapi Code Simplifier Rule Format";
+            try {
+                info.defaultValue = params.getSimplifierRules();
+            } catch (Exception e) {
+                // Ignore
+            }
+            result.put(simplifierRulesKey, info);
+        }
+    }
 
     /**
      * Introspect a StringParameters subclass by examining its constant fields
@@ -86,20 +170,49 @@ public class ParameterIntrospector {
     private void introspectStringParameters(Class<?> paramsClass, StringParameters params,
                                             Map<String, ParamInfo> result) {
         
-        // Find all private static final String fields (these are parameter names)
+        // Find all static final String fields in the class hierarchy (these are parameter names)
+        // Include package-private and protected fields, not just private
         Set<String> paramNames = new LinkedHashSet<>();
-        for (Field field : paramsClass.getDeclaredFields()) {
-            if (Modifier.isPrivate(field.getModifiers()) &&
-                Modifier.isStatic(field.getModifiers()) &&
-                Modifier.isFinal(field.getModifiers()) &&
-                field.getType() == String.class) {
-                
-                field.setAccessible(true);
-                try {
-                    String paramName = (String) field.get(null);
-                    paramNames.add(paramName);
-                } catch (Exception e) {
-                    // Ignore
+        
+        // Scan current class and all superclasses
+        Class<?> currentClass = paramsClass;
+        while (currentClass != null && currentClass != Object.class) {
+            for (Field field : currentClass.getDeclaredFields()) {
+                if (Modifier.isStatic(field.getModifiers()) &&
+                    Modifier.isFinal(field.getModifiers()) &&
+                    field.getType() == String.class) {
+                    
+                    field.setAccessible(true);
+                    try {
+                        String paramName = (String) field.get(null);
+                        // Filter out non-parameter constants (usually all caps with underscores are params)
+                        if (paramName != null && !paramName.isEmpty() && 
+                            !paramName.contains(" ") && !paramName.startsWith("#")) {
+                            paramNames.add(paramName);
+                        }
+                    } catch (Exception e) {
+                        // Ignore
+                    }
+                }
+            }
+            currentClass = currentClass.getSuperclass();
+        }
+        
+        // Also scan implemented interfaces for parameter name constants
+        for (Class<?> iface : paramsClass.getInterfaces()) {
+            for (Field field : iface.getDeclaredFields()) {
+                // Interface fields are implicitly public static final
+                if (field.getType() == String.class) {
+                    try {
+                        String paramName = (String) field.get(null);
+                        if (paramName != null && !paramName.isEmpty() && 
+                            !paramName.contains(" ") && !paramName.startsWith("#") &&
+                            !paramName.endsWith("_DESC") && !paramName.endsWith("_NAME")) {
+                            paramNames.add(paramName);
+                        }
+                    } catch (Exception e) {
+                        // Ignore
+                    }
                 }
             }
         }

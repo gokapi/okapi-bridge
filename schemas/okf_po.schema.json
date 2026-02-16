@@ -17,6 +17,10 @@
     ]
   },
   "properties": {
+    "protectApproved": {
+      "type": "boolean",
+      "default": false
+    },
     "allowEmptyOutputTarget": {
       "type": "boolean",
       "default": false
@@ -68,6 +72,11 @@
     "includeMsgContextInNote": {
       "type": "boolean",
       "default": false
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false

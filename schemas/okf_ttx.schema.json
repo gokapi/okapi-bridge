@@ -16,7 +16,18 @@
   "properties": {
     "segmentMode": {
       "type": "integer",
-      "default": 0
+      "default": 0,
+      "title": "Extraction mode"
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
+    },
+    "escapeGT": {
+      "type": "boolean",
+      "default": false,
+      "title": "Escape the greater-than characters in output"
     }
   },
   "additionalProperties": false

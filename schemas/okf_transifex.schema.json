@@ -14,7 +14,13 @@
   "properties": {
     "openProject": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "title": "Open the project file before processing"
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false

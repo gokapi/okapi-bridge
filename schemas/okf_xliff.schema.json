@@ -17,6 +17,18 @@
     ]
   },
   "properties": {
+    "addAltTrans": {
+      "type": "boolean",
+      "default": false
+    },
+    "addAltTransGMode": {
+      "type": "boolean",
+      "default": true
+    },
+    "editAltTrans": {
+      "type": "boolean",
+      "default": false
+    },
     "useCustomParser": {
       "type": "boolean",
       "default": true
@@ -199,6 +211,11 @@
     "pcdataSubfilter": {
       "type": "string",
       "default": ""
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "x-groups": [

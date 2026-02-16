@@ -11,6 +11,32 @@
     "extensions": [],
     "mimeTypes": []
   },
-  "properties": {},
+  "properties": {
+    "csvNoExtractCols": {
+      "type": "string",
+      "default": "",
+      "title": "Comma-separated list of the colums not to extract (first=0)"
+    },
+    "csvFormatCols": {
+      "type": "string",
+      "default": "",
+      "title": "Comma-separated list of the colums with non-plain-text content (e.g. '3:okf_markdown', first=0)"
+    },
+    "csvStartingRow": {
+      "type": "integer",
+      "default": 1,
+      "title": "Row at which the extraction starts (first=1)"
+    },
+    "csvAutoDetectColumnTypes": {
+      "type": "boolean",
+      "default": false,
+      "title": "Use auto-detection (a special row in each input file)"
+    },
+    "csvAutoDetectColumnTypesRow": {
+      "type": "integer",
+      "default": 2,
+      "title": "Row at which the special configuration information is (first=1)"
+    }
+  },
   "additionalProperties": false
 }

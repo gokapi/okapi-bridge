@@ -16,6 +16,37 @@
       "application/ttml+xml"
     ]
   },
-  "properties": {},
+  "properties": {
+    "timeFormat": {
+      "type": "string",
+      "default": "",
+      "title": "Time format"
+    },
+    "maxLinesPerCaption": {
+      "type": "integer",
+      "default": 0,
+      "title": "Max lines per caption"
+    },
+    "maxCharsPerLine": {
+      "type": "integer",
+      "default": 0,
+      "title": "Max characters per line"
+    },
+    "cjkCharsPerLine": {
+      "type": "integer",
+      "default": 0,
+      "title": "Max characters per line for CJK"
+    },
+    "keepTimecodes": {
+      "type": "boolean",
+      "default": false,
+      "title": "Keep timecodes"
+    },
+    "splitWords": {
+      "type": "boolean",
+      "default": false,
+      "title": "Split words so that they don't go over the char limit"
+    }
+  },
   "additionalProperties": false
 }

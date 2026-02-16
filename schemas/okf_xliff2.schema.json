@@ -16,9 +16,15 @@
     ]
   },
   "properties": {
+    "maxValidation": {
+      "type": "boolean",
+      "default": true,
+      "title": "Perform maximum validation when parsing"
+    },
     "useCodeFinder": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Has inline codes as defined below:"
     },
     "codeFinderRules": {
       "type": "object",
@@ -62,23 +68,29 @@
     },
     "forceUniqueIds": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Ensure tag IDs are unique within units"
     },
     "ignoreTagTypeMatch": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Ignore tag type mismatch between source and target"
     },
     "discardInvalidTargets": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Discard invalid targets rather than rejecting the file"
     },
     "writeOriginalData": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "title": "Output includes original data when available"
     },
     "subfilterOverwriteTarget": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Subfilter: Always Overwrite Target?",
+      "description": "Should the writer always overwrite an existing target even if state is final?"
     }
   },
   "x-groups": [

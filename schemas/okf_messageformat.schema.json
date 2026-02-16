@@ -12,6 +12,18 @@
     "mimeTypes": []
   },
   "properties": {
+    "addPluralForms": {
+      "type": "boolean",
+      "default": false
+    },
+    "normalize": {
+      "type": "boolean",
+      "default": false
+    },
+    "prettyPrint": {
+      "type": "boolean",
+      "default": false
+    },
     "codeFinderRules": {
       "type": "object",
       "description": "Inline code detection configuration",
@@ -47,6 +59,11 @@
     "useCodeFinder": {
       "type": "boolean",
       "default": false
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false

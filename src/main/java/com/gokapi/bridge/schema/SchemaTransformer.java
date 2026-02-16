@@ -48,6 +48,11 @@ public class SchemaTransformer {
             addDefaultValue(prop, paramInfo.type, paramInfo.defaultValue);
         }
         
+        // Add title (displayName) if available
+        if (paramInfo.displayName != null && !paramInfo.displayName.isEmpty()) {
+            prop.addProperty("title", paramInfo.displayName);
+        }
+        
         // Add description
         if (paramInfo.description != null && !paramInfo.description.isEmpty()) {
             prop.addProperty("description", paramInfo.description);

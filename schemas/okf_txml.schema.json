@@ -13,6 +13,17 @@
     ],
     "mimeTypes": []
   },
-  "properties": {},
+  "properties": {
+    "allowEmptyOutputTarget": {
+      "type": "boolean",
+      "default": true,
+      "title": "Allow empty target segments in output"
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
+    }
+  },
   "additionalProperties": false
 }

@@ -16,6 +16,15 @@
       "application/xliff+xml"
     ]
   },
-  "properties": {},
+  "properties": {
+    "xliff_config": {
+      "type": "string",
+      "default": "okf_xliff"
+    },
+    "xliff2_config": {
+      "type": "string",
+      "default": "okf_xliff2"
+    }
+  },
   "additionalProperties": false
 }

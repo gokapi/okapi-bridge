@@ -59,6 +59,11 @@
     "subFilter": {
       "type": "string",
       "default": ""
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false

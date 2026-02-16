@@ -14,7 +14,8 @@
   "properties": {
     "openManifest": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "title": "Open the manifest file before processing"
     }
   },
   "additionalProperties": false

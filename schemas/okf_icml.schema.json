@@ -16,23 +16,34 @@
   "properties": {
     "extractNotes": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Extract notes"
     },
     "simplifyCodes": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "title": "Simplify inline codes when possible"
     },
     "extractMasterSpreads": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "title": "Extract master spreads"
     },
     "skipThreshold": {
       "type": "integer",
-      "default": 1000
+      "default": 1000,
+      "title": "Maximum spread size",
+      "description": "Skip any spread larger than the given value (in Kbytes)"
     },
     "newTuOnBr": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Create new paragraphs on hard returns (<Br/> elements)"
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false
