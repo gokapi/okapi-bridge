@@ -88,6 +88,15 @@ make build V=1.47.0    # Build JAR for specific version
 
 The workflows automatically detect Okapi versions from the `okapi-releases/` directory.
 
+### Nightly Release Check
+
+A scheduled workflow runs daily to check Maven Central for new Okapi releases. If a new version is found, it automatically:
+1. Runs `make add-release` to generate schemas
+2. Copies overrides from the previous version
+3. Creates a PR for review
+
+You can also trigger this manually from the Actions tab.
+
 ### On Push to Main (CI)
 
 - Builds and tests with the latest Okapi version
