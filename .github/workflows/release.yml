@@ -12,6 +12,7 @@ jobs:
   generate-schemas:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         okapi-version: ['1.43.0', '1.44.0', '1.45.0', '1.46.0', '1.47.0']
     steps:
@@ -22,10 +23,12 @@ jobs:
         with:
           distribution: temurin
           java-version: '11'
-          cache: maven
 
       - name: Generate schemas for Okapi ${{ matrix.okapi-version }}
         run: |
+          # Download dependencies first (separate step to isolate issues)
+          mvn -B dependency:resolve -Dokapi.version=${{ matrix.okapi-version }}
+          
           # Build with specific Okapi version
           mvn -B compile -Dokapi.version=${{ matrix.okapi-version }}
           
@@ -52,7 +55,6 @@ jobs:
         with:
           distribution: temurin
           java-version: '11'
-          cache: maven
 
       - name: Download all schema artifacts
         uses: actions/download-artifact@v4
@@ -104,7 +106,6 @@ jobs:
         with:
           distribution: temurin
           java-version: '11'
-          cache: maven
 
       - name: Download versioned schemas
         uses: actions/download-artifact@v4
