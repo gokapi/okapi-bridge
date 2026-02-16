@@ -7,7 +7,17 @@ on:
     branches: [main]
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      latest: ${{ steps.get-latest.outputs.latest }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: get-latest
+        run: echo "latest=$(ls -1 okapi-releases | sort -V | tail -1)" >> $GITHUB_OUTPUT
+
   build:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,8 +29,8 @@ jobs:
           java-version: '11'
           cache: maven
 
-      - name: Build
-        run: mvn -B package
+      - name: Build with latest Okapi (${{ needs.setup.outputs.latest }})
+        run: mvn -B package -Dokapi.version=${{ needs.setup.outputs.latest }}
 
-      - name: Verify JAR exists
-        run: test -f target/gokapi-bridge-1.0.0-jar-with-dependencies.jar
+      - name: Run tests
+        run: mvn -B test -Dokapi.version=${{ needs.setup.outputs.latest }}

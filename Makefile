@@ -2,13 +2,11 @@
 # Manages schema generation across Okapi versions
 
 SHELL := /bin/bash
-.PHONY: help list-upstream list-local add-release regenerate regenerate-all \
-        version-schemas build clean test
+.PHONY: help list-upstream list-local add-release regenerate regenerate-all build clean test
 
-# Configuration - edit these to change supported versions
-SUPPORTED_VERSIONS := 0.38 1.39.0 1.40.0 1.41.0 1.42.0 1.43.0 1.44.0 1.45.0 1.46.0 1.47.0
-LATEST_VERSION := 1.47.0
-SCHEMA_OUTPUT := schemas
+# Configuration - derived from okapi-releases directory
+SUPPORTED_VERSIONS := $(shell ls -1 okapi-releases 2>/dev/null | sort -V)
+LATEST_VERSION := $(shell ls -1 okapi-releases 2>/dev/null | sort -V | tail -1)
 
 # Default target
 help:
@@ -23,13 +21,13 @@ help:
 	@echo "  make regenerate V=1.47.0  Regenerate schemas for one version"
 	@echo "  make regenerate-all       Regenerate schemas for all supported versions"
 	@echo ""
-	@echo "Versioning:"
-	@echo "  make version-schemas      Run SchemaVersioner across all versions -> schemas/"
-	@echo ""
 	@echo "Build:"
 	@echo "  make build V=1.47.0       Build JAR for specific Okapi version"
 	@echo "  make test                 Run tests"
 	@echo "  make clean                Clean build artifacts"
+	@echo ""
+	@echo "Supported versions: $(SUPPORTED_VERSIONS)"
+	@echo "Latest version: $(LATEST_VERSION)"
 
 # ============================================================================
 # Discovery
@@ -44,9 +42,7 @@ list-local:
 	@echo "Local okapi-releases/ directories:"
 	@ls -1 okapi-releases/ 2>/dev/null | grep -E '^[0-9]' | sort -V || echo "  (none)"
 	@echo ""
-	@echo "Supported versions (Makefile):"
-	@echo "  $(SUPPORTED_VERSIONS)" | tr ' ' '\n' | sed 's/^/  /'
-	@jq -r '.build[]' $(VERSIONS_FILE) 2>/dev/null || echo "  (versions.json not found)"
+	@echo "Latest version: $(LATEST_VERSION)"
 
 # ============================================================================
 # Schema Management
@@ -110,35 +106,6 @@ regenerate-all: .compile-generator
 	done
 	@echo ""
 	@echo "All schemas regenerated."
-
-# ============================================================================
-# Versioning
-# ============================================================================
-
-# Run SchemaVersioner across all versions to produce final schemas/
-version-schemas: .compile-generator
-	@echo "Versioning schemas across Okapi releases..."
-	@rm -rf $(SCHEMA_OUTPUT)
-	@mkdir -p $(SCHEMA_OUTPUT)
-	@for version in $(SUPPORTED_VERSIONS); do \
-		echo "Processing Okapi $$version..."; \
-		if [ ! -d "okapi-releases/$$version/schemas" ]; then \
-			echo "  Warning: okapi-releases/$$version/schemas not found, skipping"; \
-			continue; \
-		fi; \
-		cp okapi-releases/$$version/schemas/*.schema.json $(SCHEMA_OUTPUT)/ 2>/dev/null || true; \
-		cp okapi-releases/$$version/schemas/meta.json $(SCHEMA_OUTPUT)/ 2>/dev/null || true; \
-		mvn -B -q exec:java@version-schemas -Dexec.args="$$version $(SCHEMA_OUTPUT)" -Dokapi.version=$(LATEST_VERSION); \
-	done
-	@echo ""
-	@echo "Versioned schemas written to $(SCHEMA_OUTPUT)/"
-	@echo "Schema versions summary:"
-	@jq -r '.filters | to_entries | .[] | "  \(.key): v\(.value.versions[-1].schemaVersion) (\(.value.versions | length) versions)"' \
-		$(SCHEMA_OUTPUT)/schema-versions.json 2>/dev/null | head -20
-	@count=$$(jq '.filters | length' $(SCHEMA_OUTPUT)/schema-versions.json 2>/dev/null); \
-	if [ "$$count" -gt 20 ]; then \
-		echo "  ... and $$(( $$count - 20 )) more"; \
-	fi
 
 # ============================================================================
 # Build

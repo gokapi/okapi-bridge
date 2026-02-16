@@ -1,0 +1,71 @@
+{
+  "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "description": "Control what content is extracted",
+      "collapsed": false,
+      "fields": ["extractSource", "extractTarget", "extractNotes"]
+    },
+    {
+      "id": "states",
+      "label": "State Handling",
+      "description": "Control how XLIFF 2.x states are handled",
+      "collapsed": true,
+      "fields": ["includeInitial", "includeTranslated", "includeReviewed", "includeFinal"]
+    },
+    {
+      "id": "metadata",
+      "label": "Metadata",
+      "description": "Configure metadata extraction",
+      "collapsed": true,
+      "fields": ["extractMetadata", "extractChanges"]
+    },
+    {
+      "id": "output",
+      "label": "Output Settings",
+      "description": "Configure output formatting",
+      "collapsed": true,
+      "fields": ["copySource", "useApprovedOnly", "preserveSegmentation"]
+    }
+  ],
+  "fields": {
+    "extractSource": {
+      "description": "Extract source text from XLIFF 2.x file."
+    },
+    "extractTarget": {
+      "description": "Extract target text from XLIFF 2.x file."
+    },
+    "extractNotes": {
+      "description": "Extract notes from XLIFF 2.x file."
+    },
+    "includeInitial": {
+      "description": "Include segments with 'initial' state."
+    },
+    "includeTranslated": {
+      "description": "Include segments with 'translated' state."
+    },
+    "includeReviewed": {
+      "description": "Include segments with 'reviewed' state."
+    },
+    "includeFinal": {
+      "description": "Include segments with 'final' state."
+    },
+    "extractMetadata": {
+      "description": "Extract XLIFF 2.x metadata elements."
+    },
+    "extractChanges": {
+      "description": "Extract change tracking information."
+    },
+    "copySource": {
+      "description": "Copy source to target if target is empty."
+    },
+    "useApprovedOnly": {
+      "description": "Only use approved translations in output."
+    },
+    "preserveSegmentation": {
+      "description": "Preserve original segmentation in output."
+    }
+  }
+}

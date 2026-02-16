@@ -1,0 +1,100 @@
+{
+  "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "groups": [
+    {
+      "id": "parserMode",
+      "label": "Parser Mode",
+      "description": "Configure HTML parsing behavior",
+      "collapsed": false,
+      "fields": ["assumeWellformed", "extractOuterStrings"]
+    },
+    {
+      "id": "whitespace",
+      "label": "Whitespace Handling",
+      "description": "Control how whitespace is processed",
+      "collapsed": true,
+      "fields": ["preserveWhitespace", "collapseWhitespace", "trimLeadingWS", "trimTrailingWS"]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Detection",
+      "description": "Configure detection of inline codes and tags",
+      "collapsed": true,
+      "fields": ["useCodeFinder", "codeFinderRules"]
+    },
+    {
+      "id": "elements",
+      "label": "Element Handling",
+      "description": "Configure which elements to extract",
+      "collapsed": true,
+      "fields": ["extractMetaTitle", "extractMetaDescription", "extractComments", "excludeElements"]
+    },
+    {
+      "id": "attributes",
+      "label": "Attribute Handling",
+      "description": "Configure which attributes to extract",
+      "collapsed": true,
+      "fields": ["translatableAttributes", "idAttributes"]
+    }
+  ],
+  "fields": {
+    "assumeWellformed": {
+      "description": "Assume input HTML is well-formed XML. Faster but may fail on non-conforming HTML."
+    },
+    "extractOuterStrings": {
+      "description": "Extract text outside of HTML body tags."
+    },
+    "preserveWhitespace": {
+      "description": "Preserve all whitespace exactly as in source."
+    },
+    "collapseWhitespace": {
+      "description": "Collapse multiple whitespace characters into single space."
+    },
+    "trimLeadingWS": {
+      "description": "Remove leading whitespace from text segments."
+    },
+    "trimTrailingWS": {
+      "description": "Remove trailing whitespace from text segments."
+    },
+    "useCodeFinder": {
+      "description": "Enable inline code detection using regex patterns."
+    },
+    "codeFinderRules": {
+      "widget": "codeFinderRules",
+      "presets": {
+        "entities": {
+          "rules": [{"pattern": "&[a-zA-Z]+;"}],
+          "sample": "Click &amp; drag"
+        },
+        "placeholders": {
+          "rules": [{"pattern": "\\{\\{[^}]+\\}\\}"}],
+          "sample": "Hello {{name}}"
+        }
+      }
+    },
+    "extractMetaTitle": {
+      "description": "Extract content from <title> tag."
+    },
+    "extractMetaDescription": {
+      "description": "Extract content from meta description tag."
+    },
+    "extractComments": {
+      "description": "Extract HTML comments as notes."
+    },
+    "excludeElements": {
+      "widget": "tagList",
+      "placeholder": "script,style,code",
+      "description": "Comma-separated list of elements to exclude from extraction."
+    },
+    "translatableAttributes": {
+      "widget": "tagList",
+      "placeholder": "alt,title,placeholder",
+      "description": "Comma-separated list of attributes to extract for translation."
+    },
+    "idAttributes": {
+      "widget": "tagList",
+      "placeholder": "id,name",
+      "description": "Comma-separated list of attributes to use as IDs."
+    }
+  }
+}

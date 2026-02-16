@@ -7,10 +7,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +35,7 @@ public class SchemaGenerator {
 
     private final ParameterIntrospector introspector;
     private final SchemaTransformer transformer;
+    private File overridesDir;
 
     public SchemaGenerator() {
         this.introspector = new ParameterIntrospector();
@@ -66,6 +66,12 @@ public class SchemaGenerator {
         File dir = new File(outputDir);
         if (!dir.exists() && !dir.mkdirs()) {
             throw new IOException("Failed to create output directory: " + outputDir);
+        }
+
+        // Look for overrides in sibling directory (e.g., okapi-releases/1.47.0/overrides/)
+        this.overridesDir = new File(dir.getParentFile(), "overrides");
+        if (overridesDir.exists()) {
+            System.out.println("Loading overrides from: " + overridesDir.getPath());
         }
 
         List<FilterInfo> filters = FilterRegistry.listFilters();
@@ -147,10 +153,10 @@ public class SchemaGenerator {
         }
         schema.add("properties", properties);
 
-        // Try to load and merge editor hints
-        JsonObject hints = loadEditorHints(filterId);
-        if (hints != null) {
-            transformer.mergeEditorHints(schema, hints);
+        // Try to load and merge overrides
+        JsonObject overrides = loadOverrides(filterId);
+        if (overrides != null) {
+            transformer.mergeEditorHints(schema, overrides);
         }
 
         schema.addProperty("additionalProperties", false);
@@ -159,16 +165,20 @@ public class SchemaGenerator {
     }
 
     /**
-     * Load editor hints for a filter from resources.
+     * Load overrides for a filter from the overrides directory.
      */
-    private JsonObject loadEditorHints(String filterId) {
-        String resourcePath = "/editorHints/" + filterId + ".hints.json";
-        try (InputStream is = getClass().getResourceAsStream(resourcePath)) {
-            if (is != null) {
-                return GSON.fromJson(new InputStreamReader(is, StandardCharsets.UTF_8), JsonObject.class);
-            }
+    private JsonObject loadOverrides(String filterId) {
+        if (overridesDir == null || !overridesDir.exists()) {
+            return null;
+        }
+        File overrideFile = new File(overridesDir, filterId + ".overrides.json");
+        if (!overrideFile.exists()) {
+            return null;
+        }
+        try (FileReader reader = new FileReader(overrideFile, StandardCharsets.UTF_8)) {
+            return GSON.fromJson(reader, JsonObject.class);
         } catch (Exception e) {
-            System.err.println("Warning: Failed to load editor hints for " + filterId + ": " + e.getMessage());
+            System.err.println("Warning: Failed to load overrides for " + filterId + ": " + e.getMessage());
         }
         return null;
     }

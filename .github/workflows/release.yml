@@ -8,16 +8,27 @@ on:
 permissions:
   contents: write
 
-env:
-  # All 10 Okapi versions we build binaries for
-  OKAPI_LATEST: '1.47.0'
-
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      versions: ${{ steps.get-versions.outputs.versions }}
+      latest: ${{ steps.get-versions.outputs.latest }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: get-versions
+        run: |
+          VERSIONS=$(ls -1 okapi-releases | sort -V | jq -R -s -c 'split("\n") | map(select(length > 0))')
+          LATEST=$(ls -1 okapi-releases | sort -V | tail -1)
+          echo "versions=$VERSIONS" >> $GITHUB_OUTPUT
+          echo "latest=$LATEST" >> $GITHUB_OUTPUT
+
   build:
+    needs: setup
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        okapi-version: ['0.38', '1.39.0', '1.40.0', '1.41.0', '1.42.0', '1.43.0', '1.44.0', '1.45.0', '1.46.0', '1.47.0']
+        okapi-version: ${{ fromJson(needs.setup.outputs.versions) }}
     steps:
       - uses: actions/checkout@v4
 
@@ -38,15 +49,13 @@ jobs:
           VERSION="${TAG#v}"
           ARCHIVE_NAME="okapi-bridge-${TAG}-okapi${OKAPI_VERSION}"
 
-          mkdir -p staging
+          mkdir -p staging/schemas
           cp target/gokapi-bridge-${VERSION}-jar-with-dependencies.jar staging/gokapi-bridge-jar-with-dependencies.jar
           cp okapi.bridge.json staging/
           
-          # Include pre-computed versioned schemas from repo
-          mkdir -p staging/schemas
-          cp schemas/*.schema.json staging/schemas/
-          cp schemas/schema-versions.json staging/schemas/ 2>/dev/null || true
-          cp schemas/meta.json staging/schemas/ 2>/dev/null || true
+          # Include schemas from version-specific directory
+          cp okapi-releases/${OKAPI_VERSION}/schemas/*.schema.json staging/schemas/
+          cp okapi-releases/${OKAPI_VERSION}/schemas/meta.json staging/schemas/ 2>/dev/null || true
 
           cd staging
           tar czf "../${ARCHIVE_NAME}.tar.gz" .
@@ -55,7 +64,7 @@ jobs:
           sha256sum "${ARCHIVE_NAME}.tar.gz" > "${ARCHIVE_NAME}.tar.gz.sha256"
 
       - name: Generate capabilities JSON
-        if: matrix.okapi-version == '1.47.0'
+        if: matrix.okapi-version == needs.setup.outputs.latest
         run: |
           VERSION="${GITHUB_REF_NAME#v}"
           # Send list_filters command via stdin, parse JSON response (skip ready message)
@@ -100,9 +109,11 @@ jobs:
           generate_release_notes: true
 
   update-registry:
-    needs: release
+    needs: [setup, release]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
@@ -117,6 +128,8 @@ jobs:
           path: registry
 
       - name: Update plugins.json
+        env:
+          OKAPI_LATEST: ${{ needs.setup.outputs.latest }}
         run: |
           TAG="${GITHUB_REF_NAME}"
           VERSION="${TAG#v}"
@@ -125,27 +138,23 @@ jobs:
           # Read capabilities generated from the bridge JAR
           CAPABILITIES=$(cat artifacts/capabilities.json)
           
-          # Build plugins array dynamically for all 10 versions
           cd registry
-          
-          # Start with empty plugins array
           echo '{"version":1,"plugins":[]}' > plugins.json
           
-          # Add each Okapi version as a plugin entry
-          for okapi_version in 0.38 1.39.0 1.40.0 1.41.0 1.42.0 1.43.0 1.44.0 1.45.0 1.46.0 1.47.0; do
+          # Add each Okapi version as a plugin entry (derived from okapi-releases/)
+          for okapi_version in $(ls -1 ../okapi-releases | sort -V); do
             CHECKSUM=$(cat ../artifacts/okapi-bridge-${TAG}-okapi${okapi_version}.tar.gz.sha256 | awk '{print $1}')
             URL="${BASE_URL}/okapi-bridge-${TAG}-okapi${okapi_version}.tar.gz"
             
             # Determine plugin name (latest gets "okapi-bridge", others get version suffix)
-            if [ "$okapi_version" = "1.47.0" ]; then
+            if [ "$okapi_version" = "$OKAPI_LATEST" ]; then
               PLUGIN_NAME="okapi-bridge"
-              DESCRIPTION="Okapi Framework bridge — 40+ document format filters (Okapi ${okapi_version}, latest)"
+              DESCRIPTION="Okapi filters (v${okapi_version}, latest)"
             else
               PLUGIN_NAME="okapi-bridge-${okapi_version}"
-              DESCRIPTION="Okapi Framework bridge — 40+ document format filters (Okapi ${okapi_version})"
+              DESCRIPTION="Okapi filters (v${okapi_version})"
             fi
             
-            # Add plugin entry
             jq --arg name "$PLUGIN_NAME" \
                --arg version "$VERSION" \
                --arg desc "$DESCRIPTION" \

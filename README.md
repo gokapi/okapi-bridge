@@ -6,8 +6,8 @@ A Java bridge for [gokapi](https://github.com/gokapi/gokapi) that provides acces
 
 - **40+ Filters**: HTML, XML, XLIFF, OpenXML, Markdown, JSON, YAML, PO, and many more
 - **JSON Schemas**: Comprehensive parameter schemas for each filter with validation
-- **Version Tracking**: Schemas track changes across 10 Okapi versions (0.38 to 1.47.0)
-- **gRPC Protocol**: Go plugin interface via HashiCorp go-plugin
+- **Multi-version Support**: Builds for 10 Okapi versions (0.38 to 1.47.0)
+- **NDJSON Protocol**: Go plugin interface via stdin/stdout
 
 ## Installation
 
@@ -19,18 +19,17 @@ kapi plugins install okapi-bridge
 
 ## Schema Management
 
-Pre-generated schemas are stored in `okapi-releases/{version}/schemas/` directories:
+Each Okapi version has its own schemas and optional overrides:
 
 ```
 okapi-releases/
-  0.38/schemas/              # Baseline schemas (schema v1)
-  1.39.0/schemas/
+  1.47.0/
+    schemas/           # Generated JSON schemas for this version
+    overrides/         # Optional UI hints (e.g., okf_json.overrides.json)
+  1.46.0/
+    schemas/
+    overrides/
   ...
-  1.47.0/schemas/
-
-schemas/                     # Versioned output (committed to git)
-  *.schema.json              # Latest schemas with version metadata
-  schema-versions.json       # Version history across all Okapi releases
 ```
 
 ### Makefile Targets
@@ -46,7 +45,6 @@ make list-local        # List local okapi-releases/ directories
 make add-release V=1.48.0   # Create structure for new Okapi version
 make regenerate V=1.47.0    # Regenerate schemas for one version
 make regenerate-all         # Regenerate all versions
-make version-schemas        # Compute versioned schemas → schemas/
 
 # Build
 make build V=1.47.0    # Build JAR for specific version
@@ -59,24 +57,23 @@ make build V=1.47.0    # Build JAR for specific version
    make list-upstream
    ```
 
-2. Add the new version:
+2. Add the new version (creates directory and generates schemas):
    ```bash
    make add-release V=1.48.0
    ```
 
-3. Update `Makefile`:
-   - Add version to `SUPPORTED_VERSIONS`
-   - Update `LATEST_VERSION` if this is the newest
-
-4. Update `.github/workflows/release.yml`:
-   - Add version to `matrix.okapi-version` if you want binaries
-
-5. Regenerate versioned schemas and commit:
+3. Optionally copy overrides from a previous version:
    ```bash
-   make version-schemas
-   git add okapi-releases/1.48.0 schemas/ Makefile
-   git commit -m "feat: Add Okapi 1.48.0 schemas"
+   cp okapi-releases/1.47.0/overrides/*.json okapi-releases/1.48.0/overrides/
    ```
+
+4. Commit:
+   ```bash
+   git add okapi-releases/1.48.0
+   git commit -m "feat: Add Okapi 1.48.0 support"
+   ```
+
+The CI/CD workflows automatically detect versions from `okapi-releases/`.
 
 ## Development
 

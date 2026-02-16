@@ -1,0 +1,113 @@
+{
+  "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "groups": [
+    {
+      "id": "word",
+      "label": "Word Documents",
+      "description": "Settings for Word documents (.docx)",
+      "collapsed": false,
+      "fields": [
+        "bPreferenceTranslateWordHeadersFooters",
+        "bPreferenceTranslateWordHiddenText",
+        "bPreferenceTranslateWordComments",
+        "bPreferenceTranslateWordTrackingChanges",
+        "bPreferenceAggressiveCleanupWord"
+      ]
+    },
+    {
+      "id": "excel",
+      "label": "Excel Workbooks",
+      "description": "Settings for Excel workbooks (.xlsx)",
+      "collapsed": true,
+      "fields": [
+        "bPreferenceTranslateExcelSheetNames",
+        "bPreferenceTranslateExcelDrawings",
+        "bPreferenceTranslateExcelHidden",
+        "sExcelExcludedColumns"
+      ]
+    },
+    {
+      "id": "powerpoint",
+      "label": "PowerPoint Presentations",
+      "description": "Settings for PowerPoint presentations (.pptx)",
+      "collapsed": true,
+      "fields": [
+        "bPreferenceTranslatePowerpointNotes",
+        "bPreferenceTranslatePowerpointMasters",
+        "sPowerpointExcludedSlides"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "description": "Settings that apply to all Office document types",
+      "collapsed": true,
+      "fields": [
+        "bPreferenceTranslateDocumentProperties",
+        "useCodeFinder",
+        "codeFinderRules"
+      ]
+    }
+  ],
+  "fields": {
+    "bPreferenceTranslateWordHeadersFooters": {
+      "description": "Extract text from headers and footers in Word documents."
+    },
+    "bPreferenceTranslateWordHiddenText": {
+      "description": "Extract hidden text in Word documents."
+    },
+    "bPreferenceTranslateWordComments": {
+      "description": "Extract comment text in Word documents."
+    },
+    "bPreferenceTranslateWordTrackingChanges": {
+      "description": "Extract text from tracked changes in Word documents."
+    },
+    "bPreferenceAggressiveCleanupWord": {
+      "description": "Aggressively clean up Word formatting codes for cleaner segments."
+    },
+    "bPreferenceTranslateExcelSheetNames": {
+      "description": "Extract sheet names in Excel workbooks."
+    },
+    "bPreferenceTranslateExcelDrawings": {
+      "description": "Extract text from shapes and drawings in Excel."
+    },
+    "bPreferenceTranslateExcelHidden": {
+      "description": "Extract text from hidden cells in Excel."
+    },
+    "sExcelExcludedColumns": {
+      "widget": "tagList",
+      "placeholder": "A,B,C",
+      "description": "Comma-separated list of columns to exclude from extraction."
+    },
+    "bPreferenceTranslatePowerpointNotes": {
+      "description": "Extract speaker notes in PowerPoint presentations."
+    },
+    "bPreferenceTranslatePowerpointMasters": {
+      "description": "Extract text from slide masters in PowerPoint."
+    },
+    "sPowerpointExcludedSlides": {
+      "widget": "numberList",
+      "placeholder": "1,2,3",
+      "description": "Comma-separated list of slide numbers to exclude."
+    },
+    "bPreferenceTranslateDocumentProperties": {
+      "description": "Extract document properties (title, author, etc.)."
+    },
+    "useCodeFinder": {
+      "description": "Enable inline code detection using regex patterns."
+    },
+    "codeFinderRules": {
+      "widget": "codeFinderRules",
+      "presets": {
+        "mergeFields": {
+          "rules": [{"pattern": "«[^»]+»"}],
+          "sample": "Dear «FirstName» «LastName»"
+        },
+        "placeholders": {
+          "rules": [{"pattern": "\\{[^}]+\\}"}],
+          "sample": "Hello {name}"
+        }
+      }
+    }
+  }
+}
