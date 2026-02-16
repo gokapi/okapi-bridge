@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_messageformat.schema.json",
+  "$version": "1.0.0",
+  "title": "ICU MessageFormat Filter",
+  "description": "Configuration for the Okapi ICU MessageFormat Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_messageformat",
+    "class": "net.sf.okapi.filters.messageformat.MessageFormatFilter",
+    "extensions": [],
+    "mimeTypes": []
+  },
+  "properties": {},
+  "additionalProperties": false
+}

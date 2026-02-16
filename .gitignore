@@ -8,3 +8,7 @@ dependency-reduced-pom.xml
 .settings/
 .classpath
 .project
+
+# Generated outputs (use pre-generated schemas in okapi-releases/)
+schemas/
+.compile-generator

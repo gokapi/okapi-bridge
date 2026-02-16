@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_transtable.schema.json",
+  "$version": "1.0.0",
+  "title": "Translation Table Filter",
+  "description": "Configuration for the Okapi Translation Table Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_transtable",
+    "class": "net.sf.okapi.filters.transtable.TransTableFilter",
+    "extensions": [],
+    "mimeTypes": []
+  },
+  "properties": {},
+  "additionalProperties": false
+}
