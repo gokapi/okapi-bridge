@@ -26,8 +26,19 @@ jobs:
 
       - name: Generate schemas for Okapi ${{ matrix.okapi-version }}
         run: |
-          # Download dependencies first (separate step to isolate issues)
-          mvn -B dependency:resolve -Dokapi.version=${{ matrix.okapi-version }}
+          # Function to download and verify dependencies
+          download_deps() {
+            mvn -B dependency:resolve -Dokapi.version=${{ matrix.okapi-version }}
+          }
+          
+          # Try up to 3 times to get valid JARs
+          for attempt in 1 2 3; do
+            echo "=== Attempt $attempt ==="
+            download_deps && break
+            echo "Download failed, clearing cache and retrying..."
+            rm -rf ~/.m2/repository/net/sf/okapi
+            sleep 5
+          done
           
           # Build with specific Okapi version
           mvn -B compile -Dokapi.version=${{ matrix.okapi-version }}
@@ -114,7 +125,23 @@ jobs:
           path: schemas
 
       - name: Build with Okapi ${{ matrix.okapi-version }}
-        run: mvn -B package -Dokapi.version=${{ matrix.okapi-version }}
+        run: |
+          # Function to download and verify dependencies
+          download_deps() {
+            mvn -B dependency:resolve -Dokapi.version=${{ matrix.okapi-version }}
+          }
+          
+          # Try up to 3 times to get valid JARs
+          for attempt in 1 2 3; do
+            echo "=== Attempt $attempt ==="
+            download_deps && break
+            echo "Download failed, clearing cache and retrying..."
+            rm -rf ~/.m2/repository/net/sf/okapi
+            sleep 5
+          done
+          
+          # Build
+          mvn -B package -Dokapi.version=${{ matrix.okapi-version }}
 
       - name: Package release archive
         run: |
