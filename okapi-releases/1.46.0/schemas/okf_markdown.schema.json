@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_markdown.schema.json",
-  "$version": "1.0.0",
+  "$version": "4.0.0",
   "title": "Markdown Filter",
   "description": "Configuration for the Okapi Markdown Filter",
   "type": "object",
@@ -114,5 +114,11 @@
       "default": false
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "x-schemaVersion": 4,
+  "x-okapiVersions": [
+    "1.45.0",
+    "1.46.0"
+  ],
+  "x-introducedInOkapi": "1.45.0"
 }

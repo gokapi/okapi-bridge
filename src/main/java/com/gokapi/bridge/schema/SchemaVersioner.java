@@ -41,17 +41,18 @@ public class SchemaVersioner {
 
     public static void main(String[] args) {
         if (args.length < 2) {
-            System.err.println("Usage: SchemaVersioner <okapi-version> <schemas-dir>");
-            System.err.println("Example: SchemaVersioner 1.47.0 schemas");
+            System.err.println("Usage: SchemaVersioner <okapi-version> <schemas-dir> [versions-file]");
+            System.err.println("Example: SchemaVersioner 1.47.0 okapi-releases/1.47.0/schemas schema-versions.json");
             System.exit(1);
         }
 
         String okapiVersion = args[0];
         String schemasDir = args[1];
+        String versionsFile = args.length > 2 ? args[2] : VERSIONS_FILE;
 
         try {
             SchemaVersioner versioner = new SchemaVersioner();
-            versioner.processSchemas(okapiVersion, schemasDir);
+            versioner.processSchemas(okapiVersion, schemasDir, versionsFile);
         } catch (Exception e) {
             System.err.println("Schema versioning failed: " + e.getMessage());
             e.printStackTrace();
@@ -62,16 +63,15 @@ public class SchemaVersioner {
     /**
      * Process schemas for a given Okapi version.
      * 
-     * 1. Generate fresh schemas using SchemaGenerator
-     * 2. Load existing version history
-     * 3. Compare each schema's content hash
-     * 4. Increment version if content changed, otherwise add Okapi version to existing
-     * 5. Update schemas with correct version and compatibility info
-     * 6. Save updated version history
+     * 1. Load existing version history from versionsFile
+     * 2. Compare each schema's content hash
+     * 3. Increment version if content changed, otherwise add Okapi version to existing
+     * 4. Update schemas with correct version and compatibility info
+     * 5. Save updated version history
      */
-    public void processSchemas(String okapiVersion, String schemasDir) throws Exception {
+    public void processSchemas(String okapiVersion, String schemasDir, String versionsFile) throws Exception {
         Path schemasDirPath = Path.of(schemasDir);
-        Path versionsFilePath = schemasDirPath.resolve(VERSIONS_FILE);
+        Path versionsFilePath = Path.of(versionsFile);
 
         // Load existing version history (or create new)
         JsonObject versionHistory = loadVersionHistory(versionsFilePath);

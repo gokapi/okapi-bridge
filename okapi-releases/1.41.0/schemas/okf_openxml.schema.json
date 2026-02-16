@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_openxml.schema.json",
-  "$version": "1.0.0",
+  "$version": "2.0.0",
   "title": "Microsoft Office (OpenXML) Filter",
   "description": "Configuration for the Okapi Microsoft Office (OpenXML) Filter",
   "type": "object",
@@ -192,5 +192,10 @@
       ]
     }
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "x-schemaVersion": 2,
+  "x-okapiVersions": [
+    "1.41.0"
+  ],
+  "x-introducedInOkapi": "1.41.0"
 }

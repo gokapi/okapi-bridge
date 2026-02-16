@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_idml.schema.json",
-  "$version": "1.0.0",
+  "$version": "6.0.0",
   "title": "InDesign IDML Filter",
   "description": "Configuration for the Okapi InDesign IDML Filter",
   "type": "object",
@@ -120,5 +120,10 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "x-schemaVersion": 6,
+  "x-okapiVersions": [
+    "1.46.0"
+  ],
+  "x-introducedInOkapi": "1.46.0"
 }

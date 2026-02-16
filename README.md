@@ -30,7 +30,10 @@ okapi-releases/
     schemas/
     overrides/
   ...
+schema-versions.json   # Version history tracking changes across releases
 ```
+
+Schemas include version metadata (`$version`, `x-schemaVersion`, `x-okapiVersions`) that tracks when each schema changed. For example, `okf_json` is at v3, introduced in Okapi 1.46.0.
 
 ### Makefile Targets
 
@@ -45,6 +48,7 @@ make list-local        # List local okapi-releases/ directories
 make add-release V=1.48.0   # Create structure for new Okapi version
 make regenerate V=1.47.0    # Regenerate schemas for one version
 make regenerate-all         # Regenerate all versions
+make version-schemas        # Recompute schema versions across all releases
 
 # Build
 make build V=1.47.0    # Build JAR for specific version

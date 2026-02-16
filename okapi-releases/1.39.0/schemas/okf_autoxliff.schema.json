@@ -26,5 +26,11 @@
       "default": "okf_xliff2"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "x-schemaVersion": 1,
+  "x-okapiVersions": [
+    "0.38",
+    "1.39.0"
+  ],
+  "x-introducedInOkapi": "0.38"
 }

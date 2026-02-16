@@ -2,11 +2,13 @@
 # Manages schema generation across Okapi versions
 
 SHELL := /bin/bash
-.PHONY: help list-upstream list-local add-release regenerate regenerate-all build clean test
+.PHONY: help list-upstream list-local add-release regenerate regenerate-all \
+        version-schemas build clean test
 
 # Configuration - derived from okapi-releases directory
 SUPPORTED_VERSIONS := $(shell ls -1 okapi-releases 2>/dev/null | sort -V)
 LATEST_VERSION := $(shell ls -1 okapi-releases 2>/dev/null | sort -V | tail -1)
+VERSIONS_FILE := schema-versions.json
 
 # Default target
 help:
@@ -20,6 +22,7 @@ help:
 	@echo "  make add-release V=1.48.0 Create structure for new Okapi version and generate schemas"
 	@echo "  make regenerate V=1.47.0  Regenerate schemas for one version"
 	@echo "  make regenerate-all       Regenerate schemas for all supported versions"
+	@echo "  make version-schemas      Recompute schema versions across all releases"
 	@echo ""
 	@echo "Build:"
 	@echo "  make build V=1.47.0       Build JAR for specific Okapi version"
@@ -70,13 +73,16 @@ endif
 	@# Create meta.json
 	@echo '{"okapiVersion":"$(V)","generatedAt":"'$$(date -u +%Y-%m-%dT%H:%M:%SZ)'","filterCount":'$$(ls -1 okapi-releases/$(V)/schemas/*.schema.json 2>/dev/null | wc -l | tr -d ' ')'}' \
 		| jq . > okapi-releases/$(V)/schemas/meta.json
+	@# Run versioner to assign schema versions
+	@echo "Assigning schema versions..."
+	@mvn -B -q exec:java@version-schemas -Dexec.args="$(V) okapi-releases/$(V)/schemas $(VERSIONS_FILE)" -Dokapi.version=$(LATEST_VERSION)
+	@echo ""
 	@echo "Created okapi-releases/$(V)/ with $$(ls -1 okapi-releases/$(V)/schemas/*.schema.json | wc -l | tr -d ' ') schemas"
 	@echo ""
 	@echo "Next steps:"
 	@echo "  1. Review generated schemas in okapi-releases/$(V)/schemas/"
-	@echo "  2. Add any overrides in okapi-releases/$(V)/overrides/"
-	@echo "  3. Update versions.json to include $(V) in supported/build arrays"
-	@echo "  4. Run 'make version-schemas' to update versioned schemas"
+	@echo "  2. Optionally copy overrides from previous version"
+	@echo "  3. Commit: git add okapi-releases/$(V) $(VERSIONS_FILE)"
 
 # Regenerate schemas for a single version
 regenerate: .compile-generator
@@ -95,6 +101,8 @@ endif
 	@echo '{"okapiVersion":"$(V)","generatedAt":"'$$(date -u +%Y-%m-%dT%H:%M:%SZ)'","filterCount":'$$(ls -1 okapi-releases/$(V)/schemas/*.schema.json 2>/dev/null | wc -l | tr -d ' ')'}' \
 		| jq . > okapi-releases/$(V)/schemas/meta.json
 	@echo "Regenerated $$(ls -1 okapi-releases/$(V)/schemas/*.schema.json | wc -l | tr -d ' ') schemas"
+	@echo ""
+	@echo "Run 'make version-schemas' to update schema versions"
 
 # Regenerate schemas for all supported versions
 regenerate-all: .compile-generator
@@ -105,7 +113,32 @@ regenerate-all: .compile-generator
 		$(MAKE) regenerate V=$$version || exit 1; \
 	done
 	@echo ""
-	@echo "All schemas regenerated."
+	@echo "All schemas regenerated. Run 'make version-schemas' to update versions."
+
+# ============================================================================
+# Versioning
+# ============================================================================
+
+# Recompute schema versions across all Okapi releases
+version-schemas: .compile-generator
+	@echo "Computing schema versions across all Okapi releases..."
+	@rm -f $(VERSIONS_FILE)
+	@for version in $(SUPPORTED_VERSIONS); do \
+		echo "Processing Okapi $$version..."; \
+		mvn -B -q exec:java@version-schemas \
+			-Dexec.args="$$version okapi-releases/$$version/schemas $(VERSIONS_FILE)" \
+			-Dokapi.version=$(LATEST_VERSION); \
+	done
+	@echo ""
+	@echo "Schema versions updated in $(VERSIONS_FILE)"
+	@echo ""
+	@echo "Summary:"
+	@jq -r '.filters | to_entries | sort_by(.key) | .[] | "  \(.key): v\(.value.versions[-1].schemaVersion) (\(.value.versions | length) version(s))"' \
+		$(VERSIONS_FILE) 2>/dev/null | head -20
+	@count=$$(jq '.filters | length' $(VERSIONS_FILE) 2>/dev/null); \
+	if [ "$$count" -gt 20 ]; then \
+		echo "  ... and $$(( $$count - 20 )) more filters"; \
+	fi
 
 # ============================================================================
 # Build

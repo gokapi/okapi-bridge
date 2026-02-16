@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_mif.schema.json",
-  "$version": "1.0.0",
+  "$version": "4.0.0",
   "title": "FrameMaker MIF Filter",
   "description": "Configuration for the Okapi FrameMaker MIF Filter",
   "type": "object",
@@ -96,5 +96,16 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "x-schemaVersion": 4,
+  "x-okapiVersions": [
+    "1.41.0",
+    "1.42.0",
+    "1.43.0",
+    "1.44.0",
+    "1.45.0",
+    "1.46.0",
+    "1.47.0"
+  ],
+  "x-introducedInOkapi": "1.41.0"
 }
