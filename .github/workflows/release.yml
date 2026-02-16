@@ -26,22 +26,29 @@ jobs:
 
       - name: Generate schemas for Okapi ${{ matrix.okapi-version }}
         run: |
-          # Function to download and verify dependencies
-          download_deps() {
-            mvn -B dependency:resolve -Dokapi.version=${{ matrix.okapi-version }}
-          }
-          
           # Try up to 3 times to get valid JARs
           for attempt in 1 2 3; do
             echo "=== Attempt $attempt ==="
-            download_deps && break
-            echo "Download failed, clearing cache and retrying..."
+            
+            # Clear any potentially corrupt Okapi JARs
             rm -rf ~/.m2/repository/net/sf/okapi
-            sleep 5
+            
+            # Download dependencies
+            mvn -B dependency:resolve -Dokapi.version=${{ matrix.okapi-version }}
+            
+            # Try to compile - this will catch corrupt JARs
+            if mvn -B compile -Dokapi.version=${{ matrix.okapi-version }}; then
+              echo "Build successful on attempt $attempt"
+              break
+            fi
+            
+            echo "Compile failed on attempt $attempt"
+            if [ $attempt -eq 3 ]; then
+              echo "All attempts failed"
+              exit 1
+            fi
+            sleep 10
           done
-          
-          # Build with specific Okapi version
-          mvn -B compile -Dokapi.version=${{ matrix.okapi-version }}
           
           # Generate schemas to a version-specific directory
           mkdir -p schemas-${{ matrix.okapi-version }}
@@ -126,22 +133,29 @@ jobs:
 
       - name: Build with Okapi ${{ matrix.okapi-version }}
         run: |
-          # Function to download and verify dependencies
-          download_deps() {
-            mvn -B dependency:resolve -Dokapi.version=${{ matrix.okapi-version }}
-          }
-          
           # Try up to 3 times to get valid JARs
           for attempt in 1 2 3; do
             echo "=== Attempt $attempt ==="
-            download_deps && break
-            echo "Download failed, clearing cache and retrying..."
+            
+            # Clear any potentially corrupt Okapi JARs
             rm -rf ~/.m2/repository/net/sf/okapi
-            sleep 5
+            
+            # Download dependencies
+            mvn -B dependency:resolve -Dokapi.version=${{ matrix.okapi-version }}
+            
+            # Try to build - this will catch corrupt JARs
+            if mvn -B package -Dokapi.version=${{ matrix.okapi-version }}; then
+              echo "Build successful on attempt $attempt"
+              exit 0
+            fi
+            
+            echo "Build failed on attempt $attempt"
+            if [ $attempt -eq 3 ]; then
+              echo "All attempts failed"
+              exit 1
+            fi
+            sleep 10
           done
-          
-          # Build
-          mvn -B package -Dokapi.version=${{ matrix.okapi-version }}
 
       - name: Package release archive
         run: |
