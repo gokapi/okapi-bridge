@@ -9,6 +9,5 @@ dependency-reduced-pom.xml
 .classpath
 .project
 
-# Generated outputs (use pre-generated schemas in okapi-releases/)
-schemas/
+# Build artifacts
 .compile-generator

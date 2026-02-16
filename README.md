@@ -19,15 +19,18 @@ kapi plugins install okapi-bridge
 
 ## Schema Management
 
-This project tracks filter parameter schemas across 10 Okapi versions:
+Pre-generated schemas are stored in `okapi-releases/{version}/schemas/` directories:
 
 ```
 okapi-releases/
-  versions.json              # Master config: supported versions, build versions
   0.38/schemas/              # Baseline schemas (schema v1)
   1.39.0/schemas/
   ...
   1.47.0/schemas/
+
+schemas/                     # Versioned output (committed to git)
+  *.schema.json              # Latest schemas with version metadata
+  schema-versions.json       # Version history across all Okapi releases
 ```
 
 ### Makefile Targets
@@ -43,11 +46,10 @@ make list-local        # List local okapi-releases/ directories
 make add-release V=1.48.0   # Create structure for new Okapi version
 make regenerate V=1.47.0    # Regenerate schemas for one version
 make regenerate-all         # Regenerate all versions
+make version-schemas        # Compute versioned schemas → schemas/
 
-# Versioning & Build
-make version-schemas   # Run versioner across all releases → schemas/
+# Build
 make build V=1.47.0    # Build JAR for specific version
-make build-releases    # Build JARs for all release versions
 ```
 
 ## Adding a New Okapi Version
@@ -62,19 +64,17 @@ make build-releases    # Build JARs for all release versions
    make add-release V=1.48.0
    ```
 
-3. Update `okapi-releases/versions.json`:
-   - Add version to `supported` array
-   - Optionally add to `build` array for binary releases
-   - Update `latest` if this is the newest version
+3. Update `Makefile`:
+   - Add version to `SUPPORTED_VERSIONS`
+   - Update `LATEST_VERSION` if this is the newest
 
-4. Regenerate versioned schemas:
+4. Update `.github/workflows/release.yml`:
+   - Add version to `matrix.okapi-version` if you want binaries
+
+5. Regenerate versioned schemas and commit:
    ```bash
    make version-schemas
-   ```
-
-5. Commit the changes:
-   ```bash
-   git add okapi-releases/1.48.0 okapi-releases/versions.json
+   git add okapi-releases/1.48.0 schemas/ Makefile
    git commit -m "feat: Add Okapi 1.48.0 schemas"
    ```
 
@@ -94,15 +94,6 @@ mvn package -Dokapi.version=1.47.0
 
 # Run tests
 mvn test -Dokapi.version=1.47.0
-```
-
-### Schema Generation
-
-Schemas are generated from Okapi filter parameter classes using reflection:
-
-```bash
-# Generate schemas for a specific version
-mvn exec:java@generate-schemas -Dexec.args="output-dir" -Dokapi.version=1.47.0
 ```
 
 ## License

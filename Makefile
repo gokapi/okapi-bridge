@@ -3,10 +3,11 @@
 
 SHELL := /bin/bash
 .PHONY: help list-upstream list-local add-release regenerate regenerate-all \
-        version-schemas build build-releases clean test
+        version-schemas build clean test
 
-# Configuration
-VERSIONS_FILE := okapi-releases/versions.json
+# Configuration - edit these to change supported versions
+SUPPORTED_VERSIONS := 0.38 1.39.0 1.40.0 1.41.0 1.42.0 1.43.0 1.44.0 1.45.0 1.46.0 1.47.0
+LATEST_VERSION := 1.47.0
 SCHEMA_OUTPUT := schemas
 
 # Default target
@@ -27,7 +28,6 @@ help:
 	@echo ""
 	@echo "Build:"
 	@echo "  make build V=1.47.0       Build JAR for specific Okapi version"
-	@echo "  make build-releases       Build JARs for all release versions"
 	@echo "  make test                 Run tests"
 	@echo "  make clean                Clean build artifacts"
 
@@ -42,12 +42,10 @@ list-upstream:
 
 list-local:
 	@echo "Local okapi-releases/ directories:"
-	@ls -1 okapi-releases/ 2>/dev/null | grep -E '^[0-9]' || echo "  (none)"
+	@ls -1 okapi-releases/ 2>/dev/null | grep -E '^[0-9]' | sort -V || echo "  (none)"
 	@echo ""
-	@echo "Supported versions (from versions.json):"
-	@jq -r '.supported[]' $(VERSIONS_FILE) 2>/dev/null || echo "  (versions.json not found)"
-	@echo ""
-	@echo "Build versions:"
+	@echo "Supported versions (Makefile):"
+	@echo "  $(SUPPORTED_VERSIONS)" | tr ' ' '\n' | sed 's/^/  /'
 	@jq -r '.build[]' $(VERSIONS_FILE) 2>/dev/null || echo "  (versions.json not found)"
 
 # ============================================================================
@@ -105,7 +103,7 @@ endif
 # Regenerate schemas for all supported versions
 regenerate-all: .compile-generator
 	@echo "Regenerating schemas for all supported versions..."
-	@for version in $$(jq -r '.supported[]' $(VERSIONS_FILE)); do \
+	@for version in $(SUPPORTED_VERSIONS); do \
 		echo ""; \
 		echo "=== Okapi $$version ==="; \
 		$(MAKE) regenerate V=$$version || exit 1; \
@@ -122,8 +120,7 @@ version-schemas: .compile-generator
 	@echo "Versioning schemas across Okapi releases..."
 	@rm -rf $(SCHEMA_OUTPUT)
 	@mkdir -p $(SCHEMA_OUTPUT)
-	@baseline=$$(jq -r '.schemaBaseline' $(VERSIONS_FILE)); \
-	for version in $$(jq -r '.supported[]' $(VERSIONS_FILE)); do \
+	@for version in $(SUPPORTED_VERSIONS); do \
 		echo "Processing Okapi $$version..."; \
 		if [ ! -d "okapi-releases/$$version/schemas" ]; then \
 			echo "  Warning: okapi-releases/$$version/schemas not found, skipping"; \
@@ -131,15 +128,16 @@ version-schemas: .compile-generator
 		fi; \
 		cp okapi-releases/$$version/schemas/*.schema.json $(SCHEMA_OUTPUT)/ 2>/dev/null || true; \
 		cp okapi-releases/$$version/schemas/meta.json $(SCHEMA_OUTPUT)/ 2>/dev/null || true; \
-		mvn -B -q exec:java@version-schemas -Dexec.args="$$version $(SCHEMA_OUTPUT)" -Dokapi.version=1.47.0; \
+		mvn -B -q exec:java@version-schemas -Dexec.args="$$version $(SCHEMA_OUTPUT)" -Dokapi.version=$(LATEST_VERSION); \
 	done
 	@echo ""
 	@echo "Versioned schemas written to $(SCHEMA_OUTPUT)/"
 	@echo "Schema versions summary:"
-	@jq -r 'to_entries | .[] | "  \(.key): v\(.value.currentVersion) (introduced in \(.value.introducedInOkapi))"' \
+	@jq -r '.filters | to_entries | .[] | "  \(.key): v\(.value.versions[-1].schemaVersion) (\(.value.versions | length) versions)"' \
 		$(SCHEMA_OUTPUT)/schema-versions.json 2>/dev/null | head -20
-	@if [ $$(jq 'length' $(SCHEMA_OUTPUT)/schema-versions.json) -gt 20 ]; then \
-		echo "  ... and $$(( $$(jq 'length' $(SCHEMA_OUTPUT)/schema-versions.json) - 20 )) more"; \
+	@count=$$(jq '.filters | length' $(SCHEMA_OUTPUT)/schema-versions.json 2>/dev/null); \
+	if [ "$$count" -gt 20 ]; then \
+		echo "  ... and $$(( $$count - 20 )) more"; \
 	fi
 
 # ============================================================================
@@ -153,25 +151,12 @@ endif
 	@echo "Building okapi-bridge for Okapi $(V)..."
 	@mvn -B package -Dokapi.version=$(V) -DskipTests
 
-build-releases:
-	@echo "Building release binaries..."
-	@for version in $$(jq -r '.build[]' $(VERSIONS_FILE)); do \
-		echo ""; \
-		echo "=== Building for Okapi $$version ==="; \
-		mvn -B package -Dokapi.version=$$version -DskipTests || exit 1; \
-		cp target/gokapi-bridge-*-jar-with-dependencies.jar \
-			target/gokapi-bridge-okapi$$version-jar-with-dependencies.jar; \
-	done
-	@echo ""
-	@echo "Release binaries built."
-
 test:
-	@mvn -B test -Dokapi.version=$$(jq -r '.latest' $(VERSIONS_FILE))
+	@mvn -B test -Dokapi.version=$(LATEST_VERSION)
 
 clean:
 	@mvn -B clean
 	@rm -f .compile-generator
-	@rm -rf $(SCHEMA_OUTPUT)
 
 # ============================================================================
 # Utility

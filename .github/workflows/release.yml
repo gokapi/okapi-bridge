@@ -8,76 +8,17 @@ on:
 permissions:
   contents: write
 
+env:
+  # Okapi versions to build binary releases for
+  # Schema version history is pre-computed and committed in schemas/
+  OKAPI_BUILD_VERSIONS: '1.46.0 1.47.0'
+  OKAPI_LATEST: '1.47.0'
+
 jobs:
-  # Use pre-generated schemas from okapi-releases/ directories
-  # Schemas are committed to the repo, so we just run version-schemas
-  version-schemas:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Java 11
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '11'
-          cache: maven
-
-      - name: Read versions configuration
-        id: versions
-        run: |
-          echo "supported=$(jq -c '.supported' okapi-releases/versions.json)" >> $GITHUB_OUTPUT
-          echo "build=$(jq -c '.build' okapi-releases/versions.json)" >> $GITHUB_OUTPUT
-          echo "latest=$(jq -r '.latest' okapi-releases/versions.json)" >> $GITHUB_OUTPUT
-          echo "baseline=$(jq -r '.schemaBaseline' okapi-releases/versions.json)" >> $GITHUB_OUTPUT
-
-      - name: Compile schema versioner
-        run: mvn -B compile -Dokapi.version=${{ steps.versions.outputs.latest }}
-
-      - name: Version schemas across Okapi releases
-        run: |
-          # Start with empty schemas directory
-          rm -rf schemas
-          mkdir -p schemas
-          
-          # Process each Okapi version in order (oldest to newest)
-          for version in $(jq -r '.supported[]' okapi-releases/versions.json); do
-            echo "=== Processing Okapi $version ==="
-            
-            if [ ! -d "okapi-releases/$version/schemas" ]; then
-              echo "  Warning: okapi-releases/$version/schemas not found, skipping"
-              continue
-            fi
-            
-            # Copy schemas from this Okapi version
-            cp okapi-releases/$version/schemas/*.schema.json schemas/
-            cp okapi-releases/$version/schemas/meta.json schemas/ 2>/dev/null || true
-            
-            # Run versioner to update version tracking
-            mvn -B -q exec:java@version-schemas \
-              -Dexec.args="$version schemas" \
-              -Dokapi.version=${{ steps.versions.outputs.latest }}
-            
-            echo ""
-          done
-          
-          echo "Versioned schemas complete."
-          echo "Schema summary:"
-          jq -r 'to_entries | .[0:5] | .[] | "  \(.key): \(.value | length) versions"' schemas/schema-versions.json 2>/dev/null || true
-
-      - name: Upload versioned schemas
-        uses: actions/upload-artifact@v4
-        with:
-          name: versioned-schemas
-          path: schemas/
-
   build:
-    needs: version-schemas
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        # Build versions are defined in okapi-releases/versions.json
-        # These are the versions we ship binaries for
         okapi-version: ['1.46.0', '1.47.0']
     steps:
       - uses: actions/checkout@v4
@@ -88,12 +29,6 @@ jobs:
           distribution: temurin
           java-version: '11'
           cache: maven
-
-      - name: Download versioned schemas
-        uses: actions/download-artifact@v4
-        with:
-          name: versioned-schemas
-          path: schemas
 
       - name: Build with Okapi ${{ matrix.okapi-version }}
         run: mvn -B package -Dokapi.version=${{ matrix.okapi-version }}
@@ -109,7 +44,7 @@ jobs:
           cp target/gokapi-bridge-${VERSION}-jar-with-dependencies.jar staging/gokapi-bridge-jar-with-dependencies.jar
           cp okapi.bridge.json staging/
           
-          # Include versioned schemas
+          # Include pre-computed versioned schemas from repo
           mkdir -p staging/schemas
           cp schemas/*.schema.json staging/schemas/
           cp schemas/schema-versions.json staging/schemas/ 2>/dev/null || true
