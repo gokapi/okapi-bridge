@@ -61,7 +61,7 @@ make build V=1.47.0    # Build JAR for specific version
    make list-upstream
    ```
 
-2. Add the new version (creates directory and generates schemas):
+2. Add the new version (creates directory, generates schemas, assigns versions):
    ```bash
    make add-release V=1.48.0
    ```
@@ -71,13 +71,39 @@ make build V=1.47.0    # Build JAR for specific version
    cp okapi-releases/1.47.0/overrides/*.json okapi-releases/1.48.0/overrides/
    ```
 
-4. Commit:
+4. Commit and push:
    ```bash
-   git add okapi-releases/1.48.0
+   git add okapi-releases/1.48.0 schema-versions.json
    git commit -m "feat: Add Okapi 1.48.0 support"
+   git push
    ```
 
-The CI/CD workflows automatically detect versions from `okapi-releases/`.
+5. Create a release (triggers build for all versions):
+   ```bash
+   git tag v1.6.0
+   git push origin v1.6.0
+   ```
+
+## CI/CD
+
+The workflows automatically detect Okapi versions from the `okapi-releases/` directory.
+
+### On Push to Main (CI)
+
+- Builds and tests with the latest Okapi version
+- No manual configuration needed when adding versions
+
+### On Tag Push (Release)
+
+1. **Setup job** scans `okapi-releases/` to get version list and latest version
+2. **Build matrix** compiles a JAR for each Okapi version in parallel
+3. **Release job** creates GitHub release with all artifacts
+4. **Registry job** updates the gokapi plugin registry
+
+Each Okapi version produces a separate artifact:
+- `okapi-bridge-v1.6.0-okapi1.47.0.tar.gz` (latest, installed as `okapi-bridge`)
+- `okapi-bridge-v1.6.0-okapi1.46.0.tar.gz` (installed as `okapi-bridge-1.46.0`)
+- etc.
 
 ## Development
 
