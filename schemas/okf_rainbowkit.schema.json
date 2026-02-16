@@ -15,7 +15,8 @@
     "openManifest": {
       "type": "boolean",
       "default": true,
-      "title": "Open the manifest file before processing"
+      "title": "Open the manifest file before processing",
+      "x-widget": "checkbox"
     }
   },
   "additionalProperties": false

@@ -17,7 +17,8 @@
     "allowEmptyOutputTarget": {
       "type": "boolean",
       "default": true,
-      "title": "Allow empty target segments in output"
+      "title": "Allow empty target segments in output",
+      "x-widget": "checkbox"
     },
     "simplifierRules": {
       "type": "string",

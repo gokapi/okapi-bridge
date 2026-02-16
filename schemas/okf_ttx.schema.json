@@ -17,7 +17,18 @@
     "segmentMode": {
       "type": "integer",
       "default": 0,
-      "title": "Extraction mode"
+      "title": "Extraction mode",
+      "enum": [
+        "0",
+        "1",
+        "2"
+      ],
+      "x-enumLabels": [
+        "Auto-detect existing segments (If found: extract only those, otherwise extract all)",
+        "Extract only existing segments",
+        "Extract all (existing segments and un-segmented text parts)"
+      ],
+      "x-widget": "select"
     },
     "simplifierRules": {
       "type": "string",
@@ -27,7 +38,8 @@
     "escapeGT": {
       "type": "boolean",
       "default": false,
-      "title": "Escape the greater-than characters in output"
+      "title": "Escape the greater-than characters in output",
+      "x-widget": "checkbox"
     }
   },
   "additionalProperties": false

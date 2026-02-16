@@ -7,7 +7,7 @@ import net.sf.okapi.common.ParametersDescription;
 import net.sf.okapi.common.StringParameters;
 import net.sf.okapi.common.filters.IFilter;
 import net.sf.okapi.common.filters.InlineCodeFinder;
-import net.sf.okapi.common.uidescription.IEditorDescriptionProvider;
+import net.sf.okapi.common.uidescription.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -24,7 +24,7 @@ import java.util.*;
  * 
  * Also extracts descriptions from:
  * - getParametersDescription() method
- * - IEditorDescriptionProvider interface
+ * - IEditorDescriptionProvider.createEditorDescription() for UI metadata
  * - ISimplifierRulesParameters interface constants
  */
 public class ParameterIntrospector {
@@ -41,6 +41,14 @@ public class ParameterIntrospector {
         public boolean deprecated;
         public String okapiFormat;   // For complex types like codeFinderRules
         public List<String> enumValues;  // For enum parameters
+        public String[] enumLabels;      // Display labels for enum values
+        
+        // UI metadata from EditorDescription
+        public String widget;           // "checkbox", "text", "select", "spin", "codeFinder", "path", "folder"
+        public String masterParam;      // Parameter that enables/disables this one
+        public boolean enabledOnMasterSelected;  // True if enabled when master is selected
+        public Integer minimum;         // For spin/integer inputs
+        public Integer maximum;         // For spin/integer inputs
         
         public ParamInfo(String name, String type) {
             this.name = name;
@@ -81,6 +89,11 @@ public class ParameterIntrospector {
             // Extract descriptions from ParametersDescription if available
             enrichWithParametersDescription(paramsClass, params, result);
             
+            // Extract UI metadata from EditorDescription if available
+            if (params instanceof IEditorDescriptionProvider) {
+                enrichWithEditorDescription(paramsClass, (IEditorDescriptionProvider) params, result);
+            }
+            
             // Add parameters from ISimplifierRulesParameters if implemented
             if (params instanceof ISimplifierRulesParameters) {
                 addSimplifierRulesParams((ISimplifierRulesParameters) params, result);
@@ -95,6 +108,118 @@ public class ParameterIntrospector {
             System.err.println("Failed to introspect " + filterClass + ": " + e.getMessage());
             return null;
         }
+    }
+    
+    /**
+     * Enrich parameter info with UI metadata from createEditorDescription().
+     */
+    private void enrichWithEditorDescription(Class<?> paramsClass, IEditorDescriptionProvider provider,
+                                             Map<String, ParamInfo> result) {
+        try {
+            // First get ParametersDescription (required for createEditorDescription)
+            Method descMethod = paramsClass.getMethod("getParametersDescription");
+            ParametersDescription paramDesc = (ParametersDescription) descMethod.invoke(provider);
+            
+            if (paramDesc == null) {
+                return;
+            }
+            
+            // Now get EditorDescription
+            EditorDescription editorDesc = provider.createEditorDescription(paramDesc);
+            if (editorDesc == null) {
+                return;
+            }
+            
+            // Process each UI part
+            for (Map.Entry<String, AbstractPart> entry : editorDesc.getDescriptors().entrySet()) {
+                String paramName = entry.getKey();
+                AbstractPart part = entry.getValue();
+                
+                ParamInfo info = result.get(paramName);
+                if (info == null) {
+                    // Parameter discovered via editor but not in our result set - try to add it
+                    info = extractParamInfo(paramsClass, (IParameters) provider, paramName);
+                    if (info != null) {
+                        result.put(paramName, info);
+                    } else {
+                        continue;
+                    }
+                }
+                
+                // Extract widget type
+                info.widget = mapPartToWidget(part);
+                
+                // Extract master/slave relationship
+                AbstractPart masterPart = part.getMasterPart();
+                if (masterPart != null) {
+                    info.masterParam = masterPart.getName();
+                    info.enabledOnMasterSelected = part.isEnabledOnSelection();
+                }
+                
+                // Extract display name if not already set
+                if (info.displayName == null && part.getDisplayName() != null) {
+                    info.displayName = part.getDisplayName();
+                }
+                
+                // Extract description if not already set
+                if (info.description == null && part.getShortDescription() != null) {
+                    info.description = part.getShortDescription();
+                }
+                
+                // Extract type-specific metadata
+                if (part instanceof ListSelectionPart) {
+                    ListSelectionPart listPart = (ListSelectionPart) part;
+                    String[] choices = listPart.getChoicesValues();
+                    if (choices != null && choices.length > 0) {
+                        info.enumValues = Arrays.asList(choices);
+                        info.enumLabels = listPart.getChoicesLabels();
+                    }
+                } else if (part instanceof SpinInputPart) {
+                    SpinInputPart spinPart = (SpinInputPart) part;
+                    int min = spinPart.getMinimumValue();
+                    int max = spinPart.getMaximumValue();
+                    if (min != Integer.MIN_VALUE) {
+                        info.minimum = min;
+                    }
+                    if (max != Integer.MAX_VALUE) {
+                        info.maximum = max;
+                    }
+                }
+            }
+        } catch (NoSuchMethodException e) {
+            // No getParametersDescription method
+        } catch (Exception e) {
+            // Ignore errors in editor description extraction
+        }
+    }
+    
+    /**
+     * Map an AbstractPart subclass to a widget type string.
+     */
+    private String mapPartToWidget(AbstractPart part) {
+        if (part instanceof CheckboxPart) {
+            return "checkbox";
+        } else if (part instanceof TextInputPart) {
+            return "text";
+        } else if (part instanceof ListSelectionPart) {
+            ListSelectionPart listPart = (ListSelectionPart) part;
+            return listPart.getListType() == ListSelectionPart.LISTTYPE_DROPDOWN ? "dropdown" : "select";
+        } else if (part instanceof SpinInputPart) {
+            return "spin";
+        } else if (part instanceof CodeFinderPart) {
+            return "codeFinder";
+        } else if (part instanceof PathInputPart) {
+            return "path";
+        } else if (part instanceof FolderInputPart) {
+            return "folder";
+        } else if (part instanceof CheckListPart) {
+            return "checkList";
+        } else if (part instanceof SeparatorPart) {
+            return "separator";
+        } else if (part instanceof TextLabelPart) {
+            return "label";
+        }
+        return null;
     }
     
     /**

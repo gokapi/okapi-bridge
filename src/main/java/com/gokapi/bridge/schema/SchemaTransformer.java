@@ -39,6 +39,15 @@ public class SchemaTransformer {
         if ("subfilter".equals(paramName)) {
             return null;
         }
+        
+        // Skip UI-only elements (separators, labels with UUID names)
+        if ("separator".equals(paramInfo.widget) || "label".equals(paramInfo.widget)) {
+            return null;
+        }
+        // Also skip parameters with UUID-like names (UI separators)
+        if (paramName.matches("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}")) {
+            return null;
+        }
 
         // Basic type mapping
         prop.addProperty("type", paramInfo.type);
@@ -65,11 +74,43 @@ public class SchemaTransformer {
                 enumArray.add(val);
             }
             prop.add("enum", enumArray);
+            
+            // Add enum labels as x-enumLabels if different from values
+            if (paramInfo.enumLabels != null && paramInfo.enumLabels.length == paramInfo.enumValues.size()) {
+                JsonArray labelsArray = new JsonArray();
+                for (String label : paramInfo.enumLabels) {
+                    labelsArray.add(label);
+                }
+                prop.add("x-enumLabels", labelsArray);
+            }
+        }
+        
+        // Add numeric constraints for integer types
+        if ("integer".equals(paramInfo.type)) {
+            if (paramInfo.minimum != null) {
+                prop.addProperty("minimum", paramInfo.minimum);
+            }
+            if (paramInfo.maximum != null) {
+                prop.addProperty("maximum", paramInfo.maximum);
+            }
         }
         
         // Mark deprecated
         if (paramInfo.deprecated) {
             prop.addProperty("deprecated", true);
+        }
+        
+        // Add widget hint from EditorDescription
+        if (paramInfo.widget != null) {
+            prop.addProperty("x-widget", paramInfo.widget);
+        }
+        
+        // Add master/slave relationship
+        if (paramInfo.masterParam != null) {
+            JsonObject dependency = new JsonObject();
+            dependency.addProperty("parameter", paramInfo.masterParam);
+            dependency.addProperty("enabledWhenSelected", paramInfo.enabledOnMasterSelected);
+            prop.add("x-enabledBy", dependency);
         }
         
         return prop;

@@ -17,23 +17,29 @@
     "extractNotes": {
       "type": "boolean",
       "default": false,
-      "title": "Extract notes"
+      "title": "Extract notes",
+      "x-widget": "checkbox"
     },
     "simplifyCodes": {
       "type": "boolean",
       "default": true,
-      "title": "Simplify inline codes when possible"
+      "title": "Simplify inline codes when possible",
+      "x-widget": "checkbox"
     },
     "extractMasterSpreads": {
       "type": "boolean",
       "default": true,
-      "title": "Extract master spreads"
+      "title": "Extract master spreads",
+      "x-widget": "checkbox"
     },
     "skipThreshold": {
       "type": "integer",
       "default": 1000,
       "title": "Maximum spread size",
-      "description": "Skip any spread larger than the given value (in Kbytes)"
+      "description": "Skip any spread larger than the given value (in Kbytes)",
+      "minimum": 1,
+      "maximum": 32000,
+      "x-widget": "spin"
     },
     "newTuOnBr": {
       "type": "boolean",
