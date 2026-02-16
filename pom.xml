@@ -91,11 +91,6 @@
         </dependency>
         <dependency>
             <groupId>net.sf.okapi.filters</groupId>
-            <artifactId>okapi-filter-epub</artifactId>
-            <version>${okapi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.okapi.filters</groupId>
             <artifactId>okapi-filter-icml</artifactId>
             <version>${okapi.version}</version>
         </dependency>
@@ -171,11 +166,6 @@
         </dependency>
         <dependency>
             <groupId>net.sf.okapi.filters</groupId>
-            <artifactId>okapi-filter-subtitles</artifactId>
-            <version>${okapi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.okapi.filters</groupId>
             <artifactId>okapi-filter-table</artifactId>
             <version>${okapi.version}</version>
         </dependency>
@@ -243,22 +233,7 @@
         <!-- Additional Okapi Filters -->
         <dependency>
             <groupId>net.sf.okapi.filters</groupId>
-            <artifactId>okapi-filter-messageformat</artifactId>
-            <version>${okapi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.okapi.filters</groupId>
             <artifactId>okapi-filter-xini</artifactId>
-            <version>${okapi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.okapi.filters</groupId>
-            <artifactId>okapi-filter-wsxzpackage</artifactId>
-            <version>${okapi.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.okapi.filters</groupId>
-            <artifactId>okapi-filter-cascadingfilter</artifactId>
             <version>${okapi.version}</version>
         </dependency>
         <dependency>
@@ -348,4 +323,44 @@
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Filters that only exist in Okapi 1.47.0+ -->
+        <profile>
+            <id>okapi-1.47-filters</id>
+            <activation>
+                <property>
+                    <name>okapi.version</name>
+                    <value>1.47.0</value>
+                </property>
+            </activation>
+            <dependencies>
+                <dependency>
+                    <groupId>net.sf.okapi.filters</groupId>
+                    <artifactId>okapi-filter-epub</artifactId>
+                    <version>${okapi.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>net.sf.okapi.filters</groupId>
+                    <artifactId>okapi-filter-subtitles</artifactId>
+                    <version>${okapi.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>net.sf.okapi.filters</groupId>
+                    <artifactId>okapi-filter-messageformat</artifactId>
+                    <version>${okapi.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>net.sf.okapi.filters</groupId>
+                    <artifactId>okapi-filter-wsxzpackage</artifactId>
+                    <version>${okapi.version}</version>
+                </dependency>
+                <dependency>
+                    <groupId>net.sf.okapi.filters</groupId>
+                    <artifactId>okapi-filter-cascadingfilter</artifactId>
+                    <version>${okapi.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 </project>
