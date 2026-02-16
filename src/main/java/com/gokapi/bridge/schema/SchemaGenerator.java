@@ -11,6 +11,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -75,12 +76,26 @@ public class SchemaGenerator {
         }
 
         List<FilterInfo> filters = FilterRegistry.listFilters();
+        List<FilterInfo> availableFilters = new ArrayList<>();
         int successCount = 0;
         int failCount = 0;
+        int skippedCount = 0;
 
-        System.out.println("Generating schemas for " + filters.size() + " filters...\n");
+        System.out.println("Checking filter availability...\n");
 
+        // First pass: check which filters are available on the classpath
         for (FilterInfo info : filters) {
+            if (isFilterAvailable(info.getFilterClass())) {
+                availableFilters.add(info);
+            } else {
+                System.out.println("⊘ " + info.getName() + " → not available in this Okapi version");
+                skippedCount++;
+            }
+        }
+
+        System.out.println("\nGenerating schemas for " + availableFilters.size() + " available filters...\n");
+
+        for (FilterInfo info : availableFilters) {
             try {
                 JsonObject schema = generateSchema(info);
                 String filterId = "okf_" + info.getName();
@@ -104,10 +119,22 @@ public class SchemaGenerator {
             }
         }
 
-        System.out.println("\nGeneration complete: " + successCount + " schemas, " + failCount + " failures");
+        System.out.println("\nGeneration complete: " + successCount + " schemas, " + failCount + " failures, " + skippedCount + " skipped");
 
-        // Generate meta.yaml with filter metadata
-        generateMetaFile(dir, filters);
+        // Generate meta.yaml with filter metadata (only for available filters)
+        generateMetaFile(dir, availableFilters);
+    }
+
+    /**
+     * Check if a filter class is available on the classpath.
+     */
+    private boolean isFilterAvailable(String filterClass) {
+        try {
+            Class.forName(filterClass);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
     }
 
     /**

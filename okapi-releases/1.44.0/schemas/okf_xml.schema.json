@@ -7,7 +7,7 @@
   "type": "object",
   "x-filter": {
     "id": "okf_xml",
-    "class": "net.sf.okapi.filters.its.xml.ITSFilter",
+    "class": "net.sf.okapi.filters.its.ITSFilter",
     "extensions": [
       ".xml"
     ],

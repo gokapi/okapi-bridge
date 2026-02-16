@@ -82,7 +82,7 @@
       "versions": [
         {
           "schemaVersion": 1,
-          "contentHash": "dee8329fe344",
+          "contentHash": "70de03dc9749",
           "introducedInOkapi": "0.38",
           "okapiVersions": [
             "0.38",
@@ -269,34 +269,6 @@
             "1.44.0",
             "1.45.0",
             "1.46.0",
-            "1.47.0"
-          ]
-        }
-      ]
-    },
-    "okf_messageformat": {
-      "versions": [
-        {
-          "schemaVersion": 1,
-          "contentHash": "8db5646f216b",
-          "introducedInOkapi": "0.38",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0"
-          ]
-        },
-        {
-          "schemaVersion": 2,
-          "contentHash": "796c1ef537c6",
-          "introducedInOkapi": "1.47.0",
-          "okapiVersions": [
             "1.47.0"
           ]
         }
@@ -645,27 +617,6 @@
         }
       ]
     },
-    "okf_cascading": {
-      "versions": [
-        {
-          "schemaVersion": 1,
-          "contentHash": "9dead87ee9ff",
-          "introducedInOkapi": "0.38",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0"
-          ]
-        }
-      ]
-    },
     "okf_autoxliff": {
       "versions": [
         {
@@ -736,34 +687,6 @@
         }
       ]
     },
-    "okf_ttml": {
-      "versions": [
-        {
-          "schemaVersion": 1,
-          "contentHash": "e5bf2071565c",
-          "introducedInOkapi": "0.38",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0"
-          ]
-        },
-        {
-          "schemaVersion": 2,
-          "contentHash": "fe61d698a32e",
-          "introducedInOkapi": "1.47.0",
-          "okapiVersions": [
-            "1.47.0"
-          ]
-        }
-      ]
-    },
     "okf_regex": {
       "versions": [
         {
@@ -794,34 +717,6 @@
             "1.44.0",
             "1.45.0",
             "1.46.0",
-            "1.47.0"
-          ]
-        }
-      ]
-    },
-    "okf_wsxz": {
-      "versions": [
-        {
-          "schemaVersion": 1,
-          "contentHash": "af24fa8f3a44",
-          "introducedInOkapi": "0.38",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0"
-          ]
-        },
-        {
-          "schemaVersion": 2,
-          "contentHash": "aeeef791991c",
-          "introducedInOkapi": "1.47.0",
-          "okapiVersions": [
             "1.47.0"
           ]
         }
@@ -948,34 +843,6 @@
             "1.44.0",
             "1.45.0",
             "1.46.0",
-            "1.47.0"
-          ]
-        }
-      ]
-    },
-    "okf_vtt": {
-      "versions": [
-        {
-          "schemaVersion": 1,
-          "contentHash": "d9359948a243",
-          "introducedInOkapi": "0.38",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0"
-          ]
-        },
-        {
-          "schemaVersion": 2,
-          "contentHash": "e7d3318e5f2b",
-          "introducedInOkapi": "1.47.0",
-          "okapiVersions": [
             "1.47.0"
           ]
         }
@@ -1149,27 +1016,6 @@
         }
       ]
     },
-    "okf_epub": {
-      "versions": [
-        {
-          "schemaVersion": 1,
-          "contentHash": "bf21379dc1e8",
-          "introducedInOkapi": "0.38",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0"
-          ]
-        }
-      ]
-    },
     "okf_tex": {
       "versions": [
         {
@@ -1206,6 +1052,85 @@
             "1.43.0",
             "1.44.0",
             "1.45.0",
+            "1.46.0",
+            "1.47.0"
+          ]
+        }
+      ]
+    },
+    "okf_wsxz": {
+      "versions": [
+        {
+          "schemaVersion": 1,
+          "contentHash": "aeeef791991c",
+          "introducedInOkapi": "1.45.0",
+          "okapiVersions": [
+            "1.45.0",
+            "1.46.0",
+            "1.47.0"
+          ]
+        }
+      ]
+    },
+    "okf_messageformat": {
+      "versions": [
+        {
+          "schemaVersion": 1,
+          "contentHash": "796c1ef537c6",
+          "introducedInOkapi": "1.46.0",
+          "okapiVersions": [
+            "1.46.0",
+            "1.47.0"
+          ]
+        }
+      ]
+    },
+    "okf_cascading": {
+      "versions": [
+        {
+          "schemaVersion": 1,
+          "contentHash": "9dead87ee9ff",
+          "introducedInOkapi": "1.46.0",
+          "okapiVersions": [
+            "1.46.0",
+            "1.47.0"
+          ]
+        }
+      ]
+    },
+    "okf_ttml": {
+      "versions": [
+        {
+          "schemaVersion": 1,
+          "contentHash": "fe61d698a32e",
+          "introducedInOkapi": "1.46.0",
+          "okapiVersions": [
+            "1.46.0",
+            "1.47.0"
+          ]
+        }
+      ]
+    },
+    "okf_vtt": {
+      "versions": [
+        {
+          "schemaVersion": 1,
+          "contentHash": "e7d3318e5f2b",
+          "introducedInOkapi": "1.46.0",
+          "okapiVersions": [
+            "1.46.0",
+            "1.47.0"
+          ]
+        }
+      ]
+    },
+    "okf_epub": {
+      "versions": [
+        {
+          "schemaVersion": 1,
+          "contentHash": "89dbaf005462",
+          "introducedInOkapi": "1.46.0",
+          "okapiVersions": [
             "1.46.0",
             "1.47.0"
           ]

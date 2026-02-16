@@ -17,13 +17,13 @@
     ]
   },
   "properties": {
-    "taggedConfig": {
-      "type": "object"
-    },
     "simplifierRules": {
       "type": "string",
       "description": "Simplifier rules for code type normalization",
       "x-widget": "simplifierRulesEditor"
+    },
+    "taggedConfig": {
+      "type": "object"
     },
     "editorTitle": {
       "type": "string",

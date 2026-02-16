@@ -11,19 +11,65 @@
     "extensions": [],
     "mimeTypes": []
   },
-  "properties": {},
+  "properties": {
+    "addPluralForms": {
+      "type": "boolean",
+      "default": false
+    },
+    "normalize": {
+      "type": "boolean",
+      "default": false
+    },
+    "prettyPrint": {
+      "type": "boolean",
+      "default": false
+    },
+    "codeFinderRules": {
+      "type": "object",
+      "description": "Inline code detection configuration",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "description": "List of regex patterns to detect inline codes",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern": {
+                "type": "string",
+                "description": "Regex pattern for inline code detection"
+              }
+            },
+            "required": [
+              "pattern"
+            ]
+          }
+        },
+        "sample": {
+          "type": "string",
+          "description": "Sample text to test patterns against"
+        },
+        "useAllRulesWhenTesting": {
+          "type": "boolean",
+          "default": true,
+          "description": "Test all rules together or individually"
+        }
+      },
+      "x-okapiFormat": "inlineCodeFinder"
+    },
+    "useCodeFinder": {
+      "type": "boolean",
+      "default": false
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
+    }
+  },
   "additionalProperties": false,
   "x-schemaVersion": 1,
   "x-okapiVersions": [
-    "0.38",
-    "1.39.0",
-    "1.40.0",
-    "1.41.0",
-    "1.42.0",
-    "1.43.0",
-    "1.44.0",
-    "1.45.0",
     "1.46.0"
   ],
-  "x-introducedInOkapi": "0.38"
+  "x-introducedInOkapi": "1.46.0"
 }

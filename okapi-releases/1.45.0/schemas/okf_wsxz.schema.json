@@ -13,18 +13,37 @@
     ],
     "mimeTypes": []
   },
-  "properties": {},
+  "properties": {
+    "mimeType": {
+      "type": "string",
+      "default": "application/x-archive",
+      "title": "MIME type of the filter's container format",
+      "x-widget": "text"
+    },
+    "fileNames": {
+      "type": "string",
+      "default": "*.tmx,*.xlf,*.xlff",
+      "title": "File names",
+      "description": "Comma-delimited list of file names to be processed (wildcards are allowed) in the same order as configuration ids",
+      "x-widget": "text"
+    },
+    "configIds": {
+      "type": "string",
+      "default": "okf_tmx,okf_xliff,okf_xliff",
+      "title": "Filter configuration ids",
+      "description": "Comma-delimited list of configuration ids corresponding to the file names",
+      "x-widget": "text"
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
+    }
+  },
   "additionalProperties": false,
   "x-schemaVersion": 1,
   "x-okapiVersions": [
-    "0.38",
-    "1.39.0",
-    "1.40.0",
-    "1.41.0",
-    "1.42.0",
-    "1.43.0",
-    "1.44.0",
     "1.45.0"
   ],
-  "x-introducedInOkapi": "0.38"
+  "x-introducedInOkapi": "1.45.0"
 }

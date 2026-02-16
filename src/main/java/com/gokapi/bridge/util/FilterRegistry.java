@@ -43,7 +43,7 @@ public class FilterRegistry {
         ));
 
         register(new FilterInfo(
-                "net.sf.okapi.filters.its.xml.ITSFilter",
+                "net.sf.okapi.filters.its.ITSFilter",
                 "xml",
                 "XML (ITS)",
                 Arrays.asList("text/xml", "application/xml"),
@@ -100,7 +100,7 @@ public class FilterRegistry {
         ));
 
         register(new FilterInfo(
-                "net.sf.okapi.filters.epub.EPUBFilter",
+                "net.sf.okapi.filters.epub.EpubFilter",
                 "epub",
                 "EPUB",
                 Collections.singletonList("application/epub+zip"),
