@@ -75,5 +75,10 @@
       "x-widget": "checkbox"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "x-schemaVersion": 1,
+  "x-okapiVersions": [
+    "1.47.0"
+  ],
+  "x-introducedInOkapi": "1.47.0"
 }

@@ -9,7 +9,89 @@ permissions:
   contents: write
 
 jobs:
+  generate-schemas:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        okapi-version: ['1.43.0', '1.44.0', '1.45.0', '1.46.0', '1.47.0']
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+          cache: maven
+
+      - name: Generate schemas for Okapi ${{ matrix.okapi-version }}
+        run: |
+          # Build with specific Okapi version
+          mvn -B compile -Dokapi.version=${{ matrix.okapi-version }}
+          
+          # Generate schemas to a version-specific directory
+          mkdir -p schemas-${{ matrix.okapi-version }}
+          mvn -B exec:java@generate-schemas \
+            -Dexec.args="schemas-${{ matrix.okapi-version }}" \
+            -Dokapi.version=${{ matrix.okapi-version }}
+
+      - name: Upload schemas
+        uses: actions/upload-artifact@v4
+        with:
+          name: schemas-${{ matrix.okapi-version }}
+          path: schemas-${{ matrix.okapi-version }}/
+
+  version-schemas:
+    needs: generate-schemas
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+          cache: maven
+
+      - name: Download all schema artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-schemas
+
+      - name: Build versioner
+        run: mvn -B compile -Dokapi.version=1.47.0
+
+      - name: Version schemas across Okapi releases
+        run: |
+          # Start with empty schemas directory
+          rm -rf schemas
+          mkdir -p schemas
+          
+          # Process each Okapi version in order (oldest to newest)
+          for version in 1.43.0 1.44.0 1.45.0 1.46.0 1.47.0; do
+            echo "=== Processing Okapi $version ==="
+            
+            # Copy schemas from this Okapi version
+            cp all-schemas/schemas-$version/*.schema.json schemas/
+            cp all-schemas/schemas-$version/meta.json schemas/ 2>/dev/null || true
+            
+            # Run versioner to update version tracking
+            mvn -B exec:java@version-schemas \
+              -Dexec.args="$version schemas" \
+              -Dokapi.version=1.47.0
+            
+            echo ""
+          done
+
+      - name: Upload versioned schemas
+        uses: actions/upload-artifact@v4
+        with:
+          name: versioned-schemas
+          path: schemas/
+
   build:
+    needs: version-schemas
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,6 +106,12 @@ jobs:
           java-version: '11'
           cache: maven
 
+      - name: Download versioned schemas
+        uses: actions/download-artifact@v4
+        with:
+          name: versioned-schemas
+          path: schemas
+
       - name: Build with Okapi ${{ matrix.okapi-version }}
         run: mvn -B package -Dokapi.version=${{ matrix.okapi-version }}
 
@@ -31,11 +119,18 @@ jobs:
         run: |
           TAG="${GITHUB_REF_NAME}"
           OKAPI_VERSION="${{ matrix.okapi-version }}"
+          VERSION="${TAG#v}"
           ARCHIVE_NAME="okapi-bridge-${TAG}-okapi${OKAPI_VERSION}"
 
           mkdir -p staging
-          cp target/gokapi-bridge-1.0.0-jar-with-dependencies.jar staging/gokapi-bridge-jar-with-dependencies.jar
+          cp target/gokapi-bridge-${VERSION}-jar-with-dependencies.jar staging/gokapi-bridge-jar-with-dependencies.jar
           cp okapi.bridge.json staging/
+          
+          # Include versioned schemas
+          mkdir -p staging/schemas
+          cp schemas/*.schema.json staging/schemas/
+          cp schemas/schema-versions.json staging/schemas/ 2>/dev/null || true
+          cp schemas/meta.json staging/schemas/ 2>/dev/null || true
 
           cd staging
           tar czf "../${ARCHIVE_NAME}.tar.gz" .
@@ -46,8 +141,8 @@ jobs:
       - name: Generate capabilities JSON
         if: matrix.okapi-version == '1.47.0'
         run: |
-          # Run the bridge JAR with list_filters to extract capability metadata.
-          java -jar target/gokapi-bridge-1.0.0-jar-with-dependencies.jar list_filters \
+          VERSION="${GITHUB_REF_NAME#v}"
+          java -jar target/gokapi-bridge-${VERSION}-jar-with-dependencies.jar list_filters \
             | jq '[.[] | {
                 type: "format",
                 name: .name,
