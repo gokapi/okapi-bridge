@@ -168,7 +168,7 @@ public class FilterRegistry {
         ));
 
         register(new FilterInfo(
-                "net.sf.okapi.filters.pdf.PDFFilter",
+                "net.sf.okapi.filters.pdf.PdfFilter",
                 "pdf",
                 "PDF",
                 Collections.singletonList("application/pdf"),
@@ -176,7 +176,7 @@ public class FilterRegistry {
         ));
 
         register(new FilterInfo(
-                "net.sf.okapi.filters.pensieve.PensieveTMXFilter",
+                "net.sf.okapi.filters.pensieve.PensieveFilter",
                 "pensieve",
                 "Pensieve TM",
                 Collections.emptyList(),
@@ -232,7 +232,7 @@ public class FilterRegistry {
         ));
 
         register(new FilterInfo(
-                "net.sf.okapi.filters.subtitles.SubRipFilter",
+                "net.sf.okapi.filters.vtt.VTTFilter",
                 "srt",
                 "SRT Subtitles",
                 Collections.emptyList(),
@@ -248,7 +248,7 @@ public class FilterRegistry {
         ));
 
         register(new FilterInfo(
-                "net.sf.okapi.filters.tex.LaTeXFilter",
+                "net.sf.okapi.filters.tex.TEXFilter",
                 "tex",
                 "LaTeX",
                 Collections.singletonList("application/x-latex"),
@@ -264,7 +264,7 @@ public class FilterRegistry {
         ));
 
         register(new FilterInfo(
-                "net.sf.okapi.filters.transtable.TranstableFilter",
+                "net.sf.okapi.filters.transtable.TransTableFilter",
                 "transtable",
                 "Translation Table",
                 Collections.emptyList(),
@@ -341,6 +341,64 @@ public class FilterRegistry {
                 "YAML",
                 Collections.emptyList(),
                 Arrays.asList(".yml", ".yaml")
+        ));
+
+        // Additional filters
+        register(new FilterInfo(
+                "net.sf.okapi.filters.messageformat.MessageFormatFilter",
+                "messageformat",
+                "ICU MessageFormat",
+                Collections.emptyList(),
+                Collections.emptyList()
+        ));
+
+        register(new FilterInfo(
+                "net.sf.okapi.filters.xini.XINIFilter",
+                "xini",
+                "XINI (Across)",
+                Collections.emptyList(),
+                Collections.singletonList(".xini")
+        ));
+
+        register(new FilterInfo(
+                "net.sf.okapi.filters.wsxzpackage.WsxzPackageFilter",
+                "wsxz",
+                "WSXZ (WorldServer)",
+                Collections.emptyList(),
+                Collections.singletonList(".wsxz")
+        ));
+
+        register(new FilterInfo(
+                "net.sf.okapi.filters.cascadingfilter.CascadingFilter",
+                "cascading",
+                "Cascading Filter",
+                Collections.emptyList(),
+                Collections.emptyList()
+        ));
+
+        register(new FilterInfo(
+                "net.sf.okapi.filters.multiparsers.MultiParsersFilter",
+                "multiparsers",
+                "Multi-Parsers Filter",
+                Collections.emptyList(),
+                Collections.emptyList()
+        ));
+
+        // Additional subtitle formats from subtitles module
+        register(new FilterInfo(
+                "net.sf.okapi.filters.vtt.VTTFilter",
+                "vtt",
+                "WebVTT Subtitles",
+                Collections.singletonList("text/vtt"),
+                Collections.singletonList(".vtt")
+        ));
+
+        register(new FilterInfo(
+                "net.sf.okapi.filters.ttml.TTMLFilter",
+                "ttml",
+                "TTML Subtitles",
+                Collections.singletonList("application/ttml+xml"),
+                Arrays.asList(".ttml", ".xml")
         ));
     }
 

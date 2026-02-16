@@ -240,6 +240,38 @@
             <version>${okapi.version}</version>
         </dependency>
 
+        <!-- Additional Okapi Filters -->
+        <dependency>
+            <groupId>net.sf.okapi.filters</groupId>
+            <artifactId>okapi-filter-messageformat</artifactId>
+            <version>${okapi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.okapi.filters</groupId>
+            <artifactId>okapi-filter-xini</artifactId>
+            <version>${okapi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.okapi.filters</groupId>
+            <artifactId>okapi-filter-wsxzpackage</artifactId>
+            <version>${okapi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.okapi.filters</groupId>
+            <artifactId>okapi-filter-cascadingfilter</artifactId>
+            <version>${okapi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.okapi.filters</groupId>
+            <artifactId>okapi-filter-multiparsers</artifactId>
+            <version>${okapi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.okapi.filters</groupId>
+            <artifactId>okapi-filter-abstractmarkup</artifactId>
+            <version>${okapi.version}</version>
+        </dependency>
+
         <!-- JSON -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
