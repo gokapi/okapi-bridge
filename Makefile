@@ -3,7 +3,7 @@
 
 SHELL := /bin/bash
 .PHONY: help list-upstream list-local add-release regenerate regenerate-all \
-        version-schemas build clean test
+        version-schemas build clean test generate-pom generate-all-poms
 
 # Configuration - derived from okapi-releases directory
 SUPPORTED_VERSIONS := $(shell ls -1 okapi-releases 2>/dev/null | sort -V)
@@ -23,6 +23,10 @@ help:
 	@echo "  make regenerate V=1.47.0  Regenerate schemas for one version"
 	@echo "  make regenerate-all       Regenerate schemas for all supported versions"
 	@echo "  make version-schemas      Recompute schema versions across all releases"
+	@echo ""
+	@echo "Dependencies:"
+	@echo "  make generate-pom V=1.47.0  Generate version-specific pom.xml"
+	@echo "  make generate-all-poms      Generate pom.xml for all versions"
 	@echo ""
 	@echo "Build:"
 	@echo "  make build V=1.47.0       Build JAR for specific Okapi version"
@@ -58,23 +62,28 @@ list-local:
 	@touch .compile-generator
 
 # Add a new Okapi release
-add-release: .compile-generator
+add-release:
 ifndef V
 	$(error V is required. Usage: make add-release V=1.48.0)
 endif
 	@echo "Adding Okapi release $(V)..."
 	@mkdir -p okapi-releases/$(V)/schemas
 	@mkdir -p okapi-releases/$(V)/overrides
-	@# Generate schemas
+	@# Discover available filters and generate version-specific pom.xml
+	@echo "Discovering available filters..."
+	@./scripts/generate-version-pom.sh $(V)
+	@# Compile with version-specific dependencies
+	@echo "Compiling with Okapi $(V) dependencies..."
+	@mvn -B -q compile -f okapi-releases/$(V)/pom.xml
+	@# Generate schemas using version-specific pom
 	@echo "Generating schemas for Okapi $(V)..."
-	@mvn -B -q dependency:resolve -Dokapi.version=$(V) 2>/dev/null || true
-	@mvn -B -q compile -Dokapi.version=$(V)
-	@mvn -B exec:java@generate-schemas -Dexec.args="okapi-releases/$(V)/schemas" -Dokapi.version=$(V)
+	@mvn -B exec:java@generate-schemas -Dexec.args="okapi-releases/$(V)/schemas" -f okapi-releases/$(V)/pom.xml
 	@# Create meta.json
 	@echo '{"okapiVersion":"$(V)","generatedAt":"'$$(date -u +%Y-%m-%dT%H:%M:%SZ)'","filterCount":'$$(ls -1 okapi-releases/$(V)/schemas/*.schema.json 2>/dev/null | wc -l | tr -d ' ')'}' \
 		| jq . > okapi-releases/$(V)/schemas/meta.json
-	@# Run versioner to assign schema versions
+	@# Run versioner to assign schema versions (uses latest for the versioner code)
 	@echo "Assigning schema versions..."
+	@mvn -B -q compile -Dokapi.version=$(LATEST_VERSION)
 	@mvn -B -q exec:java@version-schemas -Dexec.args="$(V) okapi-releases/$(V)/schemas $(VERSIONS_FILE)" -Dokapi.version=$(LATEST_VERSION)
 	@echo ""
 	@echo "Created okapi-releases/$(V)/ with $$(ls -1 okapi-releases/$(V)/schemas/*.schema.json | wc -l | tr -d ' ') schemas"
@@ -85,7 +94,7 @@ endif
 	@echo "  3. Commit: git add okapi-releases/$(V) $(VERSIONS_FILE)"
 
 # Regenerate schemas for a single version
-regenerate: .compile-generator
+regenerate:
 ifndef V
 	$(error V is required. Usage: make regenerate V=1.47.0)
 endif
@@ -95,17 +104,39 @@ endif
 	fi
 	@echo "Regenerating schemas for Okapi $(V)..."
 	@rm -f okapi-releases/$(V)/schemas/*.schema.json
-	@mvn -B -q dependency:resolve -Dokapi.version=$(V) 2>/dev/null || true
-	@mvn -B -q compile -Dokapi.version=$(V)
-	@mvn -B exec:java@generate-schemas -Dexec.args="okapi-releases/$(V)/schemas" -Dokapi.version=$(V)
+	@# Use version-specific pom if available, otherwise generate it
+	@if [ ! -f "okapi-releases/$(V)/pom.xml" ]; then \
+		echo "Generating pom.xml for Okapi $(V)..."; \
+		./scripts/generate-version-pom.sh $(V); \
+	fi
+	@mvn -B -q compile -f okapi-releases/$(V)/pom.xml
+	@mvn -B exec:java@generate-schemas -Dexec.args="okapi-releases/$(V)/schemas" -f okapi-releases/$(V)/pom.xml
 	@echo '{"okapiVersion":"$(V)","generatedAt":"'$$(date -u +%Y-%m-%dT%H:%M:%SZ)'","filterCount":'$$(ls -1 okapi-releases/$(V)/schemas/*.schema.json 2>/dev/null | wc -l | tr -d ' ')'}' \
 		| jq . > okapi-releases/$(V)/schemas/meta.json
 	@echo "Regenerated $$(ls -1 okapi-releases/$(V)/schemas/*.schema.json | wc -l | tr -d ' ') schemas"
 	@echo ""
 	@echo "Run 'make version-schemas' to update schema versions"
 
+# Generate pom.xml for a version (for existing versions without pom.xml)
+generate-pom:
+ifndef V
+	$(error V is required. Usage: make generate-pom V=1.47.0)
+endif
+	@./scripts/generate-version-pom.sh $(V)
+
+# Generate pom.xml files for all versions
+generate-all-poms:
+	@echo "Generating pom.xml for all supported versions..."
+	@for version in $(SUPPORTED_VERSIONS); do \
+		if [ ! -f "okapi-releases/$$version/pom.xml" ]; then \
+			./scripts/generate-version-pom.sh $$version; \
+		else \
+			echo "okapi-releases/$$version/pom.xml already exists"; \
+		fi; \
+	done
+
 # Regenerate schemas for all supported versions
-regenerate-all: .compile-generator
+regenerate-all:
 	@echo "Regenerating schemas for all supported versions..."
 	@for version in $(SUPPORTED_VERSIONS); do \
 		echo ""; \
