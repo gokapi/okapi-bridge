@@ -39,8 +39,14 @@ jobs:
           java-version: '11'
           cache: maven
 
+      - name: Generate version pom if missing
+        run: |
+          if [ ! -f "okapi-releases/${{ matrix.okapi-version }}/pom.xml" ]; then
+            ./scripts/generate-version-pom.sh ${{ matrix.okapi-version }}
+          fi
+
       - name: Build with Okapi ${{ matrix.okapi-version }}
-        run: mvn -B package -Dokapi.version=${{ matrix.okapi-version }}
+        run: mvn -B package -f okapi-releases/${{ matrix.okapi-version }}/pom.xml
 
       - name: Package release archive
         run: |
@@ -50,7 +56,7 @@ jobs:
           ARCHIVE_NAME="okapi-bridge-${TAG}-okapi${OKAPI_VERSION}"
 
           mkdir -p staging/schemas
-          cp target/gokapi-bridge-${VERSION}-jar-with-dependencies.jar staging/gokapi-bridge-jar-with-dependencies.jar
+          cp okapi-releases/${OKAPI_VERSION}/target/gokapi-bridge-${VERSION}-jar-with-dependencies.jar staging/gokapi-bridge-jar-with-dependencies.jar
           cp okapi.bridge.json staging/
           
           # Include schemas from version-specific directory
@@ -66,9 +72,10 @@ jobs:
       - name: Generate capabilities JSON
         if: matrix.okapi-version == needs.setup.outputs.latest
         run: |
+          OKAPI_VERSION="${{ matrix.okapi-version }}"
           VERSION="${GITHUB_REF_NAME#v}"
           # Send list_filters command via stdin, parse JSON response (skip ready message)
-          echo '{"command":"list_filters"}' | java -jar target/gokapi-bridge-${VERSION}-jar-with-dependencies.jar 2>/dev/null \
+          echo '{"command":"list_filters"}' | java -jar okapi-releases/${OKAPI_VERSION}/target/gokapi-bridge-${VERSION}-jar-with-dependencies.jar 2>/dev/null \
             | tail -1 \
             | jq '.data.filters | [.[] | {
                 type: "format",

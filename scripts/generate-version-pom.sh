@@ -178,6 +178,29 @@ cat >> "$OUTPUT_FILE" << 'EOF'
     <build>
         <sourceDirectory>../../src/main/java</sourceDirectory>
         <plugins>
+            <!-- Shade plugin for creating fat JAR with all dependencies -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>com.gokapi.bridge.OkapiBridgeServer</mainClass>
+                                </transformer>
+                            </transformers>
+                            <finalName>gokapi-bridge-${project.version}-jar-with-dependencies</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Exec plugin for schema generation -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
