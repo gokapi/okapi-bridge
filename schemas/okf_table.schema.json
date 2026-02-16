@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_table.schema.json",
+  "$version": "1.0.0",
+  "title": "Table (CSV/TSV) Filter",
+  "description": "Configuration for the Okapi Table (CSV/TSV) Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_table",
+    "class": "net.sf.okapi.filters.table.TableFilter",
+    "extensions": [
+      ".csv",
+      ".tsv"
+    ],
+    "mimeTypes": [
+      "text/csv",
+      "text/tab-separated-values"
+    ]
+  },
+  "properties": {},
+  "additionalProperties": false
+}

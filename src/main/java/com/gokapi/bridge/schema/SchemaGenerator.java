@@ -77,20 +77,21 @@ public class SchemaGenerator {
         for (FilterInfo info : filters) {
             try {
                 JsonObject schema = generateSchema(info);
-                if (schema != null) {
-                    String filterId = "okf_" + info.getName();
-                    String filename = filterId + ".schema.json";
-                    File outputFile = new File(dir, filename);
-                    
-                    try (FileWriter writer = new FileWriter(outputFile, StandardCharsets.UTF_8)) {
-                        GSON.toJson(schema, writer);
-                    }
-                    
-                    System.out.println("✓ " + filterId + " → " + filename);
-                    successCount++;
-                } else {
-                    System.out.println("⚠ " + info.getName() + " → skipped (no parameters)");
+                String filterId = "okf_" + info.getName();
+                String filename = filterId + ".schema.json";
+                File outputFile = new File(dir, filename);
+                
+                try (FileWriter writer = new FileWriter(outputFile, StandardCharsets.UTF_8)) {
+                    GSON.toJson(schema, writer);
                 }
+                
+                int paramCount = schema.getAsJsonObject("properties").size();
+                if (paramCount > 0) {
+                    System.out.println("✓ " + filterId + " → " + filename + " (" + paramCount + " params)");
+                } else {
+                    System.out.println("✓ " + filterId + " → " + filename + " (no params)");
+                }
+                successCount++;
             } catch (Exception e) {
                 System.err.println("✗ " + info.getName() + " → " + e.getMessage());
                 failCount++;
@@ -105,16 +106,11 @@ public class SchemaGenerator {
 
     /**
      * Generate a JSON Schema for a single filter.
+     * Always returns a schema, even for filters with no parameters.
      */
     public JsonObject generateSchema(FilterInfo info) {
         String filterClass = info.getFilterClass();
         String filterId = "okf_" + info.getName();
-
-        // Introspect the filter's Parameters class
-        Map<String, ParameterIntrospector.ParamInfo> params = introspector.introspect(filterClass);
-        if (params == null || params.isEmpty()) {
-            return null;
-        }
 
         // Build base schema
         JsonObject schema = new JsonObject();
@@ -133,15 +129,20 @@ public class SchemaGenerator {
         filterMeta.add("mimeTypes", GSON.toJsonTree(info.getMimeTypes()));
         schema.add("x-filter", filterMeta);
 
-        // Build properties
+        // Introspect the filter's Parameters class
+        Map<String, ParameterIntrospector.ParamInfo> params = introspector.introspect(filterClass);
+
+        // Build properties (may be empty)
         JsonObject properties = new JsonObject();
-        for (Map.Entry<String, ParameterIntrospector.ParamInfo> entry : params.entrySet()) {
-            String paramName = entry.getKey();
-            ParameterIntrospector.ParamInfo paramInfo = entry.getValue();
-            
-            JsonObject propSchema = transformer.transformParameter(paramName, paramInfo);
-            if (propSchema != null) {
-                properties.add(paramName, propSchema);
+        if (params != null) {
+            for (Map.Entry<String, ParameterIntrospector.ParamInfo> entry : params.entrySet()) {
+                String paramName = entry.getKey();
+                ParameterIntrospector.ParamInfo paramInfo = entry.getValue();
+                
+                JsonObject propSchema = transformer.transformParameter(paramName, paramInfo);
+                if (propSchema != null) {
+                    properties.add(paramName, propSchema);
+                }
             }
         }
         schema.add("properties", properties);

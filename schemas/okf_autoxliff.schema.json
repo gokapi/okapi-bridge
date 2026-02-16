@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_autoxliff.schema.json",
+  "$version": "1.0.0",
+  "title": "Auto-detect XLIFF version Filter",
+  "description": "Configuration for the Okapi Auto-detect XLIFF version Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_autoxliff",
+    "class": "net.sf.okapi.filters.autoxliff.AutoXLIFFFilter",
+    "extensions": [
+      ".xlf",
+      ".xliff"
+    ],
+    "mimeTypes": [
+      "application/xliff+xml"
+    ]
+  },
+  "properties": {},
+  "additionalProperties": false
+}
