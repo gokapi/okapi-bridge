@@ -9,9 +9,7 @@ permissions:
   contents: write
 
 env:
-  # Okapi versions to build binary releases for
-  # Schema version history is pre-computed and committed in schemas/
-  OKAPI_BUILD_VERSIONS: '1.46.0 1.47.0'
+  # All 10 Okapi versions we build binaries for
   OKAPI_LATEST: '1.47.0'
 
 jobs:
@@ -19,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        okapi-version: ['1.46.0', '1.47.0']
+        okapi-version: ['0.38', '1.39.0', '1.40.0', '1.41.0', '1.42.0', '1.43.0', '1.44.0', '1.45.0', '1.46.0', '1.47.0']
     steps:
       - uses: actions/checkout@v4
 
@@ -121,55 +119,52 @@ jobs:
       - name: Update plugins.json
         run: |
           TAG="${GITHUB_REF_NAME}"
-          cd registry
-
-          # Read checksums
-          CHECKSUM_147=$(cat ../artifacts/okapi-bridge-${TAG}-okapi1.47.0.tar.gz.sha256 | awk '{print $1}')
-          CHECKSUM_146=$(cat ../artifacts/okapi-bridge-${TAG}-okapi1.46.0.tar.gz.sha256 | awk '{print $1}')
-
           VERSION="${TAG#v}"
           BASE_URL="https://github.com/gokapi/okapi-bridge/releases/download/${TAG}"
-
+          
           # Read capabilities generated from the bridge JAR
-          CAPABILITIES=$(cat ../artifacts/capabilities.json)
-
-          # Generate plugins.json with capabilities from list_filters output
-          jq -n \
-            --arg version "$VERSION" \
-            --arg checksum_147 "$CHECKSUM_147" \
-            --arg checksum_146 "$CHECKSUM_146" \
-            --arg url_147 "${BASE_URL}/okapi-bridge-${TAG}-okapi1.47.0.tar.gz" \
-            --arg url_146 "${BASE_URL}/okapi-bridge-${TAG}-okapi1.46.0.tar.gz" \
-            --argjson capabilities "$CAPABILITIES" \
-            '{
-              version: 1,
-              plugins: [
-                {
-                  name: "okapi-bridge",
-                  version: $version,
-                  description: "Okapi Framework bridge — 40+ document format filters (Okapi 1.47.0)",
-                  plugin_type: "bridge",
-                  install_type: "bridge",
-                  platform: "",
-                  checksum: $checksum_147,
-                  download_url: $url_147,
-                  min_host_version: "0.1.0",
-                  capabilities: $capabilities
-                },
-                {
-                  name: "okapi-bridge-1.46",
-                  version: $version,
-                  description: "Okapi Framework bridge — 40+ document format filters (Okapi 1.46.0)",
-                  plugin_type: "bridge",
-                  install_type: "bridge",
-                  platform: "",
-                  checksum: $checksum_146,
-                  download_url: $url_146,
-                  min_host_version: "0.1.0",
-                  capabilities: $capabilities
-                }
-              ]
-            }' > plugins.json
+          CAPABILITIES=$(cat artifacts/capabilities.json)
+          
+          # Build plugins array dynamically for all 10 versions
+          cd registry
+          
+          # Start with empty plugins array
+          echo '{"version":1,"plugins":[]}' > plugins.json
+          
+          # Add each Okapi version as a plugin entry
+          for okapi_version in 0.38 1.39.0 1.40.0 1.41.0 1.42.0 1.43.0 1.44.0 1.45.0 1.46.0 1.47.0; do
+            CHECKSUM=$(cat ../artifacts/okapi-bridge-${TAG}-okapi${okapi_version}.tar.gz.sha256 | awk '{print $1}')
+            URL="${BASE_URL}/okapi-bridge-${TAG}-okapi${okapi_version}.tar.gz"
+            
+            # Determine plugin name (latest gets "okapi-bridge", others get version suffix)
+            if [ "$okapi_version" = "1.47.0" ]; then
+              PLUGIN_NAME="okapi-bridge"
+              DESCRIPTION="Okapi Framework bridge — 40+ document format filters (Okapi ${okapi_version}, latest)"
+            else
+              PLUGIN_NAME="okapi-bridge-${okapi_version}"
+              DESCRIPTION="Okapi Framework bridge — 40+ document format filters (Okapi ${okapi_version})"
+            fi
+            
+            # Add plugin entry
+            jq --arg name "$PLUGIN_NAME" \
+               --arg version "$VERSION" \
+               --arg desc "$DESCRIPTION" \
+               --arg checksum "$CHECKSUM" \
+               --arg url "$URL" \
+               --argjson capabilities "$CAPABILITIES" \
+               '.plugins += [{
+                 name: $name,
+                 version: $version,
+                 description: $desc,
+                 plugin_type: "bridge",
+                 install_type: "bridge",
+                 platform: "",
+                 checksum: $checksum,
+                 download_url: $url,
+                 min_host_version: "0.1.0",
+                 capabilities: $capabilities
+               }]' plugins.json > plugins.tmp && mv plugins.tmp plugins.json
+          done
 
       - name: Commit and push registry update
         run: |
