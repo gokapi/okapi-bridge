@@ -330,7 +330,7 @@ regenerate_composites() {
             fi
             
             # New composite version
-            ((composite_version++))
+            composite_version=$((composite_version + 1))
             local composite_output="$COMPOSITE_DIR/${filter}.v${composite_version}.schema.json"
             
             # Add version metadata
