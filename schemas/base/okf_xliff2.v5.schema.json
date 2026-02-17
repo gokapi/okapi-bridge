@@ -17,12 +17,14 @@
     "maxValidation": {
       "type": "boolean",
       "default": true,
-      "title": "Perform maximum validation when parsing"
+      "title": "Perform maximum validation when parsing",
+      "x-widget": "checkbox"
     },
     "useCodeFinder": {
       "type": "boolean",
       "default": false,
-      "title": "Has inline codes as defined below:"
+      "title": "Has inline codes as defined below:",
+      "x-widget": "checkbox"
     },
     "codeFinderRules": {
       "type": "object",
@@ -67,12 +69,14 @@
     "forceUniqueIds": {
       "type": "boolean",
       "default": false,
-      "title": "Ensure tag IDs are unique within units"
+      "title": "Ensure tag IDs are unique within units",
+      "x-widget": "checkbox"
     },
     "ignoreTagTypeMatch": {
       "type": "boolean",
       "default": false,
-      "title": "Ignore tag type mismatch between source and target"
+      "title": "Ignore tag type mismatch between source and target",
+      "x-widget": "checkbox"
     }
   },
   "additionalProperties": false

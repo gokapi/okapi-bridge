@@ -60,12 +60,14 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization"
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "c2ae3c0a6064",
-  "x-compositeHash": "c2ae3c0a6064"
+  "x-baseHash": "c4b0d572dae5",
+  "x-compositeHash": "c4b0d572dae5",
+  "x-introducedInOkapi": "0.38"
 }

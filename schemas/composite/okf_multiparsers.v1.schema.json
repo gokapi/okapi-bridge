@@ -18,6 +18,7 @@
       "type": "string",
       "default": "",
       "title": "Comma-separated list of the colums not to extract (first=0)",
+      "x-widget": "text",
       "x-enabledBy": {
         "parameter": "csvAutoDetectColumnTypes",
         "enabledWhenSelected": false
@@ -27,6 +28,7 @@
       "type": "string",
       "default": "",
       "title": "Comma-separated list of the colums with non-plain-text content (e.g. '3:okf_markdown', first=0)",
+      "x-widget": "text",
       "x-enabledBy": {
         "parameter": "csvAutoDetectColumnTypes",
         "enabledWhenSelected": false
@@ -38,6 +40,7 @@
       "title": "Row at which the extraction starts (first=1)",
       "minimum": 1,
       "maximum": 9999999,
+      "x-widget": "spin",
       "x-enabledBy": {
         "parameter": "csvAutoDetectColumnTypes",
         "enabledWhenSelected": false
@@ -46,7 +49,8 @@
     "csvAutoDetectColumnTypes": {
       "type": "boolean",
       "default": false,
-      "title": "Use auto-detection (a special row in each input file)"
+      "title": "Use auto-detection (a special row in each input file)",
+      "x-widget": "checkbox"
     },
     "csvAutoDetectColumnTypesRow": {
       "type": "integer",
@@ -54,6 +58,7 @@
       "title": "Row at which the special configuration information is (first=1)",
       "minimum": 1,
       "maximum": 9999999,
+      "x-widget": "spin",
       "x-enabledBy": {
         "parameter": "csvAutoDetectColumnTypes",
         "enabledWhenSelected": true
@@ -63,6 +68,7 @@
   "additionalProperties": false,
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "c1c354c441e2",
-  "x-compositeHash": "c1c354c441e2"
+  "x-baseHash": "88224234e5d8",
+  "x-compositeHash": "88224234e5d8",
+  "x-introducedInOkapi": "0.38"
 }

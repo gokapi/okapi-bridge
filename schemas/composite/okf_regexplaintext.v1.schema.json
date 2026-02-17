@@ -20,12 +20,14 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization"
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "63ebd7fb7eb2",
-  "x-compositeHash": "63ebd7fb7eb2"
+  "x-baseHash": "2428619c01d6",
+  "x-compositeHash": "2428619c01d6",
+  "x-introducedInOkapi": "0.38"
 }

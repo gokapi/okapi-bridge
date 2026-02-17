@@ -1,0 +1,415 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-02-17T06:27:14.394299Z",
+  "filterCount": 52,
+  "filters": {
+    "okf_archive": {
+      "class": "net.sf.okapi.filters.archive.ArchiveFilter",
+      "displayName": "Archive Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-archive"
+      ]
+    },
+    "okf_autoxliff": {
+      "class": "net.sf.okapi.filters.autoxliff.AutoXLIFFFilter",
+      "displayName": "XLIFF 1.2 and 2.0 Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-xliff+xml"
+      ]
+    },
+    "okf_doxygen": {
+      "class": "net.sf.okapi.filters.doxygen.DoxygenFilter",
+      "displayName": "Doxygen Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-doxygen-txt"
+      ]
+    },
+    "okf_dtd": {
+      "class": "net.sf.okapi.filters.dtd.DTDFilter",
+      "displayName": "DTD Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/xml+dtd"
+      ]
+    },
+    "okf_html": {
+      "class": "net.sf.okapi.filters.html.HtmlFilter",
+      "displayName": "HTML/XHTML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/html"
+      ]
+    },
+    "okf_icml": {
+      "class": "net.sf.okapi.filters.icml.ICMLFilter",
+      "displayName": "ICML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-icml+xml"
+      ]
+    },
+    "okf_idml": {
+      "class": "net.sf.okapi.filters.idml.IDMLFilter",
+      "displayName": "IDML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/vnd.adobe.indesign-idml-package"
+      ]
+    },
+    "okf_html5": {
+      "class": "net.sf.okapi.filters.its.html5.HTML5Filter",
+      "displayName": "HTML5-ITS Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/html"
+      ]
+    },
+    "okf_json": {
+      "class": "net.sf.okapi.filters.json.JSONFilter",
+      "displayName": "Json Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/json"
+      ]
+    },
+    "okf_markdown": {
+      "class": "net.sf.okapi.filters.markdown.MarkdownFilter",
+      "displayName": "Markdown Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-markdown"
+      ]
+    },
+    "okf_mif": {
+      "class": "net.sf.okapi.filters.mif.MIFFilter",
+      "displayName": "MIF Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/vnd.mif"
+      ]
+    },
+    "okf_mosestext": {
+      "class": "net.sf.okapi.filters.mosestext.MosesTextFilter",
+      "displayName": "Moses Text Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-mosestext"
+      ]
+    },
+    "okf_multiparsers": {
+      "class": "net.sf.okapi.filters.multiparsers.MultiParsersFilter",
+      "displayName": "Multi-Parsers Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-multiparsers"
+      ]
+    },
+    "okf_odf": {
+      "class": "net.sf.okapi.filters.openoffice.ODFFilter",
+      "displayName": "ODF-Content Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-odf"
+      ]
+    },
+    "okf_openoffice": {
+      "class": "net.sf.okapi.filters.openoffice.OpenOfficeFilter",
+      "displayName": "OpenOffice.org Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-openoffice"
+      ]
+    },
+    "okf_openxml": {
+      "class": "net.sf.okapi.filters.openxml.OpenXMLFilter",
+      "displayName": "OpenXML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/xml"
+      ]
+    },
+    "okf_pdf": {
+      "class": "net.sf.okapi.filters.pdf.PdfFilter",
+      "displayName": "PDF Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/pdf"
+      ]
+    },
+    "okf_pensieve": {
+      "class": "net.sf.okapi.filters.pensieve.PensieveFilter",
+      "displayName": "Pensieve TM Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-pensieve-tm"
+      ]
+    },
+    "okf_phpcontent": {
+      "class": "net.sf.okapi.filters.php.PHPContentFilter",
+      "displayName": "PHP Content Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-php"
+      ]
+    },
+    "okf_plaintext": {
+      "class": "net.sf.okapi.filters.plaintext.PlainTextFilter",
+      "displayName": "Plain Text Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ]
+    },
+    "okf_baseplaintext": {
+      "class": "net.sf.okapi.filters.plaintext.base.BasePlainTextFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ]
+    },
+    "okf_paraplaintext": {
+      "class": "net.sf.okapi.filters.plaintext.paragraphs.ParaPlainTextFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ]
+    },
+    "okf_regexplaintext": {
+      "class": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter",
+      "displayName": "okf_plaintext_regex",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ]
+    },
+    "okf_splicedlines": {
+      "class": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ]
+    },
+    "okf_po": {
+      "class": "net.sf.okapi.filters.po.POFilter",
+      "displayName": "PO Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-gettext"
+      ]
+    },
+    "okf_properties": {
+      "class": "net.sf.okapi.filters.properties.PropertiesFilter",
+      "displayName": "Properties Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-properties"
+      ]
+    },
+    "okf_rainbowkit": {
+      "class": "net.sf.okapi.filters.rainbowkit.RainbowKitFilter",
+      "displayName": "Rainbow Translation Kit Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-rainbowkit"
+      ]
+    },
+    "okf_xliff2": {
+      "class": "net.sf.okapi.filters.xliff2.XLIFF2Filter",
+      "displayName": "XLIFF-2 Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "application/xliff+xml"
+      ]
+    },
+    "okf_regex": {
+      "class": "net.sf.okapi.filters.regex.RegexFilter",
+      "displayName": "Regex Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-regex"
+      ]
+    },
+    "okf_rtf": {
+      "class": "net.sf.okapi.filters.rtf.RTFFilter",
+      "displayName": "Trados-Tagged RTF Filter - READING ONLY",
+      "extensions": [],
+      "mimeTypes": [
+        "application/rtf"
+      ]
+    },
+    "okf_sdlpackage": {
+      "class": "net.sf.okapi.filters.sdlpackage.SdlPackageFilter",
+      "displayName": "SDLPPX and SDLRPX Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-sdlpackage"
+      ]
+    },
+    "okf_table": {
+      "class": "net.sf.okapi.filters.table.TableFilter",
+      "displayName": "Table Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ]
+    },
+    "okf_basetable": {
+      "class": "net.sf.okapi.filters.table.base.BaseTableFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ]
+    },
+    "okf_commaseparatedvalues": {
+      "class": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ]
+    },
+    "okf_fixedwidthcolumns": {
+      "class": "net.sf.okapi.filters.table.fwc.FixedWidthColumnsFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ]
+    },
+    "okf_tabseparatedvalues": {
+      "class": "net.sf.okapi.filters.table.tsv.TabSeparatedValuesFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ]
+    },
+    "okf_tex": {
+      "class": "net.sf.okapi.filters.tex.TEXFilter",
+      "displayName": "TEX Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-tex-text"
+      ]
+    },
+    "okf_tmx": {
+      "class": "net.sf.okapi.filters.tmx.TmxFilter",
+      "displayName": "TMX Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-tmx+xml"
+      ]
+    },
+    "okf_transifex": {
+      "class": "net.sf.okapi.filters.transifex.TransifexFilter",
+      "displayName": "Transifex Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-transifex"
+      ]
+    },
+    "okf_transtable": {
+      "class": "net.sf.okapi.filters.transtable.TransTableFilter",
+      "displayName": "TransTable Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-transtable"
+      ]
+    },
+    "okf_ts": {
+      "class": "net.sf.okapi.filters.ts.TsFilter",
+      "displayName": "TS Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-ts"
+      ]
+    },
+    "okf_ttx": {
+      "class": "net.sf.okapi.filters.ttx.TTXFilter",
+      "displayName": "TTX Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-ttx+xml"
+      ]
+    },
+    "okf_txml": {
+      "class": "net.sf.okapi.filters.txml.TXMLFilter",
+      "displayName": "TXML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/xml"
+      ]
+    },
+    "okf_vignette": {
+      "class": "net.sf.okapi.filters.vignette.VignetteFilter",
+      "displayName": "Vignette Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/xml"
+      ]
+    },
+    "okf_wiki": {
+      "class": "net.sf.okapi.filters.wiki.WikiFilter",
+      "displayName": "Wiki Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-wiki-txt"
+      ]
+    },
+    "okf_xini": {
+      "class": "net.sf.okapi.filters.xini.XINIFilter",
+      "displayName": "XINI Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-xini"
+      ]
+    },
+    "okf_xinirainbowkit": {
+      "class": "net.sf.okapi.filters.xini.rainbowkit.XINIRainbowkitFilter",
+      "displayName": "XINI RainbowKit Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-xini"
+      ]
+    },
+    "okf_xliff": {
+      "class": "net.sf.okapi.filters.xliff.XLIFFFilter",
+      "displayName": "XLIFF Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-xliff+xml"
+      ]
+    },
+    "okf_xml": {
+      "class": "net.sf.okapi.filters.xml.XMLFilter",
+      "displayName": "XML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/xml"
+      ]
+    },
+    "okf_xmlstream": {
+      "class": "net.sf.okapi.filters.xmlstream.XmlStreamFilter",
+      "displayName": "XML Stream Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/xml"
+      ]
+    },
+    "okf_yaml": {
+      "class": "net.sf.okapi.filters.yaml.YamlFilter",
+      "displayName": "YAML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-yaml"
+      ]
+    }
+  }
+}

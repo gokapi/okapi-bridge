@@ -27,21 +27,25 @@
         "Auto-detect existing segments (If found: extract only those, otherwise extract all)",
         "Extract only existing segments",
         "Extract all (existing segments and un-segmented text parts)"
-      ]
+      ],
+      "x-widget": "select"
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization"
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     },
     "escapeGT": {
       "type": "boolean",
       "default": false,
-      "title": "Escape the greater-than characters in output"
+      "title": "Escape the greater-than characters in output",
+      "x-widget": "checkbox"
     }
   },
   "additionalProperties": false,
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "eafafbc30713",
-  "x-compositeHash": "eafafbc30713"
+  "x-baseHash": "90e36426044f",
+  "x-compositeHash": "90e36426044f",
+  "x-introducedInOkapi": "0.38"
 }

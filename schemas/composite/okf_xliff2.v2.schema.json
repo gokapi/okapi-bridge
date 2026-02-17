@@ -17,7 +17,8 @@
     "maxValidation": {
       "type": "boolean",
       "default": true,
-      "title": "Perform maximum validation when parsing"
+      "title": "Perform maximum validation when parsing",
+      "x-widget": "checkbox"
     },
     "mergeAsParagraph": {
       "type": "boolean",
@@ -117,6 +118,7 @@
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-baseHash": "0cd178a63f26",
-  "x-compositeHash": "2a25e7acf014"
+  "x-baseHash": "bc894229f5ac",
+  "x-compositeHash": "ba28672a4def",
+  "x-introducedInOkapi": "1.41.0"
 }

@@ -16,7 +16,8 @@
   "properties": {
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization"
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     },
     "path": {
       "type": "string"
@@ -25,6 +26,7 @@
   "additionalProperties": false,
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "84f532da82eb",
-  "x-compositeHash": "84f532da82eb"
+  "x-baseHash": "6466e25a2bd4",
+  "x-compositeHash": "6466e25a2bd4",
+  "x-introducedInOkapi": "0.38"
 }

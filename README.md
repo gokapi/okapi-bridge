@@ -75,8 +75,8 @@ The composite version increments when either the base schema OR the override cha
 ### Schema Statistics
 
 - **Total filters**: 57
-- **Total schema versions**: 185
-- **Filters with version changes**: 50
+- **Total schema versions**: 102
+- **Filters with version changes**: 23
 
 ### Schema Version Matrix
 
@@ -88,56 +88,29 @@ Only filters with multiple versions are shown (`-` = filter not available).
 
 | Filter | 0.38 | 1.39.0 | 1.40.0 | 1.41.0 | 1.42.0 | 1.43.0 | 1.44.0 | 1.45.0 | 1.46.0 | 1.47.0 |
 |--------|------|------|------|------|------|------|------|------|------|------|
-| `okf_archive` | - | - | - | - | - | - | - | - | - | - |
-| `okf_baseplaintext` | - | - | - | - | - | - | - | - | - | - |
-| `okf_basetable` | - | - | - | - | - | - | - | - | - | - |
-| `okf_commaseparatedvalues` | - | - | - | - | - | - | - | - | - | - |
-| `okf_doxygen` | - | - | - | - | - | - | - | - | - | - |
-| `okf_dtd` | - | - | - | - | - | - | - | - | - | - |
-| `okf_epub` | - | - | - | - | - | - | - | - | - | - |
-| `okf_fixedwidthcolumns` | - | - | - | - | - | - | - | - | - | - |
-| `okf_html` | - | - | - | - | - | - | - | - | - | - |
-| `okf_html5` | - | - | - | - | - | - | - | - | - | - |
-| `okf_icml` | - | - | - | - | - | - | - | - | - | - |
-| `okf_idml` | - | - | - | - | - | - | - | - | - | - |
-| `okf_json` | - | - | - | - | - | - | - | - | - | - |
-| `okf_markdown` | - | - | - | - | - | - | - | - | - | - |
-| `okf_messageformat` | - | - | - | - | - | - | - | - | - | - |
-| `okf_mif` | - | - | - | - | - | - | - | - | - | - |
-| `okf_multiparsers` | - | - | - | - | - | - | - | - | - | - |
-| `okf_odf` | - | - | - | - | - | - | - | - | - | - |
-| `okf_openoffice` | - | - | - | - | - | - | - | - | - | - |
-| `okf_openxml` | - | - | - | - | - | - | - | - | - | - |
-| `okf_paraplaintext` | - | - | - | - | - | - | - | - | - | - |
-| `okf_pdf` | - | - | - | - | - | - | - | - | - | - |
-| `okf_phpcontent` | - | - | - | - | - | - | - | - | - | - |
-| `okf_plaintext` | - | - | - | - | - | - | - | - | - | - |
-| `okf_po` | - | - | - | - | - | - | - | - | - | - |
-| `okf_properties` | - | - | - | - | - | - | - | - | - | - |
-| `okf_rainbowkit` | - | - | - | - | - | - | - | - | - | - |
-| `okf_regex` | - | - | - | - | - | - | - | - | - | - |
-| `okf_regexplaintext` | - | - | - | - | - | - | - | - | - | - |
-| `okf_sdlpackage` | - | - | - | - | - | - | - | - | - | - |
-| `okf_splicedlines` | - | - | - | - | - | - | - | - | - | - |
-| `okf_table` | - | - | - | - | - | - | - | - | - | - |
-| `okf_tabseparatedvalues` | - | - | - | - | - | - | - | - | - | - |
-| `okf_tex` | - | - | - | - | - | - | - | - | - | - |
-| `okf_tmx` | - | - | - | - | - | - | - | - | - | - |
-| `okf_transifex` | - | - | - | - | - | - | - | - | - | - |
-| `okf_ts` | - | - | - | - | - | - | - | - | - | - |
-| `okf_ttml` | - | - | - | - | - | - | - | - | - | - |
-| `okf_ttx` | - | - | - | - | - | - | - | - | - | - |
-| `okf_txml` | - | - | - | - | - | - | - | - | - | - |
-| `okf_vignette` | - | - | - | - | - | - | - | - | - | - |
-| `okf_vtt` | - | - | - | - | - | - | - | - | - | - |
-| `okf_wiki` | - | - | - | - | - | - | - | - | - | - |
-| `okf_wsxzpackage` | - | - | - | - | - | - | - | - | - | - |
-| `okf_xini` | - | - | - | - | - | - | - | - | - | - |
-| `okf_xliff` | - | - | - | - | - | - | - | - | - | - |
-| `okf_xliff2` | - | - | - | - | - | - | - | - | - | - |
-| `okf_xml` | - | - | - | - | - | - | - | - | - | - |
-| `okf_xmlstream` | - | - | - | - | - | - | - | - | - | - |
-| `okf_yaml` | - | - | - | - | - | - | - | - | - | - |
+| `okf_archive` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_baseplaintext` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_basetable` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_commaseparatedvalues` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_fixedwidthcolumns` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_icml` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_idml` | v1 | v2 | v2 | v3 | v3 | v3 | v4 | v5 | v6 | v7 |
+| `okf_json` | v1 | v1 | v1 | v1 | v2 | v2 | v2 | v2 | v3 | v3 |
+| `okf_markdown` | v1 | v1 | v1 | v1 | v2 | v3 | v3 | v4 | v4 | v4 |
+| `okf_mif` | v1 | v2 | v3 | v4 | v4 | v4 | v4 | v4 | v4 | v4 |
+| `okf_odf` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_openoffice` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_openxml` | v1 | v1 | v1 | v2 | v2 | v3 | v3 | v4 | v5 | v6 |
+| `okf_paraplaintext` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_properties` | v1 | v1 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_regex` | v1 | v1 | v1 | v1 | v2 | v3 | v3 | v3 | v3 | v3 |
+| `okf_sdlpackage` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_splicedlines` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_tabseparatedvalues` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_tex` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_wsxzpackage` | - | - | - | - | - | - | - | v1 | v2 | v2 |
+| `okf_xliff` | v1 | v1 | v1 | v2 | v2 | v3 | v3 | v3 | v4 | v5 |
+| `okf_xliff2` | v1 | v1 | v1 | v2 | v2 | v3 | v3 | v4 | v5 | v6 |
 
 </details>
 <!-- SCHEMA_MATRIX_END -->

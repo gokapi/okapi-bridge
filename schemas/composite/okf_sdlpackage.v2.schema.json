@@ -17,28 +17,33 @@
     "mimeType": {
       "type": "string",
       "default": "application/x-archive",
-      "title": "MIME type of the filter's container format"
+      "title": "MIME type of the filter's container format",
+      "x-widget": "text"
     },
     "fileNames": {
       "type": "string",
       "default": "*.tmx,*.xlf,*.xlff",
       "title": "File names",
-      "description": "Comma-delimited list of file names to be processed (wildcards are allowed) in the same order as configuration ids"
+      "description": "Comma-delimited list of file names to be processed (wildcards are allowed) in the same order as configuration ids",
+      "x-widget": "text"
     },
     "configIds": {
       "type": "string",
       "default": "okf_tmx,okf_xliff,okf_xliff",
       "title": "Filter configuration ids",
-      "description": "Comma-delimited list of configuration ids corresponding to the file names"
+      "description": "Comma-delimited list of configuration ids corresponding to the file names",
+      "x-widget": "text"
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization"
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-baseHash": "6025140e540c",
-  "x-compositeHash": "6025140e540c"
+  "x-baseHash": "8077bc09257d",
+  "x-compositeHash": "8077bc09257d",
+  "x-introducedInOkapi": "1.46.0"
 }

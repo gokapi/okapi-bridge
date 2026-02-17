@@ -16,12 +16,14 @@
   "properties": {
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization"
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-baseHash": "ffa229539997",
-  "x-compositeHash": "ffa229539997"
+  "x-baseHash": "56301aed046f",
+  "x-compositeHash": "56301aed046f",
+  "x-introducedInOkapi": "1.46.0"
 }

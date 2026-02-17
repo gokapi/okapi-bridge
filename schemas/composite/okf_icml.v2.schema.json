@@ -17,17 +17,20 @@
     "extractNotes": {
       "type": "boolean",
       "default": false,
-      "title": "Extract notes"
+      "title": "Extract notes",
+      "x-widget": "checkbox"
     },
     "simplifyCodes": {
       "type": "boolean",
       "default": true,
-      "title": "Simplify inline codes when possible"
+      "title": "Simplify inline codes when possible",
+      "x-widget": "checkbox"
     },
     "extractMasterSpreads": {
       "type": "boolean",
       "default": true,
-      "title": "Extract master spreads"
+      "title": "Extract master spreads",
+      "x-widget": "checkbox"
     },
     "skipThreshold": {
       "type": "integer",
@@ -35,7 +38,8 @@
       "title": "Maximum spread size",
       "description": "Skip any spread larger than the given value (in Kbytes)",
       "minimum": 1,
-      "maximum": 32000
+      "maximum": 32000,
+      "x-widget": "spin"
     },
     "newTuOnBr": {
       "type": "boolean",
@@ -44,12 +48,14 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization"
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-baseHash": "3e6962e35eb2",
-  "x-compositeHash": "3e6962e35eb2"
+  "x-baseHash": "7d49f8f0e093",
+  "x-compositeHash": "7d49f8f0e093",
+  "x-introducedInOkapi": "1.46.0"
 }

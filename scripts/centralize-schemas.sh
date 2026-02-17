@@ -271,6 +271,7 @@ regenerate_all() {
 
 # Regenerate composites only (when overrides change)
 # Uses existing bases in schemas/base/ and re-merges with current overrides
+# Preserves okapiVersions and introducedInOkapi from existing entries (by baseHash)
 regenerate_composites() {
     echo "Regenerating composite schemas from existing bases..."
     
@@ -278,6 +279,18 @@ regenerate_composites() {
         echo "Error: No base schemas found. Run full regeneration first." >&2
         exit 1
     fi
+    
+    # Back up existing version data (okapiVersions, introducedInOkapi) keyed by filter+baseHash
+    local backup_file="/tmp/schema-versions-backup.json"
+    jq '
+        .filters | to_entries | map(
+            .key as $filter |
+            .value.versions | map({
+                key: "\($filter):\(.baseHash)",
+                value: {okapiVersions: .okapiVersions, introducedInOkapi: .introducedInOkapi}
+            })
+        ) | flatten | from_entries
+    ' "$VERSIONS_FILE" > "$backup_file"
     
     # Clear existing composites
     rm -f "$COMPOSITE_DIR"/*.schema.json
@@ -333,18 +346,26 @@ regenerate_composites() {
             composite_version=$((composite_version + 1))
             local composite_output="$COMPOSITE_DIR/${filter}.v${composite_version}.schema.json"
             
+            # Restore okapiVersions and introducedInOkapi from backup
+            local backup_key="${filter}:${base_hash}"
+            local okapi_versions
+            okapi_versions=$(jq -c --arg k "$backup_key" '.[$k].okapiVersions // []' "$backup_file")
+            local introduced_in
+            introduced_in=$(jq -r --arg k "$backup_key" '.[$k].introducedInOkapi // null' "$backup_file")
+            
             # Add version metadata
             jq --argjson v "$composite_version" \
                --argjson bv "$base_version" \
                --arg bh "$base_hash" \
-               --arg ch "$composite_hash" '
+               --arg ch "$composite_hash" \
+               --arg intro "$introduced_in" '
                 . + {
                     "$version": "\($v).0.0",
                     "x-schemaVersion": $v,
                     "x-baseVersion": $bv,
                     "x-baseHash": $bh,
                     "x-compositeHash": $ch
-                }
+                } + (if $intro != "null" then {"x-introducedInOkapi": $intro} else {} end)
             ' "$tmp_composite" > "$composite_output"
             
             rm -f "$tmp_composite"
@@ -360,20 +381,25 @@ regenerate_composites() {
                --argjson bv "$base_version" \
                --arg bh "$base_hash" \
                --argjson oh "$override_json" \
-               --arg ch "$composite_hash" '
+               --arg ch "$composite_hash" \
+               --argjson ov "$okapi_versions" \
+               --arg intro "$introduced_in" '
                 .filters[$f].versions += [{
                     version: $v,
                     baseVersion: $bv,
                     baseHash: $bh,
                     overrideHash: $oh,
                     compositeHash: $ch,
-                    okapiVersions: []
-                }]
+                    okapiVersions: $ov
+                } + (if $intro != "null" then {introducedInOkapi: $intro} else {} end)]
             ' "$VERSIONS_FILE" > "$VERSIONS_FILE.tmp" && mv "$VERSIONS_FILE.tmp" "$VERSIONS_FILE"
             
             echo "  + $filter base v$base_version -> composite v$composite_version"
         done
     done
+    
+    # Cleanup
+    rm -f "$backup_file"
     
     # Update timestamp
     update_timestamp

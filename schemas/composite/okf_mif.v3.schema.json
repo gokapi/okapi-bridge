@@ -88,12 +88,14 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization"
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
-  "x-baseHash": "b9bc9031cb6f",
-  "x-compositeHash": "b9bc9031cb6f"
+  "x-baseHash": "08d875cba92e",
+  "x-compositeHash": "08d875cba92e",
+  "x-introducedInOkapi": "1.40.0"
 }

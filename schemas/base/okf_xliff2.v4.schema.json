@@ -17,7 +17,8 @@
     "maxValidation": {
       "type": "boolean",
       "default": true,
-      "title": "Perform maximum validation when parsing"
+      "title": "Perform maximum validation when parsing",
+      "x-widget": "checkbox"
     },
     "useCodeFinder": {
       "type": "boolean",

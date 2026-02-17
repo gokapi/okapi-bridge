@@ -17,16 +17,19 @@
     "allowEmptyOutputTarget": {
       "type": "boolean",
       "default": true,
-      "title": "Allow empty target segments in output"
+      "title": "Allow empty target segments in output",
+      "x-widget": "checkbox"
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization"
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "7d06223d7036",
-  "x-compositeHash": "7d06223d7036"
+  "x-baseHash": "64cf2b2a1860",
+  "x-compositeHash": "64cf2b2a1860",
+  "x-introducedInOkapi": "0.38"
 }

@@ -17,7 +17,8 @@
     "maxValidation": {
       "type": "boolean",
       "default": true,
-      "title": "Perform maximum validation when parsing"
+      "title": "Perform maximum validation when parsing",
+      "x-widget": "checkbox"
     },
     "useCodeFinder": {
       "type": "boolean",
@@ -113,6 +114,7 @@
   ],
   "x-schemaVersion": 4,
   "x-baseVersion": 4,
-  "x-baseHash": "96c4b13f494d",
-  "x-compositeHash": "e2dab4b1dd39"
+  "x-baseHash": "39b43f6a8c82",
+  "x-compositeHash": "a1679a21afca",
+  "x-introducedInOkapi": "1.45.0"
 }

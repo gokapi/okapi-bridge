@@ -17,16 +17,19 @@
     "openProject": {
       "type": "boolean",
       "default": true,
-      "title": "Open the project file before processing"
+      "title": "Open the project file before processing",
+      "x-widget": "checkbox"
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization"
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "56393b246fae",
-  "x-compositeHash": "56393b246fae"
+  "x-baseHash": "165245046e7f",
+  "x-compositeHash": "165245046e7f",
+  "x-introducedInOkapi": "0.38"
 }
