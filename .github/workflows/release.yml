@@ -32,11 +32,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Java 11
+      - name: Determine Java version for Okapi ${{ matrix.okapi-version }}
+        id: java-version
+        run: |
+          # Always use Java 17 (LTS) - it can cross-compile to Java 11 target
+          echo "version=17" >> $GITHUB_OUTPUT
+
+      - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '11'
+          java-version: '17'
           cache: maven
 
       - name: Generate version pom if missing

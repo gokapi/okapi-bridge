@@ -226,16 +226,52 @@ A scheduled workflow runs daily to check Maven Central for new Okapi releases. I
 
 ### Prerequisites
 
-- Java 11+
+- Java 11+ (Java 17+ for Okapi 1.48.0 and later)
 - Maven 3.6+
 - jq (for Makefile targets)
 - curl (for filter discovery)
 
+### Java Version Requirements
+
+The project supports multiple Okapi versions with different Java requirements:
+
+| Okapi Version | Java Version |
+|---------------|--------------|
+| 0.38 - 1.47.0 | 11           |
+| 1.48.0+       | 17           |
+
+Each `okapi-releases/{version}/meta.json` contains the required Java version:
+```json
+{
+  "okapiVersion": "1.48.0",
+  "javaVersion": "17",
+  "generatedAt": "2026-02-17T10:00:00Z",
+  "filterCount": 56
+}
+```
+
+The CI/CD workflows and Makefile automatically select the correct Java version based on this metadata.
+
+### Project Structure
+
+```
+okapi-bridge/
+├── src/main/java/              # Main source (runtime + schema tools)
+├── bridge-runtime/             # Runtime module (Java 11+ base)
+├── tools/schema-generator/     # Schema generator (Java 17+, standalone)
+├── schemas/                    # Centralized schema storage
+├── okapi-releases/{version}/   # Per-version config with meta.json
+└── scripts/                    # Build automation scripts
+```
+
 ### Building
 
 ```bash
-# Build with version-specific dependencies
-mvn package -f okapi-releases/1.47.0/pom.xml
+# Build with version-specific dependencies (auto-selects Java version)
+make build V=1.48.0
+
+# Build schema generator tools (requires Java 17)
+make build-tools
 
 # Build root project (bridge runtime)
 mvn package

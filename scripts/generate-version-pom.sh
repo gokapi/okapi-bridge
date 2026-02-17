@@ -12,6 +12,17 @@ fi
 
 OUTPUT_DIR="okapi-releases/$VERSION"
 OUTPUT_FILE="$OUTPUT_DIR/pom.xml"
+META_FILE="$OUTPUT_DIR/meta.json"
+
+# Read Java version from meta.json if it exists, default to 11
+JAVA_VERSION="11"
+if [ -f "$META_FILE" ]; then
+    META_JAVA_VERSION=$(jq -r '.javaVersion // "11"' "$META_FILE" 2>/dev/null)
+    if [ -n "$META_JAVA_VERSION" ] && [ "$META_JAVA_VERSION" != "null" ]; then
+        JAVA_VERSION="$META_JAVA_VERSION"
+    fi
+fi
+echo "Java version for Okapi $VERSION: $JAVA_VERSION"
 
 # Known filter artifact IDs to check
 KNOWN_FILTERS=(
@@ -129,8 +140,8 @@ cat > "$OUTPUT_FILE" << EOF
     <name>Okapi Bridge - Okapi $VERSION</name>
 
     <properties>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>$JAVA_VERSION</maven.compiler.source>
+        <maven.compiler.target>$JAVA_VERSION</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <okapi.version>$VERSION</okapi.version>
         <gson.version>2.11.0</gson.version>

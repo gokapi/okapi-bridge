@@ -14,7 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: get-latest
-        run: echo "latest=$(ls -1 okapi-releases | sort -V | tail -1)" >> $GITHUB_OUTPUT
+        run: |
+          latest=$(ls -1 okapi-releases | sort -V | tail -1)
+          echo "latest=$latest" >> $GITHUB_OUTPUT
 
   build:
     needs: setup
@@ -22,15 +24,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Java 11
+      - name: Set up Java 17
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '11'
+          java-version: '17'
           cache: maven
 
       - name: Build with latest Okapi (${{ needs.setup.outputs.latest }})
-        run: mvn -B package -Dokapi.version=${{ needs.setup.outputs.latest }}
+        run: mvn -B package -f okapi-releases/${{ needs.setup.outputs.latest }}/pom.xml
 
       - name: Run tests
         run: mvn -B test -Dokapi.version=${{ needs.setup.outputs.latest }}
@@ -46,11 +48,11 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set up Java 11
+      - name: Set up Java 17 (for schema tools)
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '11'
+          java-version: '17'
           cache: maven
 
       - name: Regenerate composite schemas

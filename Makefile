@@ -1,10 +1,10 @@
 # Okapi Bridge Makefile
-# Manages schema generation across Okapi versions
+# Manages schema generation across Okapi versions with Java version separation
 
 SHELL := /bin/bash
 .PHONY: help list-upstream list-local add-release regenerate regenerate-all \
         version-schemas build clean test generate-pom generate-all-poms \
-        centralize regenerate-composites
+        centralize regenerate-composites build-runtime build-tools
 
 # Configuration - derived from okapi-releases directory
 SUPPORTED_VERSIONS := $(shell ls -1 okapi-releases 2>/dev/null | sort -V)
@@ -24,18 +24,15 @@ help:
 	@echo "  make regenerate-composites  Regenerate composites from base + overrides"
 	@echo "  make add-release V=1.48.0 Add new Okapi version"
 	@echo ""
-	@echo "Legacy Schema Management:"
-	@echo "  make regenerate V=1.47.0  Regenerate schemas for one version (legacy)"
-	@echo "  make regenerate-all       Regenerate schemas for all versions (legacy)"
+	@echo "Build:"
+	@echo "  make build V=1.47.0       Build JAR for specific Okapi version"
+	@echo "  make build-tools          Build schema generator tools (Java 17)"
+	@echo "  make test                 Run tests"
+	@echo "  make clean                Clean build artifacts"
 	@echo ""
 	@echo "Dependencies:"
 	@echo "  make generate-pom V=1.47.0  Generate version-specific pom.xml"
 	@echo "  make generate-all-poms      Generate pom.xml for all versions"
-	@echo ""
-	@echo "Build:"
-	@echo "  make build V=1.47.0       Build JAR for specific Okapi version"
-	@echo "  make test                 Run tests"
-	@echo "  make clean                Clean build artifacts"
 	@echo ""
 	@echo "Supported versions: $(SUPPORTED_VERSIONS)"
 	@echo "Latest version: $(LATEST_VERSION)"
@@ -195,18 +192,29 @@ version-schemas: .compile-generator
 # Build
 # ============================================================================
 
+# Build tools (schema generator, Java 17+)
+build-tools:
+	@echo "Building schema generator tools (Java 17)..."
+	@mvn -B -f tools/schema-generator/pom.xml compile
+
+# Build runtime JAR for a specific Okapi version
 build:
 ifndef V
 	$(error V is required. Usage: make build V=1.47.0)
 endif
 	@echo "Building okapi-bridge for Okapi $(V)..."
-	@mvn -B package -Dokapi.version=$(V) -DskipTests
+	@# Read Java version from meta.json
+	@java_version=$$(jq -r '.javaVersion // "11"' okapi-releases/$(V)/meta.json 2>/dev/null || echo "11"); \
+	echo "Using Java $$java_version for Okapi $(V)"; \
+	mvn -B package -f okapi-releases/$(V)/pom.xml -DskipTests
 
 test:
 	@mvn -B test -Dokapi.version=$(LATEST_VERSION)
 
 clean:
 	@mvn -B clean
+	@mvn -B -f tools/schema-generator/pom.xml clean 2>/dev/null || true
+	@mvn -B -f bridge-runtime/pom.xml clean 2>/dev/null || true
 	@rm -f .compile-generator
 
 # ============================================================================
