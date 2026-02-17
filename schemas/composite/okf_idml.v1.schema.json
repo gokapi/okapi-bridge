@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_idml.schema.json",
+  "$version": "1.0.0",
+  "title": "IDML Filter Filter",
+  "description": "Configuration for the Okapi IDML Filter Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_idml",
+    "class": "net.sf.okapi.filters.idml.IDMLFilter",
+    "extensions": [],
+    "mimeTypes": [
+      "application/vnd.adobe.indesign-idml-package"
+    ]
+  },
+  "properties": {
+    "maxAttributeSize": {
+      "type": "integer",
+      "default": 4194304
+    },
+    "untagXmlStructures": {
+      "type": "boolean",
+      "default": true,
+      "title": "Untag XML structures"
+    },
+    "extractNotes": {
+      "type": "boolean",
+      "default": false,
+      "title": "Extract notes"
+    },
+    "extractMasterSpreads": {
+      "type": "boolean",
+      "default": true,
+      "title": "Extract master spreads"
+    },
+    "extractHiddenLayers": {
+      "type": "boolean",
+      "default": false,
+      "title": "Extract hidden layers"
+    },
+    "skipDiscretionaryHyphens": {
+      "type": "boolean",
+      "default": false,
+      "title": "Skip discretionary hyphens"
+    },
+    "ignoreCharacterKerning": {
+      "type": "boolean",
+      "default": false,
+      "title": "Ignore character kerning"
+    },
+    "characterKerningMinIgnoranceThreshold": {
+      "type": "string",
+      "default": "",
+      "title": "Character kerning minimum ignorance threshold"
+    },
+    "characterKerningMaxIgnoranceThreshold": {
+      "type": "string",
+      "default": "",
+      "title": "Character kerning maximum ignorance threshold"
+    },
+    "ignoreCharacterTracking": {
+      "type": "boolean",
+      "default": false,
+      "title": "Ignore character tracking"
+    },
+    "characterTrackingMinIgnoranceThreshold": {
+      "type": "string",
+      "default": "",
+      "title": "Character tracking minimum ignorance threshold"
+    },
+    "characterTrackingMaxIgnoranceThreshold": {
+      "type": "string",
+      "default": "",
+      "title": "Character tracking maximum ignorance threshold"
+    },
+    "ignoreCharacterLeading": {
+      "type": "boolean",
+      "default": false,
+      "title": "Ignore character leading"
+    },
+    "characterLeadingMinIgnoranceThreshold": {
+      "type": "string",
+      "default": "",
+      "title": "Character leading minimum ignorance threshold"
+    },
+    "characterLeadingMaxIgnoranceThreshold": {
+      "type": "string",
+      "default": "",
+      "title": "Character leading maximum ignorance threshold"
+    },
+    "ignoreCharacterBaselineShift": {
+      "type": "boolean",
+      "default": false,
+      "title": "Ignore character baseline shift"
+    },
+    "characterBaselineShiftMinIgnoranceThreshold": {
+      "type": "string",
+      "default": "",
+      "title": "Character baseline shift minimum ignorance threshold"
+    },
+    "characterBaselineShiftMaxIgnoranceThreshold": {
+      "type": "string",
+      "default": "",
+      "title": "Character baseline shift maximum ignorance threshold"
+    }
+  },
+  "additionalProperties": false,
+  "x-schemaVersion": 1,
+  "x-introducedInOkapi": "0.38",
+  "x-okapiVersions": [
+    "0.38"
+  ],
+  "x-baseHash": "9eae236b7180",
+  "x-compositeHash": "9eae236b7180"
+}

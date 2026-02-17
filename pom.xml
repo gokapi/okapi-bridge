@@ -161,6 +161,15 @@
                             <mainClass>com.gokapi.bridge.schema.SchemaVersioner</mainClass>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>centralize-schemas</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass>com.gokapi.bridge.schema.CentralizedSchemaManager</mainClass>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
             <!-- Surefire for JUnit 5 -->

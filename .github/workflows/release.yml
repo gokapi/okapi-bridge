@@ -59,9 +59,11 @@ jobs:
           cp okapi-releases/${OKAPI_VERSION}/target/gokapi-bridge-${VERSION}-jar-with-dependencies.jar staging/gokapi-bridge-jar-with-dependencies.jar
           cp okapi.bridge.json staging/
           
-          # Include schemas from version-specific directory
-          cp okapi-releases/${OKAPI_VERSION}/schemas/*.schema.json staging/schemas/
-          cp okapi-releases/${OKAPI_VERSION}/schemas/meta.json staging/schemas/ 2>/dev/null || true
+          # Include composite schemas for this Okapi version from centralized location
+          for filter in $(jq -r ".filters | to_entries[] | select(.value.versions[] | .okapiVersions | index(\"${OKAPI_VERSION}\")) | .key" schema-versions.json); do
+            version=$(jq -r ".filters[\"${filter}\"].versions[] | select(.okapiVersions | index(\"${OKAPI_VERSION}\")) | .version" schema-versions.json)
+            cp "schemas/composite/${filter}.v${version}.schema.json" staging/schemas/
+          done
 
           cd staging
           tar czf "../${ARCHIVE_NAME}.tar.gz" .

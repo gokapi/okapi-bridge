@@ -34,3 +34,40 @@ jobs:
 
       - name: Run tests
         run: mvn -B test -Dokapi.version=${{ needs.setup.outputs.latest }}
+
+  regenerate-composites:
+    needs: setup
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Java 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+          cache: maven
+
+      - name: Regenerate composite schemas
+        run: |
+          mvn -B -q compile -Dokapi.version=${{ needs.setup.outputs.latest }}
+          mvn -B exec:java@centralize-schemas -Dexec.args="regenerate-composites" -Dokapi.version=${{ needs.setup.outputs.latest }}
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if [[ -n $(git status --porcelain schemas/ schema-versions.json) ]]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit regenerated files
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add schemas/ schema-versions.json
+          git commit -m "[ci] Regenerate composite schemas"
+          git push

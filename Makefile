@@ -3,7 +3,8 @@
 
 SHELL := /bin/bash
 .PHONY: help list-upstream list-local add-release regenerate regenerate-all \
-        version-schemas build clean test generate-pom generate-all-poms
+        version-schemas build clean test generate-pom generate-all-poms \
+        centralize regenerate-composites
 
 # Configuration - derived from okapi-releases directory
 SUPPORTED_VERSIONS := $(shell ls -1 okapi-releases 2>/dev/null | sort -V)
@@ -18,11 +19,14 @@ help:
 	@echo "  make list-upstream        Query Maven Central for available Okapi versions"
 	@echo "  make list-local           List local okapi-releases/ directories"
 	@echo ""
-	@echo "Schema Management:"
-	@echo "  make add-release V=1.48.0 Create structure for new Okapi version and generate schemas"
-	@echo "  make regenerate V=1.47.0  Regenerate schemas for one version"
-	@echo "  make regenerate-all       Regenerate schemas for all supported versions"
-	@echo "  make version-schemas      Recompute schema versions across all releases"
+	@echo "Schema Management (Centralized):"
+	@echo "  make centralize           Migrate to centralized schema structure"
+	@echo "  make regenerate-composites  Regenerate composites from base + overrides"
+	@echo "  make add-release V=1.48.0 Add new Okapi version"
+	@echo ""
+	@echo "Legacy Schema Management:"
+	@echo "  make regenerate V=1.47.0  Regenerate schemas for one version (legacy)"
+	@echo "  make regenerate-all       Regenerate schemas for all versions (legacy)"
 	@echo ""
 	@echo "Dependencies:"
 	@echo "  make generate-pom V=1.47.0  Generate version-specific pom.xml"
@@ -52,7 +56,21 @@ list-local:
 	@echo "Latest version: $(LATEST_VERSION)"
 
 # ============================================================================
-# Schema Management
+# Centralized Schema Management
+# ============================================================================
+
+# Migrate to centralized schema structure
+centralize: .compile-generator
+	@echo "Migrating to centralized schema structure..."
+	@mvn -B -q exec:java@centralize-schemas -Dexec.args="regenerate-all" -Dokapi.version=$(LATEST_VERSION)
+
+# Regenerate composite schemas from base + overrides
+regenerate-composites: .compile-generator
+	@echo "Regenerating composite schemas..."
+	@mvn -B -q exec:java@centralize-schemas -Dexec.args="regenerate-composites" -Dokapi.version=$(LATEST_VERSION)
+
+# ============================================================================
+# Legacy Schema Management
 # ============================================================================
 
 # Ensure schema generator is compiled

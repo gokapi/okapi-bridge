@@ -65,14 +65,21 @@ jobs:
           PREVIOUS_VERSION: ${{ steps.current.outputs.latest }}
         run: |
           echo "Adding Okapi $NEW_VERSION..."
-          make add-release V=$NEW_VERSION
           
-          # Copy overrides from previous version
-          if [ -d "okapi-releases/$PREVIOUS_VERSION/overrides" ]; then
-            cp okapi-releases/$PREVIOUS_VERSION/overrides/*.json \
-               okapi-releases/$NEW_VERSION/overrides/ 2>/dev/null || true
-            echo "Copied overrides from $PREVIOUS_VERSION"
-          fi
+          # Create version directory and generate pom
+          mkdir -p okapi-releases/$NEW_VERSION
+          ./scripts/generate-version-pom.sh $NEW_VERSION
+          
+          # Build with new version to generate legacy schemas first
+          mvn -B -q compile -f okapi-releases/$NEW_VERSION/pom.xml
+          mkdir -p okapi-releases/$NEW_VERSION/schemas
+          mvn -B exec:java@generate-schemas -Dexec.args="okapi-releases/$NEW_VERSION/schemas" -f okapi-releases/$NEW_VERSION/pom.xml
+          
+          # Now regenerate centralized schemas
+          mvn -B -q compile -Dokapi.version=$NEW_VERSION
+          mvn -B exec:java@centralize-schemas -Dexec.args="regenerate-all" -Dokapi.version=$NEW_VERSION
+          
+          echo "Added Okapi $NEW_VERSION with centralized schemas"
 
       - name: Create Pull Request
         if: steps.upstream.outputs.new_version != ''
@@ -85,14 +92,14 @@ jobs:
             A new Okapi Framework version has been released.
 
             ## Changes
-            - Added `okapi-releases/${{ steps.upstream.outputs.new_version }}/` with generated schemas
-            - Copied overrides from ${{ steps.current.outputs.latest }}
+            - Added `okapi-releases/${{ steps.upstream.outputs.new_version }}/pom.xml`
+            - Updated centralized schemas in `schemas/`
             - Updated `schema-versions.json`
 
             ## Checklist
             - [ ] Review generated schemas for any issues
             - [ ] Check if any new filters were added
-            - [ ] Verify overrides are still applicable
+            - [ ] Verify overrides are still applicable to new filters
 
             ---
             *This PR was automatically created by the nightly release check workflow.*
