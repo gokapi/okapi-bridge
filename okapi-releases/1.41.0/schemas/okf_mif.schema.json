@@ -19,7 +19,8 @@
         "description": "Adobe FrameMaker MIF documents",
         "mimeType": "application/vnd.mif",
         "extensions": ".mif;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.mif.MIFFilter"
       }
     ]
   },

@@ -19,7 +19,8 @@
         "description": "Extracts as one line the consecutive lines with a predefined splicer character at the end.",
         "mimeType": "text/plain",
         "parametersLocation": "okf_plaintext_spliced.fprm",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
       },
       {
         "configId": "okf_plaintext_spliced_backslash",
@@ -40,7 +41,8 @@
           "createPlaceholders": true,
           "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
       },
       {
         "configId": "okf_plaintext_spliced_underscore",
@@ -61,7 +63,8 @@
           "createPlaceholders": true,
           "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
       },
       {
         "configId": "okf_plaintext_spliced_custom",
@@ -82,7 +85,8 @@
           "createPlaceholders": true,
           "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
       }
     ]
   },

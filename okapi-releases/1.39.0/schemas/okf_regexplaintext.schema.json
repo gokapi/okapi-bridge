@@ -19,7 +19,8 @@
         "description": "Plain Text Filter using regex-based linebreak search. Detects a wider range of linebreaks at the price of lower speed and extra memory usage.",
         "mimeType": "text/plain",
         "parametersLocation": "okf_plaintext_regex.fprm",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter"
       },
       {
         "configId": "okf_plaintext_regex_lines",
@@ -42,7 +43,8 @@
           "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
           "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter"
       },
       {
         "configId": "okf_plaintext_regex_paragraphs",
@@ -65,7 +67,8 @@
           "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
           "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter"
       }
     ]
   },

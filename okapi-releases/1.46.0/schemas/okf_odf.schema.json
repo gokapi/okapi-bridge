@@ -18,7 +18,8 @@
         "name": "OpenDocument",
         "description": "XML OpenDocument files (e.g. use inside OpenOffice.org documents).",
         "mimeType": "text/x-odf",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.openoffice.ODFFilter"
       }
     ]
   },

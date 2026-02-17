@@ -18,7 +18,8 @@
         "name": "Versified Text",
         "description": "Versified Text Documents",
         "mimeType": "text/x-versified-txt",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.versifiedtxt.VersifiedTextFilter"
       }
     ]
   },

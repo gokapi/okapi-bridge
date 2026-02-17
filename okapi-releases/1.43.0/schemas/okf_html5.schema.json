@@ -34,18 +34,19 @@
           "<its:domainRule selector": "\"/h:html\"",
           "domainPointer": "\"/h:html/h:head/h:meta[@name='dcterms.subject' or @name='keywords']/@content\"/>"
         },
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.its.html5.HTML5Filter"
       }
     ]
   },
   "properties": {
-    "path": {
-      "type": "string"
-    },
     "simplifierRules": {
       "type": "string",
       "description": "Simplifier rules for code type normalization",
       "x-widget": "simplifierRulesEditor"
+    },
+    "path": {
+      "type": "string"
     }
   },
   "additionalProperties": false

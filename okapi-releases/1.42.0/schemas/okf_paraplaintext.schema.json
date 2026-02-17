@@ -31,7 +31,8 @@
           "extractParagraphs": true,
           "_parametersClass": "net.sf.okapi.filters.plaintext.paragraphs.Parameters"
         },
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.plaintext.paragraphs.ParaPlainTextFilter"
       },
       {
         "configId": "okf_plaintext_paragraphs_lines",
@@ -39,7 +40,8 @@
         "description": "Text files extracted by lines (each line is a text unit).",
         "mimeType": "text/plain",
         "parametersLocation": "okf_plaintext_paragraphs_lines.fprm",
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.paragraphs.ParaPlainTextFilter"
       }
     ]
   },

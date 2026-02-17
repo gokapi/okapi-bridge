@@ -19,7 +19,8 @@
         "description": "Plain text files.",
         "mimeType": "text/plain",
         "extensions": ".txt;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.plaintext.PlainTextFilter"
       },
       {
         "configId": "okf_plaintext_trim_trail",
@@ -38,7 +39,8 @@
           "wrapMode": 0,
           "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.PlainTextFilter"
       },
       {
         "configId": "okf_plaintext_trim_all",
@@ -57,7 +59,8 @@
           "wrapMode": 0,
           "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.PlainTextFilter"
       },
       {
         "configId": "okf_plaintext_paragraphs",
@@ -77,7 +80,8 @@
           "extractParagraphs": true,
           "_parametersClass": "net.sf.okapi.filters.plaintext.paragraphs.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.PlainTextFilter"
       },
       {
         "configId": "okf_plaintext_spliced_backslash",
@@ -98,7 +102,8 @@
           "createPlaceholders": true,
           "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.PlainTextFilter"
       },
       {
         "configId": "okf_plaintext_spliced_underscore",
@@ -119,7 +124,8 @@
           "createPlaceholders": true,
           "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.PlainTextFilter"
       },
       {
         "configId": "okf_plaintext_spliced_custom",
@@ -140,7 +146,8 @@
           "createPlaceholders": true,
           "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.PlainTextFilter"
       },
       {
         "configId": "okf_plaintext_regex_lines",
@@ -163,7 +170,8 @@
           "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
           "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.PlainTextFilter"
       },
       {
         "configId": "okf_plaintext_regex_paragraphs",
@@ -186,7 +194,8 @@
           "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
           "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.plaintext.PlainTextFilter"
       }
     ]
   },

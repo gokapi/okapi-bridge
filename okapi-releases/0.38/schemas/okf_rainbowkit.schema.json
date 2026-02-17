@@ -19,7 +19,8 @@
         "description": "Configuration for Rainbow translation kit.",
         "mimeType": "application/x-rainbowkit",
         "extensions": ".rkm;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.rainbowkit.RainbowKitFilter"
       },
       {
         "configId": "okf_rainbowkit-package",
@@ -27,7 +28,8 @@
         "description": "Configuration for Rainbow translation kit package.",
         "mimeType": "application/x-rainbowkit-package",
         "extensions": ".rkp;",
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.rainbowkit.RainbowKitFilter"
       },
       {
         "configId": "okf_rainbowkit-noprompt",
@@ -40,7 +42,8 @@
         "parameters": {
           "openManifest": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.rainbowkit.RainbowKitFilter"
       }
     ]
   },

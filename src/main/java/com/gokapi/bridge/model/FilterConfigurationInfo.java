@@ -6,6 +6,10 @@ import java.util.Map;
 /**
  * Metadata about a filter configuration (a specific preset/variant of a filter).
  * Filters can have multiple configurations with different default parameters.
+ * 
+ * For compound filters (like TableFilter), each configuration may be handled by
+ * a different sibling filter. The `filterClass` field indicates which filter
+ * actually processes the configuration, and `schemaRef` points to its schema.
  */
 public class FilterConfigurationInfo {
 
@@ -35,6 +39,20 @@ public class FilterConfigurationInfo {
 
     @SerializedName("isDefault")
     private boolean isDefault;
+    
+    /**
+     * For compound filters, the actual filter class that handles this configuration.
+     * For regular filters, this matches the parent filter class.
+     */
+    @SerializedName("filterClass")
+    private String filterClass;
+    
+    /**
+     * Reference to the schema file for the filter that handles this configuration.
+     * E.g., "okf_commaseparatedvalues.schema.json" for a CSV configuration in TableFilter.
+     */
+    @SerializedName("schemaRef")
+    private String schemaRef;
 
     public FilterConfigurationInfo() {
     }
@@ -121,5 +139,21 @@ public class FilterConfigurationInfo {
 
     public void setDefault(boolean isDefault) {
         this.isDefault = isDefault;
+    }
+    
+    public String getFilterClass() {
+        return filterClass;
+    }
+    
+    public void setFilterClass(String filterClass) {
+        this.filterClass = filterClass;
+    }
+    
+    public String getSchemaRef() {
+        return schemaRef;
+    }
+    
+    public void setSchemaRef(String schemaRef) {
+        this.schemaRef = schemaRef;
     }
 }

@@ -19,7 +19,8 @@
         "description": "YAML files",
         "mimeType": "text/x-yaml",
         "extensions": ".yml;.yaml;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.yaml.YamlFilter"
       }
     ]
   },

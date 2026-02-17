@@ -18,7 +18,8 @@
         "name": "ICU Message Format",
         "description": "ICU Message Format Text",
         "mimeType": "text/x-messageformat",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.messageformat.MessageFormatFilter"
       }
     ]
   },

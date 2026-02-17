@@ -19,7 +19,8 @@
         "description": "Configuration for generic XML documents (default ITS rules).",
         "mimeType": "text/xml",
         "extensions": ".xml;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
       },
       {
         "configId": "okf_xml-resx",
@@ -44,7 +45,8 @@
           "rule0": "(\\{[^}]+?\\})",
           "rule1": "\\&lt;(/?)\\w+[^>]*?&gt;"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
       },
       {
         "configId": "okf_xml-MozillaRDF",
@@ -60,7 +62,8 @@
           "xmlns:nc": "\"http://home.netscape.com/NC-rdf#\">",
           "<its:translateRule selector": "\"//*/@nc:name\" translate=\"yes\"/>"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
       },
       {
         "configId": "okf_xml-JavaProperties",
@@ -75,7 +78,8 @@
           "xmlns:itsx": "\"http://www.w3.org/2008/12/its-extensions\">",
           "<its:translateRule selector": "\"//entry\" itsx:idValue=\"@key\" translate=\"yes\"/>"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
       },
       {
         "configId": "okf_xml-AndroidStrings",
@@ -98,7 +102,8 @@
           "rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
           "rule1": "\\{\\d.*?\\}"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
       },
       {
         "configId": "okf_xml-WixLocalization",
@@ -116,7 +121,8 @@
           "its:translate": "\"no\" version=\"1.0\">",
           "<its:translateRule selector": "\"//w:String[@Overridable!='no']\" translate=\"yes\" itsx:idValue=\"./@Id\"/>"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
       },
       {
         "configId": "okf_xml-AppleStringsdict",
@@ -145,7 +151,8 @@
           "rule2": "\\&lt;(/?)\\w+[^>]*?>",
           "rule3": "%\\d?\\$?#@[^@]+@"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
       },
       {
         "configId": "okf_xml-docbook",
@@ -167,7 +174,8 @@
           "ITSFilter DOES NOT HANDLE withinText": "\"nested\" as of March 2021, however,",
           "<its:withinTextRule withinText": "\"nested\" selector=\""
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
       }
     ]
   },

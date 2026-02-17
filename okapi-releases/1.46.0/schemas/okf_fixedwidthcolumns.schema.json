@@ -49,7 +49,8 @@
           "columnEndPositions": "",
           "_parametersClass": "net.sf.okapi.filters.table.fwc.Parameters"
         },
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.table.fwc.FixedWidthColumnsFilter"
       }
     ]
   },

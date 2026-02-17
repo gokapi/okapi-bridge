@@ -19,7 +19,8 @@
         "description": "Tex files",
         "mimeType": "text/x-tex-text",
         "extensions": ".tex;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.tex.TEXFilter"
       }
     ]
   },

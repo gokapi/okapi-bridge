@@ -27,7 +27,8 @@
           "maxCharsPerLine": 47,
           "cjkCharsPerLine": 18
         },
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.vtt.VTTFilter"
       }
     ]
   },

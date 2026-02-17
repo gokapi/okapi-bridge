@@ -56,7 +56,8 @@
             }
           }
         },
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.xmlstream.XmlStreamFilter"
       },
       {
         "configId": "okf_xmlstream-dita",
@@ -476,7 +477,8 @@
             }
           }
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.xmlstream.XmlStreamFilter"
       },
       {
         "configId": "okf_xmlstream-JavaPropertiesHTML",
@@ -500,17 +502,18 @@
             }
           }
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.xmlstream.XmlStreamFilter"
       }
     ]
   },
   "properties": {
+    "taggedConfig": {
+      "type": "object"
+    },
     "editorTitle": {
       "type": "string",
       "default": "Parameters Editor"
-    },
-    "taggedConfig": {
-      "type": "object"
     },
     "simplifierRules": {
       "type": "string",

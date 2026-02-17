@@ -34,7 +34,8 @@
           "<its:domainRule selector": "\"/h:html\"",
           "domainPointer": "\"/h:html/h:head/h:meta[@name='dcterms.subject' or @name='keywords']/@content\"/>"
         },
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.its.html5.HTML5Filter"
       }
     ]
   },

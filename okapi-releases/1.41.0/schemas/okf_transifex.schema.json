@@ -19,7 +19,8 @@
         "description": "Transifex project with prompt when starting",
         "mimeType": "application/x-transifex",
         "extensions": ".txp;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.transifex.TransifexFilter"
       },
       {
         "configId": "okf_transifex-noPrompt",
@@ -31,7 +32,8 @@
         "parameters": {
           "openProject": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.transifex.TransifexFilter"
       }
     ]
   },

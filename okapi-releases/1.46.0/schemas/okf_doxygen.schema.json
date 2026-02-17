@@ -1562,7 +1562,8 @@
             }
           }
         },
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.doxygen.DoxygenFilter"
       }
     ]
   },

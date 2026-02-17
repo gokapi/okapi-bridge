@@ -18,7 +18,8 @@
         "name": "ICU Message Format",
         "description": "ICU Message Format Text",
         "mimeType": "text/x-messageformat",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.messageformat.MessageFormatFilter"
       },
       {
         "configId": "okf_messageformat-json",
@@ -32,7 +33,8 @@
           "normalize": true,
           "prettyPrint": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.messageformat.MessageFormatFilter"
       },
       {
         "configId": "okf_messageformat-yaml",
@@ -46,7 +48,8 @@
           "normalize": true,
           "prettyPrint": true
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.messageformat.MessageFormatFilter"
       }
     ]
   },

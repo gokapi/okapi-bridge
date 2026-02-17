@@ -18,7 +18,8 @@
         "name": "Regex Default",
         "description": "Default Regex configuration.",
         "mimeType": "text/x-regex",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
       },
       {
         "configId": "okf_regex-srt",
@@ -60,7 +61,8 @@
           "metaRule1.ruleName": "subtitle_end_display",
           "metaRule1.expr": "(?<=-->\\s{1,50})\\d+:\\S+"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
       },
       {
         "configId": "okf_regex-textLine",
@@ -94,7 +96,8 @@
           "rule0.codeFinderRules.sample": "",
           "rule0.codeFinderRules.useAllRulesWhenTesting": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
       },
       {
         "configId": "okf_regex-textBlock",
@@ -128,7 +131,8 @@
           "rule0.codeFinderRules.sample": "",
           "rule0.codeFinderRules.useAllRulesWhenTesting": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
       },
       {
         "configId": "okf_regex-macStrings",
@@ -244,7 +248,8 @@
           "rule5.codeFinderRules.sample": "",
           "rule5.codeFinderRules.useAllRulesWhenTesting": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
       }
     ]
   },

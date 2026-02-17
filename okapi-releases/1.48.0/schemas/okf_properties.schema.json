@@ -19,7 +19,8 @@
         "description": "Java properties files (Output used \\uHHHH escapes)",
         "mimeType": "text/x-properties",
         "extensions": ".properties;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.properties.PropertiesFilter"
       },
       {
         "configId": "okf_properties-outputNotEscaped",
@@ -46,7 +47,8 @@
           "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.",
           "codeFinderRules.useAllRulesWhenTesting": true
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.properties.PropertiesFilter"
       },
       {
         "configId": "okf_properties-skypeLang",
@@ -74,7 +76,8 @@
           "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.$0a$<a attr=\"qwerty\">text</a>text<img/>$0a$Test &tl; and more.",
           "codeFinderRules.useAllRulesWhenTesting": true
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.properties.PropertiesFilter"
       },
       {
         "configId": "okf_properties-html-subfilter",
@@ -101,7 +104,8 @@
           "codeFinderRules.useAllRulesWhenTesting": true,
           "subfilter": "okf_html"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.properties.PropertiesFilter"
       }
     ]
   },

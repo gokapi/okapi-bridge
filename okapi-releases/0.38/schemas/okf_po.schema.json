@@ -19,7 +19,8 @@
         "description": "Standard bilingual PO files",
         "mimeType": "application/x-gettext",
         "extensions": ".po;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.po.POFilter"
       },
       {
         "configId": "okf_po-monolingual",
@@ -42,7 +43,8 @@
           "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.",
           "codeFinderRules.useAllRulesWhenTesting": true
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.po.POFilter"
       }
     ]
   },

@@ -19,7 +19,8 @@
         "description": "Configuration for XML DTD documents (entities content)",
         "mimeType": "application/xml+dtd",
         "extensions": ".dtd;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.dtd.DTDFilter"
       }
     ]
   },

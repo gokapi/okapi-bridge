@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-02-17T13:13:22.591264Z",
+  "generatedAt": "2026-02-17T13:26:43.754593Z",
   "filterCount": 52,
   "filters": {
     "okf_archive": {
@@ -17,7 +17,8 @@
           "description": "Configuration for archive files",
           "mimeType": "application/x-archive",
           "extensions": ".archive;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.archive.ArchiveFilter"
         }
       ]
     },
@@ -35,7 +36,8 @@
           "description": "Calls the appropriate filter for any version of XLIFF",
           "mimeType": "application/xliff+xml",
           "extensions": ".xlf;.xliff",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.autoxliff.AutoXLIFFFilter"
         }
       ]
     },
@@ -1596,7 +1598,8 @@
               }
             }
           },
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.doxygen.DoxygenFilter"
         }
       ]
     },
@@ -1614,7 +1617,8 @@
           "description": "Configuration for XML DTD documents (entities content)",
           "mimeType": "application/xml+dtd",
           "extensions": ".dtd;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.dtd.DTDFilter"
         }
       ]
     },
@@ -2326,7 +2330,8 @@
               }
             }
           },
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.html.HtmlFilter"
         },
         {
           "configId": "okf_html-wellFormed",
@@ -3064,7 +3069,8 @@
               }
             }
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.html.HtmlFilter"
         }
       ]
     },
@@ -3082,7 +3088,8 @@
           "description": "Adobe InDesign ICML documents",
           "mimeType": "application/x-icml+xml",
           "extensions": ".wcml;.icml;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.icml.ICMLFilter"
         }
       ]
     },
@@ -3100,7 +3107,8 @@
           "description": "Adobe InDesign IDML documents",
           "mimeType": "application/vnd.adobe.indesign-idml-package",
           "extensions": ".idml;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.idml.IDMLFilter"
         }
       ]
     },
@@ -3133,7 +3141,8 @@
             "<its:domainRule selector": "\"/h:html\"",
             "domainPointer": "\"/h:html/h:head/h:meta[@name='dcterms.subject' or @name='keywords']/@content\"/>"
           },
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.its.html5.HTML5Filter"
         }
       ]
     },
@@ -3151,7 +3160,8 @@
           "description": "Configuration for JSON files",
           "mimeType": "application/json",
           "extensions": ".json;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.json.JSONFilter"
         }
       ]
     },
@@ -3169,7 +3179,8 @@
           "description": "Markdown files",
           "mimeType": "text/markdown",
           "extensions": ".md;.markdown;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.markdown.MarkdownFilter"
         }
       ]
     },
@@ -3187,7 +3198,8 @@
           "description": "Adobe FrameMaker MIF documents",
           "mimeType": "application/vnd.mif",
           "extensions": ".mif;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.mif.MIFFilter"
         }
       ]
     },
@@ -3205,7 +3217,8 @@
           "description": "Default Moses Text configuration.",
           "mimeType": "text/x-mosestext",
           "extensions": ".txt;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.mosestext.MosesTextFilter"
         }
       ]
     },
@@ -3223,7 +3236,8 @@
           "description": "Configuration for CSV files with plain-text on all columns",
           "mimeType": "text/csv",
           "extensions": ".csv;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.multiparsers.MultiParsersFilter"
         }
       ]
     },
@@ -3240,7 +3254,8 @@
           "name": "OpenDocument",
           "description": "XML OpenDocument files (e.g. use inside OpenOffice.org documents).",
           "mimeType": "text/x-odf",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.openoffice.ODFFilter"
         }
       ]
     },
@@ -3258,7 +3273,8 @@
           "description": "OpenOffice.org ODT, ODS, ODP, ODG, OTT, OTS, OTP, OTG documents",
           "mimeType": "application/x-openoffice",
           "extensions": ".odt;.ods;.odg;.odp;.ott;.ots;.otp;.otg;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.openoffice.OpenOfficeFilter"
         }
       ]
     },
@@ -3276,7 +3292,8 @@
           "description": "Microsoft Office documents (DOCX, DOCM, DOTX, DOTM, PPTX, PPTM, PPSX, PPSM, POTX, POTM, XLSX, XLSM, XLTX, XLTM, VSDX, VSDM).",
           "mimeType": "text/xml",
           "extensions": ".docx;.docm;.dotx;.dotm;.pptx;.pptm;.ppsx;.ppsm;.potx;.potm;.xlsx;.xlsm;.xltx;.xltm;.vsdx;.vsdm;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.openxml.OpenXMLFilter"
         }
       ]
     },
@@ -3294,7 +3311,8 @@
           "description": "Configuration for PDF documents",
           "mimeType": "application/pdf",
           "extensions": ".pdf;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.pdf.PdfFilter"
         }
       ]
     },
@@ -3312,7 +3330,8 @@
           "description": "Configuration for Pensieve translation memories.",
           "mimeType": "application/x-pensieve-tm",
           "extensions": ".pentm;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.pensieve.PensieveFilter"
         }
       ]
     },
@@ -3330,7 +3349,8 @@
           "description": "Default PHP Content configuration.",
           "mimeType": "application/x-php",
           "extensions": ".php;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.php.PHPContentFilter"
         }
       ]
     },
@@ -3348,7 +3368,9 @@
           "description": "Plain text files.",
           "mimeType": "text/plain",
           "extensions": ".txt;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.plaintext.base.BasePlainTextFilter",
+          "schemaRef": "okf_baseplaintext.schema.json"
         },
         {
           "configId": "okf_plaintext_trim_trail",
@@ -3367,7 +3389,9 @@
             "wrapMode": 0,
             "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.base.BasePlainTextFilter",
+          "schemaRef": "okf_baseplaintext.schema.json"
         },
         {
           "configId": "okf_plaintext_trim_all",
@@ -3386,7 +3410,9 @@
             "wrapMode": 0,
             "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.base.BasePlainTextFilter",
+          "schemaRef": "okf_baseplaintext.schema.json"
         },
         {
           "configId": "okf_plaintext_paragraphs",
@@ -3406,7 +3432,9 @@
             "extractParagraphs": true,
             "_parametersClass": "net.sf.okapi.filters.plaintext.paragraphs.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.paragraphs.ParaPlainTextFilter",
+          "schemaRef": "okf_paraplaintext.schema.json"
         },
         {
           "configId": "okf_plaintext_spliced_backslash",
@@ -3427,7 +3455,9 @@
             "createPlaceholders": true,
             "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter",
+          "schemaRef": "okf_splicedlines.schema.json"
         },
         {
           "configId": "okf_plaintext_spliced_underscore",
@@ -3448,7 +3478,9 @@
             "createPlaceholders": true,
             "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter",
+          "schemaRef": "okf_splicedlines.schema.json"
         },
         {
           "configId": "okf_plaintext_spliced_custom",
@@ -3469,7 +3501,9 @@
             "createPlaceholders": true,
             "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter",
+          "schemaRef": "okf_splicedlines.schema.json"
         },
         {
           "configId": "okf_plaintext_regex_lines",
@@ -3492,7 +3526,9 @@
             "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
             "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter",
+          "schemaRef": "okf_regexplaintext.schema.json"
         },
         {
           "configId": "okf_plaintext_regex_paragraphs",
@@ -3515,7 +3551,9 @@
             "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
             "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter",
+          "schemaRef": "okf_regexplaintext.schema.json"
         }
       ]
     },
@@ -3533,7 +3571,8 @@
           "description": "Plain text files.",
           "mimeType": "text/plain",
           "extensions": ".txt;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.plaintext.base.BasePlainTextFilter"
         },
         {
           "configId": "okf_plaintext_trim_trail",
@@ -3552,7 +3591,8 @@
             "wrapMode": 0,
             "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.base.BasePlainTextFilter"
         },
         {
           "configId": "okf_plaintext_trim_all",
@@ -3571,7 +3611,8 @@
             "wrapMode": 0,
             "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.base.BasePlainTextFilter"
         }
       ]
     },
@@ -3601,7 +3642,8 @@
             "extractParagraphs": true,
             "_parametersClass": "net.sf.okapi.filters.plaintext.paragraphs.Parameters"
           },
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.plaintext.paragraphs.ParaPlainTextFilter"
         },
         {
           "configId": "okf_plaintext_paragraphs_lines",
@@ -3609,7 +3651,8 @@
           "description": "Text files extracted by lines (each line is a text unit).",
           "mimeType": "text/plain",
           "parametersLocation": "okf_plaintext_paragraphs_lines.fprm",
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.paragraphs.ParaPlainTextFilter"
         }
       ]
     },
@@ -3627,7 +3670,8 @@
           "description": "Plain Text Filter using regex-based linebreak search. Detects a wider range of linebreaks at the price of lower speed and extra memory usage.",
           "mimeType": "text/plain",
           "parametersLocation": "okf_plaintext_regex.fprm",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter"
         },
         {
           "configId": "okf_plaintext_regex_lines",
@@ -3650,7 +3694,8 @@
             "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
             "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter"
         },
         {
           "configId": "okf_plaintext_regex_paragraphs",
@@ -3673,7 +3718,8 @@
             "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
             "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter"
         }
       ]
     },
@@ -3691,7 +3737,8 @@
           "description": "Extracts as one line the consecutive lines with a predefined splicer character at the end.",
           "mimeType": "text/plain",
           "parametersLocation": "okf_plaintext_spliced.fprm",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
         },
         {
           "configId": "okf_plaintext_spliced_backslash",
@@ -3712,7 +3759,8 @@
             "createPlaceholders": true,
             "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
         },
         {
           "configId": "okf_plaintext_spliced_underscore",
@@ -3733,7 +3781,8 @@
             "createPlaceholders": true,
             "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
         },
         {
           "configId": "okf_plaintext_spliced_custom",
@@ -3754,7 +3803,8 @@
             "createPlaceholders": true,
             "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
         }
       ]
     },
@@ -3772,7 +3822,8 @@
           "description": "Standard bilingual PO files",
           "mimeType": "application/x-gettext",
           "extensions": ".po;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.po.POFilter"
         },
         {
           "configId": "okf_po-monolingual",
@@ -3794,7 +3845,8 @@
             "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.",
             "codeFinderRules.useAllRulesWhenTesting": true
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.po.POFilter"
         }
       ]
     },
@@ -3812,7 +3864,8 @@
           "description": "Java properties files (Output used \\uHHHH escapes)",
           "mimeType": "text/x-properties",
           "extensions": ".properties;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.properties.PropertiesFilter"
         },
         {
           "configId": "okf_properties-outputNotEscaped",
@@ -3839,7 +3892,8 @@
             "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.",
             "codeFinderRules.useAllRulesWhenTesting": true
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.properties.PropertiesFilter"
         },
         {
           "configId": "okf_properties-skypeLang",
@@ -3867,7 +3921,8 @@
             "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.$0a$<a attr=\"qwerty\">text</a>text<img/>$0a$Test &tl; and more.",
             "codeFinderRules.useAllRulesWhenTesting": true
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.properties.PropertiesFilter"
         },
         {
           "configId": "okf_properties-html-subfilter",
@@ -3894,7 +3949,8 @@
             "codeFinderRules.useAllRulesWhenTesting": true,
             "subfilter": "okf_html"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.properties.PropertiesFilter"
         }
       ]
     },
@@ -3912,7 +3968,8 @@
           "description": "Configuration for Rainbow translation kit.",
           "mimeType": "application/x-rainbowkit",
           "extensions": ".rkm;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.rainbowkit.RainbowKitFilter"
         },
         {
           "configId": "okf_rainbowkit-package",
@@ -3920,7 +3977,8 @@
           "description": "Configuration for Rainbow translation kit package.",
           "mimeType": "application/x-rainbowkit-package",
           "extensions": ".rkp;",
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.rainbowkit.RainbowKitFilter"
         },
         {
           "configId": "okf_rainbowkit-noprompt",
@@ -3933,7 +3991,8 @@
           "parameters": {
             "openManifest": false
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.rainbowkit.RainbowKitFilter"
         }
       ]
     },
@@ -3951,7 +4010,8 @@
           "description": "Configuration for XLIFF-2 documents.",
           "mimeType": "application/xliff+xml",
           "extensions": ".xlf;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.xliff2.XLIFF2Filter"
         }
       ]
     },
@@ -3968,7 +4028,8 @@
           "name": "Regex Default",
           "description": "Default Regex configuration.",
           "mimeType": "text/x-regex",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
         },
         {
           "configId": "okf_regex-srt",
@@ -4004,7 +4065,8 @@
             "rule0.codeFinderRules.sample": "test <b>bold</b>, <a href='link' more=\"&lt;value&gt;\"/> test",
             "rule0.codeFinderRules.useAllRulesWhenTesting": false
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
         },
         {
           "configId": "okf_regex-textLine",
@@ -4038,7 +4100,8 @@
             "rule0.codeFinderRules.sample": "",
             "rule0.codeFinderRules.useAllRulesWhenTesting": false
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
         },
         {
           "configId": "okf_regex-textBlock",
@@ -4072,7 +4135,8 @@
             "rule0.codeFinderRules.sample": "",
             "rule0.codeFinderRules.useAllRulesWhenTesting": false
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
         },
         {
           "configId": "okf_regex-macStrings",
@@ -4154,7 +4218,8 @@
             "rule3.codeFinderRules.sample": "",
             "rule3.codeFinderRules.useAllRulesWhenTesting": false
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
         }
       ]
     },
@@ -4172,7 +4237,8 @@
           "description": "Configuration for Trados-tagged RTF files - READING ONLY.",
           "mimeType": "application/rtf",
           "extensions": ".rtf;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.rtf.RTFFilter"
         }
       ]
     },
@@ -4190,7 +4256,8 @@
           "description": "SDL Trados 2017 SDLPPX and SDLRPX files",
           "mimeType": "application/x-sdlpackage",
           "extensions": ".sdlppx;.sdlrpx;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.sdlpackage.SdlPackageFilter"
         }
       ]
     },
@@ -4207,7 +4274,8 @@
           "name": "Table Files",
           "description": "Table-like files such as tab-delimited, CSV, fixed-width columns, etc.",
           "mimeType": "text/csv",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.table.TableFilter"
         },
         {
           "configId": "okf_table_csv",
@@ -4247,7 +4315,9 @@
             "removeQualifiers": true,
             "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter",
+          "schemaRef": "okf_commaseparatedvalues.schema.json"
         },
         {
           "configId": "okf_table_catkeys",
@@ -4286,7 +4356,9 @@
             "removeQualifiers": false,
             "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter",
+          "schemaRef": "okf_commaseparatedvalues.schema.json"
         },
         {
           "configId": "okf_table_src-tab-trg",
@@ -4326,7 +4398,9 @@
             "escapingMode": 1,
             "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter",
+          "schemaRef": "okf_commaseparatedvalues.schema.json"
         },
         {
           "configId": "okf_table_fwc",
@@ -4364,7 +4438,9 @@
             "columnEndPositions": "",
             "_parametersClass": "net.sf.okapi.filters.table.fwc.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.table.fwc.FixedWidthColumnsFilter",
+          "schemaRef": "okf_fixedwidthcolumns.schema.json"
         },
         {
           "configId": "okf_table_tsv",
@@ -4400,7 +4476,9 @@
             "targetSourceRefs": "",
             "_parametersClass": "net.sf.okapi.filters.table.tsv.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.table.tsv.TabSeparatedValuesFilter",
+          "schemaRef": "okf_tabseparatedvalues.schema.json"
         }
       ]
     },
@@ -4418,7 +4496,8 @@
           "description": "Plain text files.",
           "mimeType": "text/csv",
           "extensions": ".txt;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.table.base.BaseTableFilter"
         },
         {
           "configId": "okf_plaintext_trim_trail",
@@ -4437,7 +4516,8 @@
             "wrapMode": 0,
             "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.table.base.BaseTableFilter"
         },
         {
           "configId": "okf_plaintext_trim_all",
@@ -4456,7 +4536,8 @@
             "wrapMode": 0,
             "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.table.base.BaseTableFilter"
         }
       ]
     },
@@ -4506,7 +4587,8 @@
             "removeQualifiers": true,
             "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
           },
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter"
         },
         {
           "configId": "okf_table_catkeys",
@@ -4545,7 +4627,8 @@
             "removeQualifiers": false,
             "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter"
         },
         {
           "configId": "okf_table_src-tab-trg",
@@ -4585,7 +4668,8 @@
             "escapingMode": 1,
             "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter"
         }
       ]
     },
@@ -4633,7 +4717,8 @@
             "columnEndPositions": "",
             "_parametersClass": "net.sf.okapi.filters.table.fwc.Parameters"
           },
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.table.fwc.FixedWidthColumnsFilter"
         }
       ]
     },
@@ -4679,7 +4764,8 @@
             "targetSourceRefs": "",
             "_parametersClass": "net.sf.okapi.filters.table.tsv.Parameters"
           },
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.table.tsv.TabSeparatedValuesFilter"
         }
       ]
     },
@@ -4697,7 +4783,8 @@
           "description": "Tex files",
           "mimeType": "text/x-tex-text",
           "extensions": ".tex",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.tex.TEXFilter"
         }
       ]
     },
@@ -4715,7 +4802,8 @@
           "description": "Configuration for Translation Memory eXchange (TMX) documents.",
           "mimeType": "application/x-tmx+xml",
           "extensions": ".tmx;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.tmx.TmxFilter"
         }
       ]
     },
@@ -4733,7 +4821,8 @@
           "description": "Transifex project with prompt when starting",
           "mimeType": "application/x-transifex",
           "extensions": ".txp;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.transifex.TransifexFilter"
         },
         {
           "configId": "okf_transifex-noPrompt",
@@ -4745,7 +4834,8 @@
           "parameters": {
             "openProject": false
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.transifex.TransifexFilter"
         }
       ]
     },
@@ -4762,7 +4852,8 @@
           "name": "Translation Table Default",
           "description": "Default TransTable configuration.",
           "mimeType": "text/x-transtable",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.transtable.TransTableFilter"
         }
       ]
     },
@@ -4780,7 +4871,8 @@
           "description": "Configuration for Qt TS files.",
           "mimeType": "application/x-ts",
           "extensions": ".ts;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.ts.TsFilter"
         }
       ]
     },
@@ -4798,7 +4890,8 @@
           "description": "Configuration for Trados TTX documents.",
           "mimeType": "application/x-ttx+xml",
           "extensions": ".ttx;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.ttx.TTXFilter"
         }
       ]
     },
@@ -4816,7 +4909,8 @@
           "description": "Wordfast Pro TXML documents",
           "mimeType": "text/xml",
           "extensions": ".txml;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.txml.TXMLFilter"
         },
         {
           "configId": "okf_txml-fillEmptyTargets",
@@ -4829,7 +4923,8 @@
           "parameters": {
             "allowEmptyOutputTarget": false
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.txml.TXMLFilter"
         }
       ]
     },
@@ -4846,7 +4941,8 @@
           "name": "Vignette Export/Import Content",
           "description": "Default Vignette Export/Import Content configuration.",
           "mimeType": "text/xml",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.vignette.VignetteFilter"
         },
         {
           "configId": "okf_vignette-nocdata",
@@ -4865,7 +4961,8 @@
             "quoteModeDefined": true,
             "quoteMode": 0
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.vignette.VignetteFilter"
         }
       ]
     },
@@ -4888,7 +4985,8 @@
           "parameters": {
             "preserve_whitespace": false
           },
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.wiki.WikiFilter"
         }
       ]
     },
@@ -4906,7 +5004,8 @@
           "description": "Configuration for XINI documents from ONTRAM",
           "mimeType": "text/x-xini",
           "extensions": ".xini;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.xini.XINIFilter"
         },
         {
           "configId": "okf_xini-noOutputSegmentation",
@@ -4918,7 +5017,8 @@
           "parameters": {
             "useOkapiSegmentation": false
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.xini.XINIFilter"
         }
       ]
     },
@@ -4935,7 +5035,8 @@
           "name": "XINI (Rainbow T-Kit)",
           "description": "Configuration for XINI documents from ONTRAM T-Kits.",
           "mimeType": "text/x-xini",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.xini.rainbowkit.XINIRainbowkitFilter"
         }
       ]
     },
@@ -4953,7 +5054,8 @@
           "description": "Configuration for XML Localisation Interchange File Format (XLIFF) documents.",
           "mimeType": "application/x-xliff+xml",
           "extensions": ".xlf;.xliff;.mxliff;.mqxliff;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
         },
         {
           "configId": "okf_xliff-sdl",
@@ -4989,7 +5091,8 @@
             "preserveSpaceByDefault": true,
             "skipNoMrkSegSource": true
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
         },
         {
           "configId": "okf_xliff-iws",
@@ -5041,7 +5144,8 @@
             "codeFinderRules.sample": "",
             "codeFinderRules.useAllRulesWhenTesting": false
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
         }
       ]
     },
@@ -5059,7 +5163,8 @@
           "description": "Configuration for generic XML documents (default ITS rules).",
           "mimeType": "text/xml",
           "extensions": ".xml;",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
         },
         {
           "configId": "okf_xml-resx",
@@ -5084,7 +5189,8 @@
             "rule0": "(\\{[^}]+?\\})",
             "rule1": "\\&lt;(/?)\\w+[^>]*?&gt;"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
         },
         {
           "configId": "okf_xml-MozillaRDF",
@@ -5100,7 +5206,8 @@
             "xmlns:nc": "\"http://home.netscape.com/NC-rdf#\">",
             "<its:translateRule selector": "\"//*/@nc:name\" translate=\"yes\"/>"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
         },
         {
           "configId": "okf_xml-JavaProperties",
@@ -5115,7 +5222,8 @@
             "xmlns:itsx": "\"http://www.w3.org/2008/12/its-extensions\">",
             "<its:translateRule selector": "\"//entry\" itsx:idValue=\"@key\" translate=\"yes\"/>"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
         },
         {
           "configId": "okf_xml-AndroidStrings",
@@ -5138,7 +5246,8 @@
             "rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
             "rule1": "\\{\\d.*?\\}"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
         },
         {
           "configId": "okf_xml-WixLocalization",
@@ -5156,7 +5265,8 @@
             "its:translate": "\"no\" version=\"1.0\">",
             "<its:translateRule selector": "\"//w:String[@Overridable!='no']\" translate=\"yes\" itsx:idValue=\"./@Id\"/>"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
         },
         {
           "configId": "okf_xml-AppleStringsdict",
@@ -5185,7 +5295,8 @@
             "rule2": "\\&lt;(/?)\\w+[^>]*?>",
             "rule3": "%\\d?\\$?#@[^@]+@"
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
         },
         {
           "configId": "okf_xml-docbook",
@@ -5207,7 +5318,8 @@
             "ITSFilter DOES NOT HANDLE withinText": "\"nested\" as of March 2021, however,",
             "<its:withinTextRule withinText": "\"nested\" selector=\""
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
         }
       ]
     },
@@ -5262,7 +5374,8 @@
               }
             }
           },
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.xmlstream.XmlStreamFilter"
         },
         {
           "configId": "okf_xmlstream-dita",
@@ -5658,7 +5771,8 @@
               }
             }
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.xmlstream.XmlStreamFilter"
         },
         {
           "configId": "okf_xmlstream-JavaPropertiesHTML",
@@ -5682,7 +5796,8 @@
               }
             }
           },
-          "isDefault": false
+          "isDefault": false,
+          "filterClass": "net.sf.okapi.filters.xmlstream.XmlStreamFilter"
         }
       ]
     },
@@ -5700,7 +5815,8 @@
           "description": "YAML files",
           "mimeType": "text/x-yaml",
           "extensions": ".yml;.yaml",
-          "isDefault": true
+          "isDefault": true,
+          "filterClass": "net.sf.okapi.filters.yaml.YamlFilter"
         }
       ]
     }

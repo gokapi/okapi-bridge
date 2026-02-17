@@ -19,7 +19,8 @@
         "description": "Configuration for Trados TTX documents.",
         "mimeType": "application/x-ttx+xml",
         "extensions": ".ttx;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.ttx.TTXFilter"
       }
     ]
   },

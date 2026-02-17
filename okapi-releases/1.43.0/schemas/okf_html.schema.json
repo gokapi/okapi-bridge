@@ -723,7 +723,8 @@
             }
           }
         },
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.html.HtmlFilter"
       },
       {
         "configId": "okf_html-wellFormed",
@@ -1471,17 +1472,18 @@
             }
           }
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.html.HtmlFilter"
       }
     ]
   },
   "properties": {
+    "taggedConfig": {
+      "type": "object"
+    },
     "editorTitle": {
       "type": "string",
       "default": "Parameters Editor"
-    },
-    "taggedConfig": {
-      "type": "object"
     },
     "simplifierRules": {
       "type": "string",

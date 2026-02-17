@@ -18,7 +18,8 @@
         "name": "Translation Table Default",
         "description": "Default TransTable configuration.",
         "mimeType": "text/x-transtable",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.transtable.TransTableFilter"
       }
     ]
   },

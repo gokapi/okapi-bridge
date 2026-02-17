@@ -19,7 +19,8 @@
         "description": "Calls the appropriate filter for any version of XLIFF",
         "mimeType": "application/xliff+xml",
         "extensions": ".xlf;.xliff;.xlf2;.xliff2",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.autoxliff.AutoXLIFFFilter"
       }
     ]
   },

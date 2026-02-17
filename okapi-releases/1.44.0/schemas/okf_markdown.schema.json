@@ -19,7 +19,8 @@
         "description": "Markdown files",
         "mimeType": "text/markdown",
         "extensions": ".md;.markdown;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.markdown.MarkdownFilter"
       }
     ]
   },

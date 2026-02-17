@@ -19,7 +19,8 @@
         "description": "Configuration for XINI documents from ONTRAM",
         "mimeType": "text/x-xini",
         "extensions": ".xini;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.xini.XINIFilter"
       },
       {
         "configId": "okf_xini-noOutputSegmentation",
@@ -31,7 +32,8 @@
         "parameters": {
           "useOkapiSegmentation": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.xini.XINIFilter"
       }
     ]
   },

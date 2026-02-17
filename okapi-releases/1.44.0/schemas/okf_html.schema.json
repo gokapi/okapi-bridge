@@ -723,7 +723,8 @@
             }
           }
         },
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.html.HtmlFilter"
       },
       {
         "configId": "okf_html-wellFormed",
@@ -1471,22 +1472,23 @@
             }
           }
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.html.HtmlFilter"
       }
     ]
   },
   "properties": {
-    "simplifierRules": {
-      "type": "string",
-      "description": "Simplifier rules for code type normalization",
-      "x-widget": "simplifierRulesEditor"
+    "taggedConfig": {
+      "type": "object"
     },
     "editorTitle": {
       "type": "string",
       "default": "Parameters Editor"
     },
-    "taggedConfig": {
-      "type": "object"
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     },
     "path": {
       "type": "string"

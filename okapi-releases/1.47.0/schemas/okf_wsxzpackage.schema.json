@@ -19,7 +19,8 @@
         "description": "WorldServer WSXZ Files",
         "mimeType": "application/x-wsxzpackage",
         "extensions": ".wsxz;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.wsxzpackage.WsxzPackageFilter"
       }
     ]
   },

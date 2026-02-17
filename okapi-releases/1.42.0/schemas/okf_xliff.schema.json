@@ -19,7 +19,8 @@
         "description": "Configuration for XML Localisation Interchange File Format (XLIFF) documents.",
         "mimeType": "application/x-xliff+xml",
         "extensions": ".xlf;.xliff;.mxliff;.mqxliff;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
       },
       {
         "configId": "okf_xliff-sdl",
@@ -55,7 +56,8 @@
           "preserveSpaceByDefault": true,
           "skipNoMrkSegSource": true
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
       },
       {
         "configId": "okf_xliff-iws",
@@ -107,7 +109,8 @@
           "codeFinderRules.sample": "",
           "codeFinderRules.useAllRulesWhenTesting": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
       }
     ]
   },

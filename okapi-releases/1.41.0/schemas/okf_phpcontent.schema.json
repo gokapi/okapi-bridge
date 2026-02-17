@@ -19,7 +19,8 @@
         "description": "Default PHP Content configuration.",
         "mimeType": "application/x-php",
         "extensions": ".php;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.php.PHPContentFilter"
       }
     ]
   },

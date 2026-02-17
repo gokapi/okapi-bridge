@@ -51,7 +51,8 @@
           "removeQualifiers": true,
           "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
         },
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter"
       },
       {
         "configId": "okf_table_catkeys",
@@ -90,7 +91,8 @@
           "removeQualifiers": false,
           "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter"
       },
       {
         "configId": "okf_table_src-tab-trg",
@@ -130,7 +132,8 @@
           "escapingMode": 1,
           "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter"
       }
     ]
   },

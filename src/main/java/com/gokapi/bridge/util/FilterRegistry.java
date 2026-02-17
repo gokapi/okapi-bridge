@@ -7,12 +7,18 @@ import net.sf.okapi.common.filters.IFilter;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.*;
+import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+
+/**
+ * Registry of Okapi filters.
+ * Dynamically discovers filters by scanning okapi-filter-* JARs on the classpath
+ * for classes ending in "Filter" that implement IFilter.
 
 /**
  * Registry of Okapi filters.
@@ -125,6 +131,15 @@ public class FilterRegistry {
             );
 
             // Extract filter configurations (presets/variants)
+            // For compound filters, track which sibling filter handles each configuration
+            Map<String, String> configToFilterClass = new HashMap<>();
+            Map<String, String> configToSchemaRef = new HashMap<>();
+            
+            // Check if filter is a compound filter (may not exist in older Okapi versions)
+            if (isCompoundFilter(filter)) {
+                populateCompoundFilterConfigMappings(filter, configToFilterClass, configToSchemaRef);
+            }
+            
             List<FilterConfiguration> configs = filter.getConfigurations();
             if (configs != null && !configs.isEmpty()) {
                 boolean firstConfig = true;
@@ -138,6 +153,16 @@ public class FilterRegistry {
                             config.parametersLocation,
                             firstConfig
                     );
+                    
+                    // Set the filter class that handles this configuration
+                    String handlerClass = configToFilterClass.get(config.configId);
+                    if (handlerClass != null) {
+                        configInfo.setFilterClass(handlerClass);
+                        configInfo.setSchemaRef(configToSchemaRef.get(config.configId));
+                    } else {
+                        // Regular filter - configuration is handled by the filter itself
+                        configInfo.setFilterClass(filterClass);
+                    }
                     
                     // Load parameters from file if available
                     if (config.parametersLocation != null && !config.parametersLocation.isEmpty()) {
@@ -156,6 +181,68 @@ public class FilterRegistry {
         }
     }
     
+    /**
+     * Check if a filter is a compound filter (AbstractCompoundFilter may not exist in older Okapi versions).
+     */
+    private static boolean isCompoundFilter(IFilter filter) {
+        try {
+            Class<?> compoundClass = Class.forName("net.sf.okapi.common.filters.AbstractCompoundFilter");
+            return compoundClass.isInstance(filter);
+        } catch (ClassNotFoundException e) {
+            // AbstractCompoundFilter doesn't exist in this Okapi version
+            return false;
+        }
+    }
+    
+    /**
+     * For compound filters, build a mapping from configId to the sibling filter that handles it.
+     * This allows configuration screens to know which schema to use for each configuration.
+     */
+    private static void populateCompoundFilterConfigMappings(IFilter compoundFilter,
+                                                              Map<String, String> configToFilterClass,
+                                                              Map<String, String> configToSchemaRef) {
+        try {
+            Class<?> compoundClass = Class.forName("net.sf.okapi.common.filters.AbstractCompoundFilter");
+            
+            // Try getting the siblingFilters field directly
+            java.lang.reflect.Field siblingField = null;
+            try {
+                siblingField = compoundClass.getDeclaredField("siblingFilters");
+                siblingField.setAccessible(true);
+            } catch (NoSuchFieldException e) {
+                // Field might have different name
+                return;
+            }
+            
+            LinkedList<?> siblings = (LinkedList<?>) siblingField.get(compoundFilter);
+            
+            if (siblings == null || siblings.isEmpty()) {
+                return;
+            }
+            
+            // Each sibling filter contributes its configurations
+            for (Object siblingObj : siblings) {
+                if (!(siblingObj instanceof IFilter)) continue;
+                IFilter sibling = (IFilter) siblingObj;
+                
+                String siblingClass = sibling.getClass().getName();
+                String siblingFormatId = deriveFormatId(sibling.getClass().getSimpleName());
+                String schemaRef = "okf_" + siblingFormatId + ".schema.json";
+                
+                List<FilterConfiguration> siblingConfigs = sibling.getConfigurations();
+                if (siblingConfigs != null) {
+                    for (FilterConfiguration config : siblingConfigs) {
+                        configToFilterClass.put(config.configId, siblingClass);
+                        configToSchemaRef.put(config.configId, schemaRef);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            // Reflection failed - compound filter mappings won't be available
+            System.err.println("[bridge] Could not extract sibling filters: " + e.getMessage());
+        }
+    }
+
     /**
      * Load parameters from a classpath resource file (.yml or .fprm format).
      * Tries multiple resolution strategies since parameter files may be in parent packages.

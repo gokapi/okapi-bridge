@@ -19,7 +19,8 @@
         "description": "OpenOffice.org ODT, ODS, ODP, ODG, OTT, OTS, OTP, OTG documents",
         "mimeType": "application/x-openoffice",
         "extensions": ".odt;.ods;.odg;.odp;.ott;.ots;.otp;.otg;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.openoffice.OpenOfficeFilter"
       }
     ]
   },

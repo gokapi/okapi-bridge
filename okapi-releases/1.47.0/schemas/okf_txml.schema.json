@@ -19,7 +19,8 @@
         "description": "Wordfast Pro TXML documents",
         "mimeType": "text/xml",
         "extensions": ".txml;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.txml.TXMLFilter"
       },
       {
         "configId": "okf_txml-fillEmptyTargets",
@@ -32,7 +33,8 @@
         "parameters": {
           "allowEmptyOutputTarget": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.txml.TXMLFilter"
       }
     ]
   },

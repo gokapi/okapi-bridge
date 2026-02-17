@@ -18,7 +18,8 @@
         "name": "Table Files",
         "description": "Table-like files such as tab-delimited, CSV, fixed-width columns, etc.",
         "mimeType": "text/csv",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.table.TableFilter"
       },
       {
         "configId": "okf_table_csv",
@@ -58,7 +59,8 @@
           "removeQualifiers": true,
           "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.table.TableFilter"
       },
       {
         "configId": "okf_table_catkeys",
@@ -97,7 +99,8 @@
           "removeQualifiers": false,
           "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.table.TableFilter"
       },
       {
         "configId": "okf_table_src-tab-trg",
@@ -137,7 +140,8 @@
           "escapingMode": 1,
           "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.table.TableFilter"
       },
       {
         "configId": "okf_table_fwc",
@@ -175,7 +179,8 @@
           "columnEndPositions": "",
           "_parametersClass": "net.sf.okapi.filters.table.fwc.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.table.TableFilter"
       },
       {
         "configId": "okf_table_tsv",
@@ -211,7 +216,8 @@
           "targetSourceRefs": "",
           "_parametersClass": "net.sf.okapi.filters.table.tsv.Parameters"
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.table.TableFilter"
       }
     ]
   },

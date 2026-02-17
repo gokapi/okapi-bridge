@@ -19,7 +19,8 @@
         "description": "Default Moses Text configuration.",
         "mimeType": "text/x-mosestext",
         "extensions": ".txt;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.mosestext.MosesTextFilter"
       }
     ]
   },

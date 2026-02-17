@@ -18,7 +18,8 @@
         "name": "Regex Default",
         "description": "Default Regex configuration.",
         "mimeType": "text/x-regex",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
       },
       {
         "configId": "okf_regex-srt",
@@ -54,7 +55,8 @@
           "rule0.codeFinderRules.sample": "test <b>bold</b>, <a href='link' more=\"&lt;value&gt;\"/> test",
           "rule0.codeFinderRules.useAllRulesWhenTesting": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
       },
       {
         "configId": "okf_regex-textLine",
@@ -88,7 +90,8 @@
           "rule0.codeFinderRules.sample": "",
           "rule0.codeFinderRules.useAllRulesWhenTesting": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
       },
       {
         "configId": "okf_regex-textBlock",
@@ -122,7 +125,8 @@
           "rule0.codeFinderRules.sample": "",
           "rule0.codeFinderRules.useAllRulesWhenTesting": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
       },
       {
         "configId": "okf_regex-macStrings",
@@ -203,7 +207,8 @@
           "rule3.codeFinderRules.sample": "",
           "rule3.codeFinderRules.useAllRulesWhenTesting": false
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
       }
     ]
   },

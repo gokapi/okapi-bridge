@@ -19,7 +19,8 @@
         "description": "OpenOffice.org ODT, ODS, ODP, ODG, OTT, OTS, OTP, OTG, SWC, SWX, SXD, SXI documents",
         "mimeType": "application/x-openoffice",
         "extensions": ".odt;.ods;.odg;.odp;.ott;.ots;.otp;.otg;.swc;.swx;.sxd;.sxi;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.openoffice.OpenOfficeFilter"
       }
     ]
   },

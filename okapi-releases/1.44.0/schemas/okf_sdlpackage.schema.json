@@ -19,7 +19,8 @@
         "description": "SDL Trados 2017 SDLPPX and SDLRPX files",
         "mimeType": "application/x-sdlpackage",
         "extensions": ".sdlppx;.sdlrpx;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.sdlpackage.SdlPackageFilter"
       }
     ]
   },

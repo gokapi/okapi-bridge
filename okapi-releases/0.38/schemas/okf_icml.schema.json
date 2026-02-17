@@ -19,7 +19,8 @@
         "description": "Adobe InDesign ICML documents",
         "mimeType": "application/x-icml+xml",
         "extensions": ".wcml;.icml",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.icml.ICMLFilter"
       }
     ]
   },

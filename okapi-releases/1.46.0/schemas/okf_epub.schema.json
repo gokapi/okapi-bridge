@@ -19,7 +19,8 @@
         "description": "Electronic Publication Files (EPUB)",
         "mimeType": "application/epub+zip",
         "extensions": ".epub;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.epub.EpubFilter"
       }
     ]
   },

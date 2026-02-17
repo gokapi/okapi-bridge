@@ -18,7 +18,8 @@
         "name": "Vignette Export/Import Content",
         "description": "Default Vignette Export/Import Content configuration.",
         "mimeType": "text/xml",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.vignette.VignetteFilter"
       },
       {
         "configId": "okf_vignette-nocdata",
@@ -37,7 +38,8 @@
           "quoteModeDefined": true,
           "quoteMode": 0
         },
-        "isDefault": false
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.vignette.VignetteFilter"
       }
     ]
   },

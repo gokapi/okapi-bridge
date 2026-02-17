@@ -19,7 +19,8 @@
         "description": "Configuration for CSV files with plain-text on all columns",
         "mimeType": "text/csv",
         "extensions": ".csv;",
-        "isDefault": true
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.multiparsers.MultiParsersFilter"
       }
     ]
   },
