@@ -71,29 +71,76 @@ The composite version increments when either the base schema OR the override cha
 | Okapi release changes params | v2 | v2 | v4 | New version (base changed) |
 | Okapi release, no changes | v1 | v2 | v3 | Same version (hash unchanged) |
 
+<!-- SCHEMA_MATRIX_START -->
+### Schema Statistics
+
+- **Total filters**: 57
+- **Total schema versions**: 185
+- **Filters with version changes**: 50
+
 ### Schema Version Matrix
 
-Shows which composite schema version applies to each Okapi release. 
-Only filters with version changes are shown (`-` = filter not available in that release).
-
-Regenerate with: `make schema-matrix`
+Shows which composite schema version applies to each Okapi release.
+Only filters with multiple versions are shown (`-` = filter not available).
 
 <details>
-<summary>Click to expand schema version matrix</summary>
+<summary>Click to expand full matrix</summary>
 
 | Filter | 0.38 | 1.39.0 | 1.40.0 | 1.41.0 | 1.42.0 | 1.43.0 | 1.44.0 | 1.45.0 | 1.46.0 | 1.47.0 |
 |--------|------|------|------|------|------|------|------|------|------|------|
+| `okf_archive` | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v4 | v4 |
+| `okf_baseplaintext` | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v4 | v4 |
+| `okf_basetable` | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v4 | v4 |
+| `okf_commaseparatedvalues` | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v4 | v4 |
+| `okf_doxygen` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_dtd` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_epub` | - | - | - | - | - | - | - | - | v2 | v2 |
+| `okf_fixedwidthcolumns` | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v4 | v4 |
+| `okf_html` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_html5` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_icml` | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v4 | v4 |
 | `okf_idml` | v8 | v9 | v9 | v10 | v10 | v10 | v4 | v5 | v11 | v12 |
 | `okf_json` | v4 | v4 | v4 | v4 | v5 | v5 | v5 | v5 | v6 | v6 |
 | `okf_markdown` | v1 | v1 | v1 | v1 | v2 | v3 | v3 | v4 | v4 | v4 |
+| `okf_messageformat` | - | - | - | - | - | - | - | - | v2 | v2 |
 | `okf_mif` | v5 | v6 | v7 | v8 | v8 | v8 | v8 | v8 | v8 | v8 |
+| `okf_multiparsers` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_odf` | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v4 | v4 |
+| `okf_openoffice` | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v4 | v4 |
 | `okf_openxml` | v1 | v1 | v1 | v2 | v2 | v3 | v3 | v4 | v7 | v8 |
+| `okf_paraplaintext` | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v4 | v4 |
+| `okf_pdf` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_phpcontent` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_plaintext` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_po` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
 | `okf_properties` | v3 | v3 | v4 | v4 | v4 | v4 | v4 | v4 | v4 | v4 |
+| `okf_rainbowkit` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
 | `okf_regex` | v4 | v4 | v4 | v4 | v5 | v6 | v6 | v6 | v6 | v6 |
+| `okf_regexplaintext` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_sdlpackage` | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v4 | v4 |
+| `okf_splicedlines` | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v4 | v4 |
+| `okf_table` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_tabseparatedvalues` | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v3 | v4 | v4 |
+| `okf_tex` | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v1 | v2 | v2 |
+| `okf_tmx` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_transifex` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_ts` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_ttml` | - | - | - | - | - | - | - | - | v2 | v2 |
+| `okf_ttx` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_txml` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_vignette` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_vtt` | - | - | - | - | - | - | - | - | v2 | v2 |
+| `okf_wiki` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_wsxzpackage` | - | - | - | - | - | - | - | v3 | v4 | v4 |
+| `okf_xini` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
 | `okf_xliff` | v6 | v6 | v6 | v7 | v7 | v8 | v8 | v8 | v9 | v10 |
 | `okf_xliff2` | v7 | v7 | v7 | v8 | v8 | v9 | v9 | v10 | v11 | v12 |
+| `okf_xml` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_xmlstream` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
+| `okf_yaml` | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 | v2 |
 
 </details>
+<!-- SCHEMA_MATRIX_END -->
 
 ## Schema Management
 
