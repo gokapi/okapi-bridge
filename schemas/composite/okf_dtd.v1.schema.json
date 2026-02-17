@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_dtd.schema.json",
+  "$version": "1.0.0",
+  "title": "DTD Filter Filter",
+  "description": "Configuration for the Okapi DTD Filter Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_dtd",
+    "class": "net.sf.okapi.filters.dtd.DTDFilter",
+    "extensions": [],
+    "mimeTypes": [
+      "application/xml+dtd"
+    ]
+  },
+  "properties": {
+    "useCodeFinder": {
+      "type": "boolean",
+      "default": true
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization"
+    }
+  },
+  "additionalProperties": false,
+  "x-schemaVersion": 1,
+  "x-baseVersion": 1,
+  "x-baseHash": "072d42c31998",
+  "x-compositeHash": "072d42c31998"
+}

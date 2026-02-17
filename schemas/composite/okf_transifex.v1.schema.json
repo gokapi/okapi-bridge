@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_transifex.schema.json",
+  "$version": "1.0.0",
+  "title": "Transifex Filter Filter",
+  "description": "Configuration for the Okapi Transifex Filter Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_transifex",
+    "class": "net.sf.okapi.filters.transifex.TransifexFilter",
+    "extensions": [],
+    "mimeTypes": [
+      "application/x-transifex"
+    ]
+  },
+  "properties": {
+    "openProject": {
+      "type": "boolean",
+      "default": true,
+      "title": "Open the project file before processing"
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization"
+    }
+  },
+  "additionalProperties": false,
+  "x-schemaVersion": 1,
+  "x-baseVersion": 1,
+  "x-baseHash": "56393b246fae",
+  "x-compositeHash": "56393b246fae"
+}
