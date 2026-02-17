@@ -73,9 +73,9 @@ generate_compact_matrix() {
             ver=$(get_schema_version "$filter" "$okapi")
             if [[ -n "$ver" ]]; then
                 if [[ "$ver" == "$prev_ver" ]]; then
-                    printf " → |"
-                else
                     printf " v%s |" "$ver"
+                else
+                    printf " **v%s** |" "$ver"
                 fi
                 prev_ver="$ver"
             else
