@@ -88,7 +88,6 @@ ifndef V
 endif
 	@echo "Adding Okapi release $(V)..."
 	@mkdir -p okapi-releases/$(V)/schemas
-	@mkdir -p okapi-releases/$(V)/overrides
 	@# Discover available filters and generate version-specific pom.xml
 	@echo "Discovering available filters..."
 	@./scripts/generate-version-pom.sh $(V)
@@ -101,10 +100,11 @@ endif
 	@# Create meta.json
 	@echo '{"okapiVersion":"$(V)","generatedAt":"'$$(date -u +%Y-%m-%dT%H:%M:%SZ)'","filterCount":'$$(ls -1 okapi-releases/$(V)/schemas/*.schema.json 2>/dev/null | wc -l | tr -d ' ')'}' \
 		| jq . > okapi-releases/$(V)/schemas/meta.json
-	@# Run versioner to assign schema versions (uses latest for the versioner code)
-	@echo "Assigning schema versions..."
-	@mvn -B -q compile -Dokapi.version=$(LATEST_VERSION)
-	@mvn -B -q exec:java@version-schemas -Dexec.args="$(V) okapi-releases/$(V)/schemas $(VERSIONS_FILE)" -Dokapi.version=$(LATEST_VERSION)
+	@# Run centralize-schemas to process the new version into base/composite structure
+	@echo "Processing schemas into centralized structure..."
+	@./scripts/centralize-schemas.sh
+	@# Update README matrix
+	@./scripts/update-readme-matrix.sh
 	@echo ""
 	@echo "Created okapi-releases/$(V)/ with $$(ls -1 okapi-releases/$(V)/schemas/*.schema.json | wc -l | tr -d ' ') schemas"
 	@echo ""
