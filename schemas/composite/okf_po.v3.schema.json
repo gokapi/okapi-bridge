@@ -29,16 +29,17 @@
         "mimeType": "application/x-gettext",
         "extensions": ".po;",
         "parametersLocation": "monolingual.fprm",
-        "parametersRaw": "#v1\nbilingualMode.b=false\nmakeID.b=true\nuseLD.b=true\nlocalizeOutside.b=true\nuseCodeFinder.b=true\ncodeFinderRules.count.i=2\ncodeFinderRules.rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]\ncodeFinderRules.rule1=\\{\\d[^\\\\]*?\\}\ncodeFinderRules.sample=%s, %d, {1}, \\n, \\r, \\t, etc.\ncodeFinderRules.useAllRulesWhenTesting.b=true\n",
+        "parametersRaw": "#v1\nbilingualMode.b=false\nmakeID.b=true\nuseLD.b=true\nlocalizeOutside.b=true\nuseCodeFinder.b=true\ncodeFinderRules.count.i=3\ncodeFinderRules.rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]\ncodeFinderRules.rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v\ncodeFinderRules.rule2=\\{\\d.*?\\}\ncodeFinderRules.sample=%s, %d, {1}, \\n, \\r, \\t, etc.\ncodeFinderRules.useAllRulesWhenTesting.b=true\n",
         "parameters": {
           "bilingualMode": false,
           "makeID": true,
           "useLD": true,
           "localizeOutside": true,
           "useCodeFinder": true,
-          "codeFinderRules.count": 2,
+          "codeFinderRules.count": 3,
           "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
-          "codeFinderRules.rule1": "\\{\\d[^\\\\]*?\\}",
+          "codeFinderRules.rule1": "(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v",
+          "codeFinderRules.rule2": "\\{\\d.*?\\}",
           "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.",
           "codeFinderRules.useAllRulesWhenTesting": true
         },
@@ -109,14 +110,6 @@
       "type": "boolean",
       "default": false
     },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
-      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
-    },
-    "mergeAdjacentCodes": {
-      "type": "boolean",
-      "description": "Merge consecutive inline codes into a single placeholder"
-    },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
@@ -174,7 +167,7 @@
   ],
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
-  "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "be157eed1531",
-  "x-compositeHash": "1b7b597ad358"
+  "x-baseHash": "713502e480e5",
+  "x-compositeHash": "c4e08a6ddbdc",
+  "x-introducedInOkapi": "0.38"
 }

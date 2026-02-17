@@ -11,17 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "application/xliff+xml"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_xliff2",
-        "name": "XLIFF-2",
-        "description": "Configuration for XLIFF-2 documents.",
-        "mimeType": "application/xliff+xml",
-        "extensions": ".xlf;.xliff;.xlf2;.xliff2",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.xliff2.XLIFF2Filter"
-      }
     ]
   },
   "properties": {
@@ -33,7 +22,9 @@
     },
     "useCodeFinder": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Has inline codes as defined below:",
+      "x-widget": "checkbox"
     },
     "codeFinderRules": {
       "type": "object",
@@ -74,6 +65,18 @@
     "needsSegmentation": {
       "type": "boolean",
       "default": false
+    },
+    "forceUniqueIds": {
+      "type": "boolean",
+      "default": false,
+      "title": "Ensure tag IDs are unique within units",
+      "x-widget": "checkbox"
+    },
+    "ignoreTagTypeMatch": {
+      "type": "boolean",
+      "default": false,
+      "title": "Ignore tag type mismatch between source and target",
+      "x-widget": "checkbox"
     }
   },
   "additionalProperties": false,
@@ -125,7 +128,6 @@
   ],
   "x-schemaVersion": 5,
   "x-baseVersion": 5,
-  "x-introducedInOkapi": "1.45.0",
-  "x-baseHash": "fb158c373ae4",
-  "x-compositeHash": "6346ed15e8d2"
+  "x-baseHash": "9b9f2efdbfcd",
+  "x-compositeHash": "9041740e00c7"
 }

@@ -18,7 +18,7 @@
         "name": "XLIFF",
         "description": "Configuration for XML Localisation Interchange File Format (XLIFF) documents.",
         "mimeType": "application/x-xliff+xml",
-        "extensions": ".xlf;.xlif;.xliff;.mxliff;.mqxliff;",
+        "extensions": ".xlf;.xliff;.mxliff;.mqxliff",
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
       },
@@ -27,9 +27,9 @@
         "name": "SDLXLIFF",
         "description": "Configuration for SDL XLIFF documents. Supports SDL specific metadata",
         "mimeType": "application/x-xliff+xml",
-        "extensions": ".sdlxliff;",
+        "extensions": ".sdlxliff",
         "parametersLocation": "sdl.fprm",
-        "parametersRaw": "#v1\nuseCustomParser.b=true\nfactoryClass=com.ctc.wstx.stax.WstxInputFactory\nfallbackToID.b=false\nescapeGT.b=false\naddTargetLanguage.b=true\noverrideTargetLanguage.b=false\noutputSegmentationType.i=0\nignoreInputSegmentation.b=false\naddAltTrans.b=false\naddAltTransGMode.b=true\neditAltTrans.b=false\nincludeExtensions.b=true\nincludeIts.b=true\nbalanceCodes.b=true\nallowEmptyTargets.b=false\ntargetStateMode.i=0\ntargetStateValue=needs-translation\nalwaysUseSegSource.b=false\nquoteModeDefined.b=true\nquoteMode.i=0\nuseSdlXliffWriter.b=true\nsdlSegConfValue=Translated\npreserveSpaceByDefault.b=true\nskipNoMrkSegSource.b=true\nuseTranslationTargetState.b=false\n",
+        "parametersRaw": "#v1\nuseCustomParser.b=true\nfactoryClass=com.ctc.wstx.stax.WstxInputFactory\nfallbackToID.b=false\nescapeGT.b=false\naddTargetLanguage.b=true\noverrideTargetLanguage.b=false\noutputSegmentationType.i=0\nignoreInputSegmentation.b=false\naddAltTrans.b=false\naddAltTransGMode.b=true\neditAltTrans.b=false\nincludeExtensions.b=true\nincludeIts.b=true\nbalanceCodes.b=true\nallowEmptyTargets.b=false\ntargetStateMode.i=0\ntargetStateValue=needs-translation\nalwaysUseSegSource.b=false\nquoteModeDefined.b=true\nquoteMode.i=0\nuseSdlXliffWriter.b=true\nsdlSegConfValue=Translated\npreserveSpaceByDefault.b=true\nskipNoMrkSegSource.b=true\n",
         "parameters": {
           "useCustomParser": true,
           "factoryClass": "com.ctc.wstx.stax.WstxInputFactory",
@@ -54,8 +54,7 @@
           "useSdlXliffWriter": true,
           "sdlSegConfValue": "Translated",
           "preserveSpaceByDefault": true,
-          "skipNoMrkSegSource": true,
-          "useTranslationTargetState": false
+          "skipNoMrkSegSource": true
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
@@ -65,7 +64,7 @@
         "name": "IWSXLIFF",
         "description": "Configuration for IWS XLIFF documents. Supports IWS specific metadata",
         "mimeType": "application/x-xliff+xml",
-        "extensions": ".xlf;",
+        "extensions": ".xlf",
         "parametersLocation": "iws.fprm",
         "parametersRaw": "#v1\nuseCustomParser.b=true\nfactoryClass=com.ctc.wstx.stax.WstxInputFactory\nfallbackToID.b=false\nescapeGT.b=false\naddTargetLanguage.b=true\noverrideTargetLanguage.b=false\noutputSegmentationType.i=0\nignoreInputSegmentation.b=false\naddAltTrans.b=false\naddAltTransGMode.b=true\neditAltTrans.b=false\nincludeExtensions.b=true\nincludeIts.b=true\nbalanceCodes.b=true\nallowEmptyTargets.b=false\ntargetStateMode.i=0\ntargetStateValue=needs-translation\nalwaysUseSegSource.b=false\nquoteModeDefined.b=true\nquoteMode.i=0\nuseSdlXliffWriter.b=false\npreserveSpaceByDefault.b=true\nuseSegsForSdlProps.b=false\nuseIwsXliffWriter.b=true\niwsBlockFinished.b=true\niwsTransStatusValue=pending\niwsTransTypeValue=manual_translation\niwsRemoveTmOrigin.b=false\niwsBlockLockStatus.b=false\niwsBlockTmScore.b=false\niwsBlockTmScoreValue=100.00\niwsIncludeMultipleExact.b=false\niwsBlockMultipleExact.b=false\ninlineCdata.b=false\nskipNoMrkSegSource.b=true\nuseCodeFinder.b=false\nsdlSegConfValue=Translated\ncodeFinderRules.count.i=0\ncodeFinderRules.sample=\ncodeFinderRules.useAllRulesWhenTesting.b=false\n",
         "parameters": {
@@ -175,6 +174,10 @@
       "type": "boolean",
       "default": true
     },
+    "balanceCodes": {
+      "type": "boolean",
+      "default": true
+    },
     "alwaysUseSegSource": {
       "type": "boolean",
       "default": false
@@ -203,19 +206,7 @@
       "type": "boolean",
       "default": false
     },
-    "subAsTextUnit": {
-      "type": "boolean",
-      "default": false
-    },
     "useSegsForSdlProps": {
-      "type": "boolean",
-      "default": false
-    },
-    "useTranslationTargetState": {
-      "type": "boolean",
-      "default": true
-    },
-    "alwaysAddTargets": {
       "type": "boolean",
       "default": false
     },
@@ -259,15 +250,7 @@
       "type": "boolean",
       "default": false
     },
-    "forceUniqueIds": {
-      "type": "boolean",
-      "default": false
-    },
     "inlineCdata": {
-      "type": "boolean",
-      "default": false
-    },
-    "xtmAttributes": {
       "type": "boolean",
       "default": false
     },
@@ -308,22 +291,6 @@
       },
       "x-okapiFormat": "inlineCodeFinder",
       "x-widget": "codeFinderRules"
-    },
-    "cdataSubfilter": {
-      "type": "string",
-      "default": ""
-    },
-    "pcdataSubfilter": {
-      "type": "string",
-      "default": ""
-    },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
-      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
-    },
-    "mergeAdjacentCodes": {
-      "type": "boolean",
-      "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
       "type": "string",
@@ -382,7 +349,7 @@
   ],
   "x-schemaVersion": 8,
   "x-baseVersion": 8,
-  "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "6f332d549be8",
-  "x-compositeHash": "a86760dbdc05"
+  "x-baseHash": "8ec97b9374d1",
+  "x-compositeHash": "f52197049263",
+  "x-introducedInOkapi": "1.39.0"
 }

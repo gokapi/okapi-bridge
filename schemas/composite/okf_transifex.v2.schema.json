@@ -11,30 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-transifex"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_transifex",
-        "name": "Transifex Project",
-        "description": "Transifex project with prompt when starting",
-        "mimeType": "application/x-transifex",
-        "extensions": ".txp;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.transifex.TransifexFilter"
-      },
-      {
-        "configId": "okf_transifex-noPrompt",
-        "name": "Transifex Project (without prompt)",
-        "description": "Transifex project without prompt when starting",
-        "mimeType": "application/x-transifex",
-        "parametersLocation": "noPrompt.fprm",
-        "parametersRaw": "#v1\nopenProject.b=false\n",
-        "parameters": {
-          "openProject": false
-        },
-        "isDefault": false,
-        "filterClass": "net.sf.okapi.filters.transifex.TransifexFilter"
-      }
     ]
   },
   "properties": {
@@ -45,11 +21,11 @@
       "x-widget": "checkbox"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
+      "type": "object",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
-      "type": "boolean",
+      "type": "object",
       "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
@@ -84,7 +60,6 @@
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "d4f89fdf943d",
-  "x-compositeHash": "e9490512310b"
+  "x-baseHash": "1f14c62a384c",
+  "x-compositeHash": "f82d0007958b"
 }

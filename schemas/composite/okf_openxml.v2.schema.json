@@ -11,17 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "text/xml"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_openxml",
-        "name": "Microsoft Office Document",
-        "description": "Microsoft Office documents (DOCX, DOCM, DOTX, DOTM, PPTX, PPTM, PPSX, PPSM, POTX, POTM, XLSX, XLSM, XLTX, XLTM, VSDX, VSDM).",
-        "mimeType": "text/xml",
-        "extensions": ".docx;.docm;.dotx;.dotm;.pptx;.pptm;.ppsx;.ppsm;.potx;.potm;.xlsx;.xlsm;.xltx;.xltm;.vsdx;.vsdm;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.openxml.OpenXMLFilter"
-      }
     ]
   },
   "properties": {
@@ -146,16 +135,6 @@
     "bReorderPowerpointNotesAndComments": {
       "type": "boolean",
       "default": false
-    },
-    "nFileType": {
-      "type": "string",
-      "default": "MSWORD",
-      "enum": [
-        "MSWORD",
-        "MSEXCEL",
-        "MSWORDDOCPROPERTIES",
-        "MSPOWERPOINTCOMMENTS"
-      ]
     }
   },
   "additionalProperties": false,
@@ -221,7 +200,6 @@
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-introducedInOkapi": "1.41.0",
-  "x-baseHash": "2f82f0acdbd8",
-  "x-compositeHash": "2041d2010b2c"
+  "x-baseHash": "da8945f8a9c0",
+  "x-compositeHash": "41ba242ff6b1"
 }

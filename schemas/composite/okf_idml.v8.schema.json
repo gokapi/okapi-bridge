@@ -11,17 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "application/vnd.adobe.indesign-idml-package"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_idml",
-        "name": "IDML",
-        "description": "Adobe InDesign IDML documents",
-        "mimeType": "application/vnd.adobe.indesign-idml-package",
-        "extensions": ".idml;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.idml.IDMLFilter"
-      }
     ]
   },
   "properties": {
@@ -38,7 +27,7 @@
       "default": true
     },
     "mergeAdjacentCodes": {
-      "type": "boolean",
+      "type": "object",
       "description": "Merge consecutive inline codes into a single placeholder"
     },
     "extractNotes": {
@@ -177,7 +166,7 @@
       "x-widget": "codeFinderRules"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
+      "type": "object",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "simplifierRules": {
@@ -243,7 +232,6 @@
   ],
   "x-schemaVersion": 8,
   "x-baseVersion": 8,
-  "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "32d3dd010ce0",
-  "x-compositeHash": "a91d6a9484fd"
+  "x-baseHash": "c15f05a0a0d9",
+  "x-compositeHash": "0e20e80ab85b"
 }

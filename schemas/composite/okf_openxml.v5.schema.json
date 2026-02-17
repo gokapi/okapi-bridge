@@ -11,17 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "text/xml"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_openxml",
-        "name": "Microsoft Office Document",
-        "description": "Microsoft Office documents (DOCX, DOCM, DOTX, DOTM, PPTX, PPTM, PPSX, PPSM, POTX, POTM, XLSX, XLSM, XLTX, XLTM, VSDX, VSDM).",
-        "mimeType": "text/xml",
-        "extensions": ".docx;.docm;.dotx;.dotm;.pptx;.pptm;.ppsx;.ppsm;.potx;.potm;.xlsx;.xlsm;.xltx;.xltm;.vsdx;.vsdm;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.openxml.OpenXMLFilter"
-      }
     ]
   },
   "properties": {
@@ -211,16 +200,6 @@
       "type": "string",
       "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
-    },
-    "nFileType": {
-      "type": "string",
-      "default": "MSWORD",
-      "enum": [
-        "MSWORD",
-        "MSEXCEL",
-        "MSWORDDOCPROPERTIES",
-        "MSPOWERPOINTCOMMENTS"
-      ]
     }
   },
   "additionalProperties": false,
@@ -286,7 +265,6 @@
   ],
   "x-schemaVersion": 5,
   "x-baseVersion": 5,
-  "x-introducedInOkapi": "1.46.0",
-  "x-baseHash": "fa361d830814",
-  "x-compositeHash": "1a7db7bd24da"
+  "x-baseHash": "4610bc7c66fc",
+  "x-compositeHash": "bc0ee458610f"
 }

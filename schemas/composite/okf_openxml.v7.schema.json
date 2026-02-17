@@ -11,17 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "text/xml"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_openxml",
-        "name": "Microsoft Office Document",
-        "description": "Microsoft Office documents (DOCX, DOCM, DOTX, DOTM, PPTX, PPTM, PPSX, PPSM, POTX, POTM, XLSX, XLSM, XLTX, XLTM, VSDX, VSDM).",
-        "mimeType": "text/xml",
-        "extensions": ".docx;.docm;.dotx;.dotm;.pptx;.pptm;.ppsx;.ppsm;.potx;.potm;.xlsx;.xlsm;.xltx;.xltm;.vsdx;.vsdm;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.openxml.OpenXMLFilter"
-      }
     ]
   },
   "properties": {
@@ -324,27 +313,17 @@
       }
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
+      "type": "object",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
-      "type": "boolean",
+      "type": "object",
       "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
-    },
-    "nFileType": {
-      "type": "string",
-      "default": "MSWORD",
-      "enum": [
-        "MSWORD",
-        "MSEXCEL",
-        "MSWORDDOCPROPERTIES",
-        "MSPOWERPOINTCOMMENTS"
-      ]
     }
   },
   "additionalProperties": false,
@@ -410,7 +389,6 @@
   ],
   "x-schemaVersion": 7,
   "x-baseVersion": 7,
-  "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "6e6bc081dc3c",
-  "x-compositeHash": "6be8c6238599"
+  "x-baseHash": "8abe181fb764",
+  "x-compositeHash": "8987d6aee80d"
 }

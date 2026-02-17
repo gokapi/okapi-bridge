@@ -60,8 +60,7 @@
           "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
         },
         "isDefault": false,
-        "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter",
-        "schemaRef": "okf_commaseparatedvalues.schema.json"
+        "filterClass": "net.sf.okapi.filters.table.TableFilter"
       },
       {
         "configId": "okf_table_catkeys",
@@ -101,8 +100,7 @@
           "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
         },
         "isDefault": false,
-        "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter",
-        "schemaRef": "okf_commaseparatedvalues.schema.json"
+        "filterClass": "net.sf.okapi.filters.table.TableFilter"
       },
       {
         "configId": "okf_table_src-tab-trg",
@@ -143,8 +141,7 @@
           "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
         },
         "isDefault": false,
-        "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter",
-        "schemaRef": "okf_commaseparatedvalues.schema.json"
+        "filterClass": "net.sf.okapi.filters.table.TableFilter"
       },
       {
         "configId": "okf_table_fwc",
@@ -183,8 +180,7 @@
           "_parametersClass": "net.sf.okapi.filters.table.fwc.Parameters"
         },
         "isDefault": false,
-        "filterClass": "net.sf.okapi.filters.table.fwc.FixedWidthColumnsFilter",
-        "schemaRef": "okf_fixedwidthcolumns.schema.json"
+        "filterClass": "net.sf.okapi.filters.table.TableFilter"
       },
       {
         "configId": "okf_table_tsv",
@@ -221,8 +217,7 @@
           "_parametersClass": "net.sf.okapi.filters.table.tsv.Parameters"
         },
         "isDefault": false,
-        "filterClass": "net.sf.okapi.filters.table.tsv.TabSeparatedValuesFilter",
-        "schemaRef": "okf_tabseparatedvalues.schema.json"
+        "filterClass": "net.sf.okapi.filters.table.TableFilter"
       }
     ]
   },
@@ -251,7 +246,7 @@
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-introducedInOkapi": "1.42.0",
-  "x-baseHash": "353e4971ef2e",
-  "x-compositeHash": "b06a1d67e6cd"
+  "x-baseHash": "969188749602",
+  "x-compositeHash": "dfd5021e55ac",
+  "x-introducedInOkapi": "0.38"
 }

@@ -11,17 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "application/xliff+xml"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_xliff2",
-        "name": "XLIFF-2",
-        "description": "Configuration for XLIFF-2 documents.",
-        "mimeType": "application/xliff+xml",
-        "extensions": ".xlf;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.xliff2.XLIFF2Filter"
-      }
     ]
   },
   "properties": {
@@ -73,7 +62,7 @@
     },
     "simplifyTags": {
       "type": "boolean",
-      "default": true
+      "default": false
     },
     "needsSegmentation": {
       "type": "boolean",
@@ -129,7 +118,6 @@
   ],
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
-  "x-introducedInOkapi": "1.42.0",
-  "x-baseHash": "06d6a8f54520",
-  "x-compositeHash": "2448e4e7eeb3"
+  "x-baseHash": "cd0adf27c1d6",
+  "x-compositeHash": "11a119c72cf8"
 }

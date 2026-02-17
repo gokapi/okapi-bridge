@@ -11,17 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-tmx+xml"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_tmx",
-        "name": "TMX",
-        "description": "Configuration for Translation Memory eXchange (TMX) documents.",
-        "mimeType": "application/x-tmx+xml",
-        "extensions": ".tmx;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.tmx.TmxFilter"
-      }
     ]
   },
   "properties": {
@@ -51,11 +40,11 @@
       "title": "String used to delimit property values when there are duplicate properties"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
+      "type": "object",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
-      "type": "boolean",
+      "type": "object",
       "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
@@ -114,7 +103,6 @@
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "553eb91b7135",
-  "x-compositeHash": "9a5f9a036c66"
+  "x-baseHash": "fe93e469f08a",
+  "x-compositeHash": "9f32d28c763d"
 }

@@ -11,17 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "application/epub+zip"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_epub",
-        "name": "EPUB Files",
-        "description": "Electronic Publication Files (EPUB)",
-        "mimeType": "application/epub+zip",
-        "extensions": ".epub;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.epub.EpubFilter"
-      }
     ]
   },
   "properties": {
@@ -46,11 +35,11 @@
       "x-widget": "text"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
+      "type": "object",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
-      "type": "boolean",
+      "type": "object",
       "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
@@ -94,7 +83,6 @@
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "942c68da47db",
-  "x-compositeHash": "bbb1a09b7df2"
+  "x-baseHash": "5e5875027db9",
+  "x-compositeHash": "9fb65e7d9776"
 }

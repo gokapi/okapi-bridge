@@ -11,17 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-ttx+xml"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_ttx",
-        "name": "TTX",
-        "description": "Configuration for Trados TTX documents.",
-        "mimeType": "application/x-ttx+xml",
-        "extensions": ".ttx;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.ttx.TTXFilter"
-      }
     ]
   },
   "properties": {
@@ -87,7 +76,6 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-introducedInOkapi": "0.38",
-  "x-baseHash": "a89dbe9bf0ee",
-  "x-compositeHash": "0039ebd89fa4"
+  "x-baseHash": "90e36426044f",
+  "x-compositeHash": "b115ddd32cdd"
 }

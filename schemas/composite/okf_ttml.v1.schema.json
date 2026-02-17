@@ -11,25 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "application/ttml+xml"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_ttml",
-        "name": "TTML",
-        "description": "TTML Documents",
-        "mimeType": "application/ttml+xml",
-        "extensions": ".ttml",
-        "parametersLocation": "okf_ttml.fprm",
-        "parametersRaw": "#v1\ntimeFormat=HH:mm:ss.SSS\nmaxLinesPerCaption.i=2\nmaxCharsPerLine.i=47\ncjkCharsPerLine.i=18\n",
-        "parameters": {
-          "timeFormat": "HH:mm:ss.SSS",
-          "maxLinesPerCaption": 2,
-          "maxCharsPerLine": 47,
-          "cjkCharsPerLine": 18
-        },
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.ttml.TTMLFilter"
-      }
     ]
   },
   "properties": {
@@ -117,7 +98,6 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-introducedInOkapi": "1.46.0",
-  "x-baseHash": "a29df30fdba0",
-  "x-compositeHash": "861197726f00"
+  "x-baseHash": "2287bfcc2579",
+  "x-compositeHash": "ae1125b70b5f"
 }

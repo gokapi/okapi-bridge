@@ -11,17 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "application/vnd.adobe.indesign-idml-package"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_idml",
-        "name": "IDML",
-        "description": "Adobe InDesign IDML documents",
-        "mimeType": "application/vnd.adobe.indesign-idml-package",
-        "extensions": ".idml;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.idml.IDMLFilter"
-      }
     ]
   },
   "properties": {
@@ -190,7 +179,6 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-introducedInOkapi": "0.38",
-  "x-baseHash": "de64e1bb8594",
-  "x-compositeHash": "b1cc7a6b82fd"
+  "x-baseHash": "a33f90584558",
+  "x-compositeHash": "b1f57ea22097"
 }

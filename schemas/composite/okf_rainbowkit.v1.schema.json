@@ -11,40 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-rainbowkit"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_rainbowkit",
-        "name": "Rainbow Translation Kit",
-        "description": "Configuration for Rainbow translation kit.",
-        "mimeType": "application/x-rainbowkit",
-        "extensions": ".rkm;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.rainbowkit.RainbowKitFilter"
-      },
-      {
-        "configId": "okf_rainbowkit-package",
-        "name": "Rainbow Translation Kit Package",
-        "description": "Configuration for Rainbow translation kit package.",
-        "mimeType": "application/x-rainbowkit-package",
-        "extensions": ".rkp;",
-        "isDefault": false,
-        "filterClass": "net.sf.okapi.filters.rainbowkit.RainbowKitFilter"
-      },
-      {
-        "configId": "okf_rainbowkit-noprompt",
-        "name": "Rainbow Translation Kit (No prompt)",
-        "description": "Configuration for Rainbow translation kit (without prompt).",
-        "mimeType": "application/x-rainbowkit",
-        "extensions": ".rkm;",
-        "parametersLocation": "noprompt.fprm",
-        "parametersRaw": "#v1\nopenManifest.b=false\n",
-        "parameters": {
-          "openManifest": false
-        },
-        "isDefault": false,
-        "filterClass": "net.sf.okapi.filters.rainbowkit.RainbowKitFilter"
-      }
     ]
   },
   "properties": {
@@ -68,7 +34,6 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-introducedInOkapi": "0.38",
-  "x-baseHash": "42690f534407",
-  "x-compositeHash": "bd651743f20e"
+  "x-baseHash": "d8c4b0d98c41",
+  "x-compositeHash": "c933fd603ce6"
 }

@@ -15,7 +15,7 @@
     "configurations": [
       {
         "configId": "okf_mif",
-        "name": "MIF",
+        "name": "MIF (BETA)",
         "description": "Adobe FrameMaker MIF documents",
         "mimeType": "application/vnd.mif",
         "extensions": ".mif;",
@@ -91,26 +91,6 @@
       "type": "boolean",
       "default": false
     },
-    "extractPgfNumFormatsInline": {
-      "type": "boolean",
-      "default": false
-    },
-    "extractReferenceFormats": {
-      "type": "boolean",
-      "default": false
-    },
-    "extractHardReturnsAsText": {
-      "type": "boolean",
-      "default": true
-    },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
-      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
-    },
-    "mergeAdjacentCodes": {
-      "type": "boolean",
-      "description": "Merge consecutive inline codes into a single placeholder"
-    },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
@@ -135,7 +115,7 @@
   ],
   "x-schemaVersion": 6,
   "x-baseVersion": 6,
-  "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "c95e19e7abbb",
-  "x-compositeHash": "f768f8045a07"
+  "x-baseHash": "6eeb2fea0de5",
+  "x-compositeHash": "5979666ac068",
+  "x-introducedInOkapi": "0.38"
 }

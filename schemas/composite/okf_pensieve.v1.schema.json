@@ -11,24 +11,12 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-pensieve-tm"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_pensieve",
-        "name": "Pensieve TM",
-        "description": "Configuration for Pensieve translation memories.",
-        "mimeType": "application/x-pensieve-tm",
-        "extensions": ".pentm;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.pensieve.PensieveFilter"
-      }
     ]
   },
   "properties": {},
   "additionalProperties": false,
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-introducedInOkapi": "0.38",
-  "x-baseHash": "2e87f7b3336e",
-  "x-compositeHash": "2e87f7b3336e"
+  "x-baseHash": "a41a159119df",
+  "x-compositeHash": "a41a159119df"
 }

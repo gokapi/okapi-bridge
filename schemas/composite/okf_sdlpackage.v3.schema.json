@@ -11,17 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-sdlpackage"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_sdlpackage",
-        "name": "SDL Trados Package Files",
-        "description": "SDL Trados 2017 SDLPPX and SDLRPX files",
-        "mimeType": "application/x-sdlpackage",
-        "extensions": ".sdlppx;.sdlrpx;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.sdlpackage.SdlPackageFilter"
-      }
     ]
   },
   "properties": {
@@ -46,11 +35,11 @@
       "x-widget": "text"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
+      "type": "object",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
-      "type": "boolean",
+      "type": "object",
       "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
@@ -94,7 +83,6 @@
   ],
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
-  "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "d75f2a5b888c",
-  "x-compositeHash": "763527b3d14f"
+  "x-baseHash": "2015d10f60d9",
+  "x-compositeHash": "cbabd8714fb3"
 }

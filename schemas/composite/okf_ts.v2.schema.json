@@ -11,17 +11,6 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-ts"
-    ],
-    "configurations": [
-      {
-        "configId": "okf_ts",
-        "name": "TS",
-        "description": "Configuration for Qt TS files.",
-        "mimeType": "application/x-ts",
-        "extensions": ".ts;",
-        "isDefault": true,
-        "filterClass": "net.sf.okapi.filters.ts.TsFilter"
-      }
     ]
   },
   "properties": {
@@ -72,11 +61,11 @@
       "x-widget": "codeFinderRules"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
+      "type": "object",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
-      "type": "boolean",
+      "type": "object",
       "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
@@ -119,7 +108,6 @@
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "06453dd7f739",
-  "x-compositeHash": "f0547186911e"
+  "x-baseHash": "313cc225f51a",
+  "x-compositeHash": "21ef1ebf2c42"
 }
