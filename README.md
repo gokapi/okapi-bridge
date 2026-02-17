@@ -71,6 +71,30 @@ The composite version increments when either the base schema OR the override cha
 | Okapi release changes params | v2 | v2 | v4 | New version (base changed) |
 | Okapi release, no changes | v1 | v2 | v3 | Same version (hash unchanged) |
 
+### Schema Version Matrix
+
+Shows which composite schema version applies to each Okapi release. 
+Only filters with version changes are shown (`-` = filter not available in that release).
+
+Regenerate with: `make schema-matrix`
+
+<details>
+<summary>Click to expand schema version matrix</summary>
+
+| Filter | 0.38 | 1.39.0 | 1.40.0 | 1.41.0 | 1.42.0 | 1.43.0 | 1.44.0 | 1.45.0 | 1.46.0 | 1.47.0 |
+|--------|------|------|------|------|------|------|------|------|------|------|
+| `okf_idml` | v8 | v9 | v9 | v10 | v10 | v10 | v4 | v5 | v11 | v12 |
+| `okf_json` | v4 | v4 | v4 | v4 | v5 | v5 | v5 | v5 | v6 | v6 |
+| `okf_markdown` | v1 | v1 | v1 | v1 | v2 | v3 | v3 | v4 | v4 | v4 |
+| `okf_mif` | v5 | v6 | v7 | v8 | v8 | v8 | v8 | v8 | v8 | v8 |
+| `okf_openxml` | v1 | v1 | v1 | v2 | v2 | v3 | v3 | v4 | v7 | v8 |
+| `okf_properties` | v3 | v3 | v4 | v4 | v4 | v4 | v4 | v4 | v4 | v4 |
+| `okf_regex` | v4 | v4 | v4 | v4 | v5 | v6 | v6 | v6 | v6 | v6 |
+| `okf_xliff` | v6 | v6 | v6 | v7 | v7 | v8 | v8 | v8 | v9 | v10 |
+| `okf_xliff2` | v7 | v7 | v7 | v8 | v8 | v9 | v9 | v10 | v11 | v12 |
+
+</details>
+
 ## Schema Management
 
 ### Makefile Targets
@@ -85,6 +109,7 @@ make list-local        # List local okapi-releases/ directories
 # Centralized Schema Management
 make centralize           # Migrate to centralized schema structure
 make regenerate-composites # Regenerate composites from base + overrides
+make schema-matrix         # Generate schema version matrix
 
 # Add New Version
 make add-release V=1.48.0  # Add new Okapi version (generates pom, schemas)

@@ -67,6 +67,10 @@ centralize:
 regenerate-composites:
 	@./scripts/centralize-schemas.sh regenerate-composites
 
+# Generate schema version matrix
+schema-matrix:
+	@./scripts/generate-matrix.sh
+
 # ============================================================================
 # Legacy Schema Management
 # ============================================================================

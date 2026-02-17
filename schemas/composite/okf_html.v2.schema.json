@@ -1,0 +1,95 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_html.schema.json",
+  "$version": "2.0.0",
+  "title": "HTML/XHTML Filter Filter",
+  "description": "Configuration for the Okapi HTML/XHTML Filter Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_html",
+    "class": "net.sf.okapi.filters.html.HtmlFilter",
+    "extensions": [],
+    "mimeTypes": [
+      "text/html"
+    ]
+  },
+  "properties": {
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
+    },
+    "taggedConfig": {
+      "type": "object"
+    },
+    "editorTitle": {
+      "type": "string",
+      "default": "Parameters Editor"
+    },
+    "path": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "parserMode",
+      "label": "Parser Mode",
+      "description": "Configure HTML parsing behavior",
+      "collapsed": false,
+      "fields": [
+        "assumeWellformed",
+        "extractOuterStrings"
+      ]
+    },
+    {
+      "id": "whitespace",
+      "label": "Whitespace Handling",
+      "description": "Control how whitespace is processed",
+      "collapsed": true,
+      "fields": [
+        "preserveWhitespace",
+        "collapseWhitespace",
+        "trimLeadingWS",
+        "trimTrailingWS"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Detection",
+      "description": "Configure detection of inline codes and tags",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules"
+      ]
+    },
+    {
+      "id": "elements",
+      "label": "Element Handling",
+      "description": "Configure which elements to extract",
+      "collapsed": true,
+      "fields": [
+        "extractMetaTitle",
+        "extractMetaDescription",
+        "extractComments",
+        "excludeElements"
+      ]
+    },
+    {
+      "id": "attributes",
+      "label": "Attribute Handling",
+      "description": "Configure which attributes to extract",
+      "collapsed": true,
+      "fields": [
+        "translatableAttributes",
+        "idAttributes"
+      ]
+    }
+  ],
+  "x-schemaVersion": 2,
+  "x-baseVersion": 2,
+  "x-introducedInOkapi": "0.38",
+  "x-baseHash": "be1789473bdc",
+  "x-compositeHash": "58f8588f69e5"
+}
