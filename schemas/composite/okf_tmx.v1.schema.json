@@ -41,7 +41,7 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     },
     "escapeGT": {
@@ -51,9 +51,48 @@
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "identification",
+      "label": "Identification",
+      "collapsed": true,
+      "fields": [
+        "consolidateDpSkeleton",
+        "exitOnInvalid"
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Output Settings",
+      "collapsed": true,
+      "fields": [
+        "escapeGT"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "segType",
+        "processAllTargets",
+        "propValueSep"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "2fcd5b60043d",
-  "x-compositeHash": "2fcd5b60043d",
+  "x-compositeHash": "64cd8a605d9b",
   "x-introducedInOkapi": "0.38"
 }

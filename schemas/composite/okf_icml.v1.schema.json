@@ -18,7 +18,8 @@
       "type": "boolean",
       "default": false,
       "title": "Extract notes",
-      "x-widget": "checkbox"
+      "x-widget": "checkbox",
+      "description": "Extract notes/comments for translators."
     },
     "simplifyCodes": {
       "type": "boolean",
@@ -48,14 +49,45 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "extractNotes",
+        "extractMasterSpreads"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "simplifyCodes",
+        "skipThreshold",
+        "newTuOnBr"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "2aa417aeea91",
-  "x-compositeHash": "2aa417aeea91",
+  "x-compositeHash": "2d6de11e1fd1",
   "x-introducedInOkapi": "0.38"
 }

@@ -16,7 +16,8 @@
   "properties": {
     "useCodeFinder": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "description": "Enable inline code detection using regex patterns."
     },
     "indentThreshold": {
       "type": "string",
@@ -34,7 +35,8 @@
       "type": "boolean",
       "default": false,
       "title": "Preserve whitespace",
-      "x-widget": "checkbox"
+      "x-widget": "checkbox",
+      "description": "Preserve whitespace exactly as in source."
     },
     "lineSeparator": {
       "type": "string",
@@ -55,21 +57,49 @@
       "x-widget": "checkbox"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "object",
+      "description": "Move inline codes at segment edges to skeleton."
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "object",
+      "description": "Merge adjacent inline codes into a single code element."
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "useCodeFinder",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "indentThreshold",
+        "spacingTolerance",
+        "preserveWhitespace",
+        "lineSeparator",
+        "paragraphSeparator",
+        "sortByPosition"
+      ]
+    }
+  ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "1988138efac9",
-  "x-compositeHash": "1988138efac9",
+  "x-compositeHash": "47668c32f0e4",
   "x-introducedInOkapi": "1.48.0"
 }

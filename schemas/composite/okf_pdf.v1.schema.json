@@ -16,7 +16,8 @@
   "properties": {
     "useCodeFinder": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "description": "Enable inline code detection using regex patterns."
     },
     "indentThreshold": {
       "type": "string",
@@ -34,7 +35,8 @@
       "type": "boolean",
       "default": false,
       "title": "Preserve whitespace",
-      "x-widget": "checkbox"
+      "x-widget": "checkbox",
+      "description": "Preserve whitespace exactly as in source."
     },
     "lineSeparator": {
       "type": "string",
@@ -50,14 +52,40 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "useCodeFinder",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "indentThreshold",
+        "spacingTolerance",
+        "preserveWhitespace",
+        "lineSeparator",
+        "paragraphSeparator",
+        "sortByPosition"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "2728a590126e",
-  "x-compositeHash": "2728a590126e",
+  "x-compositeHash": "4ac860d4ea05",
   "x-introducedInOkapi": "0.38"
 }

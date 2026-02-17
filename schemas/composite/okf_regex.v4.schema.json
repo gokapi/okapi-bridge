@@ -63,21 +63,75 @@
       "default": ""
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "object",
+      "description": "Move inline codes at segment edges to skeleton."
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "object",
+      "description": "Merge adjacent inline codes into a single code element."
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "extractOuterStrings",
+        "localizeOutside"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Output Settings",
+      "collapsed": true,
+      "fields": [
+        "useBSlashEscape",
+        "useDoubleCharEscape",
+        "removeBSlashEscape"
+      ]
+    },
+    {
+      "id": "subfilters",
+      "label": "Subfilter Configuration",
+      "collapsed": true,
+      "fields": [
+        "subFilter"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "startString",
+        "endString",
+        "oneLevelGroups",
+        "useLd",
+        "regexOptions",
+        "mimeType"
+      ]
+    }
+  ],
   "x-schemaVersion": 4,
   "x-baseVersion": 4,
   "x-baseHash": "954ce187be36",
-  "x-compositeHash": "954ce187be36",
+  "x-compositeHash": "f7bf5a04bec5",
   "x-introducedInOkapi": "1.48.0"
 }

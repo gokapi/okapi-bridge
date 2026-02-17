@@ -16,14 +16,24 @@
   "properties": {
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "simplifierRules"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "3b2feea4bbd4",
-  "x-compositeHash": "3b2feea4bbd4",
+  "x-compositeHash": "54313267a192",
   "x-introducedInOkapi": "0.38"
 }

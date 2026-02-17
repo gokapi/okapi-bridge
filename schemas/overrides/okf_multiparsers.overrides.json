@@ -1,0 +1,31 @@
+{
+  "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "csvNoExtractCols"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "csvFormatCols",
+        "csvStartingRow",
+        "csvAutoDetectColumnTypes",
+        "csvAutoDetectColumnTypesRow"
+      ]
+    }
+  ],
+  "fields": {
+    "csvNoExtractCols": {},
+    "csvFormatCols": {},
+    "csvStartingRow": {},
+    "csvAutoDetectColumnTypes": {},
+    "csvAutoDetectColumnTypesRow": {}
+  }
+}

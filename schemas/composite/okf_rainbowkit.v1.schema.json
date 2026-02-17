@@ -22,9 +22,19 @@
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": false,
+      "fields": [
+        "openManifest"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "d8c4b0d98c41",
-  "x-compositeHash": "d8c4b0d98c41",
+  "x-compositeHash": "c933fd603ce6",
   "x-introducedInOkapi": "0.38"
 }

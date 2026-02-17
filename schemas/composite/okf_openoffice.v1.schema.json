@@ -16,7 +16,8 @@
   "properties": {
     "extractNotes": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Extract notes/comments for translators."
     },
     "extractReferences": {
       "type": "boolean",
@@ -32,14 +33,44 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "extractNotes",
+        "extractReferences",
+        "extractMetadata"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "encodeCharacterEntityReferenceGlyphs"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "e7bb03d01399",
-  "x-compositeHash": "e7bb03d01399",
+  "x-compositeHash": "7f65a7a58c2e",
   "x-introducedInOkapi": "0.38"
 }

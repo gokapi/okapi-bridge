@@ -21,21 +21,43 @@
       "description": "If disabled, all XINI segments with the same value\nof the attribute 'SegmentIDBeforeSegmentation' will be merged.\nIf the XINI was not segmented, it will remain unsegmented.\nIf this option is enabled, new segmentation\n(i.e. from segmentation step) will be used for the output."
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "object",
+      "description": "Move inline codes at segment edges to skeleton."
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "object",
+      "description": "Merge adjacent inline codes into a single code element."
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "useOkapiSegmentation"
+      ]
+    }
+  ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "6dbb9038e410",
-  "x-compositeHash": "6dbb9038e410",
+  "x-compositeHash": "3a420c041316",
   "x-introducedInOkapi": "1.48.0"
 }

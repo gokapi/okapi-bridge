@@ -58,9 +58,43 @@
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules"
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Output Settings",
+      "collapsed": true,
+      "fields": [
+        "escapeBrMode"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "timeFormat",
+        "maxLinesPerCaption",
+        "maxCharsPerLine",
+        "cjkCharsPerLine",
+        "keepTimecodes",
+        "splitWords",
+        "writeCharAnnotations",
+        "mergeCaptions"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "2287bfcc2579",
-  "x-compositeHash": "2287bfcc2579",
+  "x-compositeHash": "ab90598212bb",
   "x-introducedInOkapi": "1.46.0"
 }

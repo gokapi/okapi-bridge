@@ -18,7 +18,8 @@
       "type": "boolean",
       "default": false,
       "title": "Extract notes",
-      "x-widget": "checkbox"
+      "x-widget": "checkbox",
+      "description": "Extract notes/comments for translators."
     },
     "simplifyCodes": {
       "type": "boolean",
@@ -47,21 +48,54 @@
       "title": "Create new paragraphs on hard returns (<Br/> elements)"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "object",
+      "description": "Move inline codes at segment edges to skeleton."
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "object",
+      "description": "Merge adjacent inline codes into a single code element."
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "extractNotes",
+        "extractMasterSpreads"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "simplifyCodes",
+        "skipThreshold",
+        "newTuOnBr"
+      ]
+    }
+  ],
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
   "x-baseHash": "fb4fc1a4631b",
-  "x-compositeHash": "fb4fc1a4631b",
+  "x-compositeHash": "97acde33feeb",
   "x-introducedInOkapi": "1.48.0"
 }

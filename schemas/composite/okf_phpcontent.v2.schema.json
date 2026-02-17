@@ -18,11 +18,12 @@
       "type": "boolean",
       "default": true,
       "title": "Has inline codes as defined below:",
-      "x-widget": "checkbox"
+      "x-widget": "checkbox",
+      "description": "Enable inline code detection using regex patterns."
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Inline code detection configuration",
+      "description": "Configure patterns for detecting inline codes.",
       "properties": {
         "rules": {
           "type": "array",
@@ -69,21 +70,53 @@
       }
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "object",
+      "description": "Move inline codes at segment edges to skeleton."
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "object",
+      "description": "Merge adjacent inline codes into a single code element."
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "extractOutsideDirectives"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "useDirectives"
+      ]
+    }
+  ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "7bd215ed6f7e",
-  "x-compositeHash": "7bd215ed6f7e",
+  "x-compositeHash": "f1ebe02bca75",
   "x-introducedInOkapi": "1.48.0"
 }

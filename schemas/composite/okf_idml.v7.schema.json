@@ -28,7 +28,8 @@
     },
     "extractNotes": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Extract notes/comments for translators."
     },
     "extractMasterSpreads": {
       "type": "boolean",
@@ -116,11 +117,12 @@
     },
     "useCodeFinder": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Enable inline code detection using regex patterns."
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Inline code detection configuration",
+      "description": "Configure patterns for detecting inline codes.",
       "properties": {
         "rules": {
           "type": "array",
@@ -152,14 +154,69 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "extractNotes",
+        "extractMasterSpreads",
+        "extractHiddenLayers",
+        "extractHiddenPasteboardItems",
+        "extractBreaksInline",
+        "extractHyperlinkTextSourcesInline",
+        "extractCustomTextVariables",
+        "extractIndexTopics",
+        "extractExternalHyperlinks",
+        "extractMathZones"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "mergeAdjacentCodes",
+        "useCodeFinder",
+        "codeFinderRules",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "maxAttributeSize",
+        "specialCharacterPattern",
+        "untagXmlStructures",
+        "skipDiscretionaryHyphens",
+        "excludedStyleConfigurations",
+        "ignoreCharacterKerning",
+        "characterKerningMinIgnoranceThreshold",
+        "characterKerningMaxIgnoranceThreshold",
+        "ignoreCharacterTracking",
+        "characterTrackingMinIgnoranceThreshold",
+        "characterTrackingMaxIgnoranceThreshold",
+        "ignoreCharacterLeading",
+        "characterLeadingMinIgnoranceThreshold",
+        "characterLeadingMaxIgnoranceThreshold",
+        "ignoreCharacterBaselineShift",
+        "characterBaselineShiftMinIgnoranceThreshold",
+        "characterBaselineShiftMaxIgnoranceThreshold"
+      ]
+    }
+  ],
   "x-schemaVersion": 7,
   "x-baseVersion": 7,
   "x-baseHash": "cc6cf2e749c7",
-  "x-compositeHash": "cc6cf2e749c7",
+  "x-compositeHash": "805dcc92d114",
   "x-introducedInOkapi": "1.47.0"
 }

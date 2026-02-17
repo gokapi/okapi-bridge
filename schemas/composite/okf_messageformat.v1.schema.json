@@ -28,7 +28,7 @@
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Inline code detection configuration",
+      "description": "Configure patterns for detecting inline codes.",
       "properties": {
         "rules": {
           "type": "array",
@@ -60,18 +60,43 @@
     },
     "useCodeFinder": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Enable inline code detection using regex patterns."
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "codeFinderRules",
+        "useCodeFinder",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "addPluralForms",
+        "normalize",
+        "prettyPrint"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "0bb9e7077f8e",
-  "x-compositeHash": "0bb9e7077f8e",
+  "x-compositeHash": "ba4a0a62bb57",
   "x-introducedInOkapi": "1.46.0"
 }

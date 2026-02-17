@@ -1,0 +1,16 @@
+{
+  "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "groups": [
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": false,
+      "fields": [
+        "openManifest"
+      ]
+    }
+  ],
+  "fields": {
+    "openManifest": {}
+  }
+}

@@ -18,24 +18,47 @@
       "type": "boolean",
       "default": true,
       "title": "Allow empty target segments in output",
-      "x-widget": "checkbox"
+      "x-widget": "checkbox",
+      "description": "Allow empty target in output when no translation."
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "object",
+      "description": "Move inline codes at segment edges to skeleton."
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "object",
+      "description": "Merge adjacent inline codes into a single code element."
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "allowEmptyOutputTarget"
+      ]
+    }
+  ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "18fb2e7a310c",
-  "x-compositeHash": "18fb2e7a310c",
+  "x-compositeHash": "3f1feb5e142c",
   "x-introducedInOkapi": "1.48.0"
 }

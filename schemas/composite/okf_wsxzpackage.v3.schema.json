@@ -35,21 +35,52 @@
       "x-widget": "text"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "object",
+      "description": "Move inline codes at segment edges to skeleton."
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "object",
+      "description": "Merge adjacent inline codes into a single code element."
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "identification",
+      "label": "Identification",
+      "collapsed": true,
+      "fields": [
+        "fileNames",
+        "configIds"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "mimeType"
+      ]
+    }
+  ],
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
   "x-baseHash": "b8ba628739b7",
-  "x-compositeHash": "b8ba628739b7",
+  "x-compositeHash": "d827ab2b872f",
   "x-introducedInOkapi": "1.48.0"
 }

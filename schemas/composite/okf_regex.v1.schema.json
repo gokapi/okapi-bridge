@@ -56,14 +56,66 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "extractOuterStrings",
+        "localizeOutside"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Output Settings",
+      "collapsed": true,
+      "fields": [
+        "useBSlashEscape",
+        "useDoubleCharEscape",
+        "removeBSlashEscape"
+      ]
+    },
+    {
+      "id": "subfilters",
+      "label": "Subfilter Configuration",
+      "collapsed": true,
+      "fields": [
+        "subFilter"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "startString",
+        "endString",
+        "oneLevelGroups",
+        "useLd",
+        "regexOptions",
+        "mimeType"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "10b3df8a4c3f",
-  "x-compositeHash": "10b3df8a4c3f",
+  "x-compositeHash": "a611dd9dc2ce",
   "x-introducedInOkapi": "0.38"
 }

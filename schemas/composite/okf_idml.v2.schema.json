@@ -28,7 +28,8 @@
       "type": "boolean",
       "default": false,
       "title": "Extract notes",
-      "x-widget": "checkbox"
+      "x-widget": "checkbox",
+      "description": "Extract notes/comments for translators."
     },
     "extractMasterSpreads": {
       "type": "boolean",
@@ -128,9 +129,64 @@
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "extractNotes",
+        "extractMasterSpreads",
+        "extractHiddenLayers",
+        "extractHiddenPasteboardItems",
+        "extractBreaksInline",
+        "extractHyperlinkTextSourcesInline",
+        "extractCustomTextVariables",
+        "extractIndexTopics",
+        "extractExternalHyperlinks",
+        "extractMathZones"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "mergeAdjacentCodes",
+        "useCodeFinder",
+        "codeFinderRules",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "maxAttributeSize",
+        "specialCharacterPattern",
+        "untagXmlStructures",
+        "skipDiscretionaryHyphens",
+        "excludedStyleConfigurations",
+        "ignoreCharacterKerning",
+        "characterKerningMinIgnoranceThreshold",
+        "characterKerningMaxIgnoranceThreshold",
+        "ignoreCharacterTracking",
+        "characterTrackingMinIgnoranceThreshold",
+        "characterTrackingMaxIgnoranceThreshold",
+        "ignoreCharacterLeading",
+        "characterLeadingMinIgnoranceThreshold",
+        "characterLeadingMaxIgnoranceThreshold",
+        "ignoreCharacterBaselineShift",
+        "characterBaselineShiftMinIgnoranceThreshold",
+        "characterBaselineShiftMaxIgnoranceThreshold"
+      ]
+    }
+  ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "9f89c49bba2d",
-  "x-compositeHash": "9f89c49bba2d",
+  "x-compositeHash": "854c2687bd8d",
   "x-introducedInOkapi": "1.39.0"
 }

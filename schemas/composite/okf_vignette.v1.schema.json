@@ -73,14 +73,55 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "mode",
+      "label": "Mode Settings",
+      "collapsed": false,
+      "fields": [
+        "quoteModeDefined",
+        "quoteMode"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "identification",
+      "label": "Identification",
+      "collapsed": true,
+      "fields": [
+        "partsNames",
+        "sourceId",
+        "localeId"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "partsConfigurations",
+        "monolingual",
+        "useCDATA"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "bb77674a3986",
-  "x-compositeHash": "bb77674a3986",
+  "x-compositeHash": "7411ac82d101",
   "x-introducedInOkapi": "0.38"
 }

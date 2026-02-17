@@ -24,7 +24,8 @@
     },
     "extractNotes": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Extract notes/comments for translators."
     },
     "extractMasterSpreads": {
       "type": "boolean",
@@ -108,9 +109,64 @@
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "extractNotes",
+        "extractMasterSpreads",
+        "extractHiddenLayers",
+        "extractHiddenPasteboardItems",
+        "extractBreaksInline",
+        "extractHyperlinkTextSourcesInline",
+        "extractCustomTextVariables",
+        "extractIndexTopics",
+        "extractExternalHyperlinks",
+        "extractMathZones"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "mergeAdjacentCodes",
+        "useCodeFinder",
+        "codeFinderRules",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "maxAttributeSize",
+        "specialCharacterPattern",
+        "untagXmlStructures",
+        "skipDiscretionaryHyphens",
+        "excludedStyleConfigurations",
+        "ignoreCharacterKerning",
+        "characterKerningMinIgnoranceThreshold",
+        "characterKerningMaxIgnoranceThreshold",
+        "ignoreCharacterTracking",
+        "characterTrackingMinIgnoranceThreshold",
+        "characterTrackingMaxIgnoranceThreshold",
+        "ignoreCharacterLeading",
+        "characterLeadingMinIgnoranceThreshold",
+        "characterLeadingMaxIgnoranceThreshold",
+        "ignoreCharacterBaselineShift",
+        "characterBaselineShiftMinIgnoranceThreshold",
+        "characterBaselineShiftMaxIgnoranceThreshold"
+      ]
+    }
+  ],
   "x-schemaVersion": 5,
   "x-baseVersion": 5,
   "x-baseHash": "7f89747527b9",
-  "x-compositeHash": "7f89747527b9",
+  "x-compositeHash": "70a7b5bf89db",
   "x-introducedInOkapi": "1.45.0"
 }

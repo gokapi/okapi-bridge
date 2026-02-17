@@ -32,7 +32,7 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     },
     "escapeGT": {
@@ -43,9 +43,37 @@
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "mode",
+      "label": "Mode Settings",
+      "collapsed": false,
+      "fields": [
+        "segmentMode"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Output Settings",
+      "collapsed": true,
+      "fields": [
+        "escapeGT"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "90e36426044f",
-  "x-compositeHash": "90e36426044f",
+  "x-compositeHash": "b0dd730f1a59",
   "x-introducedInOkapi": "0.38"
 }

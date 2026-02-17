@@ -66,9 +66,30 @@
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "csvNoExtractCols"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "csvFormatCols",
+        "csvStartingRow",
+        "csvAutoDetectColumnTypes",
+        "csvAutoDetectColumnTypesRow"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "88224234e5d8",
-  "x-compositeHash": "88224234e5d8",
+  "x-compositeHash": "fe57ff56aa82",
   "x-introducedInOkapi": "0.38"
 }

@@ -18,18 +18,39 @@
       "type": "boolean",
       "default": true,
       "title": "Allow empty target segments in output",
-      "x-widget": "checkbox"
+      "x-widget": "checkbox",
+      "description": "Allow empty target in output when no translation."
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "allowEmptyOutputTarget"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "64cf2b2a1860",
-  "x-compositeHash": "64cf2b2a1860",
+  "x-compositeHash": "fce3f8b6690d",
   "x-introducedInOkapi": "0.38"
 }

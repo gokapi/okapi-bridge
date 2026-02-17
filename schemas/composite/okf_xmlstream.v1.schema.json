@@ -23,7 +23,7 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     },
     "path": {
@@ -31,9 +31,29 @@
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "taggedConfig",
+        "editorTitle",
+        "path"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "464c764112b3",
-  "x-compositeHash": "464c764112b3",
+  "x-compositeHash": "7ef08a1aae7d",
   "x-introducedInOkapi": "0.38"
 }

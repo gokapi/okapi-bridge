@@ -72,21 +72,64 @@
       "x-widget": "checkbox"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "object",
+      "description": "Move inline codes at segment edges to skeleton."
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "object",
+      "description": "Merge adjacent inline codes into a single code element."
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "mode",
+      "label": "Mode Settings",
+      "collapsed": false,
+      "fields": [
+        "quoteModeDefined",
+        "quoteMode"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "identification",
+      "label": "Identification",
+      "collapsed": true,
+      "fields": [
+        "partsNames",
+        "sourceId",
+        "localeId"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "partsConfigurations",
+        "monolingual",
+        "useCDATA"
+      ]
+    }
+  ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "eef8498bd063",
-  "x-compositeHash": "eef8498bd063",
+  "x-compositeHash": "84659cb3860d",
   "x-introducedInOkapi": "1.48.0"
 }

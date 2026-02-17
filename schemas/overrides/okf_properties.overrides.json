@@ -1,0 +1,95 @@
+{
+  "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "localizeOutside",
+        "extractOnlyMatchingKey"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "notes",
+      "label": "Notes & Comments",
+      "collapsed": true,
+      "fields": [
+        "extraComments",
+        "commentsAreNotes"
+      ]
+    },
+    {
+      "id": "identification",
+      "label": "Identification",
+      "collapsed": true,
+      "fields": [
+        "idLikeResname"
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Output Settings",
+      "collapsed": true,
+      "fields": [
+        "convertLFandTab",
+        "escapeExtendedChars",
+        "useJavaEscapes"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "useLd",
+        "useKeyCondition",
+        "keyCondition"
+      ]
+    }
+  ],
+  "fields": {
+    "useLd": {},
+    "localizeOutside": {},
+    "useCodeFinder": {
+      "description": "Enable inline code detection using regex patterns."
+    },
+    "codeFinderRules": {
+      "description": "Configure patterns for detecting inline codes."
+    },
+    "convertLFandTab": {},
+    "useKeyCondition": {},
+    "extractOnlyMatchingKey": {},
+    "keyCondition": {},
+    "extraComments": {},
+    "commentsAreNotes": {
+      "description": "Treat comments as translator notes."
+    },
+    "escapeExtendedChars": {
+      "description": "Escape extended Unicode characters in output."
+    },
+    "idLikeResname": {},
+    "useJavaEscapes": {},
+    "moveLeadingAndTrailingCodesToSkeleton": {
+      "description": "Move inline codes at segment edges to skeleton."
+    },
+    "mergeAdjacentCodes": {
+      "description": "Merge adjacent inline codes into a single code element."
+    },
+    "simplifierRules": {
+      "description": "Rules for simplifying inline code types."
+    }
+  }
+}

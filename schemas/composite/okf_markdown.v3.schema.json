@@ -24,11 +24,12 @@
     },
     "useCodeFinder": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Enable inline code detection using regex patterns."
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Inline code detection configuration",
+      "description": "Configure patterns for detecting inline codes.",
       "properties": {
         "rules": {
           "type": "array",
@@ -104,9 +105,63 @@
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "translateUrls",
+        "translateCodeBlocks",
+        "translateIndentedCodeBlocks",
+        "translateInlineCodeBlocks",
+        "translateHeaderMetadata",
+        "translateImageAltText",
+        "urlToTranslatePattern",
+        "nonTranslateBlocks",
+        "parseMdx"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules"
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Output Settings",
+      "collapsed": true,
+      "fields": [
+        "htmlEntitiesToEscape",
+        "unescapeBackslashCharacters",
+        "charactersToEscape"
+      ]
+    },
+    {
+      "id": "subfilters",
+      "label": "Subfilter Configuration",
+      "collapsed": true,
+      "fields": [
+        "htmlSubfilter",
+        "yamlSubfilter"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "generateHeaderAnchors"
+      ]
+    }
+  ],
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
   "x-baseHash": "e0ecb5a825d1",
-  "x-compositeHash": "e0ecb5a825d1",
+  "x-compositeHash": "7e15ed13402f",
   "x-introducedInOkapi": "1.43.0"
 }

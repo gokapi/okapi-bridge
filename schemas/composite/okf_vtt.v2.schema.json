@@ -88,12 +88,13 @@
       "type": "boolean",
       "default": false,
       "title": "Has inline codes as defined below:",
-      "x-widget": "checkbox"
+      "x-widget": "checkbox",
+      "description": "Enable inline code detection using regex patterns."
     },
     "codeFinderRules": {
       "type": "string",
       "default": "#v1\ncount.i=1\nrule0=</?([A-Z0-9a-z]*)\\b[^>]*>\nsample=&name; <tag></at><tag/> <tag attr='val'> </tag=\"val\">\nuseAllRulesWhenTesting.b=true",
-      "description": "Rules for inline codes",
+      "description": "Configure patterns for detecting inline codes.",
       "x-widget": "codeFinder",
       "x-enabledBy": {
         "parameter": "useCodeFinder",
@@ -102,9 +103,37 @@
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "cueSettings",
+        "discardCues",
+        "timeFormat",
+        "maxLinesPerCaption",
+        "maxCharsPerLine",
+        "cjkCharsPerLine",
+        "keepTimecodes",
+        "splitWords",
+        "writeCharAnnotations",
+        "mergeCaptions"
+      ]
+    }
+  ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "4dffe05502bd",
-  "x-compositeHash": "4dffe05502bd",
+  "x-compositeHash": "db7f24130ae3",
   "x-introducedInOkapi": "1.48.0"
 }

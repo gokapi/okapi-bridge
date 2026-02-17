@@ -1,0 +1,80 @@
+{
+  "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "translateUrls",
+        "translateCodeBlocks",
+        "translateIndentedCodeBlocks",
+        "translateInlineCodeBlocks",
+        "translateHeaderMetadata",
+        "translateImageAltText",
+        "urlToTranslatePattern",
+        "nonTranslateBlocks",
+        "parseMdx"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules"
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Output Settings",
+      "collapsed": true,
+      "fields": [
+        "htmlEntitiesToEscape",
+        "unescapeBackslashCharacters",
+        "charactersToEscape"
+      ]
+    },
+    {
+      "id": "subfilters",
+      "label": "Subfilter Configuration",
+      "collapsed": true,
+      "fields": [
+        "htmlSubfilter",
+        "yamlSubfilter"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "generateHeaderAnchors"
+      ]
+    }
+  ],
+  "fields": {
+    "htmlSubfilter": {},
+    "yamlSubfilter": {},
+    "useCodeFinder": {
+      "description": "Enable inline code detection using regex patterns."
+    },
+    "codeFinderRules": {
+      "description": "Configure patterns for detecting inline codes."
+    },
+    "translateUrls": {},
+    "translateCodeBlocks": {},
+    "translateIndentedCodeBlocks": {},
+    "translateInlineCodeBlocks": {},
+    "translateHeaderMetadata": {},
+    "translateImageAltText": {},
+    "urlToTranslatePattern": {},
+    "htmlEntitiesToEscape": {},
+    "nonTranslateBlocks": {},
+    "unescapeBackslashCharacters": {},
+    "charactersToEscape": {},
+    "generateHeaderAnchors": {},
+    "parseMdx": {}
+  }
+}

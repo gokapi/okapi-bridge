@@ -74,9 +74,37 @@
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "cueSettings",
+        "discardCues",
+        "timeFormat",
+        "maxLinesPerCaption",
+        "maxCharsPerLine",
+        "cjkCharsPerLine",
+        "keepTimecodes",
+        "splitWords",
+        "writeCharAnnotations",
+        "mergeCaptions"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "44eeadc9f697",
-  "x-compositeHash": "44eeadc9f697",
+  "x-compositeHash": "ccac8b692a5b",
   "x-introducedInOkapi": "1.46.0"
 }

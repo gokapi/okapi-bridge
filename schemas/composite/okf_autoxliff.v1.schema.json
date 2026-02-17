@@ -24,9 +24,20 @@
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": false,
+      "fields": [
+        "xliff_config",
+        "xliff2_config"
+      ]
+    }
+  ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "6a45f1e4163a",
-  "x-compositeHash": "6a45f1e4163a",
+  "x-compositeHash": "c4e7b52b90bc",
   "x-introducedInOkapi": "0.38"
 }

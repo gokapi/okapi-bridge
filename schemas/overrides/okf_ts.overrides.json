@@ -1,0 +1,52 @@
+{
+  "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": false,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Output Settings",
+      "collapsed": true,
+      "fields": [
+        "escapeGT"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "decodeByteValues"
+      ]
+    }
+  ],
+  "fields": {
+    "escapeGT": {},
+    "decodeByteValues": {},
+    "useCodeFinder": {
+      "description": "Enable inline code detection using regex patterns."
+    },
+    "codeFinderRules": {
+      "description": "Configure patterns for detecting inline codes."
+    },
+    "moveLeadingAndTrailingCodesToSkeleton": {
+      "description": "Move inline codes at segment edges to skeleton."
+    },
+    "mergeAdjacentCodes": {
+      "description": "Merge adjacent inline codes into a single code element."
+    },
+    "simplifierRules": {
+      "description": "Rules for simplifying inline code types."
+    }
+  }
+}

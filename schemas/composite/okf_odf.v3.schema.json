@@ -16,7 +16,8 @@
   "properties": {
     "extractNotes": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Extract notes/comments for translators."
     },
     "extractReferences": {
       "type": "boolean",
@@ -31,21 +32,53 @@
       "default": true
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "object",
+      "description": "Move inline codes at segment edges to skeleton."
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "object",
+      "description": "Merge adjacent inline codes into a single code element."
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code types.",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "collapsed": false,
+      "fields": [
+        "extractNotes",
+        "extractReferences",
+        "extractMetadata"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "collapsed": true,
+      "fields": [
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "mergeAdjacentCodes",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "encodeCharacterEntityReferenceGlyphs"
+      ]
+    }
+  ],
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
   "x-baseHash": "e9845baf52a0",
-  "x-compositeHash": "e9845baf52a0",
+  "x-compositeHash": "48842b37c4ba",
   "x-introducedInOkapi": "1.48.0"
 }
