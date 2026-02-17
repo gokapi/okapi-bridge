@@ -14,17 +14,17 @@
     ]
   },
   "properties": {
-    "taggedConfig": {
-      "type": "object"
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     },
     "editorTitle": {
       "type": "string",
       "default": "Parameters Editor"
     },
-    "simplifierRules": {
-      "type": "string",
-      "description": "Simplifier rules for code type normalization",
-      "x-widget": "simplifierRulesEditor"
+    "taggedConfig": {
+      "type": "object"
     },
     "path": {
       "type": "string"

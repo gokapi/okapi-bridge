@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-02-17T03:42:22.040103Z",
-  "filterCount": 42,
+  "generatedAt": "2026-02-17T03:50:12.730480Z",
+  "filterCount": 52,
   "filters": {
     "okf_archive": {
       "class": "net.sf.okapi.filters.archive.ArchiveFilter",
@@ -163,6 +163,38 @@
         "text/plain"
       ]
     },
+    "okf_baseplaintext": {
+      "class": "net.sf.okapi.filters.plaintext.base.BasePlainTextFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ]
+    },
+    "okf_paraplaintext": {
+      "class": "net.sf.okapi.filters.plaintext.paragraphs.ParaPlainTextFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ]
+    },
+    "okf_regexplaintext": {
+      "class": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter",
+      "displayName": "okf_plaintext_regex",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ]
+    },
+    "okf_splicedlines": {
+      "class": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ]
+    },
     "okf_po": {
       "class": "net.sf.okapi.filters.po.POFilter",
       "displayName": "PO Filter",
@@ -185,6 +217,14 @@
       "extensions": [],
       "mimeTypes": [
         "application/x-rainbowkit"
+      ]
+    },
+    "okf_xliff2": {
+      "class": "net.sf.okapi.filters.xliff2.XLIFF2Filter",
+      "displayName": "XLIFF-2 Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "application/xliff+xml"
       ]
     },
     "okf_regex": {
@@ -214,6 +254,38 @@
     "okf_table": {
       "class": "net.sf.okapi.filters.table.TableFilter",
       "displayName": "Table Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ]
+    },
+    "okf_basetable": {
+      "class": "net.sf.okapi.filters.table.base.BaseTableFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ]
+    },
+    "okf_commaseparatedvalues": {
+      "class": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ]
+    },
+    "okf_fixedwidthcolumns": {
+      "class": "net.sf.okapi.filters.table.fwc.FixedWidthColumnsFilter",
+      "displayName": "Plain Text Filter (BETA)",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ]
+    },
+    "okf_tabseparatedvalues": {
+      "class": "net.sf.okapi.filters.table.tsv.TabSeparatedValuesFilter",
+      "displayName": "Plain Text Filter (BETA)",
       "extensions": [],
       "mimeTypes": [
         "text/csv"
@@ -299,20 +371,20 @@
         "text/x-xini"
       ]
     },
+    "okf_xinirainbowkit": {
+      "class": "net.sf.okapi.filters.xini.rainbowkit.XINIRainbowkitFilter",
+      "displayName": "XINI RainbowKit Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-xini"
+      ]
+    },
     "okf_xliff": {
       "class": "net.sf.okapi.filters.xliff.XLIFFFilter",
       "displayName": "XLIFF Filter",
       "extensions": [],
       "mimeTypes": [
         "application/x-xliff+xml"
-      ]
-    },
-    "okf_xliff2": {
-      "class": "net.sf.okapi.filters.xliff2.XLIFF2Filter",
-      "displayName": "XLIFF-2 Filter (BETA)",
-      "extensions": [],
-      "mimeTypes": [
-        "application/xliff+xml"
       ]
     },
     "okf_xml": {

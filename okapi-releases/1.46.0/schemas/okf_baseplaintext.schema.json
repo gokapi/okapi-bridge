@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://gokapi.dev/schemas/filters/okf_baseplaintext.schema.json",
+  "$version": "2.0.0",
+  "title": "Plain Text Filter Filter",
+  "description": "Configuration for the Okapi Plain Text Filter Filter",
+  "type": "object",
+  "x-filter": {
+    "id": "okf_baseplaintext",
+    "class": "net.sf.okapi.filters.plaintext.base.BasePlainTextFilter",
+    "extensions": [],
+    "mimeTypes": [
+      "text/plain"
+    ]
+  },
+  "properties": {
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
+    }
+  },
+  "additionalProperties": false,
+  "x-schemaVersion": 2,
+  "x-okapiVersions": [
+    "1.46.0"
+  ],
+  "x-introducedInOkapi": "1.46.0"
+}

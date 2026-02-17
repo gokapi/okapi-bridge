@@ -3,13 +3,17 @@ package com.gokapi.bridge.util;
 import com.gokapi.bridge.model.FilterInfo;
 import net.sf.okapi.common.filters.IFilter;
 
+import java.io.File;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 /**
  * Registry of Okapi filters.
- * Dynamically discovers filters from Okapi's DefaultFilters.properties
- * (bundled in okapi-core) at runtime, plus checks for extension filters
- * that are distributed separately from okapi-core.
+ * Dynamically discovers filters by scanning okapi-filter-* JARs on the classpath
+ * for classes ending in "Filter" that implement IFilter.
  */
 public class FilterRegistry {
 
@@ -17,20 +21,9 @@ public class FilterRegistry {
     private static boolean initialized = false;
 
     /**
-     * Extension filters that are NOT listed in DefaultFilters.properties
-     * but are commonly available as separate okapi-filter-* JARs.
-     * These are checked if available on the classpath.
-     */
-    private static final String[] EXTENSION_FILTERS = {
-            "net.sf.okapi.filters.epub.EpubFilter",
-            "net.sf.okapi.filters.wsxzpackage.WsxzPackageFilter",
-            "net.sf.okapi.filters.cascadingfilter.CascadingFilter",
-            "net.sf.okapi.filters.versifiedtext.VersifiedTextFilter"
-    };
-
-    /**
-     * Discover all filters from Okapi's DefaultFilters.properties plus
-     * extension filters that may be on the classpath.
+     * Discover all filters by scanning the classpath for okapi-filter-* JARs.
+     * This approach requires no hardcoded filter lists - any filter JAR on the
+     * classpath will be automatically discovered.
      */
     private static synchronized void ensureInitialized() {
         if (initialized) {
@@ -40,30 +33,33 @@ public class FilterRegistry {
 
         Set<String> filterClasses = new TreeSet<>();
 
-        // 1. Read from DefaultFilters.properties (bundled in okapi-core)
-        try {
-            ResourceBundle bundle = ResourceBundle.getBundle("net.sf.okapi.common.filters.DefaultFilters");
-            Enumeration<String> keys = bundle.getKeys();
-            while (keys.hasMoreElements()) {
-                String key = keys.nextElement();
-                if (key.startsWith("filterClass_")) {
-                    filterClasses.add(bundle.getString(key));
+        // Scan okapi-filter-* JARs from the classloader
+        // Maven exec:java uses URLClassLoader, not system classpath
+        ClassLoader cl = FilterRegistry.class.getClassLoader();
+        if (cl instanceof URLClassLoader) {
+            for (URL url : ((URLClassLoader) cl).getURLs()) {
+                String path = url.getPath();
+                if (path.contains("okapi-filter-") && path.endsWith(".jar")) {
+                    scanJarForFilters(path, filterClasses);
                 }
             }
-        } catch (MissingResourceException e) {
-            System.err.println("[bridge] Could not find DefaultFilters.properties");
         }
 
-        // 2. Add extension filters
-        filterClasses.addAll(Arrays.asList(EXTENSION_FILTERS));
-
-        // 3. Check availability and create FilterInfo for each
-        for (String filterClass : filterClasses) {
-            if (isFilterAvailable(filterClass)) {
-                FilterInfo info = createFilterInfo(filterClass);
-                if (info != null) {
-                    FILTERS.put(filterClass, info);
+        // Also check system classpath (for standalone Java runs)
+        String classpath = System.getProperty("java.class.path");
+        if (classpath != null) {
+            for (String path : classpath.split(File.pathSeparator)) {
+                if (path.contains("okapi-filter-") && path.endsWith(".jar")) {
+                    scanJarForFilters(path, filterClasses);
                 }
+            }
+        }
+
+        // Check availability and create FilterInfo for each
+        for (String filterClass : filterClasses) {
+            FilterInfo info = createFilterInfo(filterClass);
+            if (info != null) {
+                FILTERS.put(filterClass, info);
             }
         }
 
@@ -71,14 +67,25 @@ public class FilterRegistry {
     }
 
     /**
-     * Check if a filter class is available on the classpath.
+     * Scan a JAR file for classes that look like Okapi filters.
+     * Filters are classes ending in "Filter" in the net.sf.okapi.filters package.
      */
-    private static boolean isFilterAvailable(String filterClass) {
-        try {
-            Class.forName(filterClass);
-            return true;
-        } catch (ClassNotFoundException e) {
-            return false;
+    private static void scanJarForFilters(String jarPath, Set<String> filterClasses) {
+        try (JarFile jar = new JarFile(jarPath)) {
+            Enumeration<JarEntry> entries = jar.entries();
+            while (entries.hasMoreElements()) {
+                JarEntry entry = entries.nextElement();
+                String name = entry.getName();
+                // Look for Filter classes in net/sf/okapi/filters (not inner classes)
+                if (name.startsWith("net/sf/okapi/filters/") 
+                        && name.endsWith("Filter.class") 
+                        && !name.contains("$")) {
+                    String className = name.replace('/', '.').replace(".class", "");
+                    filterClasses.add(className);
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("[bridge] Could not scan JAR " + jarPath + ": " + e.getMessage());
         }
     }
 

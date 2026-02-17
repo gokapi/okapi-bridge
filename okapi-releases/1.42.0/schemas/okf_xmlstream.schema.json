@@ -14,12 +14,12 @@
     ]
   },
   "properties": {
+    "taggedConfig": {
+      "type": "object"
+    },
     "editorTitle": {
       "type": "string",
       "default": "Parameters Editor"
-    },
-    "taggedConfig": {
-      "type": "object"
     },
     "simplifierRules": {
       "type": "string",
