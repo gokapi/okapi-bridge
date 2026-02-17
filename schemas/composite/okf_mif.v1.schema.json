@@ -85,10 +85,7 @@
   },
   "additionalProperties": false,
   "x-schemaVersion": 1,
-  "x-introducedInOkapi": "0.38",
-  "x-okapiVersions": [
-    "0.38"
-  ],
-  "x-baseHash": "3a233619e25a",
-  "x-compositeHash": "3a233619e25a"
+  "x-baseVersion": 1,
+  "x-baseHash": "fb6a62dd5f99",
+  "x-compositeHash": "fb6a62dd5f99"
 }

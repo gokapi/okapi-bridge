@@ -24,18 +24,25 @@ kapi plugins install okapi-bridge
 okapi-bridge/
 ├── src/main/java/              # Bridge runtime and schema generator
 ├── schemas/                    # Centralized schema storage
-│   ├── base/                   # Auto-generated base schemas (deduplicated)
-│   └── composite/              # Merged schemas (base + overrides)
-├── overrides/                  # Human-curated UI hints (single per filter)
-│   ├── okf_html.overrides.json
-│   └── ...
+│   ├── base/                   # Auto-generated base schemas (versioned)
+│   │   ├── okf_html.v1.schema.json
+│   │   └── okf_html.v2.schema.json  # New version when Okapi changes params
+│   ├── composite/              # Merged schemas (base + overrides)
+│   │   ├── okf_html.v1.schema.json
+│   │   └── okf_html.v2.schema.json  # New version when base OR override changes
+│   └── overrides/              # Human-curated UI hints (single per filter)
+│       ├── okf_html.overrides.json
+│       └── ...
 ├── okapi-releases/             # Per-version configuration
 │   ├── 1.47.0/
 │   │   └── pom.xml            # Version-specific dependencies (auto-generated)
 │   └── ...
 ├── scripts/
+│   ├── centralize-schemas.sh   # Orchestrates schema centralization
+│   ├── compute-hash.sh         # Canonical JSON hashing
+│   ├── merge-schema.sh         # Merges base + override with jq
 │   └── generate-version-pom.sh # Discovers filters for Okapi version
-├── schema-versions.json        # Version tracking with composite hashes
+├── schema-versions.json        # Version tracking with hashes
 ├── pom.xml                     # Root pom (runtime + tests)
 └── Makefile                    # Build automation
 ```
@@ -44,13 +51,13 @@ okapi-bridge/
 
 The project uses a centralized schema architecture to reduce duplication:
 
-1. **Base Schemas** (`schemas/base/`): Auto-generated from Okapi filter introspection. Named with content hash for deduplication (e.g., `okf_html.base.abc123.json`).
+1. **Base Schemas** (`schemas/base/`): Auto-generated from Okapi filter introspection. Versioned per-filter (e.g., `okf_html.v1.schema.json`, `okf_html.v2.schema.json`).
 
-2. **Overrides** (`overrides/`): Human-curated UI hints (field grouping, widgets, presets). Single file per filter that applies to all versions.
+2. **Overrides** (`schemas/overrides/`): Human-curated UI hints (field grouping, widgets, presets). Single file per filter that applies to all versions.
 
 3. **Composite Schemas** (`schemas/composite/`): Final schemas served to users (base + override merged). Versioned when composite content changes.
 
-4. **schema-versions.json**: Index tracking base hash, override hash, and composite hash for each filter version.
+4. **schema-versions.json**: Index tracking base version, base hash, override hash, and composite hash for each filter version.
 
 ### Composite Versioning
 

@@ -14,10 +14,6 @@
     ]
   },
   "properties": {
-    "simplifierRules": {
-      "type": "string",
-      "description": "Simplifier rules for code type normalization"
-    },
     "taggedConfig": {
       "type": "object"
     },
@@ -25,16 +21,17 @@
       "type": "string",
       "default": "Parameters Editor"
     },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization"
+    },
     "path": {
       "type": "string"
     }
   },
   "additionalProperties": false,
   "x-schemaVersion": 1,
-  "x-introducedInOkapi": "0.38",
-  "x-okapiVersions": [
-    "0.38"
-  ],
-  "x-baseHash": "2e54629511e2",
-  "x-compositeHash": "2e54629511e2"
+  "x-baseVersion": 1,
+  "x-baseHash": "2e2d60874880",
+  "x-compositeHash": "2e2d60874880"
 }
