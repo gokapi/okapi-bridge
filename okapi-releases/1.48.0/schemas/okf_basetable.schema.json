@@ -27,6 +27,17 @@
         "description": "Text files; trailing spaces and tabs removed from extracted lines.",
         "mimeType": "text/csv",
         "parametersLocation": "okf_plaintext_trim_trail.fprm",
+        "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=true\npreserveWS.b=false\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nparametersClass=net.sf.okapi.filters.plaintext.base.Parameters\n",
+        "parameters": {
+          "unescapeSource.b": true,
+          "trimLeading.b": false,
+          "trimTrailing.b": true,
+          "preserveWS.b": false,
+          "useCodeFinder.b": false,
+          "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+          "wrapMode.i": 0,
+          "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
+        },
         "isDefault": false
       },
       {
@@ -35,6 +46,17 @@
         "description": "Text files; leading and trailing spaces and tabs removed from extracted lines.",
         "mimeType": "text/csv",
         "parametersLocation": "okf_plaintext_trim_all.fprm",
+        "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=true\ntrimTrailing.b=true\npreserveWS.b=false\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nparametersClass=net.sf.okapi.filters.plaintext.base.Parameters\n",
+        "parameters": {
+          "unescapeSource.b": true,
+          "trimLeading.b": true,
+          "trimTrailing.b": true,
+          "preserveWS.b": false,
+          "useCodeFinder.b": false,
+          "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+          "wrapMode.i": 0,
+          "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
+        },
         "isDefault": false
       }
     ]

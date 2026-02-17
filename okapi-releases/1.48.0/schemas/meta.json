@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "generatedAt": "2026-02-17T12:20:05.358332Z",
+  "generatedAt": "2026-02-17T12:48:28.565521Z",
   "filterCount": 57,
   "filters": {
     "okf_archive": {
@@ -3627,6 +3627,17 @@
           "description": "Text files; trailing spaces and tabs removed from extracted lines.",
           "mimeType": "text/plain",
           "parametersLocation": "okf_plaintext_trim_trail.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=true\npreserveWS.b=false\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nparametersClass=net.sf.okapi.filters.plaintext.base.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": false,
+            "trimTrailing.b": true,
+            "preserveWS.b": false,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
+          },
           "isDefault": false
         },
         {
@@ -3635,6 +3646,17 @@
           "description": "Text files; leading and trailing spaces and tabs removed from extracted lines.",
           "mimeType": "text/plain",
           "parametersLocation": "okf_plaintext_trim_all.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=true\ntrimTrailing.b=true\npreserveWS.b=false\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nparametersClass=net.sf.okapi.filters.plaintext.base.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": true,
+            "trimTrailing.b": true,
+            "preserveWS.b": false,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
+          },
           "isDefault": false
         }
       ]
@@ -3653,6 +3675,18 @@
           "description": "Text files extracted by paragraphs (separated by 1 or more empty lines).",
           "mimeType": "text/plain",
           "parametersLocation": "okf_plaintext_paragraphs.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=false\npreserveWS.b=true\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nextractParagraphs.b=true\nparametersClass=net.sf.okapi.filters.plaintext.paragraphs.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": false,
+            "trimTrailing.b": false,
+            "preserveWS.b": true,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "extractParagraphs.b": true,
+            "_parametersClass": "net.sf.okapi.filters.plaintext.paragraphs.Parameters"
+          },
           "isDefault": true
         },
         {
@@ -3687,6 +3721,21 @@
           "description": "Plain Text Filter using regex-based linebreak search. Extracts by lines.",
           "mimeType": "text/plain",
           "parametersLocation": "okf_plaintext_regex_lines.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=false\npreserveWS.b=true\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nrule=(^(?=.+))(.*?)$\nsourceGroup.i=2\nregexOptions.i=8\nsample=$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.\nparametersClass=net.sf.okapi.filters.plaintext.regex.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": false,
+            "trimTrailing.b": false,
+            "preserveWS.b": true,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "rule": "(^(?=.+))(.*?)$",
+            "sourceGroup.i": 2,
+            "regexOptions.i": 8,
+            "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
+            "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
+          },
           "isDefault": false
         },
         {
@@ -3695,6 +3744,21 @@
           "description": "Plain Text Filter using regex-based linebreak search. Extracts by paragraphs.",
           "mimeType": "text/plain",
           "parametersLocation": "okf_plaintext_regex_paragraphs.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=false\npreserveWS.b=true\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nrule=(\\n*)(.*?)(\\n\\n|\\Z)\nsourceGroup.i=2\nregexOptions.i=40\nsample=$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.\nparametersClass=net.sf.okapi.filters.plaintext.regex.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": false,
+            "trimTrailing.b": false,
+            "preserveWS.b": true,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "rule": "(\\n*)(.*?)(\\n\\n|\\Z)",
+            "sourceGroup.i": 2,
+            "regexOptions.i": 40,
+            "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
+            "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
+          },
           "isDefault": false
         }
       ]
@@ -3721,6 +3785,19 @@
           "description": "Spliced lines filter with the backslash character (\\) used as the splicer.",
           "mimeType": "text/plain",
           "parametersLocation": "okf_plaintext_spliced_backslash.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=false\npreserveWS.b=true\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nsplicer=\\\ncreatePlaceholders.b=true\nparametersClass=net.sf.okapi.filters.plaintext.spliced.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": false,
+            "trimTrailing.b": false,
+            "preserveWS.b": true,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "splicer": "\\",
+            "createPlaceholders.b": true,
+            "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
+          },
           "isDefault": false
         },
         {
@@ -3729,6 +3806,19 @@
           "description": "Spliced lines filter with the underscore character (_) used as the splicer.",
           "mimeType": "text/plain",
           "parametersLocation": "okf_plaintext_spliced_underscore.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=false\npreserveWS.b=true\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nsplicer=_\ncreatePlaceholders.b=true\nparametersClass=net.sf.okapi.filters.plaintext.spliced.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": false,
+            "trimTrailing.b": false,
+            "preserveWS.b": true,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "splicer": "_",
+            "createPlaceholders.b": true,
+            "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
+          },
           "isDefault": false
         },
         {
@@ -3737,6 +3827,19 @@
           "description": "Spliced lines filter with a user-defined splicer.",
           "mimeType": "text/plain",
           "parametersLocation": "okf_plaintext_spliced_custom.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=false\npreserveWS.b=true\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nsplicer=\ncreatePlaceholders.b=true\nparametersClass=net.sf.okapi.filters.plaintext.spliced.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": false,
+            "trimTrailing.b": false,
+            "preserveWS.b": true,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "splicer": "",
+            "createPlaceholders.b": true,
+            "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
+          },
           "isDefault": false
         }
       ]
@@ -4449,6 +4552,17 @@
           "description": "Text files; trailing spaces and tabs removed from extracted lines.",
           "mimeType": "text/csv",
           "parametersLocation": "okf_plaintext_trim_trail.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=true\npreserveWS.b=false\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nparametersClass=net.sf.okapi.filters.plaintext.base.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": false,
+            "trimTrailing.b": true,
+            "preserveWS.b": false,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
+          },
           "isDefault": false
         },
         {
@@ -4457,6 +4571,17 @@
           "description": "Text files; leading and trailing spaces and tabs removed from extracted lines.",
           "mimeType": "text/csv",
           "parametersLocation": "okf_plaintext_trim_all.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=true\ntrimTrailing.b=true\npreserveWS.b=false\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nparametersClass=net.sf.okapi.filters.plaintext.base.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": true,
+            "trimTrailing.b": true,
+            "preserveWS.b": false,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
+          },
           "isDefault": false
         }
       ]
@@ -4476,6 +4601,37 @@
           "mimeType": "text/csv",
           "extensions": ".csv;",
           "parametersLocation": "okf_table_csv.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=true\ntrimTrailing.b=true\npreserveWS.b=false\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\ncolumnNamesLineNum.i=1\nvaluesStartLineNum.i=2\ndetectColumnsMode.i=0\nnumColumns.i=1\nsendHeaderMode.i=1\ntrimMode.i=1\nsendColumnsMode.i=2\nsourceIdColumns=\nsourceColumns=\ntargetColumns=\ncommentColumns=\ncommentSourceRefs=\nrecordIdColumn.i=0\nsourceIdSourceRefs=\nsourceIdSuffixes=\ntargetLanguages=\ntargetSourceRefs=\nfieldDelimiter=,\ntextQualifier=\"\nremoveQualifiers.b=true\nparametersClass=net.sf.okapi.filters.table.csv.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": true,
+            "trimTrailing.b": true,
+            "preserveWS.b": false,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "columnNamesLineNum.i": 1,
+            "valuesStartLineNum.i": 2,
+            "detectColumnsMode.i": 0,
+            "numColumns.i": 1,
+            "sendHeaderMode.i": 1,
+            "trimMode.i": 1,
+            "sendColumnsMode.i": 2,
+            "sourceIdColumns": "",
+            "sourceColumns": "",
+            "targetColumns": "",
+            "commentColumns": "",
+            "commentSourceRefs": "",
+            "recordIdColumn.i": 0,
+            "sourceIdSourceRefs": "",
+            "sourceIdSuffixes": "",
+            "targetLanguages": "",
+            "targetSourceRefs": "",
+            "fieldDelimiter": ",",
+            "textQualifier": "\"",
+            "removeQualifiers.b": true,
+            "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
+          },
           "isDefault": true
         },
         {
@@ -4484,6 +4640,37 @@
           "description": "Haiku CatKeys resource files",
           "mimeType": "text/csv",
           "parametersLocation": "okf_table_catkeys.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=false\ntrimLeading.b=false\ntrimTrailing.b=false\npreserveWS.b=true\nuseCodeFinder.b=true\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\ncolumnNamesLineNum.i=0\nvaluesStartLineNum.i=2\ndetectColumnsMode.i=2\nnumColumns.i=4\nsendHeaderMode.i=0\ntrimMode.i=0\nsendColumnsMode.i=1\nsourceIdColumns=\nsourceColumns=1\ntargetColumns=4\ncommentColumns=3\ncommentSourceRefs=1\nrecordIdColumn.i=0\nsourceIdSourceRefs=\nsourceIdSuffixes=\ntargetLanguages=\ntargetSourceRefs=1\nfieldDelimiter=\t\ntextQualifier=%%%^^^$$$nonenonenone$$$^^^%%%\nremoveQualifiers.b=false\nparametersClass=net.sf.okapi.filters.table.csv.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": false,
+            "trimLeading.b": false,
+            "trimTrailing.b": false,
+            "preserveWS.b": true,
+            "useCodeFinder.b": true,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "columnNamesLineNum.i": 0,
+            "valuesStartLineNum.i": 2,
+            "detectColumnsMode.i": 2,
+            "numColumns.i": 4,
+            "sendHeaderMode.i": 0,
+            "trimMode.i": 0,
+            "sendColumnsMode.i": 1,
+            "sourceIdColumns": "",
+            "sourceColumns": 1,
+            "targetColumns": 4,
+            "commentColumns": 3,
+            "commentSourceRefs": 1,
+            "recordIdColumn.i": 0,
+            "sourceIdSourceRefs": "",
+            "sourceIdSuffixes": "",
+            "targetLanguages": "",
+            "targetSourceRefs": 1,
+            "fieldDelimiter": "",
+            "textQualifier": "%%%^^^$$$nonenonenone$$$^^^%%%",
+            "removeQualifiers.b": false,
+            "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
+          },
           "isDefault": false
         },
         {
@@ -4492,6 +4679,38 @@
           "description": "2-column (source + target), tab separated files.",
           "mimeType": "text/csv",
           "parametersLocation": "okf_table_src-tab-trg.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=true\ntrimTrailing.b=true\npreserveWS.b=false\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\ncolumnNamesLineNum.i=0\nvaluesStartLineNum.i=1\ndetectColumnsMode.i=0\nnumColumns.i=1\nsendHeaderMode.i=0\ntrimMode.i=1\nsendColumnsMode.i=1\nsourceIdColumns=\nsourceColumns=1\ntargetColumns=2\ncommentColumns=3\ncommentSourceRefs=1\nrecordIdColumn.i=0\nsourceIdSourceRefs=\nsourceIdSuffixes=\ntargetLanguages=\ntargetSourceRefs=1\nfieldDelimiter=\t\ntextQualifier=\"\nremoveQualifiers.b=true\nescapingMode.i=1\nparametersClass=net.sf.okapi.filters.table.csv.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": true,
+            "trimTrailing.b": true,
+            "preserveWS.b": false,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "columnNamesLineNum.i": 0,
+            "valuesStartLineNum.i": 1,
+            "detectColumnsMode.i": 0,
+            "numColumns.i": 1,
+            "sendHeaderMode.i": 0,
+            "trimMode.i": 1,
+            "sendColumnsMode.i": 1,
+            "sourceIdColumns": "",
+            "sourceColumns": 1,
+            "targetColumns": 2,
+            "commentColumns": 3,
+            "commentSourceRefs": 1,
+            "recordIdColumn.i": 0,
+            "sourceIdSourceRefs": "",
+            "sourceIdSuffixes": "",
+            "targetLanguages": "",
+            "targetSourceRefs": 1,
+            "fieldDelimiter": "",
+            "textQualifier": "\"",
+            "removeQualifiers.b": true,
+            "escapingMode.i": 1,
+            "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
+          },
           "isDefault": false
         }
       ]
@@ -4510,6 +4729,36 @@
           "description": "Fixed-width columns table padded with white-spaces.",
           "mimeType": "text/csv",
           "parametersLocation": "okf_table_fwc.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=false\npreserveWS.b=true\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\ncolumnNamesLineNum.i=1\nvaluesStartLineNum.i=2\ndetectColumnsMode.i=0\nnumColumns.i=1\nsendHeaderMode.i=0\ntrimMode.i=2\nsendColumnsMode.i=2\nsourceIdColumns=\nsourceColumns=\ntargetColumns=\ncommentColumns=\ncommentSourceRefs=\nrecordIdColumn.i=0\nsourceIdSourceRefs=\nsourceIdSuffixes=\ntargetLanguages=\ntargetSourceRefs=\ncolumnStartPositions=\ncolumnEndPositions=\nparametersClass=net.sf.okapi.filters.table.fwc.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": false,
+            "trimTrailing.b": false,
+            "preserveWS.b": true,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "columnNamesLineNum.i": 1,
+            "valuesStartLineNum.i": 2,
+            "detectColumnsMode.i": 0,
+            "numColumns.i": 1,
+            "sendHeaderMode.i": 0,
+            "trimMode.i": 2,
+            "sendColumnsMode.i": 2,
+            "sourceIdColumns": "",
+            "sourceColumns": "",
+            "targetColumns": "",
+            "commentColumns": "",
+            "commentSourceRefs": "",
+            "recordIdColumn.i": 0,
+            "sourceIdSourceRefs": "",
+            "sourceIdSuffixes": "",
+            "targetLanguages": "",
+            "targetSourceRefs": "",
+            "columnStartPositions": "",
+            "columnEndPositions": "",
+            "_parametersClass": "net.sf.okapi.filters.table.fwc.Parameters"
+          },
           "isDefault": true
         }
       ]
@@ -4528,6 +4777,34 @@
           "description": "Columns, separated by one or more tabs.",
           "mimeType": "text/csv",
           "parametersLocation": "okf_table_tsv.fprm",
+          "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=false\npreserveWS.b=true\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\ncolumnNamesLineNum.i=1\nvaluesStartLineNum.i=2\ndetectColumnsMode.i=0\nnumColumns.i=1\nsendHeaderMode.i=0\ntrimMode.i=1\nsendColumnsMode.i=2\nsourceIdColumns=\nsourceColumns=\ntargetColumns=\ncommentColumns=\ncommentSourceRefs=\nrecordIdColumn.i=0\nsourceIdSourceRefs=\nsourceIdSuffixes=\ntargetLanguages=\ntargetSourceRefs=\nparametersClass=net.sf.okapi.filters.table.tsv.Parameters\n",
+          "parameters": {
+            "unescapeSource.b": true,
+            "trimLeading.b": false,
+            "trimTrailing.b": false,
+            "preserveWS.b": true,
+            "useCodeFinder.b": false,
+            "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+            "wrapMode.i": 0,
+            "columnNamesLineNum.i": 1,
+            "valuesStartLineNum.i": 2,
+            "detectColumnsMode.i": 0,
+            "numColumns.i": 1,
+            "sendHeaderMode.i": 0,
+            "trimMode.i": 1,
+            "sendColumnsMode.i": 2,
+            "sourceIdColumns": "",
+            "sourceColumns": "",
+            "targetColumns": "",
+            "commentColumns": "",
+            "commentSourceRefs": "",
+            "recordIdColumn.i": 0,
+            "sourceIdSourceRefs": "",
+            "sourceIdSuffixes": "",
+            "targetLanguages": "",
+            "targetSourceRefs": "",
+            "_parametersClass": "net.sf.okapi.filters.table.tsv.Parameters"
+          },
           "isDefault": true
         }
       ]

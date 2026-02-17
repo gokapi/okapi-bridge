@@ -158,15 +158,56 @@ public class FilterRegistry {
     
     /**
      * Load parameters from a classpath resource file (.yml or .fprm format).
+     * Tries multiple resolution strategies since parameter files may be in parent packages.
      */
     private static void loadParametersForConfig(IFilter filter, String parametersLocation, 
                                                  FilterConfigurationInfo configInfo) {
         try {
-            InputStream is = filter.getClass().getResourceAsStream(parametersLocation);
+            InputStream is = null;
+            
+            // Strategy 1: Try relative to filter class (works for most filters)
+            is = filter.getClass().getResourceAsStream(parametersLocation);
+            
+            // Strategy 2: Try from classloader root with absolute path
             if (is == null) {
-                // Try without leading slash
-                is = filter.getClass().getResourceAsStream("/" + parametersLocation);
+                is = filter.getClass().getClassLoader().getResourceAsStream(parametersLocation);
             }
+            
+            // Strategy 3: Try to find in filter's package hierarchy
+            // Some filters are in subpackages (e.g., plaintext.base) but reference files
+            // in parent package (plaintext)
+            if (is == null) {
+                String packagePath = filter.getClass().getPackage().getName().replace('.', '/');
+                // Try parent packages
+                while (is == null && packagePath.contains("/")) {
+                    packagePath = packagePath.substring(0, packagePath.lastIndexOf('/'));
+                    String fullPath = packagePath + "/" + parametersLocation;
+                    is = filter.getClass().getClassLoader().getResourceAsStream(fullPath);
+                }
+            }
+            
+            // Strategy 4: Search common filter resource locations
+            if (is == null) {
+                // Try net/sf/okapi/filters/{filtertype}/ paths
+                String filterType = extractFilterType(filter.getClass().getName());
+                if (filterType != null) {
+                    String fullPath = "net/sf/okapi/filters/" + filterType + "/" + parametersLocation;
+                    is = filter.getClass().getClassLoader().getResourceAsStream(fullPath);
+                }
+            }
+            
+            // Strategy 5: Try plaintext package for configs that reference okf_plaintext_*
+            if (is == null && parametersLocation.startsWith("okf_plaintext")) {
+                String fullPath = "net/sf/okapi/filters/plaintext/" + parametersLocation;
+                is = filter.getClass().getClassLoader().getResourceAsStream(fullPath);
+            }
+            
+            // Strategy 6: Try table package for configs that reference okf_table_*
+            if (is == null && parametersLocation.startsWith("okf_table")) {
+                String fullPath = "net/sf/okapi/filters/table/" + parametersLocation;
+                is = filter.getClass().getClassLoader().getResourceAsStream(fullPath);
+            }
+            
             if (is == null) {
                 return;
             }
@@ -258,6 +299,21 @@ public class FilterRegistry {
                 return value;
             }
         }
+    }
+    
+    /**
+     * Extract filter type from class name (e.g., "plaintext" from 
+     * "net.sf.okapi.filters.plaintext.base.BasePlainTextFilter").
+     */
+    private static String extractFilterType(String className) {
+        // Pattern: net.sf.okapi.filters.{filtertype}...
+        String prefix = "net.sf.okapi.filters.";
+        if (!className.startsWith(prefix)) {
+            return null;
+        }
+        String rest = className.substring(prefix.length());
+        int dot = rest.indexOf('.');
+        return dot > 0 ? rest.substring(0, dot) : rest;
     }
 
     /**

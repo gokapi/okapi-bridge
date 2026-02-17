@@ -27,6 +27,21 @@
         "description": "Plain Text Filter using regex-based linebreak search. Extracts by lines.",
         "mimeType": "text/plain",
         "parametersLocation": "okf_plaintext_regex_lines.fprm",
+        "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=false\npreserveWS.b=true\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nrule=(^(?=.+))(.*?)$\nsourceGroup.i=2\nregexOptions.i=8\nsample=$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.\nparametersClass=net.sf.okapi.filters.plaintext.regex.Parameters\n",
+        "parameters": {
+          "unescapeSource.b": true,
+          "trimLeading.b": false,
+          "trimTrailing.b": false,
+          "preserveWS.b": true,
+          "useCodeFinder.b": false,
+          "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+          "wrapMode.i": 0,
+          "rule": "(^(?=.+))(.*?)$",
+          "sourceGroup.i": 2,
+          "regexOptions.i": 8,
+          "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
+          "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
+        },
         "isDefault": false
       },
       {
@@ -35,6 +50,21 @@
         "description": "Plain Text Filter using regex-based linebreak search. Extracts by paragraphs.",
         "mimeType": "text/plain",
         "parametersLocation": "okf_plaintext_regex_paragraphs.fprm",
+        "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=false\npreserveWS.b=true\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nrule=(\\n*)(.*?)(\\n\\n|\\Z)\nsourceGroup.i=2\nregexOptions.i=40\nsample=$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.\nparametersClass=net.sf.okapi.filters.plaintext.regex.Parameters\n",
+        "parameters": {
+          "unescapeSource.b": true,
+          "trimLeading.b": false,
+          "trimTrailing.b": false,
+          "preserveWS.b": true,
+          "useCodeFinder.b": false,
+          "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+          "wrapMode.i": 0,
+          "rule": "(\\n*)(.*?)(\\n\\n|\\Z)",
+          "sourceGroup.i": 2,
+          "regexOptions.i": 40,
+          "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
+          "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
+        },
         "isDefault": false
       }
     ]
