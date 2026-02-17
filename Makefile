@@ -109,9 +109,9 @@ endif
 	@echo "Created okapi-releases/$(V)/ with $$(ls -1 okapi-releases/$(V)/schemas/*.schema.json | wc -l | tr -d ' ') schemas"
 	@echo ""
 	@echo "Next steps:"
-	@echo "  1. Review generated schemas in okapi-releases/$(V)/schemas/"
-	@echo "  2. Optionally copy overrides from previous version"
-	@echo "  3. Commit: git add okapi-releases/$(V) $(VERSIONS_FILE)"
+	@echo "  1. Review changes: git diff schema-versions.json README.md"
+	@echo "  2. Commit: git add okapi-releases/$(V) schemas/ schema-versions.json README.md"
+	@echo "  3. Push to trigger CI"
 
 # Regenerate schemas for a single version
 regenerate:
