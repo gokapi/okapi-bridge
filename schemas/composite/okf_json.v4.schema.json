@@ -162,10 +162,12 @@
       "default": ""
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "object",
+      "description": "Move inline codes at the start/end of segments to skeleton (non-translatable). Reduces clutter for translators."
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "object",
+      "description": "Merge adjacent inline codes into a single code element for cleaner segmentation."
     },
     "simplifierRules": {
       "type": "string",
@@ -207,7 +209,9 @@
       "collapsed": true,
       "fields": [
         "useCodeFinder",
-        "codeFinderRules"
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton"
       ]
     },
     {
@@ -234,6 +238,6 @@
   "x-schemaVersion": 4,
   "x-baseVersion": 4,
   "x-baseHash": "4acca19a70d3",
-  "x-compositeHash": "e9d550735e9b",
+  "x-compositeHash": "0f7db074aa8e",
   "x-introducedInOkapi": "1.48.0"
 }

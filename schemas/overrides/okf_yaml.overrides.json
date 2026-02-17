@@ -13,7 +13,7 @@
       "label": "Inline Code Detection",
       "description": "Configure detection of inline codes (placeholders, tags)",
       "collapsed": true,
-      "fields": ["useCodeFinder", "codeFinderRules"]
+      "fields": ["useCodeFinder", "codeFinderRules", "mergeAdjacentCodes", "moveLeadingAndTrailingCodesToSkeleton"]
     },
     {
       "id": "output",
@@ -51,6 +51,12 @@
           "sample": "Click <b>here</b>"
         }
       }
+    },
+    "mergeAdjacentCodes": {
+      "description": "Merge adjacent inline codes into a single code element for cleaner segmentation."
+    },
+    "moveLeadingAndTrailingCodesToSkeleton": {
+      "description": "Move inline codes at the start/end of segments to skeleton (non-translatable)."
     },
     "escapeExtendedChars": {
       "description": "Escape extended Unicode characters in output."

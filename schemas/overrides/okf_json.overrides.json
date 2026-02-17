@@ -20,7 +20,7 @@
       "label": "Inline Code Detection",
       "description": "Configure detection of inline codes (placeholders, tags)",
       "collapsed": true,
-      "fields": ["useCodeFinder", "codeFinderRules"]
+      "fields": ["useCodeFinder", "codeFinderRules", "mergeAdjacentCodes", "moveLeadingAndTrailingCodesToSkeleton"]
     },
     {
       "id": "metadata",
@@ -90,6 +90,12 @@
           "sample": "Hello {name}, you have {count} messages"
         }
       }
+    },
+    "mergeAdjacentCodes": {
+      "description": "Merge adjacent inline codes into a single code element for cleaner segmentation."
+    },
+    "moveLeadingAndTrailingCodesToSkeleton": {
+      "description": "Move inline codes at the start/end of segments to skeleton (non-translatable). Reduces clutter for translators."
     },
     "noteRules": {
       "widget": "regexBuilder",

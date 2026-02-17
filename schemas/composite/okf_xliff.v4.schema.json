@@ -237,6 +237,16 @@
       ]
     },
     {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure handling of inline codes in segments",
+      "collapsed": true,
+      "fields": [
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton"
+      ]
+    },
+    {
       "id": "output",
       "label": "Output Settings",
       "description": "Configure output formatting",
@@ -250,6 +260,6 @@
   "x-schemaVersion": 4,
   "x-baseVersion": 4,
   "x-baseHash": "8c86b3aed65f",
-  "x-compositeHash": "6f3f4c5a7165",
+  "x-compositeHash": "97d0fab33cbf",
   "x-introducedInOkapi": "1.46.0"
 }

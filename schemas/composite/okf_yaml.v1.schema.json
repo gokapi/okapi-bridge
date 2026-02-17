@@ -132,7 +132,9 @@
       "collapsed": true,
       "fields": [
         "useCodeFinder",
-        "codeFinderRules"
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton"
       ]
     },
     {
@@ -148,6 +150,6 @@
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "d27e1aff34c0",
-  "x-compositeHash": "1fcb3f53658b",
+  "x-compositeHash": "34a556074ca4",
   "x-introducedInOkapi": "0.38"
 }
