@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "application/json"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_json",
+        "name": "JSON (JavaScript Object Notation)",
+        "description": "Configuration for JSON files",
+        "mimeType": "application/json",
+        "extensions": ".json;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.json.JSONFilter"
+      }
     ]
   },
   "properties": {
@@ -211,7 +222,7 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "23a398c05947",
-  "x-compositeHash": "ffa91bb62ff9",
-  "x-introducedInOkapi": "0.38"
+  "x-introducedInOkapi": "0.38",
+  "x-baseHash": "c06eb5a9acc1",
+  "x-compositeHash": "81c8ccbcbac8"
 }

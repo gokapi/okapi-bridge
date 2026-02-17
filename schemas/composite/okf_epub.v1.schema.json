@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "application/epub+zip"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_epub",
+        "name": "EPUB Files",
+        "description": "Electronic Publication Files (EPUB)",
+        "mimeType": "application/epub+zip",
+        "extensions": ".epub;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.epub.EpubFilter"
+      }
     ]
   },
   "properties": {
@@ -75,7 +86,7 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "74e0522b8cb1",
-  "x-compositeHash": "ff5958d94ac1",
-  "x-introducedInOkapi": "1.46.0"
+  "x-introducedInOkapi": "1.46.0",
+  "x-baseHash": "8db69d69713d",
+  "x-compositeHash": "f668971242f3"
 }

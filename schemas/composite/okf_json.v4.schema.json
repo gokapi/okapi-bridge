@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "application/json"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_json",
+        "name": "JSON (JavaScript Object Notation)",
+        "description": "Configuration for JSON files",
+        "mimeType": "application/json",
+        "extensions": ".json;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.json.JSONFilter"
+      }
     ]
   },
   "properties": {
@@ -162,11 +173,11 @@
       "default": ""
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object",
+      "type": "boolean",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
-      "type": "object",
+      "type": "boolean",
       "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
@@ -238,7 +249,7 @@
   ],
   "x-schemaVersion": 4,
   "x-baseVersion": 4,
-  "x-baseHash": "4acca19a70d3",
-  "x-compositeHash": "c4cc6b3766c9",
-  "x-introducedInOkapi": "1.48.0"
+  "x-introducedInOkapi": "1.48.0",
+  "x-baseHash": "2c7d6042a254",
+  "x-compositeHash": "83ad74285652"
 }

@@ -11,6 +11,40 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-gettext"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_po",
+        "name": "PO (Standard)",
+        "description": "Standard bilingual PO files",
+        "mimeType": "application/x-gettext",
+        "extensions": ".po;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.po.POFilter"
+      },
+      {
+        "configId": "okf_po-monolingual",
+        "name": "PO (Monolingual)",
+        "description": "Monolingual PO files (msgid is a real ID, not the source text).",
+        "mimeType": "application/x-gettext",
+        "extensions": ".po;",
+        "parametersLocation": "monolingual.fprm",
+        "parametersRaw": "#v1\nbilingualMode.b=false\nmakeID.b=true\nuseLD.b=true\nlocalizeOutside.b=true\nuseCodeFinder.b=true\ncodeFinderRules.count.i=2\ncodeFinderRules.rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]\ncodeFinderRules.rule1=\\{\\d[^\\\\]*?\\}\ncodeFinderRules.sample=%s, %d, {1}, \\n, \\r, \\t, etc.\ncodeFinderRules.useAllRulesWhenTesting.b=true\n",
+        "parameters": {
+          "bilingualMode": false,
+          "makeID": true,
+          "useLD": true,
+          "localizeOutside": true,
+          "useCodeFinder": true,
+          "codeFinderRules.count": 2,
+          "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
+          "codeFinderRules.rule1": "\\{\\d[^\\\\]*?\\}",
+          "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.",
+          "codeFinderRules.useAllRulesWhenTesting": true
+        },
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.po.POFilter"
+      }
     ]
   },
   "properties": {
@@ -75,18 +109,18 @@
       "type": "boolean",
       "default": false
     },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object",
-      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
-    },
-    "mergeAdjacentCodes": {
-      "type": "object",
-      "description": "Merge consecutive inline codes into a single placeholder"
-    },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
+    },
+    "wrapContent": {
+      "type": "boolean",
+      "default": true
+    },
+    "outputGeneric": {
+      "type": "boolean",
+      "default": false
     }
   },
   "additionalProperties": false,
@@ -132,7 +166,7 @@
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-baseHash": "de63aec0af92",
-  "x-compositeHash": "36a696c6eaf6",
-  "x-introducedInOkapi": "1.48.0"
+  "x-introducedInOkapi": "1.42.0",
+  "x-baseHash": "2db72723fa04",
+  "x-compositeHash": "f1c00d71608a"
 }

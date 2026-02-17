@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-ttx+xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_ttx",
+        "name": "TTX",
+        "description": "Configuration for Trados TTX documents.",
+        "mimeType": "application/x-ttx+xml",
+        "extensions": ".ttx;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.ttx.TTXFilter"
+      }
     ]
   },
   "properties": {
@@ -31,11 +42,11 @@
       "x-widget": "select"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object",
+      "type": "boolean",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
-      "type": "object",
+      "type": "boolean",
       "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
@@ -84,7 +95,7 @@
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-baseHash": "f084299bc840",
-  "x-compositeHash": "efea945eae80",
-  "x-introducedInOkapi": "1.48.0"
+  "x-introducedInOkapi": "1.48.0",
+  "x-baseHash": "f7431eb0853a",
+  "x-compositeHash": "e99279dc1a47"
 }

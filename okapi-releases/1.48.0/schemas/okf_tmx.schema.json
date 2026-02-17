@@ -51,10 +51,10 @@
       "title": "String used to delimit property values when there are duplicate properties"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "boolean"
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "boolean"
     },
     "simplifierRules": {
       "type": "string",

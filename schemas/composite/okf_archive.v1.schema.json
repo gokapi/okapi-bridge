@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-archive"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_archive",
+        "name": "Archive Files",
+        "description": "Configuration for archive files",
+        "mimeType": "application/x-archive",
+        "extensions": ".archive;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.archive.ArchiveFilter"
+      }
     ]
   },
   "properties": {
@@ -75,7 +86,7 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "b044e208fb6b",
-  "x-compositeHash": "8c89c826ad27",
-  "x-introducedInOkapi": "0.38"
+  "x-introducedInOkapi": "0.38",
+  "x-baseHash": "0b6f711cd143",
+  "x-compositeHash": "b7cf563d1caa"
 }

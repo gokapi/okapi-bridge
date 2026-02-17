@@ -11,6 +11,30 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-transifex"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_transifex",
+        "name": "Transifex Project",
+        "description": "Transifex project with prompt when starting",
+        "mimeType": "application/x-transifex",
+        "extensions": ".txp;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.transifex.TransifexFilter"
+      },
+      {
+        "configId": "okf_transifex-noPrompt",
+        "name": "Transifex Project (without prompt)",
+        "description": "Transifex project without prompt when starting",
+        "mimeType": "application/x-transifex",
+        "parametersLocation": "noPrompt.fprm",
+        "parametersRaw": "#v1\nopenProject.b=false\n",
+        "parameters": {
+          "openProject": false
+        },
+        "isDefault": false,
+        "filterClass": "net.sf.okapi.filters.transifex.TransifexFilter"
+      }
     ]
   },
   "properties": {
@@ -52,7 +76,7 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "165245046e7f",
-  "x-compositeHash": "e27167d8ccf2",
-  "x-introducedInOkapi": "0.38"
+  "x-introducedInOkapi": "0.38",
+  "x-baseHash": "05fe9f50d8a3",
+  "x-compositeHash": "4121ca274d38"
 }

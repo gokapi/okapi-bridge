@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-tmx+xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_tmx",
+        "name": "TMX",
+        "description": "Configuration for Translation Memory eXchange (TMX) documents.",
+        "mimeType": "application/x-tmx+xml",
+        "extensions": ".tmx;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.tmx.TmxFilter"
+      }
     ]
   },
   "properties": {
@@ -95,7 +106,7 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "2fcd5b60043d",
-  "x-compositeHash": "62328a0b7557",
-  "x-introducedInOkapi": "0.38"
+  "x-introducedInOkapi": "0.38",
+  "x-baseHash": "ee1216aab2d4",
+  "x-compositeHash": "a1e77d0fb4cc"
 }

@@ -4,7 +4,8 @@
 SHELL := /bin/bash
 .PHONY: help list-upstream list-local add-release regenerate regenerate-all \
         version-schemas build clean test generate-pom generate-all-poms \
-        centralize regenerate-composites build-runtime build-tools
+        centralize regenerate-composites build-runtime build-tools \
+        download-filter-docs parse-filter-docs parse-filter-docs-force clean-filter-docs
 
 # Configuration - derived from okapi-releases directory
 SUPPORTED_VERSIONS := $(shell ls -1 okapi-releases 2>/dev/null | sort -V)
@@ -29,6 +30,11 @@ help:
 	@echo "  make build-tools          Build schema generator tools (Java 17)"
 	@echo "  make test                 Run tests"
 	@echo "  make clean                Clean build artifacts"
+	@echo ""
+	@echo "Documentation:"
+	@echo "  make download-filter-docs  Download filter docs from Okapi wiki"
+	@echo "  make parse-filter-docs     Parse docs into structured JSON (uses Claude CLI)"
+	@echo "  make clean-filter-docs     Remove downloaded docs"
 	@echo ""
 	@echo "Dependencies:"
 	@echo "  make generate-pom V=1.47.0  Generate version-specific pom.xml"
@@ -91,7 +97,7 @@ endif
 	@# Compile with version-specific dependencies
 	@echo "Compiling with Okapi $(V) dependencies..."
 	@mvn -B -q compile -f okapi-releases/$(V)/pom.xml
-	@# Generate schemas using version-specific pom
+	@# Generate schemas using schema-generator tools
 	@echo "Generating schemas for Okapi $(V)..."
 	@mvn -B exec:java@generate-schemas -Dexec.args="okapi-releases/$(V)/schemas" -f okapi-releases/$(V)/pom.xml
 	@# Create meta.json
@@ -167,26 +173,9 @@ regenerate-all:
 # Versioning
 # ============================================================================
 
-# Recompute schema versions across all Okapi releases
-version-schemas: .compile-generator
-	@echo "Computing schema versions across all Okapi releases..."
-	@rm -f $(VERSIONS_FILE)
-	@for version in $(SUPPORTED_VERSIONS); do \
-		echo "Processing Okapi $$version..."; \
-		mvn -B -q exec:java@version-schemas \
-			-Dexec.args="$$version okapi-releases/$$version/schemas $(VERSIONS_FILE)" \
-			-Dokapi.version=$(LATEST_VERSION); \
-	done
-	@echo ""
-	@echo "Schema versions updated in $(VERSIONS_FILE)"
-	@echo ""
-	@echo "Summary:"
-	@jq -r '.filters | to_entries | sort_by(.key) | .[] | "  \(.key): v\(.value.versions[-1].schemaVersion) (\(.value.versions | length) version(s))"' \
-		$(VERSIONS_FILE) 2>/dev/null | head -20
-	@count=$$(jq '.filters | length' $(VERSIONS_FILE) 2>/dev/null); \
-	if [ "$$count" -gt 20 ]; then \
-		echo "  ... and $$(( $$count - 20 )) more filters"; \
-	fi
+# Recompute schema versions across all Okapi releases (uses centralize-schemas.sh)
+version-schemas:
+	@./scripts/centralize-schemas.sh
 
 # ============================================================================
 # Build
@@ -216,6 +205,28 @@ clean:
 	@mvn -B -f tools/schema-generator/pom.xml clean 2>/dev/null || true
 	@mvn -B -f bridge-runtime/pom.xml clean 2>/dev/null || true
 	@rm -f .compile-generator
+
+# ============================================================================
+# Documentation
+# ============================================================================
+
+FILTER_DOCS_DIR := filter-docs
+
+# Download filter documentation from Okapi wiki
+download-filter-docs:
+	@./scripts/download-filter-docs.sh $(FILTER_DOCS_DIR)
+
+# Parse filter docs into structured JSON using Claude CLI
+parse-filter-docs:
+	@./scripts/parse-filter-docs.sh $(FILTER_DOCS_DIR)
+
+# Force re-parse all filter docs (even if already parsed)
+parse-filter-docs-force:
+	@FORCE=1 ./scripts/parse-filter-docs.sh $(FILTER_DOCS_DIR)
+
+# Clean downloaded docs
+clean-filter-docs:
+	@rm -rf $(FILTER_DOCS_DIR)
 
 # ============================================================================
 # Utility

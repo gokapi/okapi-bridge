@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-versified-txt"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_versifiedtxt",
+        "name": "Versified Text",
+        "description": "Versified Text Documents",
+        "mimeType": "text/x-versified-txt",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.versifiedtxt.VersifiedTextFilter"
+      }
     ]
   },
   "properties": {
@@ -22,7 +32,7 @@
   "additionalProperties": false,
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "78f000e2d2c8",
-  "x-compositeHash": "78f000e2d2c8",
-  "x-introducedInOkapi": "0.38"
+  "x-introducedInOkapi": "0.38",
+  "x-baseHash": "86320d9397b0",
+  "x-compositeHash": "86320d9397b0"
 }

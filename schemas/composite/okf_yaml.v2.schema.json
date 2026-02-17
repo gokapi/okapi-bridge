@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-yaml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_yaml",
+        "name": "YAML",
+        "description": "YAML files",
+        "mimeType": "text/x-yaml",
+        "extensions": ".yml;.yaml;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.yaml.YamlFilter"
+      }
     ]
   },
   "properties": {
@@ -105,14 +116,6 @@
       "type": "boolean",
       "default": true
     },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object",
-      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
-    },
-    "mergeAdjacentCodes": {
-      "type": "object",
-      "description": "Merge consecutive inline codes into a single placeholder"
-    },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
@@ -158,7 +161,7 @@
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-baseHash": "ddd8ad09ebfe",
-  "x-compositeHash": "01af154b520e",
-  "x-introducedInOkapi": "1.48.0"
+  "x-introducedInOkapi": "1.46.0",
+  "x-baseHash": "164a4acb2e42",
+  "x-compositeHash": "289edfb84365"
 }

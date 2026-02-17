@@ -45,10 +45,10 @@
       "description": "If disabled, all XINI segments with the same value\nof the attribute 'SegmentIDBeforeSegmentation' will be merged.\nIf the XINI was not segmented, it will remain unsegmented.\nIf this option is enabled, new segmentation\n(i.e. from segmentation step) will be used for the output."
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "boolean"
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "boolean"
     },
     "simplifierRules": {
       "type": "string",

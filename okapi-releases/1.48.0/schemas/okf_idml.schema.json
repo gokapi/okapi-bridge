@@ -38,7 +38,7 @@
       "default": true
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "boolean"
     },
     "extractNotes": {
       "type": "boolean",
@@ -173,7 +173,7 @@
       "x-okapiFormat": "inlineCodeFinder"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "boolean"
     },
     "simplifierRules": {
       "type": "string",

@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-icml+xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_icml",
+        "name": "ICML",
+        "description": "Adobe InDesign ICML documents",
+        "mimeType": "application/x-icml+xml",
+        "extensions": ".wcml;.icml",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.icml.ICMLFilter"
+      }
     ]
   },
   "properties": {
@@ -96,7 +107,7 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "2aa417aeea91",
-  "x-compositeHash": "eb518e2b92cb",
-  "x-introducedInOkapi": "0.38"
+  "x-introducedInOkapi": "0.38",
+  "x-baseHash": "e37b789b0232",
+  "x-compositeHash": "7f4cedd28147"
 }

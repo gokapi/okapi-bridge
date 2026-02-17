@@ -58,10 +58,10 @@
       "title": "Create new paragraphs on hard returns (<Br/> elements)"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "boolean"
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "boolean"
     },
     "simplifierRules": {
       "type": "string",

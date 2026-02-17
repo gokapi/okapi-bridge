@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-ts"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_ts",
+        "name": "TS",
+        "description": "Configuration for Qt TS files.",
+        "mimeType": "application/x-ts",
+        "extensions": ".ts;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.ts.TsFilter"
+      }
     ]
   },
   "properties": {
@@ -100,7 +111,7 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "c4b0d572dae5",
-  "x-compositeHash": "25381fc0faa7",
-  "x-introducedInOkapi": "0.38"
+  "x-introducedInOkapi": "0.38",
+  "x-baseHash": "95b8b8b1c9cd",
+  "x-compositeHash": "0d3065f03b2b"
 }

@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-yaml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_yaml",
+        "name": "YAML",
+        "description": "YAML files",
+        "mimeType": "text/x-yaml",
+        "extensions": ".yml;.yaml",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.yaml.YamlFilter"
+      }
     ]
   },
   "properties": {
@@ -150,7 +161,7 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "d27e1aff34c0",
-  "x-compositeHash": "4948689f21be",
-  "x-introducedInOkapi": "0.38"
+  "x-introducedInOkapi": "0.38",
+  "x-baseHash": "c7484184c63a",
+  "x-compositeHash": "6598bd1d429f"
 }

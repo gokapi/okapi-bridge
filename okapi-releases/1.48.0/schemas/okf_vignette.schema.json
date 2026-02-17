@@ -102,10 +102,10 @@
       "x-widget": "checkbox"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "boolean"
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "boolean"
     },
     "simplifierRules": {
       "type": "string",

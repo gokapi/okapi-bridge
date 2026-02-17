@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-sdlpackage"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_sdlpackage",
+        "name": "SDL Trados Package Files",
+        "description": "SDL Trados 2017 SDLPPX and SDLRPX files",
+        "mimeType": "application/x-sdlpackage",
+        "extensions": ".sdlppx;.sdlrpx;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.sdlpackage.SdlPackageFilter"
+      }
     ]
   },
   "properties": {
@@ -75,7 +86,7 @@
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
-  "x-baseHash": "1f80d98c49be",
-  "x-compositeHash": "8f41b8fdac7b",
-  "x-introducedInOkapi": "0.38"
+  "x-introducedInOkapi": "0.38",
+  "x-baseHash": "ae9d95ae4ae9",
+  "x-compositeHash": "d0991852bc0c"
 }

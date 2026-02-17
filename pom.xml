@@ -134,26 +134,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Schema Generator Plugin - only runs when explicitly invoked -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>3.1.0</version>
-                <executions>
-                    <execution>
-                        <id>generate-schemas</id>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                        <configuration>
-                            <mainClass>com.gokapi.bridge.schema.SchemaGenerator</mainClass>
-                            <arguments>
-                                <argument>${project.basedir}/schemas</argument>
-                            </arguments>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
             <!-- Surefire for JUnit 5 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

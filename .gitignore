@@ -11,3 +11,6 @@ dependency-reduced-pom.xml
 
 # Build artifacts
 .compile-generator
+
+# Downloaded wiki documentation
+filter-docs/

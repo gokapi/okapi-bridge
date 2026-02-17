@@ -197,6 +197,26 @@ cat >> "$OUTPUT_FILE" << 'EOF'
     <build>
         <sourceDirectory>../../src/main/java</sourceDirectory>
         <plugins>
+            <!-- Add tools/schema-generator source root for schema generation classes -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>add-tools-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>../../tools/schema-generator/src/main/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
             <!-- Shade plugin for creating fat JAR with all dependencies -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -214,7 +234,7 @@ cat >> "$OUTPUT_FILE" << 'EOF'
                                     <mainClass>com.gokapi.bridge.OkapiBridgeServer</mainClass>
                                 </transformer>
                             </transformers>
-                            <finalName>gokapi-bridge-${project.version}-jar-with-dependencies</finalName>
+                            <finalName>gokapi-bridge-\${project.version}-jar-with-dependencies</finalName>
                         </configuration>
                     </execution>
                 </executions>
@@ -231,7 +251,7 @@ cat >> "$OUTPUT_FILE" << 'EOF'
                             <goal>java</goal>
                         </goals>
                         <configuration>
-                            <mainClass>com.gokapi.bridge.schema.SchemaGenerator</mainClass>
+                            <mainClass>com.gokapi.bridge.tools.SchemaGenerator</mainClass>
                         </configuration>
                     </execution>
                 </executions>

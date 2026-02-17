@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-archive"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_archive",
+        "name": "Archive Files",
+        "description": "Configuration for archive files",
+        "mimeType": "application/x-archive",
+        "extensions": ".archive;.zip;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.archive.ArchiveFilter"
+      }
     ]
   },
   "properties": {
@@ -35,11 +46,11 @@
       "x-widget": "text"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object",
+      "type": "boolean",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
-      "type": "object",
+      "type": "boolean",
       "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
@@ -83,7 +94,7 @@
   ],
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
-  "x-baseHash": "a45f022ed919",
-  "x-compositeHash": "e2efd8904e14",
-  "x-introducedInOkapi": "1.48.0"
+  "x-introducedInOkapi": "1.48.0",
+  "x-baseHash": "9419d080dabf",
+  "x-compositeHash": "f03913ba9a99"
 }

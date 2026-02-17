@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "application/vnd.mif"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_mif",
+        "name": "MIF (BETA)",
+        "description": "Adobe FrameMaker MIF documents",
+        "mimeType": "application/vnd.mif",
+        "extensions": ".mif;",
+        "isDefault": true,
+        "filterClass": "net.sf.okapi.filters.mif.MIFFilter"
+      }
     ]
   },
   "properties": {
@@ -112,7 +123,7 @@
   ],
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
-  "x-baseHash": "08d875cba92e",
-  "x-compositeHash": "f84611e5453f",
-  "x-introducedInOkapi": "1.40.0"
+  "x-introducedInOkapi": "1.40.0",
+  "x-baseHash": "b35b1b7afe0d",
+  "x-compositeHash": "6c9b9d03f636"
 }
