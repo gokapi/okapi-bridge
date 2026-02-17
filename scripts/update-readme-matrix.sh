@@ -32,16 +32,10 @@ generate_matrix_content() {
 Shows which composite schema version applies to each Okapi release.
 Only filters with multiple versions are shown (\`-\` = filter not available).
 
-<details>
-<summary>Click to expand full matrix</summary>
-
 HEADER
 
     # Generate table
     "$SCRIPT_DIR/generate-matrix.sh" 2>/dev/null | grep -E '^\|' || true
-    
-    echo ""
-    echo "</details>"
 }
 
 # Check if markers exist
