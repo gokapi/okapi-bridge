@@ -167,11 +167,12 @@
     },
     "useCodeFinder": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Inline code detection configuration",
+      "description": "Regex patterns to identify inline codes in translatable text",
       "properties": {
         "rules": {
           "type": "array",
@@ -199,7 +200,8 @@
           "description": "Test all rules together or individually"
         }
       },
-      "x-okapiFormat": "inlineCodeFinder"
+      "x-okapiFormat": "inlineCodeFinder",
+      "x-widget": "codeFinderRules"
     },
     "cdataSubfilter": {
       "type": "string",
@@ -211,7 +213,7 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
@@ -229,25 +231,16 @@
       ]
     },
     {
-      "id": "states",
-      "label": "State Handling",
-      "description": "Control how translation states are handled",
-      "collapsed": true,
-      "fields": [
-        "includeNotTranslated",
-        "includeTranslated",
-        "includeReviewNeeded",
-        "includeFinal"
-      ]
-    },
-    {
       "id": "inlineCodes",
       "label": "Inline Code Handling",
-      "description": "Configure handling of inline codes in segments",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
       "collapsed": true,
       "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
         "mergeAdjacentCodes",
-        "moveLeadingAndTrailingCodesToSkeleton"
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
       ]
     },
     {
@@ -259,11 +252,23 @@
         "copySource",
         "useApprovedOnly"
       ]
+    },
+    {
+      "id": "states",
+      "label": "State Handling",
+      "description": "Control how translation states are handled",
+      "collapsed": true,
+      "fields": [
+        "includeNotTranslated",
+        "includeTranslated",
+        "includeReviewNeeded",
+        "includeFinal"
+      ]
     }
   ],
   "x-schemaVersion": 5,
   "x-baseVersion": 5,
   "x-baseHash": "dbcc76decdf6",
-  "x-compositeHash": "e654636249ff",
+  "x-compositeHash": "9a6ba15467ce",
   "x-introducedInOkapi": "1.47.0"
 }

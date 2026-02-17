@@ -259,7 +259,7 @@
     "useCodeFinder": {
       "type": "boolean",
       "default": false,
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
       "type": "object",
@@ -313,32 +313,21 @@
       }
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "object"
+      "type": "object",
+      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
-      "type": "object"
+      "type": "object",
+      "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
-    {
-      "id": "word",
-      "label": "Word Documents",
-      "description": "Settings for Word documents (.docx)",
-      "collapsed": false,
-      "fields": [
-        "bPreferenceTranslateWordHeadersFooters",
-        "bPreferenceTranslateWordHiddenText",
-        "bPreferenceTranslateWordComments",
-        "bPreferenceTranslateWordTrackingChanges",
-        "bPreferenceAggressiveCleanupWord"
-      ]
-    },
     {
       "id": "excel",
       "label": "Excel Workbooks",
@@ -349,6 +338,28 @@
         "bPreferenceTranslateExcelDrawings",
         "bPreferenceTranslateExcelHidden",
         "sExcelExcludedColumns"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "description": "Settings that apply to all Office document types",
+      "collapsed": true,
+      "fields": [
+        "bPreferenceTranslateDocumentProperties"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
       ]
     },
     {
@@ -363,20 +374,22 @@
       ]
     },
     {
-      "id": "general",
-      "label": "General Settings",
-      "description": "Settings that apply to all Office document types",
-      "collapsed": true,
+      "id": "word",
+      "label": "Word Documents",
+      "description": "Settings for Word documents (.docx)",
+      "collapsed": false,
       "fields": [
-        "bPreferenceTranslateDocumentProperties",
-        "useCodeFinder",
-        "codeFinderRules"
+        "bPreferenceTranslateWordHeadersFooters",
+        "bPreferenceTranslateWordHiddenText",
+        "bPreferenceTranslateWordComments",
+        "bPreferenceTranslateWordTrackingChanges",
+        "bPreferenceAggressiveCleanupWord"
       ]
     }
   ],
   "x-schemaVersion": 7,
   "x-baseVersion": 7,
   "x-baseHash": "8abe181fb764",
-  "x-compositeHash": "482441df3e18",
+  "x-compositeHash": "8987d6aee80d",
   "x-introducedInOkapi": "1.48.0"
 }

@@ -28,12 +28,12 @@
     },
     "mergeAdjacentCodes": {
       "type": "object",
-      "description": "Merge adjacent inline codes into a single code element."
+      "description": "Merge consecutive inline codes into a single placeholder"
     },
     "extractNotes": {
       "type": "boolean",
       "default": false,
-      "description": "Extract notes/comments for translators."
+      "description": "Extract notes/comments as translator notes"
     },
     "extractMasterSpreads": {
       "type": "boolean",
@@ -130,11 +130,11 @@
     "useCodeFinder": {
       "type": "boolean",
       "default": false,
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Configure patterns for detecting inline codes.",
+      "description": "Regex patterns to identify inline codes in translatable text",
       "properties": {
         "rules": {
           "type": "array",
@@ -162,15 +162,16 @@
           "description": "Test all rules together or individually"
         }
       },
-      "x-okapiFormat": "inlineCodeFinder"
+      "x-okapiFormat": "inlineCodeFinder",
+      "x-widget": "codeFinderRules"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
       "type": "object",
-      "description": "Move inline codes at segment edges to skeleton."
+      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
@@ -179,30 +180,16 @@
     {
       "id": "extraction",
       "label": "Extraction Settings",
+      "description": "Control what content is extracted for translation",
       "collapsed": false,
       "fields": [
+        "extractAllPairs",
+        "extractSource",
+        "extractTarget",
         "extractNotes",
-        "extractMasterSpreads",
-        "extractHiddenLayers",
-        "extractHiddenPasteboardItems",
-        "extractBreaksInline",
-        "extractHyperlinkTextSourcesInline",
-        "extractCustomTextVariables",
-        "extractIndexTopics",
-        "extractExternalHyperlinks",
-        "extractMathZones"
-      ]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": true,
-      "fields": [
-        "mergeAdjacentCodes",
-        "useCodeFinder",
-        "codeFinderRules",
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "simplifierRules"
+        "extractComments",
+        "extractMetadata",
+        "extractOuterStrings"
       ]
     },
     {
@@ -228,11 +215,24 @@
         "characterBaselineShiftMinIgnoranceThreshold",
         "characterBaselineShiftMaxIgnoranceThreshold"
       ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
     }
   ],
   "x-schemaVersion": 8,
   "x-baseVersion": 8,
   "x-baseHash": "c15f05a0a0d9",
-  "x-compositeHash": "a83b7899288b",
+  "x-compositeHash": "0e20e80ab85b",
   "x-introducedInOkapi": "1.48.0"
 }

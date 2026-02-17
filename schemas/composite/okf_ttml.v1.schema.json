@@ -60,23 +60,6 @@
   "additionalProperties": false,
   "x-groups": [
     {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": false,
-      "fields": [
-        "useCodeFinder",
-        "codeFinderRules"
-      ]
-    },
-    {
-      "id": "output",
-      "label": "Output Settings",
-      "collapsed": true,
-      "fields": [
-        "escapeBrMode"
-      ]
-    },
-    {
       "id": "general",
       "label": "General Settings",
       "collapsed": true,
@@ -90,11 +73,32 @@
         "writeCharAnnotations",
         "mergeCaptions"
       ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Output Settings",
+      "collapsed": true,
+      "fields": [
+        "escapeBrMode"
+      ]
     }
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "2287bfcc2579",
-  "x-compositeHash": "ab90598212bb",
+  "x-compositeHash": "ae1125b70b5f",
   "x-introducedInOkapi": "1.46.0"
 }

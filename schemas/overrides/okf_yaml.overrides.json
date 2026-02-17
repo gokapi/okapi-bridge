@@ -1,5 +1,6 @@
 {
   "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "$include": ["_fragments/inlineCodes.fragment.json"],
   "groups": [
     {
       "id": "extraction",
@@ -7,13 +8,6 @@
       "description": "Control what content is extracted",
       "collapsed": false,
       "fields": ["extractAllPairs", "extractStandalone", "useKeyAsName", "useFullKeyPath"]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Detection",
-      "description": "Configure detection of inline codes (placeholders, tags)",
-      "collapsed": true,
-      "fields": ["useCodeFinder", "codeFinderRules", "mergeAdjacentCodes", "moveLeadingAndTrailingCodesToSkeleton"]
     },
     {
       "id": "output",
@@ -36,9 +30,6 @@
     "useFullKeyPath": {
       "description": "Use full nested path as the name instead of immediate key."
     },
-    "useCodeFinder": {
-      "description": "Enable inline code detection using regex patterns."
-    },
     "codeFinderRules": {
       "widget": "codeFinderRules",
       "presets": {
@@ -51,12 +42,6 @@
           "sample": "Click <b>here</b>"
         }
       }
-    },
-    "mergeAdjacentCodes": {
-      "description": "Merge adjacent inline codes into a single code element for cleaner segmentation."
-    },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "description": "Move inline codes at the start/end of segments to skeleton (non-translatable)."
     },
     "escapeExtendedChars": {
       "description": "Escape extended Unicode characters in output."

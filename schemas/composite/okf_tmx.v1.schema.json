@@ -41,7 +41,7 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     },
     "escapeGT": {
@@ -53,13 +53,13 @@
   "additionalProperties": false,
   "x-groups": [
     {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": false,
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
       "fields": [
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "mergeAdjacentCodes",
-        "simplifierRules"
+        "segType",
+        "processAllTargets",
+        "propValueSep"
       ]
     },
     {
@@ -72,27 +72,30 @@
       ]
     },
     {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    },
+    {
       "id": "output",
       "label": "Output Settings",
       "collapsed": true,
       "fields": [
         "escapeGT"
       ]
-    },
-    {
-      "id": "general",
-      "label": "General Settings",
-      "collapsed": true,
-      "fields": [
-        "segType",
-        "processAllTargets",
-        "propValueSep"
-      ]
     }
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "2fcd5b60043d",
-  "x-compositeHash": "64cd8a605d9b",
+  "x-compositeHash": "62328a0b7557",
   "x-introducedInOkapi": "0.38"
 }

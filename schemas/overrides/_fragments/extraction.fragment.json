@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Shared fragment for content extraction settings",
+  "fields": {
+    "extractNotes": {
+      "description": "Extract notes/comments as translator notes"
+    },
+    "extractComments": {
+      "description": "Extract code comments for translation context"
+    },
+    "extractMetadata": {
+      "description": "Extract metadata fields for translation"
+    },
+    "extractSource": {
+      "description": "Extract source language content"
+    },
+    "extractTarget": {
+      "description": "Extract target language content"
+    },
+    "extractAllPairs": {
+      "description": "Extract all key-value pairs for translation"
+    },
+    "extractOuterStrings": {
+      "description": "Extract strings outside the main content structure"
+    }
+  },
+  "groups": [
+    {
+      "id": "extraction",
+      "label": "Extraction Settings",
+      "description": "Control what content is extracted for translation",
+      "collapsed": false,
+      "fields": ["extractAllPairs", "extractSource", "extractTarget", "extractNotes", "extractComments", "extractMetadata", "extractOuterStrings"]
+    }
+  ]
+}

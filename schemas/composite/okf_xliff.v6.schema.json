@@ -171,11 +171,12 @@
     },
     "useCodeFinder": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Inline code detection configuration",
+      "description": "Regex patterns to identify inline codes in translatable text",
       "properties": {
         "rules": {
           "type": "array",
@@ -203,7 +204,8 @@
           "description": "Test all rules together or individually"
         }
       },
-      "x-okapiFormat": "inlineCodeFinder"
+      "x-okapiFormat": "inlineCodeFinder",
+      "x-widget": "codeFinderRules"
     },
     "cdataSubfilter": {
       "type": "string",
@@ -215,15 +217,15 @@
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
       "type": "object",
-      "description": "Move inline codes at the start/end of segments to skeleton (non-translatable)."
+      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
       "type": "object",
-      "description": "Merge adjacent inline codes into a single code element for cleaner segmentation."
+      "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
@@ -241,25 +243,16 @@
       ]
     },
     {
-      "id": "states",
-      "label": "State Handling",
-      "description": "Control how translation states are handled",
-      "collapsed": true,
-      "fields": [
-        "includeNotTranslated",
-        "includeTranslated",
-        "includeReviewNeeded",
-        "includeFinal"
-      ]
-    },
-    {
       "id": "inlineCodes",
       "label": "Inline Code Handling",
-      "description": "Configure handling of inline codes in segments",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
       "collapsed": true,
       "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
         "mergeAdjacentCodes",
-        "moveLeadingAndTrailingCodesToSkeleton"
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
       ]
     },
     {
@@ -271,11 +264,23 @@
         "copySource",
         "useApprovedOnly"
       ]
+    },
+    {
+      "id": "states",
+      "label": "State Handling",
+      "description": "Control how translation states are handled",
+      "collapsed": true,
+      "fields": [
+        "includeNotTranslated",
+        "includeTranslated",
+        "includeReviewNeeded",
+        "includeFinal"
+      ]
     }
   ],
   "x-schemaVersion": 6,
   "x-baseVersion": 6,
   "x-baseHash": "fe2452ea29a2",
-  "x-compositeHash": "cc3455ddb6b2",
+  "x-compositeHash": "a0886a2b70d9",
   "x-introducedInOkapi": "1.48.0"
 }

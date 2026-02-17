@@ -19,11 +19,11 @@
       "default": true,
       "title": "Has inline codes as defined below:",
       "x-widget": "checkbox",
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Configure patterns for detecting inline codes.",
+      "description": "Regex patterns to identify inline codes in translatable text",
       "properties": {
         "rules": {
           "type": "array",
@@ -51,7 +51,8 @@
           "description": "Test all rules together or individually"
         }
       },
-      "x-okapiFormat": "inlineCodeFinder"
+      "x-okapiFormat": "inlineCodeFinder",
+      "x-widget": "codeFinderRules"
     },
     "useDirectives": {
       "type": "boolean",
@@ -71,32 +72,12 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
-    {
-      "id": "extraction",
-      "label": "Extraction Settings",
-      "collapsed": false,
-      "fields": [
-        "extractOutsideDirectives"
-      ]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": true,
-      "fields": [
-        "useCodeFinder",
-        "codeFinderRules",
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "mergeAdjacentCodes",
-        "simplifierRules"
-      ]
-    },
     {
       "id": "general",
       "label": "General Settings",
@@ -104,11 +85,24 @@
       "fields": [
         "useDirectives"
       ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
     }
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "b55a1d6b8628",
-  "x-compositeHash": "bafd3b37a2ac",
+  "x-compositeHash": "b67601bcf04d",
   "x-introducedInOkapi": "0.38"
 }

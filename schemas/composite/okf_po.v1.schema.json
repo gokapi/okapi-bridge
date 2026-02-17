@@ -36,11 +36,11 @@
     "useCodeFinder": {
       "type": "boolean",
       "default": true,
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Configure patterns for detecting inline codes.",
+      "description": "Regex patterns to identify inline codes in translatable text",
       "properties": {
         "rules": {
           "type": "array",
@@ -68,7 +68,8 @@
           "description": "Test all rules together or individually"
         }
       },
-      "x-okapiFormat": "inlineCodeFinder"
+      "x-okapiFormat": "inlineCodeFinder",
+      "x-widget": "codeFinderRules"
     },
     "includeMsgContextInNote": {
       "type": "boolean",
@@ -76,38 +77,19 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
     {
-      "id": "extraction",
-      "label": "Extraction Settings",
-      "collapsed": false,
-      "fields": [
-        "includeMsgContextInNote"
-      ]
-    },
-    {
-      "id": "mode",
-      "label": "Mode Settings",
+      "id": "general",
+      "label": "General Settings",
       "collapsed": true,
       "fields": [
-        "bilingualMode"
-      ]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": true,
-      "fields": [
-        "useCodeFinder",
-        "codeFinderRules",
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "mergeAdjacentCodes",
-        "simplifierRules"
+        "protectApproved",
+        "allowEmptyOutputTarget"
       ]
     },
     {
@@ -119,18 +101,30 @@
       ]
     },
     {
-      "id": "general",
-      "label": "General Settings",
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
       "collapsed": true,
       "fields": [
-        "protectApproved",
-        "allowEmptyOutputTarget"
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "mode",
+      "label": "Mode Settings",
+      "collapsed": true,
+      "fields": [
+        "bilingualMode"
       ]
     }
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "c84197001d8b",
-  "x-compositeHash": "bbd67cf895a4",
+  "x-compositeHash": "bb83bf110304",
   "x-introducedInOkapi": "0.38"
 }

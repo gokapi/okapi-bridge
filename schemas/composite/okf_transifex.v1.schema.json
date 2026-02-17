@@ -22,22 +22,12 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": false,
-      "fields": [
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "mergeAdjacentCodes",
-        "simplifierRules"
-      ]
-    },
     {
       "id": "general",
       "label": "General Settings",
@@ -45,11 +35,24 @@
       "fields": [
         "openProject"
       ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
     }
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "165245046e7f",
-  "x-compositeHash": "65eb64e12481",
+  "x-compositeHash": "e27167d8ccf2",
   "x-introducedInOkapi": "0.38"
 }

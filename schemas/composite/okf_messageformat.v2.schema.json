@@ -28,7 +28,7 @@
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Configure patterns for detecting inline codes.",
+      "description": "Regex patterns to identify inline codes in translatable text",
       "properties": {
         "rules": {
           "type": "array",
@@ -56,41 +56,30 @@
           "description": "Test all rules together or individually"
         }
       },
-      "x-okapiFormat": "inlineCodeFinder"
+      "x-okapiFormat": "inlineCodeFinder",
+      "x-widget": "codeFinderRules"
     },
     "useCodeFinder": {
       "type": "boolean",
       "default": false,
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
       "type": "object",
-      "description": "Move inline codes at segment edges to skeleton."
+      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
       "type": "object",
-      "description": "Merge adjacent inline codes into a single code element."
+      "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": false,
-      "fields": [
-        "codeFinderRules",
-        "useCodeFinder",
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "mergeAdjacentCodes",
-        "simplifierRules"
-      ]
-    },
     {
       "id": "general",
       "label": "General Settings",
@@ -100,11 +89,24 @@
         "normalize",
         "prettyPrint"
       ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
     }
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "22e8645aef28",
-  "x-compositeHash": "13f65cf45080",
+  "x-compositeHash": "a501a2b085b8",
   "x-introducedInOkapi": "1.48.0"
 }

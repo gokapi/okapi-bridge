@@ -73,13 +73,13 @@
       "default": true,
       "title": "Has inline codes as defined below:",
       "x-widget": "checkbox",
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
       "type": "string",
       "default": "#v1\ncount.i=1\nrule0=</?([A-Z0-9a-z]*)\\b[^>]*>\nsample=&name; <tag></at><tag/> <tag attr='val'> </tag=\"val\">\nuseAllRulesWhenTesting.b=true",
-      "description": "Configure patterns for detecting inline codes.",
-      "x-widget": "codeFinder",
+      "description": "Regex patterns to identify inline codes in translatable text",
+      "x-widget": "codeFinderRules",
       "x-enabledBy": {
         "parameter": "useCodeFinder",
         "enabledWhenSelected": true
@@ -95,23 +95,6 @@
   "additionalProperties": false,
   "x-groups": [
     {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": false,
-      "fields": [
-        "useCodeFinder",
-        "codeFinderRules"
-      ]
-    },
-    {
-      "id": "output",
-      "label": "Output Settings",
-      "collapsed": true,
-      "fields": [
-        "escapeBrMode"
-      ]
-    },
-    {
       "id": "general",
       "label": "General Settings",
       "collapsed": true,
@@ -125,11 +108,32 @@
         "writeCharAnnotations",
         "mergeCaptions"
       ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "output",
+      "label": "Output Settings",
+      "collapsed": true,
+      "fields": [
+        "escapeBrMode"
+      ]
     }
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "51497cb09e9e",
-  "x-compositeHash": "5ae736d48f70",
+  "x-compositeHash": "42bec6d6411d",
   "x-introducedInOkapi": "1.48.0"
 }

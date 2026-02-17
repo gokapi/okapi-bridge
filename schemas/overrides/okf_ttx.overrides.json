@@ -1,5 +1,8 @@
 {
   "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "$include": [
+    "_fragments/inlineCodes.fragment.json"
+  ],
   "groups": [
     {
       "id": "mode",
@@ -7,16 +10,6 @@
       "collapsed": false,
       "fields": [
         "segmentMode"
-      ]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": true,
-      "fields": [
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "mergeAdjacentCodes",
-        "simplifierRules"
       ]
     },
     {
@@ -30,15 +23,6 @@
   ],
   "fields": {
     "segmentMode": {},
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "description": "Move inline codes at segment edges to skeleton."
-    },
-    "mergeAdjacentCodes": {
-      "description": "Merge adjacent inline codes into a single code element."
-    },
-    "simplifierRules": {
-      "description": "Rules for simplifying inline code types."
-    },
     "escapeGT": {}
   }
 }

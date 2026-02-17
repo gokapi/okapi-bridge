@@ -76,15 +76,6 @@
   "additionalProperties": false,
   "x-groups": [
     {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": false,
-      "fields": [
-        "useCodeFinder",
-        "codeFinderRules"
-      ]
-    },
-    {
       "id": "general",
       "label": "General Settings",
       "collapsed": true,
@@ -100,11 +91,24 @@
         "writeCharAnnotations",
         "mergeCaptions"
       ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
     }
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "44eeadc9f697",
-  "x-compositeHash": "ccac8b692a5b",
+  "x-compositeHash": "790ed46a30dc",
   "x-introducedInOkapi": "1.46.0"
 }

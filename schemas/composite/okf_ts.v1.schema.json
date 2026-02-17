@@ -25,11 +25,11 @@
     "useCodeFinder": {
       "type": "boolean",
       "default": true,
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Configure patterns for detecting inline codes.",
+      "description": "Regex patterns to identify inline codes in translatable text",
       "properties": {
         "rules": {
           "type": "array",
@@ -57,25 +57,35 @@
           "description": "Test all rules together or individually"
         }
       },
-      "x-okapiFormat": "inlineCodeFinder"
+      "x-okapiFormat": "inlineCodeFinder",
+      "x-widget": "codeFinderRules"
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
     {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "decodeByteValues"
+      ]
+    },
+    {
       "id": "inlineCodes",
       "label": "Inline Code Handling",
-      "collapsed": false,
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
       "fields": [
         "useCodeFinder",
         "codeFinderRules",
-        "moveLeadingAndTrailingCodesToSkeleton",
         "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
         "simplifierRules"
       ]
     },
@@ -86,19 +96,11 @@
       "fields": [
         "escapeGT"
       ]
-    },
-    {
-      "id": "general",
-      "label": "General Settings",
-      "collapsed": true,
-      "fields": [
-        "decodeByteValues"
-      ]
     }
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "c4b0d572dae5",
-  "x-compositeHash": "9a3bf895c3b6",
+  "x-compositeHash": "25381fc0faa7",
   "x-introducedInOkapi": "0.38"
 }

@@ -17,7 +17,7 @@
     "useCodeFinder": {
       "type": "boolean",
       "default": true,
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "indentThreshold": {
       "type": "string",
@@ -36,7 +36,7 @@
       "default": false,
       "title": "Preserve whitespace",
       "x-widget": "checkbox",
-      "description": "Preserve whitespace exactly as in source."
+      "description": "Preserve original whitespace in extracted text"
     },
     "lineSeparator": {
       "type": "string",
@@ -52,23 +52,12 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": false,
-      "fields": [
-        "useCodeFinder",
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "mergeAdjacentCodes",
-        "simplifierRules"
-      ]
-    },
     {
       "id": "general",
       "label": "General Settings",
@@ -81,11 +70,36 @@
         "paragraphSeparator",
         "sortByPosition"
       ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "whitespace",
+      "label": "Whitespace Handling",
+      "description": "Control how whitespace is processed in extracted text",
+      "collapsed": true,
+      "fields": [
+        "preserveWhitespace",
+        "collapseWhitespace",
+        "trimLeadingWS",
+        "trimTrailingWS"
+      ]
     }
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "2728a590126e",
-  "x-compositeHash": "4ac860d4ea05",
+  "x-compositeHash": "b4f638586bb0",
   "x-introducedInOkapi": "0.38"
 }

@@ -1,14 +1,9 @@
 {
   "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "$include": [
+    "_fragments/inlineCodes.fragment.json"
+  ],
   "groups": [
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": false,
-      "fields": [
-        "simplifierRules"
-      ]
-    },
     {
       "id": "general",
       "label": "General Settings",
@@ -19,9 +14,6 @@
     }
   ],
   "fields": {
-    "path": {},
-    "simplifierRules": {
-      "description": "Rules for simplifying inline code types."
-    }
+    "path": {}
   }
 }

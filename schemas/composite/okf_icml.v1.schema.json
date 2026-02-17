@@ -19,7 +19,7 @@
       "default": false,
       "title": "Extract notes",
       "x-widget": "checkbox",
-      "description": "Extract notes/comments for translators."
+      "description": "Extract notes/comments as translator notes"
     },
     "simplifyCodes": {
       "type": "boolean",
@@ -49,7 +49,7 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
@@ -58,20 +58,16 @@
     {
       "id": "extraction",
       "label": "Extraction Settings",
+      "description": "Control what content is extracted for translation",
       "collapsed": false,
       "fields": [
+        "extractAllPairs",
+        "extractSource",
+        "extractTarget",
         "extractNotes",
-        "extractMasterSpreads"
-      ]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": true,
-      "fields": [
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "mergeAdjacentCodes",
-        "simplifierRules"
+        "extractComments",
+        "extractMetadata",
+        "extractOuterStrings"
       ]
     },
     {
@@ -83,11 +79,24 @@
         "skipThreshold",
         "newTuOnBr"
       ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
     }
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "2aa417aeea91",
-  "x-compositeHash": "2d6de11e1fd1",
+  "x-compositeHash": "eb518e2b92cb",
   "x-introducedInOkapi": "0.38"
 }

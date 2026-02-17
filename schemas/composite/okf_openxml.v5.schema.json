@@ -198,25 +198,12 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
-    {
-      "id": "word",
-      "label": "Word Documents",
-      "description": "Settings for Word documents (.docx)",
-      "collapsed": false,
-      "fields": [
-        "bPreferenceTranslateWordHeadersFooters",
-        "bPreferenceTranslateWordHiddenText",
-        "bPreferenceTranslateWordComments",
-        "bPreferenceTranslateWordTrackingChanges",
-        "bPreferenceAggressiveCleanupWord"
-      ]
-    },
     {
       "id": "excel",
       "label": "Excel Workbooks",
@@ -227,6 +214,28 @@
         "bPreferenceTranslateExcelDrawings",
         "bPreferenceTranslateExcelHidden",
         "sExcelExcludedColumns"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "description": "Settings that apply to all Office document types",
+      "collapsed": true,
+      "fields": [
+        "bPreferenceTranslateDocumentProperties"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
       ]
     },
     {
@@ -241,20 +250,22 @@
       ]
     },
     {
-      "id": "general",
-      "label": "General Settings",
-      "description": "Settings that apply to all Office document types",
-      "collapsed": true,
+      "id": "word",
+      "label": "Word Documents",
+      "description": "Settings for Word documents (.docx)",
+      "collapsed": false,
       "fields": [
-        "bPreferenceTranslateDocumentProperties",
-        "useCodeFinder",
-        "codeFinderRules"
+        "bPreferenceTranslateWordHeadersFooters",
+        "bPreferenceTranslateWordHiddenText",
+        "bPreferenceTranslateWordComments",
+        "bPreferenceTranslateWordTrackingChanges",
+        "bPreferenceAggressiveCleanupWord"
       ]
     }
   ],
   "x-schemaVersion": 5,
   "x-baseVersion": 5,
   "x-baseHash": "4610bc7c66fc",
-  "x-compositeHash": "7e2f67f60366",
+  "x-compositeHash": "bc0ee458610f",
   "x-introducedInOkapi": "1.46.0"
 }

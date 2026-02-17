@@ -17,7 +17,7 @@
     "extractNotes": {
       "type": "boolean",
       "default": false,
-      "description": "Extract notes/comments for translators."
+      "description": "Extract notes/comments as translator notes"
     },
     "extractReferences": {
       "type": "boolean",
@@ -25,7 +25,8 @@
     },
     "extractMetadata": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "description": "Extract metadata fields for translation"
     },
     "encodeCharacterEntityReferenceGlyphs": {
       "type": "boolean",
@@ -33,7 +34,7 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
@@ -42,21 +43,16 @@
     {
       "id": "extraction",
       "label": "Extraction Settings",
+      "description": "Control what content is extracted for translation",
       "collapsed": false,
       "fields": [
+        "extractAllPairs",
+        "extractSource",
+        "extractTarget",
         "extractNotes",
-        "extractReferences",
-        "extractMetadata"
-      ]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": true,
-      "fields": [
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "mergeAdjacentCodes",
-        "simplifierRules"
+        "extractComments",
+        "extractMetadata",
+        "extractOuterStrings"
       ]
     },
     {
@@ -66,11 +62,24 @@
       "fields": [
         "encodeCharacterEntityReferenceGlyphs"
       ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
     }
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "e7bb03d01399",
-  "x-compositeHash": "7f65a7a58c2e",
+  "x-compositeHash": "4a698cb137d7",
   "x-introducedInOkapi": "0.38"
 }

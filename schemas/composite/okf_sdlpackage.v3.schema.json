@@ -36,28 +36,26 @@
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
       "type": "object",
-      "description": "Move inline codes at segment edges to skeleton."
+      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
       "type": "object",
-      "description": "Merge adjacent inline codes into a single code element."
+      "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
     {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": false,
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
       "fields": [
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "mergeAdjacentCodes",
-        "simplifierRules"
+        "mimeType"
       ]
     },
     {
@@ -70,17 +68,22 @@
       ]
     },
     {
-      "id": "general",
-      "label": "General Settings",
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
       "collapsed": true,
       "fields": [
-        "mimeType"
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
       ]
     }
   ],
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
   "x-baseHash": "2015d10f60d9",
-  "x-compositeHash": "a664553a1f00",
+  "x-compositeHash": "cbabd8714fb3",
   "x-introducedInOkapi": "1.48.0"
 }

@@ -25,11 +25,11 @@
     "useCodeFinder": {
       "type": "boolean",
       "default": true,
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Configure patterns for detecting inline codes.",
+      "description": "Regex patterns to identify inline codes in translatable text",
       "properties": {
         "rules": {
           "type": "array",
@@ -57,7 +57,8 @@
           "description": "Test all rules together or individually"
         }
       },
-      "x-okapiFormat": "inlineCodeFinder"
+      "x-okapiFormat": "inlineCodeFinder",
+      "x-widget": "codeFinderRules"
     },
     "convertLFandTab": {
       "type": "boolean",
@@ -99,30 +100,40 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
     {
-      "id": "extraction",
-      "label": "Extraction Settings",
-      "collapsed": false,
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
       "fields": [
-        "localizeOutside",
-        "extractOnlyMatchingKey"
+        "useLd",
+        "useKeyCondition",
+        "keyCondition"
+      ]
+    },
+    {
+      "id": "identification",
+      "label": "Identification",
+      "collapsed": true,
+      "fields": [
+        "idLikeResname"
       ]
     },
     {
       "id": "inlineCodes",
       "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
       "collapsed": true,
       "fields": [
         "useCodeFinder",
         "codeFinderRules",
-        "moveLeadingAndTrailingCodesToSkeleton",
         "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
         "simplifierRules"
       ]
     },
@@ -136,14 +147,6 @@
       ]
     },
     {
-      "id": "identification",
-      "label": "Identification",
-      "collapsed": true,
-      "fields": [
-        "idLikeResname"
-      ]
-    },
-    {
       "id": "output",
       "label": "Output Settings",
       "collapsed": true,
@@ -152,21 +155,11 @@
         "escapeExtendedChars",
         "useJavaEscapes"
       ]
-    },
-    {
-      "id": "general",
-      "label": "General Settings",
-      "collapsed": true,
-      "fields": [
-        "useLd",
-        "useKeyCondition",
-        "keyCondition"
-      ]
     }
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "7f4eb753e021",
-  "x-compositeHash": "b89b5c0d8154",
+  "x-compositeHash": "b757356e1ac6",
   "x-introducedInOkapi": "1.40.0"
 }

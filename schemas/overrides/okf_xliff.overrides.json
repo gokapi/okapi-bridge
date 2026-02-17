@@ -1,5 +1,6 @@
 {
   "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "$include": ["_fragments/inlineCodes.fragment.json"],
   "groups": [
     {
       "id": "extraction",
@@ -14,13 +15,6 @@
       "description": "Control how translation states are handled",
       "collapsed": true,
       "fields": ["includeNotTranslated", "includeTranslated", "includeReviewNeeded", "includeFinal"]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "description": "Configure handling of inline codes in segments",
-      "collapsed": true,
-      "fields": ["mergeAdjacentCodes", "moveLeadingAndTrailingCodesToSkeleton"]
     },
     {
       "id": "output",
@@ -51,12 +45,6 @@
     },
     "includeFinal": {
       "description": "Include finalized segments."
-    },
-    "mergeAdjacentCodes": {
-      "description": "Merge adjacent inline codes into a single code element for cleaner segmentation."
-    },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "description": "Move inline codes at the start/end of segments to skeleton (non-translatable)."
     },
     "copySource": {
       "description": "Copy source to target if target is empty."

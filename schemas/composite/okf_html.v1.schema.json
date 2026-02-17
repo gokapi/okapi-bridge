@@ -23,7 +23,7 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     },
     "path": {
@@ -33,37 +33,13 @@
   "additionalProperties": false,
   "x-groups": [
     {
-      "id": "parserMode",
-      "label": "Parser Mode",
-      "description": "Configure HTML parsing behavior",
-      "collapsed": false,
-      "fields": [
-        "assumeWellformed",
-        "extractOuterStrings"
-      ]
-    },
-    {
-      "id": "whitespace",
-      "label": "Whitespace Handling",
-      "description": "Control how whitespace is processed",
+      "id": "attributes",
+      "label": "Attribute Handling",
+      "description": "Configure which attributes to extract",
       "collapsed": true,
       "fields": [
-        "preserveWhitespace",
-        "collapseWhitespace",
-        "trimLeadingWS",
-        "trimTrailingWS"
-      ]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Detection",
-      "description": "Configure detection of inline codes and tags",
-      "collapsed": true,
-      "fields": [
-        "useCodeFinder",
-        "codeFinderRules",
-        "mergeAdjacentCodes",
-        "moveLeadingAndTrailingCodesToSkeleton"
+        "translatableAttributes",
+        "idAttributes"
       ]
     },
     {
@@ -79,19 +55,44 @@
       ]
     },
     {
-      "id": "attributes",
-      "label": "Attribute Handling",
-      "description": "Configure which attributes to extract",
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
       "collapsed": true,
       "fields": [
-        "translatableAttributes",
-        "idAttributes"
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "parserMode",
+      "label": "Parser Mode",
+      "description": "Configure HTML parsing behavior",
+      "collapsed": false,
+      "fields": [
+        "assumeWellformed",
+        "extractOuterStrings"
+      ]
+    },
+    {
+      "id": "whitespace",
+      "label": "Whitespace Handling",
+      "description": "Control how whitespace is processed in extracted text",
+      "collapsed": true,
+      "fields": [
+        "preserveWhitespace",
+        "collapseWhitespace",
+        "trimLeadingWS",
+        "trimTrailingWS"
       ]
     }
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "be1789473bdc",
-  "x-compositeHash": "3290d268bd48",
+  "x-compositeHash": "a7239e363dd3",
   "x-introducedInOkapi": "0.38"
 }

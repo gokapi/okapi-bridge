@@ -140,19 +140,6 @@
   "additionalProperties": false,
   "x-groups": [
     {
-      "id": "word",
-      "label": "Word Documents",
-      "description": "Settings for Word documents (.docx)",
-      "collapsed": false,
-      "fields": [
-        "bPreferenceTranslateWordHeadersFooters",
-        "bPreferenceTranslateWordHiddenText",
-        "bPreferenceTranslateWordComments",
-        "bPreferenceTranslateWordTrackingChanges",
-        "bPreferenceAggressiveCleanupWord"
-      ]
-    },
-    {
       "id": "excel",
       "label": "Excel Workbooks",
       "description": "Settings for Excel workbooks (.xlsx)",
@@ -162,6 +149,28 @@
         "bPreferenceTranslateExcelDrawings",
         "bPreferenceTranslateExcelHidden",
         "sExcelExcludedColumns"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "description": "Settings that apply to all Office document types",
+      "collapsed": true,
+      "fields": [
+        "bPreferenceTranslateDocumentProperties"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
       ]
     },
     {
@@ -176,20 +185,22 @@
       ]
     },
     {
-      "id": "general",
-      "label": "General Settings",
-      "description": "Settings that apply to all Office document types",
-      "collapsed": true,
+      "id": "word",
+      "label": "Word Documents",
+      "description": "Settings for Word documents (.docx)",
+      "collapsed": false,
       "fields": [
-        "bPreferenceTranslateDocumentProperties",
-        "useCodeFinder",
-        "codeFinderRules"
+        "bPreferenceTranslateWordHeadersFooters",
+        "bPreferenceTranslateWordHiddenText",
+        "bPreferenceTranslateWordComments",
+        "bPreferenceTranslateWordTrackingChanges",
+        "bPreferenceAggressiveCleanupWord"
       ]
     }
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "da8945f8a9c0",
-  "x-compositeHash": "fd898cca497b",
+  "x-compositeHash": "41ba242ff6b1",
   "x-introducedInOkapi": "1.41.0"
 }

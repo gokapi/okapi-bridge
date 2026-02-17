@@ -1,5 +1,6 @@
 {
   "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "$include": ["_fragments/inlineCodes.fragment.json"],
   "groups": [
     {
       "id": "extraction",
@@ -14,13 +15,6 @@
       "description": "Configure how JSON keys are used",
       "collapsed": true,
       "fields": ["useKeyAsName", "useFullKeyPath", "useLeadingSlashOnKeyPath", "useIdStack", "idRules"]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Detection",
-      "description": "Configure detection of inline codes (placeholders, tags)",
-      "collapsed": true,
-      "fields": ["useCodeFinder", "codeFinderRules", "mergeAdjacentCodes", "moveLeadingAndTrailingCodesToSkeleton"]
     },
     {
       "id": "metadata",
@@ -71,9 +65,6 @@
       "placeholder": "/id|/key",
       "description": "Regex for keys whose values become Block IDs (overrides useKeyAsName)."
     },
-    "useCodeFinder": {
-      "description": "Enable inline code detection using codeFinderRules patterns."
-    },
     "codeFinderRules": {
       "widget": "codeFinderRules",
       "presets": {
@@ -90,12 +81,6 @@
           "sample": "Hello {name}, you have {count} messages"
         }
       }
-    },
-    "mergeAdjacentCodes": {
-      "description": "Merge adjacent inline codes into a single code element for cleaner segmentation."
-    },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "description": "Move inline codes at the start/end of segments to skeleton (non-translatable). Reduces clutter for translators."
     },
     "noteRules": {
       "widget": "regexBuilder",

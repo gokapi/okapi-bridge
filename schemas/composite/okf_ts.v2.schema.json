@@ -25,11 +25,11 @@
     "useCodeFinder": {
       "type": "boolean",
       "default": true,
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Configure patterns for detecting inline codes.",
+      "description": "Regex patterns to identify inline codes in translatable text",
       "properties": {
         "rules": {
           "type": "array",
@@ -57,33 +57,43 @@
           "description": "Test all rules together or individually"
         }
       },
-      "x-okapiFormat": "inlineCodeFinder"
+      "x-okapiFormat": "inlineCodeFinder",
+      "x-widget": "codeFinderRules"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
       "type": "object",
-      "description": "Move inline codes at segment edges to skeleton."
+      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
       "type": "object",
-      "description": "Merge adjacent inline codes into a single code element."
+      "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
     {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "decodeByteValues"
+      ]
+    },
+    {
       "id": "inlineCodes",
       "label": "Inline Code Handling",
-      "collapsed": false,
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
       "fields": [
         "useCodeFinder",
         "codeFinderRules",
-        "moveLeadingAndTrailingCodesToSkeleton",
         "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
         "simplifierRules"
       ]
     },
@@ -94,19 +104,11 @@
       "fields": [
         "escapeGT"
       ]
-    },
-    {
-      "id": "general",
-      "label": "General Settings",
-      "collapsed": true,
-      "fields": [
-        "decodeByteValues"
-      ]
     }
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "313cc225f51a",
-  "x-compositeHash": "fe1ef5b83536",
+  "x-compositeHash": "21ef1ebf2c42",
   "x-introducedInOkapi": "1.48.0"
 }

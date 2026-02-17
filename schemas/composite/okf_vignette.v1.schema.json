@@ -73,29 +73,20 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
     {
-      "id": "mode",
-      "label": "Mode Settings",
-      "collapsed": false,
-      "fields": [
-        "quoteModeDefined",
-        "quoteMode"
-      ]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
+      "id": "general",
+      "label": "General Settings",
       "collapsed": true,
       "fields": [
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "mergeAdjacentCodes",
-        "simplifierRules"
+        "partsConfigurations",
+        "monolingual",
+        "useCDATA"
       ]
     },
     {
@@ -109,19 +100,31 @@
       ]
     },
     {
-      "id": "general",
-      "label": "General Settings",
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
       "collapsed": true,
       "fields": [
-        "partsConfigurations",
-        "monolingual",
-        "useCDATA"
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "mode",
+      "label": "Mode Settings",
+      "collapsed": false,
+      "fields": [
+        "quoteModeDefined",
+        "quoteMode"
       ]
     }
   ],
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "bb77674a3986",
-  "x-compositeHash": "7411ac82d101",
+  "x-compositeHash": "9f8f63b7c4c6",
   "x-introducedInOkapi": "0.38"
 }

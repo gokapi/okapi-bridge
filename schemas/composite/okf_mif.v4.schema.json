@@ -33,11 +33,11 @@
     "useCodeFinder": {
       "type": "boolean",
       "default": true,
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Configure patterns for detecting inline codes.",
+      "description": "Regex patterns to identify inline codes in translatable text",
       "properties": {
         "rules": {
           "type": "array",
@@ -65,7 +65,8 @@
           "description": "Test all rules together or individually"
         }
       },
-      "x-okapiFormat": "inlineCodeFinder"
+      "x-okapiFormat": "inlineCodeFinder",
+      "x-widget": "codeFinderRules"
     },
     "extractVariables": {
       "type": "boolean",
@@ -93,38 +94,22 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
   "additionalProperties": false,
   "x-groups": [
     {
-      "id": "extraction",
-      "label": "Extraction Settings",
-      "collapsed": false,
-      "fields": [
-        "extractBodyPages",
-        "extractReferencePages",
-        "extractMasterPages",
-        "extractHiddenPages",
-        "extractVariables",
-        "extractIndexMarkers",
-        "extractLinks",
-        "extractPgfNumFormatsInline",
-        "extractReferenceFormats",
-        "extractHardReturnsAsText"
-      ]
-    },
-    {
       "id": "inlineCodes",
       "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
       "collapsed": true,
       "fields": [
         "useCodeFinder",
         "codeFinderRules",
-        "moveLeadingAndTrailingCodesToSkeleton",
         "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
         "simplifierRules"
       ]
     }
@@ -132,6 +117,6 @@
   "x-schemaVersion": 4,
   "x-baseVersion": 4,
   "x-baseHash": "2c30e2b663d3",
-  "x-compositeHash": "721953cc4d26",
+  "x-compositeHash": "b5b7c3d51b92",
   "x-introducedInOkapi": "1.41.0"
 }

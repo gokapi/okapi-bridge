@@ -1,32 +1,15 @@
 {
   "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "$include": [
+    "_fragments/inlineCodes.fragment.json"
+  ],
   "groups": [
-    {
-      "id": "extraction",
-      "label": "Extraction Settings",
-      "collapsed": false,
-      "fields": [
-        "includeMsgContextInNote"
-      ]
-    },
     {
       "id": "mode",
       "label": "Mode Settings",
       "collapsed": true,
       "fields": [
         "bilingualMode"
-      ]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": true,
-      "fields": [
-        "useCodeFinder",
-        "codeFinderRules",
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "mergeAdjacentCodes",
-        "simplifierRules"
       ]
     },
     {
@@ -58,21 +41,6 @@
       "description": "Process file in bilingual mode (source and target)."
     },
     "makeID": {},
-    "useCodeFinder": {
-      "description": "Enable inline code detection using regex patterns."
-    },
-    "codeFinderRules": {
-      "description": "Configure patterns for detecting inline codes."
-    },
-    "includeMsgContextInNote": {},
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "description": "Move inline codes at segment edges to skeleton."
-    },
-    "mergeAdjacentCodes": {
-      "description": "Merge adjacent inline codes into a single code element."
-    },
-    "simplifierRules": {
-      "description": "Rules for simplifying inline code types."
-    }
+    "includeMsgContextInNote": {}
   }
 }

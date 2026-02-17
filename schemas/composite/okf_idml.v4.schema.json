@@ -25,7 +25,7 @@
     "extractNotes": {
       "type": "boolean",
       "default": false,
-      "description": "Extract notes/comments for translators."
+      "description": "Extract notes/comments as translator notes"
     },
     "extractMasterSpreads": {
       "type": "boolean",
@@ -109,30 +109,16 @@
     {
       "id": "extraction",
       "label": "Extraction Settings",
+      "description": "Control what content is extracted for translation",
       "collapsed": false,
       "fields": [
+        "extractAllPairs",
+        "extractSource",
+        "extractTarget",
         "extractNotes",
-        "extractMasterSpreads",
-        "extractHiddenLayers",
-        "extractHiddenPasteboardItems",
-        "extractBreaksInline",
-        "extractHyperlinkTextSourcesInline",
-        "extractCustomTextVariables",
-        "extractIndexTopics",
-        "extractExternalHyperlinks",
-        "extractMathZones"
-      ]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": true,
-      "fields": [
-        "mergeAdjacentCodes",
-        "useCodeFinder",
-        "codeFinderRules",
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "simplifierRules"
+        "extractComments",
+        "extractMetadata",
+        "extractOuterStrings"
       ]
     },
     {
@@ -158,11 +144,24 @@
         "characterBaselineShiftMinIgnoranceThreshold",
         "characterBaselineShiftMaxIgnoranceThreshold"
       ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
     }
   ],
   "x-schemaVersion": 4,
   "x-baseVersion": 4,
   "x-baseHash": "d8643e45da1c",
-  "x-compositeHash": "9b72033cdf53",
+  "x-compositeHash": "880188385ead",
   "x-introducedInOkapi": "1.44.0"
 }

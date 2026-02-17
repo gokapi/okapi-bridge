@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Common codeFinderRules presets for various placeholder formats",
+  "presets": {
+    "html": {
+      "description": "HTML/XML tags",
+      "rules": [{ "pattern": "<[^>]+>" }],
+      "sample": "Click <b>here</b> to continue"
+    },
+    "entities": {
+      "description": "HTML/XML entities",
+      "rules": [{ "pattern": "&[a-zA-Z]+;" }],
+      "sample": "Click &amp; drag"
+    },
+    "printf": {
+      "description": "Printf-style format specifiers",
+      "rules": [{ "pattern": "%[\\d]*[sdioxXucsfeEgGpn]" }],
+      "sample": "Hello %s, you have %d messages"
+    },
+    "icu": {
+      "description": "ICU MessageFormat placeholders",
+      "rules": [{ "pattern": "\\{[^}]+\\}" }],
+      "sample": "Hello {name}, you have {count} messages"
+    },
+    "mustache": {
+      "description": "Mustache/Handlebars templates",
+      "rules": [{ "pattern": "\\{\\{[^}]+\\}\\}" }],
+      "sample": "Hello {{name}}"
+    },
+    "dollarBrace": {
+      "description": "Dollar-brace variables (${var})",
+      "rules": [{ "pattern": "\\$\\{[^}]+\\}" }],
+      "sample": "Welcome ${username}"
+    },
+    "percentParen": {
+      "description": "Python %-style with names",
+      "rules": [{ "pattern": "%\\([^)]+\\)[sdifFeEgGxXocrsa]" }],
+      "sample": "Hello %(name)s"
+    },
+    "rubyInterpolation": {
+      "description": "Ruby string interpolation",
+      "rules": [{ "pattern": "#\\{[^}]+\\}" }],
+      "sample": "Hello #{name}"
+    }
+  }
+}

@@ -1,35 +1,10 @@
 {
   "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "$include": [
+    "_fragments/inlineCodes.fragment.json",
+    "_fragments/extraction.fragment.json"
+  ],
   "groups": [
-    {
-      "id": "extraction",
-      "label": "Extraction Settings",
-      "collapsed": false,
-      "fields": [
-        "extractNotes",
-        "extractMasterSpreads",
-        "extractHiddenLayers",
-        "extractHiddenPasteboardItems",
-        "extractBreaksInline",
-        "extractHyperlinkTextSourcesInline",
-        "extractCustomTextVariables",
-        "extractIndexTopics",
-        "extractExternalHyperlinks",
-        "extractMathZones"
-      ]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": true,
-      "fields": [
-        "mergeAdjacentCodes",
-        "useCodeFinder",
-        "codeFinderRules",
-        "moveLeadingAndTrailingCodesToSkeleton",
-        "simplifierRules"
-      ]
-    },
     {
       "id": "general",
       "label": "General Settings",
@@ -59,12 +34,6 @@
     "maxAttributeSize": {},
     "specialCharacterPattern": {},
     "untagXmlStructures": {},
-    "mergeAdjacentCodes": {
-      "description": "Merge adjacent inline codes into a single code element."
-    },
-    "extractNotes": {
-      "description": "Extract notes/comments for translators."
-    },
     "extractMasterSpreads": {},
     "extractHiddenLayers": {},
     "extractHiddenPasteboardItems": {},
@@ -87,18 +56,6 @@
     "characterLeadingMaxIgnoranceThreshold": {},
     "ignoreCharacterBaselineShift": {},
     "characterBaselineShiftMinIgnoranceThreshold": {},
-    "characterBaselineShiftMaxIgnoranceThreshold": {},
-    "useCodeFinder": {
-      "description": "Enable inline code detection using regex patterns."
-    },
-    "codeFinderRules": {
-      "description": "Configure patterns for detecting inline codes."
-    },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "description": "Move inline codes at segment edges to skeleton."
-    },
-    "simplifierRules": {
-      "description": "Rules for simplifying inline code types."
-    }
+    "characterBaselineShiftMaxIgnoranceThreshold": {}
   }
 }

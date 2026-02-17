@@ -16,7 +16,8 @@
   "properties": {
     "extractOuterStrings": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Extract strings outside the main content structure"
     },
     "startString": {
       "type": "string",
@@ -60,7 +61,7 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
@@ -69,19 +70,41 @@
     {
       "id": "extraction",
       "label": "Extraction Settings",
+      "description": "Control what content is extracted for translation",
       "collapsed": false,
       "fields": [
-        "extractOuterStrings",
-        "localizeOutside"
+        "extractAllPairs",
+        "extractSource",
+        "extractTarget",
+        "extractNotes",
+        "extractComments",
+        "extractMetadata",
+        "extractOuterStrings"
+      ]
+    },
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "startString",
+        "endString",
+        "oneLevelGroups",
+        "useLd",
+        "regexOptions",
+        "mimeType"
       ]
     },
     {
       "id": "inlineCodes",
       "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
       "collapsed": true,
       "fields": [
-        "moveLeadingAndTrailingCodesToSkeleton",
+        "useCodeFinder",
+        "codeFinderRules",
         "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
         "simplifierRules"
       ]
     },
@@ -102,24 +125,11 @@
       "fields": [
         "subFilter"
       ]
-    },
-    {
-      "id": "general",
-      "label": "General Settings",
-      "collapsed": true,
-      "fields": [
-        "startString",
-        "endString",
-        "oneLevelGroups",
-        "useLd",
-        "regexOptions",
-        "mimeType"
-      ]
     }
   ],
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
   "x-baseHash": "350d0e720159",
-  "x-compositeHash": "e797fe0440ee",
+  "x-compositeHash": "4967eaab4379",
   "x-introducedInOkapi": "1.42.0"
 }

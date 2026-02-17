@@ -39,7 +39,7 @@
     "useCodeFinder": {
       "type": "boolean",
       "default": false,
-      "description": "Enable inline code detection using codeFinderRules patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "useFullKeyPath": {
       "type": "boolean",
@@ -159,7 +159,7 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
@@ -178,6 +178,19 @@
       ]
     },
     {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    },
+    {
       "id": "keys",
       "label": "Key Handling",
       "description": "Configure how JSON keys are used",
@@ -188,18 +201,6 @@
         "useLeadingSlashOnKeyPath",
         "useIdStack",
         "idRules"
-      ]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Detection",
-      "description": "Configure detection of inline codes (placeholders, tags)",
-      "collapsed": true,
-      "fields": [
-        "useCodeFinder",
-        "codeFinderRules",
-        "mergeAdjacentCodes",
-        "moveLeadingAndTrailingCodesToSkeleton"
       ]
     },
     {
@@ -226,6 +227,6 @@
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
   "x-baseHash": "8b3bb738320c",
-  "x-compositeHash": "6d9a1bdf2033",
+  "x-compositeHash": "a8dab8f132dd",
   "x-introducedInOkapi": "1.46.0"
 }

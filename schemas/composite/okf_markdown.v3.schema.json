@@ -25,11 +25,11 @@
     "useCodeFinder": {
       "type": "boolean",
       "default": false,
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
       "type": "object",
-      "description": "Configure patterns for detecting inline codes.",
+      "description": "Regex patterns to identify inline codes in translatable text",
       "properties": {
         "rules": {
           "type": "array",
@@ -57,7 +57,8 @@
           "description": "Test all rules together or individually"
         }
       },
-      "x-okapiFormat": "inlineCodeFinder"
+      "x-okapiFormat": "inlineCodeFinder",
+      "x-widget": "codeFinderRules"
     },
     "translateUrls": {
       "type": "boolean",
@@ -107,28 +108,24 @@
   "additionalProperties": false,
   "x-groups": [
     {
-      "id": "extraction",
-      "label": "Extraction Settings",
-      "collapsed": false,
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
       "fields": [
-        "translateUrls",
-        "translateCodeBlocks",
-        "translateIndentedCodeBlocks",
-        "translateInlineCodeBlocks",
-        "translateHeaderMetadata",
-        "translateImageAltText",
-        "urlToTranslatePattern",
-        "nonTranslateBlocks",
-        "parseMdx"
+        "generateHeaderAnchors"
       ]
     },
     {
       "id": "inlineCodes",
       "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
       "collapsed": true,
       "fields": [
         "useCodeFinder",
-        "codeFinderRules"
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
       ]
     },
     {
@@ -149,19 +146,11 @@
         "htmlSubfilter",
         "yamlSubfilter"
       ]
-    },
-    {
-      "id": "general",
-      "label": "General Settings",
-      "collapsed": true,
-      "fields": [
-        "generateHeaderAnchors"
-      ]
     }
   ],
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
   "x-baseHash": "e0ecb5a825d1",
-  "x-compositeHash": "7e15ed13402f",
+  "x-compositeHash": "611517555fef",
   "x-introducedInOkapi": "1.43.0"
 }

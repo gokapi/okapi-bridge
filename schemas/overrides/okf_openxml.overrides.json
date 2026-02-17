@@ -1,5 +1,6 @@
 {
   "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "$include": ["_fragments/inlineCodes.fragment.json"],
   "groups": [
     {
       "id": "word",
@@ -42,11 +43,7 @@
       "label": "General Settings",
       "description": "Settings that apply to all Office document types",
       "collapsed": true,
-      "fields": [
-        "bPreferenceTranslateDocumentProperties",
-        "useCodeFinder",
-        "codeFinderRules"
-      ]
+      "fields": ["bPreferenceTranslateDocumentProperties"]
     }
   ],
   "fields": {
@@ -92,9 +89,6 @@
     },
     "bPreferenceTranslateDocumentProperties": {
       "description": "Extract document properties (title, author, etc.)."
-    },
-    "useCodeFinder": {
-      "description": "Enable inline code detection using regex patterns."
     },
     "codeFinderRules": {
       "widget": "codeFinderRules",

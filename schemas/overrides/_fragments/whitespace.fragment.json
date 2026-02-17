@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Shared fragment for whitespace handling fields",
+  "fields": {
+    "preserveWhitespace": {
+      "description": "Preserve original whitespace in extracted text"
+    },
+    "collapseWhitespace": {
+      "description": "Collapse multiple whitespace characters into single spaces"
+    },
+    "trimLeadingWS": {
+      "description": "Remove leading whitespace from text segments"
+    },
+    "trimTrailingWS": {
+      "description": "Remove trailing whitespace from text segments"
+    }
+  },
+  "groups": [
+    {
+      "id": "whitespace",
+      "label": "Whitespace Handling",
+      "description": "Control how whitespace is processed in extracted text",
+      "collapsed": true,
+      "fields": ["preserveWhitespace", "collapseWhitespace", "trimLeadingWS", "trimTrailingWS"]
+    }
+  ]
+}

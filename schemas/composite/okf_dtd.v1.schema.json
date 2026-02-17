@@ -17,11 +17,11 @@
     "useCodeFinder": {
       "type": "boolean",
       "default": true,
-      "description": "Enable inline code detection using regex patterns."
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Rules for simplifying inline code types.",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
   },
@@ -30,11 +30,13 @@
     {
       "id": "inlineCodes",
       "label": "Inline Code Handling",
-      "collapsed": false,
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
       "fields": [
         "useCodeFinder",
-        "moveLeadingAndTrailingCodesToSkeleton",
+        "codeFinderRules",
         "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
         "simplifierRules"
       ]
     }
@@ -42,6 +44,6 @@
   "x-schemaVersion": 1,
   "x-baseVersion": 1,
   "x-baseHash": "1e1e8ff330ab",
-  "x-compositeHash": "09a32cfd7a31",
+  "x-compositeHash": "7ce86624b157",
   "x-introducedInOkapi": "0.38"
 }

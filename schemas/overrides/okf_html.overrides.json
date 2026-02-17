@@ -1,5 +1,9 @@
 {
   "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "$include": [
+    "_fragments/inlineCodes.fragment.json",
+    "_fragments/whitespace.fragment.json"
+  ],
   "groups": [
     {
       "id": "parserMode",
@@ -7,20 +11,6 @@
       "description": "Configure HTML parsing behavior",
       "collapsed": false,
       "fields": ["assumeWellformed", "extractOuterStrings"]
-    },
-    {
-      "id": "whitespace",
-      "label": "Whitespace Handling",
-      "description": "Control how whitespace is processed",
-      "collapsed": true,
-      "fields": ["preserveWhitespace", "collapseWhitespace", "trimLeadingWS", "trimTrailingWS"]
-    },
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Detection",
-      "description": "Configure detection of inline codes and tags",
-      "collapsed": true,
-      "fields": ["useCodeFinder", "codeFinderRules", "mergeAdjacentCodes", "moveLeadingAndTrailingCodesToSkeleton"]
     },
     {
       "id": "elements",
@@ -44,21 +34,6 @@
     "extractOuterStrings": {
       "description": "Extract text outside of HTML body tags."
     },
-    "preserveWhitespace": {
-      "description": "Preserve all whitespace exactly as in source."
-    },
-    "collapseWhitespace": {
-      "description": "Collapse multiple whitespace characters into single space."
-    },
-    "trimLeadingWS": {
-      "description": "Remove leading whitespace from text segments."
-    },
-    "trimTrailingWS": {
-      "description": "Remove trailing whitespace from text segments."
-    },
-    "useCodeFinder": {
-      "description": "Enable inline code detection using regex patterns."
-    },
     "codeFinderRules": {
       "widget": "codeFinderRules",
       "presets": {
@@ -71,12 +46,6 @@
           "sample": "Hello {{name}}"
         }
       }
-    },
-    "mergeAdjacentCodes": {
-      "description": "Merge adjacent inline codes into a single code element for cleaner segmentation."
-    },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "description": "Move inline codes at the start/end of segments to skeleton (non-translatable)."
     },
     "extractMetaTitle": {
       "description": "Extract content from <title> tag."

@@ -1,15 +1,9 @@
 {
   "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "$include": [
+    "_fragments/inlineCodes.fragment.json"
+  ],
   "groups": [
-    {
-      "id": "inlineCodes",
-      "label": "Inline Code Handling",
-      "collapsed": false,
-      "fields": [
-        "useCodeFinder",
-        "codeFinderRules"
-      ]
-    },
     {
       "id": "general",
       "label": "General Settings",
@@ -38,12 +32,6 @@
     "keepTimecodes": {},
     "splitWords": {},
     "writeCharAnnotations": {},
-    "mergeCaptions": {},
-    "useCodeFinder": {
-      "description": "Enable inline code detection using regex patterns."
-    },
-    "codeFinderRules": {
-      "description": "Configure patterns for detecting inline codes."
-    }
+    "mergeCaptions": {}
   }
 }

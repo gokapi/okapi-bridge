@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Shared fragment for inline code handling fields",
+  "fields": {
+    "useCodeFinder": {
+      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
+    },
+    "codeFinderRules": {
+      "widget": "codeFinderRules",
+      "description": "Regex patterns to identify inline codes in translatable text"
+    },
+    "mergeAdjacentCodes": {
+      "description": "Merge consecutive inline codes into a single placeholder"
+    },
+    "moveLeadingAndTrailingCodesToSkeleton": {
+      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
+    },
+    "simplifierRules": {
+      "description": "Rules for simplifying inline code representation"
+    }
+  },
+  "groups": [
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": ["useCodeFinder", "codeFinderRules", "mergeAdjacentCodes", "moveLeadingAndTrailingCodesToSkeleton", "simplifierRules"]
+    }
+  ]
+}
