@@ -11,6 +11,38 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-gettext"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_po",
+        "name": "PO (Standard)",
+        "description": "Standard bilingual PO files",
+        "mimeType": "application/x-gettext",
+        "extensions": ".po;",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_po-monolingual",
+        "name": "PO (Monolingual)",
+        "description": "Monolingual PO files (msgid is a real ID, not the source text).",
+        "mimeType": "application/x-gettext",
+        "extensions": ".po;",
+        "parametersLocation": "monolingual.fprm",
+        "parametersRaw": "#v1\nbilingualMode.b=false\nmakeID.b=true\nuseLD.b=true\nlocalizeOutside.b=true\nuseCodeFinder.b=true\ncodeFinderRules.count.i=2\ncodeFinderRules.rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]\ncodeFinderRules.rule1=\\{\\d[^\\\\]*?\\}\ncodeFinderRules.sample=%s, %d, {1}, \\n, \\r, \\t, etc.\ncodeFinderRules.useAllRulesWhenTesting.b=true\n",
+        "parameters": {
+          "bilingualMode.b": false,
+          "makeID.b": true,
+          "useLD.b": true,
+          "localizeOutside.b": true,
+          "useCodeFinder.b": true,
+          "codeFinderRules.count.i": 2,
+          "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
+          "codeFinderRules.rule1": "\\{\\d[^\\\\]*?\\}",
+          "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.",
+          "codeFinderRules.useAllRulesWhenTesting.b": true
+        },
+        "isDefault": false
+      }
     ]
   },
   "properties": {

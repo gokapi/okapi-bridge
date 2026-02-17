@@ -4,10 +4,12 @@ import com.gokapi.bridge.model.FilterConfigurationInfo;
 import com.gokapi.bridge.model.FilterInfo;
 import net.sf.okapi.common.filters.FilterConfiguration;
 import net.sf.okapi.common.filters.IFilter;
+import org.yaml.snakeyaml.Yaml;
 
-import java.io.File;
+import java.io.*;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -122,8 +124,30 @@ public class FilterRegistry {
                     Collections.emptyList()
             );
 
-            // Extract filter configurations
-            extractConfigurations(filter, info);
+            // Extract filter configurations (presets/variants)
+            List<FilterConfiguration> configs = filter.getConfigurations();
+            if (configs != null && !configs.isEmpty()) {
+                boolean firstConfig = true;
+                for (FilterConfiguration config : configs) {
+                    FilterConfigurationInfo configInfo = new FilterConfigurationInfo(
+                            config.configId,
+                            config.name,
+                            config.description,
+                            config.mimeType,
+                            config.extensions,
+                            config.parametersLocation,
+                            firstConfig
+                    );
+                    
+                    // Load parameters from file if available
+                    if (config.parametersLocation != null && !config.parametersLocation.isEmpty()) {
+                        loadParametersForConfig(filter, config.parametersLocation, configInfo);
+                    }
+                    
+                    info.addConfiguration(configInfo);
+                    firstConfig = false;
+                }
+            }
 
             return info;
         } catch (Exception e) {
@@ -131,35 +155,108 @@ public class FilterRegistry {
             return null;
         }
     }
-
+    
     /**
-     * Extract filter configurations from the filter instance.
-     * Configurations are preset variants of a filter with specific default parameters.
+     * Load parameters from a classpath resource file (.yml or .fprm format).
      */
-    private static void extractConfigurations(IFilter filter, FilterInfo info) {
+    private static void loadParametersForConfig(IFilter filter, String parametersLocation, 
+                                                 FilterConfigurationInfo configInfo) {
         try {
-            List<FilterConfiguration> configs = filter.getConfigurations();
-            if (configs == null || configs.isEmpty()) {
+            InputStream is = filter.getClass().getResourceAsStream(parametersLocation);
+            if (is == null) {
+                // Try without leading slash
+                is = filter.getClass().getResourceAsStream("/" + parametersLocation);
+            }
+            if (is == null) {
                 return;
             }
-
-            boolean firstConfig = true;
-            for (FilterConfiguration config : configs) {
-                FilterConfigurationInfo configInfo = new FilterConfigurationInfo(
-                        config.configId,
-                        config.name,
-                        config.description,
-                        config.mimeType,
-                        config.extensions,
-                        config.parametersLocation,
-                        firstConfig // First config is typically the default
-                );
-                info.addConfiguration(configInfo);
-                firstConfig = false;
+            
+            // Read the raw content
+            String raw;
+            try (BufferedReader reader = new BufferedReader(
+                    new InputStreamReader(is, StandardCharsets.UTF_8))) {
+                StringBuilder sb = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line).append("\n");
+                }
+                raw = sb.toString();
+            }
+            
+            configInfo.setParametersRaw(raw);
+            
+            // Parse based on file extension
+            if (parametersLocation.endsWith(".yml") || parametersLocation.endsWith(".yaml")) {
+                // Parse YAML
+                Yaml yaml = new Yaml();
+                Object parsed = yaml.load(raw);
+                if (parsed instanceof Map) {
+                    @SuppressWarnings("unchecked")
+                    Map<String, Object> params = (Map<String, Object>) parsed;
+                    configInfo.setParameters(params);
+                }
+            } else if (parametersLocation.endsWith(".fprm")) {
+                // Parse .fprm (properties-like format)
+                Map<String, Object> params = parseFprmFormat(raw);
+                if (!params.isEmpty()) {
+                    configInfo.setParameters(params);
+                }
             }
         } catch (Exception e) {
-            // Some filters may not support getConfigurations()
-            System.err.println("[bridge] Could not extract configurations for " + info.getFilterClass() + ": " + e.getMessage());
+            // Log but don't fail - parameters are optional enhancement
+            System.err.println("[bridge] Could not load parameters from " + parametersLocation + ": " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Parse Okapi .fprm format (first line is parametersClass=..., rest are key=value).
+     */
+    private static Map<String, Object> parseFprmFormat(String content) {
+        Map<String, Object> params = new LinkedHashMap<>();
+        String[] lines = content.split("\n");
+        
+        for (String line : lines) {
+            line = line.trim();
+            if (line.isEmpty() || line.startsWith("#")) {
+                continue;
+            }
+            
+            int eq = line.indexOf('=');
+            if (eq > 0) {
+                String key = line.substring(0, eq).trim();
+                String value = line.substring(eq + 1).trim();
+                
+                // Skip the parametersClass line - it's metadata, not a parameter
+                if ("parametersClass".equals(key)) {
+                    params.put("_parametersClass", value);
+                    continue;
+                }
+                
+                // Try to parse as boolean/number
+                params.put(key, parseValue(value));
+            }
+        }
+        return params;
+    }
+    
+    /**
+     * Parse a string value into appropriate type (boolean, int, double, or string).
+     */
+    private static Object parseValue(String value) {
+        if ("true".equalsIgnoreCase(value)) {
+            return true;
+        }
+        if ("false".equalsIgnoreCase(value)) {
+            return false;
+        }
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e1) {
+            try {
+                return Double.parseDouble(value);
+            } catch (NumberFormatException e2) {
+                return value;
+            }
         }
     }
 

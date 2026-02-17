@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "text/csv"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_table_tsv",
+        "name": "Table (Tab-Separated Values)",
+        "description": "Columns, separated by one or more tabs.",
+        "mimeType": "text/csv",
+        "parametersLocation": "okf_table_tsv.fprm",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

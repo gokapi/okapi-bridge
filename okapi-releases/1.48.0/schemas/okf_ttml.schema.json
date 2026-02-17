@@ -20,6 +20,13 @@
         "mimeType": "application/ttml+xml",
         "extensions": ".ttml",
         "parametersLocation": "okf_ttml.fprm",
+        "parametersRaw": "#v1\ntimeFormat=HH:mm:ss.SSS\nmaxLinesPerCaption.i=2\nmaxCharsPerLine.i=47\ncjkCharsPerLine.i=18\n",
+        "parameters": {
+          "timeFormat": "HH:mm:ss.SSS",
+          "maxLinesPerCaption.i": 2,
+          "maxCharsPerLine.i": 47,
+          "cjkCharsPerLine.i": 18
+        },
         "isDefault": true
       }
     ]

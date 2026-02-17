@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-tex-text"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_tex",
+        "name": "Tex",
+        "description": "Tex files",
+        "mimeType": "text/x-tex-text",
+        "extensions": ".tex;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {},

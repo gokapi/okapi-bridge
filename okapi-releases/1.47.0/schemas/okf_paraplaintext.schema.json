@@ -11,6 +11,24 @@
     "extensions": [],
     "mimeTypes": [
       "text/plain"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_plaintext_paragraphs",
+        "name": "Plain Text (Paragraphs)",
+        "description": "Text files extracted by paragraphs (separated by 1 or more empty lines).",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_paragraphs.fprm",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_plaintext_paragraphs_lines",
+        "name": "Plain Text (Lines)",
+        "description": "Text files extracted by lines (each line is a text unit).",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_paragraphs_lines.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

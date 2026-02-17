@@ -36,6 +36,10 @@
         "mimeType": "application/x-rainbowkit",
         "extensions": ".rkm;",
         "parametersLocation": "noprompt.fprm",
+        "parametersRaw": "#v1\nopenManifest.b=false\n",
+        "parameters": {
+          "openManifest.b": false
+        },
         "isDefault": false
       }
     ]

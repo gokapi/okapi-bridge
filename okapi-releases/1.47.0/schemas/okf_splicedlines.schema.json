@@ -11,6 +11,40 @@
     "extensions": [],
     "mimeTypes": [
       "text/plain"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_plaintext_spliced",
+        "name": "Spliced Lines",
+        "description": "Extracts as one line the consecutive lines with a predefined splicer character at the end.",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_spliced.fprm",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_plaintext_spliced_backslash",
+        "name": "Spliced Lines (Backslash)",
+        "description": "Spliced lines filter with the backslash character (\\) used as the splicer.",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_spliced_backslash.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_plaintext_spliced_underscore",
+        "name": "Spliced Lines (Underscore)",
+        "description": "Spliced lines filter with the underscore character (_) used as the splicer.",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_spliced_underscore.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_plaintext_spliced_custom",
+        "name": "Spliced Lines (Custom)",
+        "description": "Spliced lines filter with a user-defined splicer.",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_spliced_custom.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

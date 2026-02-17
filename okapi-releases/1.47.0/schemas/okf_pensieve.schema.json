@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-pensieve-tm"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_pensieve",
+        "name": "Pensieve TM",
+        "description": "Configuration for Pensieve translation memories.",
+        "mimeType": "application/x-pensieve-tm",
+        "extensions": ".pentm;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {},

@@ -1,6 +1,7 @@
 package com.gokapi.bridge.model;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.Map;
 
 /**
  * Metadata about a filter configuration (a specific preset/variant of a filter).
@@ -25,6 +26,12 @@ public class FilterConfigurationInfo {
 
     @SerializedName("parametersLocation")
     private String parametersLocation;
+
+    @SerializedName("parametersRaw")
+    private String parametersRaw;
+
+    @SerializedName("parameters")
+    private Map<String, Object> parameters;
 
     @SerializedName("isDefault")
     private boolean isDefault;
@@ -90,6 +97,22 @@ public class FilterConfigurationInfo {
 
     public void setParametersLocation(String parametersLocation) {
         this.parametersLocation = parametersLocation;
+    }
+
+    public String getParametersRaw() {
+        return parametersRaw;
+    }
+
+    public void setParametersRaw(String parametersRaw) {
+        this.parametersRaw = parametersRaw;
+    }
+
+    public Map<String, Object> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(Map<String, Object> parameters) {
+        this.parameters = parameters;
     }
 
     public boolean isDefault() {

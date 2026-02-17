@@ -30,6 +30,7 @@
         <!-- Default Okapi version, can be overridden with -Dokapi.version=X.Y.Z -->
         <okapi.version>1.47.0</okapi.version>
         <gson.version>2.11.0</gson.version>
+        <snakeyaml.version>2.3</snakeyaml.version>
     </properties>
 
     <repositories>
@@ -64,6 +65,13 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
+        </dependency>
+
+        <!-- SnakeYAML for parsing filter parameter files -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
         </dependency>
     </dependencies>
 

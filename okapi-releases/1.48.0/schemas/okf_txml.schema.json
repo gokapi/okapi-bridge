@@ -28,6 +28,10 @@
         "mimeType": "text/xml",
         "extensions": ".txml;",
         "parametersLocation": "fillEmptyTargets.fprm",
+        "parametersRaw": "#v1\nallowEmptyOutputTarget.b=false\n",
+        "parameters": {
+          "allowEmptyOutputTarget.b": false
+        },
         "isDefault": false
       }
     ]

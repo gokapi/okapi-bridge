@@ -145,6 +145,7 @@ cat > "$OUTPUT_FILE" << EOF
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <okapi.version>$VERSION</okapi.version>
         <gson.version>2.11.0</gson.version>
+        <snakeyaml.version>2.3</snakeyaml.version>
     </properties>
 
     <repositories>
@@ -183,6 +184,13 @@ cat >> "$OUTPUT_FILE" << 'EOF'
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
+        </dependency>
+        
+        <!-- SnakeYAML for parsing filter parameter files -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>${snakeyaml.version}</version>
         </dependency>
     </dependencies>
 

@@ -11,6 +11,98 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-properties"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_properties",
+        "name": "Java Properties",
+        "description": "Java properties files (Output used \\uHHHH escapes)",
+        "mimeType": "text/x-properties",
+        "extensions": ".properties;",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_properties-outputNotEscaped",
+        "name": "Java Properties (Output not escaped)",
+        "description": "Java properties files (Characters in the output encoding are not escaped)",
+        "mimeType": "text/x-properties",
+        "parametersLocation": "outputNotEscaped.fprm",
+        "parametersRaw": "#v1\nuseLD.b=true\nlocalizeOutside.b=true\nuseKeyCondition.b=false\nextractOnlyMatchingKey.b=true\nkeyCondition=.*text.*\nextraComments.b=false\ncommentsAreNotes.b=true\nescapeExtendedChars.b=false\nuseCodeFinder.b=true\ncodeFinderRules.count.i=4\ncodeFinderRules.rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]\ncodeFinderRules.rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v\ncodeFinderRules.rule2=\\{\\d.*?\\}\ncodeFinderRules.rule3=\\<(/?)\\w+[^>]*?>\ncodeFinderRules.sample=%s, %d, {1}, \\n, \\r, \\t, etc.\ncodeFinderRules.useAllRulesWhenTesting.b=true\n",
+        "parameters": {
+          "useLD.b": true,
+          "localizeOutside.b": true,
+          "useKeyCondition.b": false,
+          "extractOnlyMatchingKey.b": true,
+          "keyCondition": ".*text.*",
+          "extraComments.b": false,
+          "commentsAreNotes.b": true,
+          "escapeExtendedChars.b": false,
+          "useCodeFinder.b": true,
+          "codeFinderRules.count.i": 4,
+          "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
+          "codeFinderRules.rule1": "(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v",
+          "codeFinderRules.rule2": "\\{\\d.*?\\}",
+          "codeFinderRules.rule3": "\\<(/?)\\w+[^>]*?>",
+          "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.",
+          "codeFinderRules.useAllRulesWhenTesting.b": true
+        },
+        "isDefault": false
+      },
+      {
+        "configId": "okf_properties-skypeLang",
+        "name": "Skype Language Files",
+        "description": "Skype language properties files (including support for HTML codes)",
+        "mimeType": "text/x-properties",
+        "extensions": ".lang;",
+        "parametersLocation": "skypeLang.fprm",
+        "parametersRaw": "#v1\nuseLD.b=true\nlocalizeOutside.b=true\nuseKeyCondition.b=false\nextractOnlyMatchingKey.b=true\nkeyCondition=.*text.*\nextraComments.b=false\ncommentsAreNotes.b=true\nescapeExtendedChars.b=false\nuseCodeFinder.b=true\ncodeFinderRules.count.i=4\ncodeFinderRules.rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]\ncodeFinderRules.rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v\ncodeFinderRules.rule2=\\{\\d.*?\\}\ncodeFinderRules.rule3=\\<(/?)\\w+[^>]*?>\ncodeFinderRules.sample=%s, %d, {1}, \\n, \\r, \\t, etc.$0a$<a attr=\"qwerty\">text</a>text<img/>$0a$Test &tl; and more.\ncodeFinderRules.useAllRulesWhenTesting.b=true\n",
+        "parameters": {
+          "useLD.b": true,
+          "localizeOutside.b": true,
+          "useKeyCondition.b": false,
+          "extractOnlyMatchingKey.b": true,
+          "keyCondition": ".*text.*",
+          "extraComments.b": false,
+          "commentsAreNotes.b": true,
+          "escapeExtendedChars.b": false,
+          "useCodeFinder.b": true,
+          "codeFinderRules.count.i": 4,
+          "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
+          "codeFinderRules.rule1": "(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v",
+          "codeFinderRules.rule2": "\\{\\d.*?\\}",
+          "codeFinderRules.rule3": "\\<(/?)\\w+[^>]*?>",
+          "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.$0a$<a attr=\"qwerty\">text</a>text<img/>$0a$Test &tl; and more.",
+          "codeFinderRules.useAllRulesWhenTesting.b": true
+        },
+        "isDefault": false
+      },
+      {
+        "configId": "okf_properties-html-subfilter",
+        "name": "Properties with complex HTML Content",
+        "description": "Java Property content processed by an HTML subfilter",
+        "mimeType": "text/x-properties",
+        "parametersLocation": "html-subfilter.fprm",
+        "parametersRaw": "#v1\nuseLD.b=true\nlocalizeOutside.b=true\nuseKeyCondition.b=false\nextractOnlyMatchingKey.b=true\nkeyCondition=.*text.*\nextraComments.b=false\ncommentsAreNotes.b=true\nescapeExtendedChars.b=false\nuseCodeFinder.b=true\ncodeFinderRules.count.i=3\ncodeFinderRules.rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]\ncodeFinderRules.rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v\ncodeFinderRules.rule2=\\{\\d.*?\\}\ncodeFinderRules.sample=%s, %d, {1}, \\n, \\r, \\t.\ncodeFinderRules.useAllRulesWhenTesting.b=true\nsubfilter=okf_html\n",
+        "parameters": {
+          "useLD.b": true,
+          "localizeOutside.b": true,
+          "useKeyCondition.b": false,
+          "extractOnlyMatchingKey.b": true,
+          "keyCondition": ".*text.*",
+          "extraComments.b": false,
+          "commentsAreNotes.b": true,
+          "escapeExtendedChars.b": false,
+          "useCodeFinder.b": true,
+          "codeFinderRules.count.i": 3,
+          "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
+          "codeFinderRules.rule1": "(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v",
+          "codeFinderRules.rule2": "\\{\\d.*?\\}",
+          "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t.",
+          "codeFinderRules.useAllRulesWhenTesting.b": true,
+          "subfilter": "okf_html"
+        },
+        "isDefault": false
+      }
     ]
   },
   "properties": {

@@ -27,6 +27,10 @@
         "description": "Configuration for XINI documents from ONTRAM (fields in the output are not segmented)",
         "mimeType": "text/x-xini",
         "parametersLocation": "noOutputSegmentation.fprm",
+        "parametersRaw": "#v1\nuseOkapiSegmentation.b=false\n",
+        "parameters": {
+          "useOkapiSegmentation.b": false
+        },
         "isDefault": false
       }
     ]

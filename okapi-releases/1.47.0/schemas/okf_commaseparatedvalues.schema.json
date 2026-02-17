@@ -11,6 +11,33 @@
     "extensions": [],
     "mimeTypes": [
       "text/csv"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_table_csv",
+        "name": "Table (Comma-Separated Values)",
+        "description": "Comma-separated values, optional header with field names.",
+        "mimeType": "text/csv",
+        "extensions": ".csv;",
+        "parametersLocation": "okf_table_csv.fprm",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_table_catkeys",
+        "name": "Haiku CatKeys",
+        "description": "Haiku CatKeys resource files",
+        "mimeType": "text/csv",
+        "parametersLocation": "okf_table_catkeys.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_table_src-tab-trg",
+        "name": "Table (Tab-Separated Values)",
+        "description": "2-column (source + target), tab separated files.",
+        "mimeType": "text/csv",
+        "parametersLocation": "okf_table_src-tab-trg.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

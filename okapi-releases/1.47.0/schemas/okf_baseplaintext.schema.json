@@ -11,6 +11,32 @@
     "extensions": [],
     "mimeTypes": [
       "text/plain"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_plaintext",
+        "name": "Plain Text",
+        "description": "Plain text files.",
+        "mimeType": "text/plain",
+        "extensions": ".txt;",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_plaintext_trim_trail",
+        "name": "Plain Text (Trim Trail)",
+        "description": "Text files; trailing spaces and tabs removed from extracted lines.",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_trim_trail.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_plaintext_trim_all",
+        "name": "Plain Text (Trim All)",
+        "description": "Text files; leading and trailing spaces and tabs removed from extracted lines.",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_trim_all.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

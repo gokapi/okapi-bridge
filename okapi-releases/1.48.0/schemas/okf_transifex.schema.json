@@ -27,6 +27,10 @@
         "description": "Transifex project without prompt when starting",
         "mimeType": "application/x-transifex",
         "parametersLocation": "noPrompt.fprm",
+        "parametersRaw": "#v1\nopenProject.b=false\n",
+        "parameters": {
+          "openProject.b": false
+        },
         "isDefault": false
       }
     ]

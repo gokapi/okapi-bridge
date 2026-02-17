@@ -20,6 +20,10 @@
         "mimeType": "text/x-wiki-txt",
         "extensions": ".txt;",
         "parametersLocation": "wikiConfiguration.yml",
+        "parametersRaw": "preserve_whitespace: false\n",
+        "parameters": {
+          "preserve_whitespace": false
+        },
         "isDefault": true
       }
     ]
