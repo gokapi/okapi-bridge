@@ -52,9 +52,7 @@ jobs:
           cache: maven
 
       - name: Regenerate composite schemas
-        run: |
-          mvn -B -q compile -Dokapi.version=${{ needs.setup.outputs.latest }}
-          mvn -B exec:java@centralize-schemas -Dexec.args="regenerate-composites" -Dokapi.version=${{ needs.setup.outputs.latest }}
+        run: ./scripts/centralize-schemas.sh regenerate-composites
 
       - name: Check for changes
         id: changes

@@ -62,7 +62,6 @@ jobs:
         if: steps.upstream.outputs.new_version != ''
         env:
           NEW_VERSION: ${{ steps.upstream.outputs.new_version }}
-          PREVIOUS_VERSION: ${{ steps.current.outputs.latest }}
         run: |
           echo "Adding Okapi $NEW_VERSION..."
           
@@ -70,14 +69,13 @@ jobs:
           mkdir -p okapi-releases/$NEW_VERSION
           ./scripts/generate-version-pom.sh $NEW_VERSION
           
-          # Build with new version to generate legacy schemas first
+          # Generate base schemas using Java
           mvn -B -q compile -f okapi-releases/$NEW_VERSION/pom.xml
           mkdir -p okapi-releases/$NEW_VERSION/schemas
           mvn -B exec:java@generate-schemas -Dexec.args="okapi-releases/$NEW_VERSION/schemas" -f okapi-releases/$NEW_VERSION/pom.xml
           
-          # Now regenerate centralized schemas
-          mvn -B -q compile -Dokapi.version=$NEW_VERSION
-          mvn -B exec:java@centralize-schemas -Dexec.args="regenerate-all" -Dokapi.version=$NEW_VERSION
+          # Run centralization (bash/jq)
+          ./scripts/centralize-schemas.sh
           
           echo "Added Okapi $NEW_VERSION with centralized schemas"
 

@@ -60,14 +60,12 @@ list-local:
 # ============================================================================
 
 # Migrate to centralized schema structure
-centralize: .compile-generator
-	@echo "Migrating to centralized schema structure..."
-	@mvn -B -q exec:java@centralize-schemas -Dexec.args="regenerate-all" -Dokapi.version=$(LATEST_VERSION)
+centralize:
+	@./scripts/centralize-schemas.sh
 
 # Regenerate composite schemas from base + overrides
-regenerate-composites: .compile-generator
-	@echo "Regenerating composite schemas..."
-	@mvn -B -q exec:java@centralize-schemas -Dexec.args="regenerate-composites" -Dokapi.version=$(LATEST_VERSION)
+regenerate-composites:
+	@./scripts/centralize-schemas.sh regenerate-composites
 
 # ============================================================================
 # Legacy Schema Management
