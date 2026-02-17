@@ -11,6 +11,23 @@
     "extensions": [],
     "mimeTypes": [
       "text/xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_vignette",
+        "name": "Vignette Export/Import Content",
+        "description": "Default Vignette Export/Import Content configuration.",
+        "mimeType": "text/xml",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_vignette-nocdata",
+        "name": "Vignette Export/Import Content (escaped HTML)",
+        "description": "Vignette files without CDATA sections.",
+        "mimeType": "text/xml",
+        "parametersLocation": "nocdata.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

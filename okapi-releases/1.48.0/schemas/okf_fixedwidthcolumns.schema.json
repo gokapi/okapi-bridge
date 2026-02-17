@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "text/csv"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_table_fwc",
+        "name": "Table (Fixed-Width Columns)",
+        "description": "Fixed-width columns table padded with white-spaces.",
+        "mimeType": "text/csv",
+        "parametersLocation": "okf_table_fwc.fprm",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

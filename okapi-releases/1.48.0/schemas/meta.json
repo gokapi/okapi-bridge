@@ -1,5 +1,1454 @@
 {
-  "okapiVersion": "1.48.0",
-  "generatedAt": "2026-02-17T09:49:29Z",
-  "filterCount": 56
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-02-17T12:13:10.018863Z",
+  "filterCount": 57,
+  "filters": {
+    "okf_archive": {
+      "class": "net.sf.okapi.filters.archive.ArchiveFilter",
+      "displayName": "Archive Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-archive"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_archive",
+          "name": "Archive Files",
+          "description": "Configuration for archive files",
+          "mimeType": "application/x-archive",
+          "extensions": ".archive;.zip;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_autoxliff": {
+      "class": "net.sf.okapi.filters.autoxliff.AutoXLIFFFilter",
+      "displayName": "XLIFF 1.2 and 2.0 Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-xliff+xml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_autoxliff",
+          "name": "XLIFF 1.2 and 2.0 Filter",
+          "description": "Calls the appropriate filter for any version of XLIFF",
+          "mimeType": "application/xliff+xml",
+          "extensions": ".xlf;.xliff;.xlf2;.xliff2",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_doxygen": {
+      "class": "net.sf.okapi.filters.doxygen.DoxygenFilter",
+      "displayName": "Doxygen Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-doxygen-txt"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_doxygen",
+          "name": "Doxygen-commented Text",
+          "description": "Doxygen-commented Text Documents",
+          "mimeType": "text/x-doxygen-txt",
+          "extensions": ".h;.c;.cpp;.java;.py;.m;",
+          "parametersLocation": "doxygenConfiguration.yml",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_dtd": {
+      "class": "net.sf.okapi.filters.dtd.DTDFilter",
+      "displayName": "DTD Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/xml+dtd"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_dtd",
+          "name": "DTD (Document Type Definition)",
+          "description": "Configuration for XML DTD documents (entities content)",
+          "mimeType": "application/xml+dtd",
+          "extensions": ".dtd;.ent;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_epub": {
+      "class": "net.sf.okapi.filters.epub.EpubFilter",
+      "displayName": "EPUB Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/epub+zip"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_epub",
+          "name": "EPUB Files",
+          "description": "Electronic Publication Files (EPUB)",
+          "mimeType": "application/epub+zip",
+          "extensions": ".epub;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_html": {
+      "class": "net.sf.okapi.filters.html.HtmlFilter",
+      "displayName": "HTML/XHTML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/html"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_html",
+          "name": "HTML",
+          "description": "HTML or XHTML documents",
+          "mimeType": "text/html",
+          "extensions": ".html;.htm;",
+          "parametersLocation": "nonwellformedConfiguration.yml",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_html-wellFormed",
+          "name": "HTML (Well-Formed)",
+          "description": "XHTML and well-formed HTML documents",
+          "mimeType": "text/html",
+          "extensions": ".xhtml",
+          "parametersLocation": "wellformedConfiguration.yml",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_icml": {
+      "class": "net.sf.okapi.filters.icml.ICMLFilter",
+      "displayName": "ICML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-icml+xml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_icml",
+          "name": "ICML",
+          "description": "Adobe InDesign ICML documents",
+          "mimeType": "application/x-icml+xml",
+          "extensions": ".wcml;.icml;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_idml": {
+      "class": "net.sf.okapi.filters.idml.IDMLFilter",
+      "displayName": "IDML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/vnd.adobe.indesign-idml-package"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_idml",
+          "name": "IDML",
+          "description": "Adobe InDesign IDML documents",
+          "mimeType": "application/vnd.adobe.indesign-idml-package",
+          "extensions": ".idml;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_html5": {
+      "class": "net.sf.okapi.filters.its.html5.HTML5Filter",
+      "displayName": "HTML5-ITS Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/html"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_itshtml5",
+          "name": "Standard HTML5",
+          "description": "Configuration for standard HTML5 documents.",
+          "mimeType": "text/html",
+          "extensions": ".html;.htm;",
+          "parametersLocation": "default.fprm",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_json": {
+      "class": "net.sf.okapi.filters.json.JSONFilter",
+      "displayName": "Json Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/json"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_json",
+          "name": "JSON (JavaScript Object Notation)",
+          "description": "Configuration for JSON files",
+          "mimeType": "application/json",
+          "extensions": ".json;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_markdown": {
+      "class": "net.sf.okapi.filters.markdown.MarkdownFilter",
+      "displayName": "Markdown Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/markdown"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_markdown",
+          "name": "Markdown",
+          "description": "Markdown files",
+          "mimeType": "text/markdown",
+          "extensions": ".md;.markdown;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_messageformat": {
+      "class": "net.sf.okapi.filters.messageformat.MessageFormatFilter",
+      "displayName": "Message Format Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-messageformat"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_messageformat",
+          "name": "ICU Message Format",
+          "description": "ICU Message Format Text",
+          "mimeType": "text/x-messageformat",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_messageformat-json",
+          "name": "ICU Message Format",
+          "description": "ICU Message Format From JSON",
+          "mimeType": "text/x-messageformat",
+          "parametersLocation": "okf_messageformat@json.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_messageformat-yaml",
+          "name": "ICU Message Format",
+          "description": "ICU Message Format From YAML",
+          "mimeType": "text/x-messageformat",
+          "parametersLocation": "okf_messageformat@yaml.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_mif": {
+      "class": "net.sf.okapi.filters.mif.MIFFilter",
+      "displayName": "MIF Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/vnd.mif"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_mif",
+          "name": "MIF",
+          "description": "Adobe FrameMaker MIF documents",
+          "mimeType": "application/vnd.mif",
+          "extensions": ".mif;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_mosestext": {
+      "class": "net.sf.okapi.filters.mosestext.MosesTextFilter",
+      "displayName": "Moses Text Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-mosestext"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_mosestext",
+          "name": "Moses Text Default",
+          "description": "Default Moses Text configuration.",
+          "mimeType": "text/x-mosestext",
+          "extensions": ".txt;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_multiparsers": {
+      "class": "net.sf.okapi.filters.multiparsers.MultiParsersFilter",
+      "displayName": "Multi-Parsers Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-multiparsers"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_multiparsers",
+          "name": "Multi-Parsers: CSV with Plain-Text",
+          "description": "Configuration for CSV files with plain-text on all columns",
+          "mimeType": "text/csv",
+          "extensions": ".csv;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_odf": {
+      "class": "net.sf.okapi.filters.openoffice.ODFFilter",
+      "displayName": "ODF-Content Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-odf"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_odf",
+          "name": "OpenDocument",
+          "description": "XML OpenDocument files (e.g. use inside OpenOffice.org documents).",
+          "mimeType": "text/x-odf",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_openoffice": {
+      "class": "net.sf.okapi.filters.openoffice.OpenOfficeFilter",
+      "displayName": "OpenOffice.org Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-openoffice"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_openoffice",
+          "name": "OpenOffice.org Documents",
+          "description": "OpenOffice.org ODT, ODS, ODP, ODG, OTT, OTS, OTP, OTG, SWC, SWX, SXD, SXI documents",
+          "mimeType": "application/x-openoffice",
+          "extensions": ".odt;.ods;.odg;.odp;.ott;.ots;.otp;.otg;.swc;.swx;.sxd;.sxi;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_openxml": {
+      "class": "net.sf.okapi.filters.openxml.OpenXMLFilter",
+      "displayName": "OpenXML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/xml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_openxml",
+          "name": "Microsoft Office Document",
+          "description": "Microsoft Office documents (DOCX, DOCM, DOTX, DOTM, PPTX, PPTM, PPSX, PPSM, POTX, POTM, XLSX, XLSM, XLTX, XLTM, VSDX, VSDM).",
+          "mimeType": "text/xml",
+          "extensions": ".docx;.docm;.dotx;.dotm;.pptx;.pptm;.ppsx;.ppsm;.potx;.potm;.xlsx;.xlsm;.xltx;.xltm;.vsdx;.vsdm;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_pdf": {
+      "class": "net.sf.okapi.filters.pdf.PdfFilter",
+      "displayName": "PDF Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/pdf"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_pdf",
+          "name": "PDF (Portable Document Format)",
+          "description": "Configuration for PDF documents",
+          "mimeType": "application/pdf",
+          "extensions": ".pdf;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_pensieve": {
+      "class": "net.sf.okapi.filters.pensieve.PensieveFilter",
+      "displayName": "Pensieve TM Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-pensieve-tm"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_pensieve",
+          "name": "Pensieve TM",
+          "description": "Configuration for Pensieve translation memories.",
+          "mimeType": "application/x-pensieve-tm",
+          "extensions": ".pentm;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_phpcontent": {
+      "class": "net.sf.okapi.filters.php.PHPContentFilter",
+      "displayName": "PHP Content Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-php"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_phpcontent",
+          "name": "PHP Content Default",
+          "description": "Default PHP Content configuration.",
+          "mimeType": "application/x-php",
+          "extensions": ".php;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_plaintext": {
+      "class": "net.sf.okapi.filters.plaintext.PlainTextFilter",
+      "displayName": "Plain Text Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_plaintext",
+          "name": "Plain Text",
+          "description": "Plain text files.",
+          "mimeType": "text/plain",
+          "extensions": ".txt;",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_plaintext_trim_trail",
+          "name": "Plain Text (Trim Trail)",
+          "description": "Text files; trailing spaces and tabs removed from extracted lines.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_trim_trail.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_plaintext_trim_all",
+          "name": "Plain Text (Trim All)",
+          "description": "Text files; leading and trailing spaces and tabs removed from extracted lines.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_trim_all.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_plaintext_paragraphs",
+          "name": "Plain Text (Paragraphs)",
+          "description": "Text files extracted by paragraphs (separated by 1 or more empty lines).",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_paragraphs.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_plaintext_spliced_backslash",
+          "name": "Spliced Lines (Backslash)",
+          "description": "Spliced lines filter with the backslash character (\\) used as the splicer.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_spliced_backslash.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_plaintext_spliced_underscore",
+          "name": "Spliced Lines (Underscore)",
+          "description": "Spliced lines filter with the underscore character (_) used as the splicer.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_spliced_underscore.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_plaintext_spliced_custom",
+          "name": "Spliced Lines (Custom)",
+          "description": "Spliced lines filter with a user-defined splicer.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_spliced_custom.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_plaintext_regex_lines",
+          "name": "Plain Text (Regex, Line=Paragraph)",
+          "description": "Plain Text Filter using regex-based linebreak search. Extracts by lines.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_regex_lines.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_plaintext_regex_paragraphs",
+          "name": "Plain Text (Regex, Block=Paragraph)",
+          "description": "Plain Text Filter using regex-based linebreak search. Extracts by paragraphs.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_regex_paragraphs.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_baseplaintext": {
+      "class": "net.sf.okapi.filters.plaintext.base.BasePlainTextFilter",
+      "displayName": "Plain Text Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_plaintext",
+          "name": "Plain Text",
+          "description": "Plain text files.",
+          "mimeType": "text/plain",
+          "extensions": ".txt;",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_plaintext_trim_trail",
+          "name": "Plain Text (Trim Trail)",
+          "description": "Text files; trailing spaces and tabs removed from extracted lines.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_trim_trail.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_plaintext_trim_all",
+          "name": "Plain Text (Trim All)",
+          "description": "Text files; leading and trailing spaces and tabs removed from extracted lines.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_trim_all.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_paraplaintext": {
+      "class": "net.sf.okapi.filters.plaintext.paragraphs.ParaPlainTextFilter",
+      "displayName": "Plain Text Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_plaintext_paragraphs",
+          "name": "Plain Text (Paragraphs)",
+          "description": "Text files extracted by paragraphs (separated by 1 or more empty lines).",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_paragraphs.fprm",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_plaintext_paragraphs_lines",
+          "name": "Plain Text (Lines)",
+          "description": "Text files extracted by lines (each line is a text unit).",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_paragraphs_lines.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_regexplaintext": {
+      "class": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter",
+      "displayName": "okf_plaintext_regex",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_plaintext_regex",
+          "name": "Plain Text (Regex)",
+          "description": "Plain Text Filter using regex-based linebreak search. Detects a wider range of linebreaks at the price of lower speed and extra memory usage.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_regex.fprm",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_plaintext_regex_lines",
+          "name": "Plain Text (Regex, Line=Paragraph)",
+          "description": "Plain Text Filter using regex-based linebreak search. Extracts by lines.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_regex_lines.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_plaintext_regex_paragraphs",
+          "name": "Plain Text (Regex, Block=Paragraph)",
+          "description": "Plain Text Filter using regex-based linebreak search. Extracts by paragraphs.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_regex_paragraphs.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_splicedlines": {
+      "class": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter",
+      "displayName": "Plain Text Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/plain"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_plaintext_spliced",
+          "name": "Spliced Lines",
+          "description": "Extracts as one line the consecutive lines with a predefined splicer character at the end.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_spliced.fprm",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_plaintext_spliced_backslash",
+          "name": "Spliced Lines (Backslash)",
+          "description": "Spliced lines filter with the backslash character (\\) used as the splicer.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_spliced_backslash.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_plaintext_spliced_underscore",
+          "name": "Spliced Lines (Underscore)",
+          "description": "Spliced lines filter with the underscore character (_) used as the splicer.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_spliced_underscore.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_plaintext_spliced_custom",
+          "name": "Spliced Lines (Custom)",
+          "description": "Spliced lines filter with a user-defined splicer.",
+          "mimeType": "text/plain",
+          "parametersLocation": "okf_plaintext_spliced_custom.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_po": {
+      "class": "net.sf.okapi.filters.po.POFilter",
+      "displayName": "PO Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-gettext"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_po",
+          "name": "PO (Standard)",
+          "description": "Standard bilingual PO files",
+          "mimeType": "application/x-gettext",
+          "extensions": ".po;",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_po-monolingual",
+          "name": "PO (Monolingual)",
+          "description": "Monolingual PO files (msgid is a real ID, not the source text).",
+          "mimeType": "application/x-gettext",
+          "extensions": ".po;",
+          "parametersLocation": "monolingual.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_properties": {
+      "class": "net.sf.okapi.filters.properties.PropertiesFilter",
+      "displayName": "Properties Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-properties"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_properties",
+          "name": "Java Properties",
+          "description": "Java properties files (Output used \\uHHHH escapes)",
+          "mimeType": "text/x-properties",
+          "extensions": ".properties;",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_properties-outputNotEscaped",
+          "name": "Java Properties (Output not escaped)",
+          "description": "Java properties files (Characters in the output encoding are not escaped)",
+          "mimeType": "text/x-properties",
+          "parametersLocation": "outputNotEscaped.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_properties-skypeLang",
+          "name": "Skype Language Files",
+          "description": "Skype language properties files (including support for HTML codes)",
+          "mimeType": "text/x-properties",
+          "extensions": ".lang;",
+          "parametersLocation": "skypeLang.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_properties-html-subfilter",
+          "name": "Properties with complex HTML Content",
+          "description": "Java Property content processed by an HTML subfilter",
+          "mimeType": "text/x-properties",
+          "parametersLocation": "html-subfilter.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_rainbowkit": {
+      "class": "net.sf.okapi.filters.rainbowkit.RainbowKitFilter",
+      "displayName": "Rainbow Translation Kit Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-rainbowkit"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_rainbowkit",
+          "name": "Rainbow Translation Kit",
+          "description": "Configuration for Rainbow translation kit.",
+          "mimeType": "application/x-rainbowkit",
+          "extensions": ".rkm;",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_rainbowkit-package",
+          "name": "Rainbow Translation Kit Package",
+          "description": "Configuration for Rainbow translation kit package.",
+          "mimeType": "application/x-rainbowkit-package",
+          "extensions": ".rkp;",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_rainbowkit-noprompt",
+          "name": "Rainbow Translation Kit (No prompt)",
+          "description": "Configuration for Rainbow translation kit (without prompt).",
+          "mimeType": "application/x-rainbowkit",
+          "extensions": ".rkm;",
+          "parametersLocation": "noprompt.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_xliff2": {
+      "class": "net.sf.okapi.filters.xliff2.XLIFF2Filter",
+      "displayName": "XLIFF-2 Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/xliff+xml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_xliff2",
+          "name": "XLIFF-2",
+          "description": "Configuration for XLIFF-2 documents.",
+          "mimeType": "application/xliff+xml",
+          "extensions": ".xlf;.xliff;.xlf2;.xliff2",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_regex": {
+      "class": "net.sf.okapi.filters.regex.RegexFilter",
+      "displayName": "Regex Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-regex"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_regex",
+          "name": "Regex Default",
+          "description": "Default Regex configuration.",
+          "mimeType": "text/x-regex",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_regex-srt",
+          "name": "SRT Sub-Titles",
+          "description": "Configuration for SRT (Sub-Rip Text) sub-titles files.",
+          "mimeType": "text/x-regex",
+          "extensions": ".srt;",
+          "parametersLocation": "srt.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_regex-textLine",
+          "name": "Text (Line=Paragraph)",
+          "description": "Configuration for text files where each line is a text unit",
+          "mimeType": "text/x-regex",
+          "parametersLocation": "textLine.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_regex-textBlock",
+          "name": "Text (Block=Paragraph)",
+          "description": "Configuration for text files where text units are separated by 2 or more line-breaks.",
+          "mimeType": "text/x-regex",
+          "parametersLocation": "textBlock.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_regex-macStrings",
+          "name": "Text (Mac Strings)",
+          "description": "Configuration for Macintosh .strings files.",
+          "mimeType": "text/x-regex",
+          "extensions": ".strings;",
+          "parametersLocation": "macStrings.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_rtf": {
+      "class": "net.sf.okapi.filters.rtf.RTFFilter",
+      "displayName": "Trados-Tagged RTF Filter - READING ONLY",
+      "extensions": [],
+      "mimeTypes": [
+        "application/rtf"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_tradosrtf",
+          "name": "Trados-Tagged RTF",
+          "description": "Configuration for Trados-tagged RTF files - READING ONLY.",
+          "mimeType": "application/rtf",
+          "extensions": ".rtf;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_sdlpackage": {
+      "class": "net.sf.okapi.filters.sdlpackage.SdlPackageFilter",
+      "displayName": "SDLPPX and SDLRPX Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-sdlpackage"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_sdlpackage",
+          "name": "SDL Trados Package Files",
+          "description": "SDL Trados 2017 SDLPPX and SDLRPX files",
+          "mimeType": "application/x-sdlpackage",
+          "extensions": ".sdlppx;.sdlrpx;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_table": {
+      "class": "net.sf.okapi.filters.table.TableFilter",
+      "displayName": "Table Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_table",
+          "name": "Table Files",
+          "description": "Table-like files such as tab-delimited, CSV, fixed-width columns, etc.",
+          "mimeType": "text/csv",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_table_csv",
+          "name": "Table (Comma-Separated Values)",
+          "description": "Comma-separated values, optional header with field names.",
+          "mimeType": "text/csv",
+          "extensions": ".csv;",
+          "parametersLocation": "okf_table_csv.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_table_catkeys",
+          "name": "Haiku CatKeys",
+          "description": "Haiku CatKeys resource files",
+          "mimeType": "text/csv",
+          "parametersLocation": "okf_table_catkeys.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_table_src-tab-trg",
+          "name": "Table (Tab-Separated Values)",
+          "description": "2-column (source + target), tab separated files.",
+          "mimeType": "text/csv",
+          "parametersLocation": "okf_table_src-tab-trg.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_table_fwc",
+          "name": "Table (Fixed-Width Columns)",
+          "description": "Fixed-width columns table padded with white-spaces.",
+          "mimeType": "text/csv",
+          "parametersLocation": "okf_table_fwc.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_table_tsv",
+          "name": "Table (Tab-Separated Values)",
+          "description": "Columns, separated by one or more tabs.",
+          "mimeType": "text/csv",
+          "parametersLocation": "okf_table_tsv.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_basetable": {
+      "class": "net.sf.okapi.filters.table.base.BaseTableFilter",
+      "displayName": "Plain Text Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_plaintext",
+          "name": "Plain Text",
+          "description": "Plain text files.",
+          "mimeType": "text/csv",
+          "extensions": ".txt;",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_plaintext_trim_trail",
+          "name": "Plain Text (Trim Trail)",
+          "description": "Text files; trailing spaces and tabs removed from extracted lines.",
+          "mimeType": "text/csv",
+          "parametersLocation": "okf_plaintext_trim_trail.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_plaintext_trim_all",
+          "name": "Plain Text (Trim All)",
+          "description": "Text files; leading and trailing spaces and tabs removed from extracted lines.",
+          "mimeType": "text/csv",
+          "parametersLocation": "okf_plaintext_trim_all.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_commaseparatedvalues": {
+      "class": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter",
+      "displayName": "Plain Text Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_table_csv",
+          "name": "Table (Comma-Separated Values)",
+          "description": "Comma-separated values, optional header with field names.",
+          "mimeType": "text/csv",
+          "extensions": ".csv;",
+          "parametersLocation": "okf_table_csv.fprm",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_table_catkeys",
+          "name": "Haiku CatKeys",
+          "description": "Haiku CatKeys resource files",
+          "mimeType": "text/csv",
+          "parametersLocation": "okf_table_catkeys.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_table_src-tab-trg",
+          "name": "Table (Tab-Separated Values)",
+          "description": "2-column (source + target), tab separated files.",
+          "mimeType": "text/csv",
+          "parametersLocation": "okf_table_src-tab-trg.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_fixedwidthcolumns": {
+      "class": "net.sf.okapi.filters.table.fwc.FixedWidthColumnsFilter",
+      "displayName": "Plain Text Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_table_fwc",
+          "name": "Table (Fixed-Width Columns)",
+          "description": "Fixed-width columns table padded with white-spaces.",
+          "mimeType": "text/csv",
+          "parametersLocation": "okf_table_fwc.fprm",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_tabseparatedvalues": {
+      "class": "net.sf.okapi.filters.table.tsv.TabSeparatedValuesFilter",
+      "displayName": "Plain Text Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/csv"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_table_tsv",
+          "name": "Table (Tab-Separated Values)",
+          "description": "Columns, separated by one or more tabs.",
+          "mimeType": "text/csv",
+          "parametersLocation": "okf_table_tsv.fprm",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_tex": {
+      "class": "net.sf.okapi.filters.tex.TEXFilter",
+      "displayName": "TEX Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-tex-text"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_tex",
+          "name": "Tex",
+          "description": "Tex files",
+          "mimeType": "text/x-tex-text",
+          "extensions": ".tex;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_tmx": {
+      "class": "net.sf.okapi.filters.tmx.TmxFilter",
+      "displayName": "TMX Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-tmx+xml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_tmx",
+          "name": "TMX",
+          "description": "Configuration for Translation Memory eXchange (TMX) documents.",
+          "mimeType": "application/x-tmx+xml",
+          "extensions": ".tmx;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_transifex": {
+      "class": "net.sf.okapi.filters.transifex.TransifexFilter",
+      "displayName": "Transifex Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-transifex"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_transifex",
+          "name": "Transifex Project",
+          "description": "Transifex project with prompt when starting",
+          "mimeType": "application/x-transifex",
+          "extensions": ".txp;",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_transifex-noPrompt",
+          "name": "Transifex Project (without prompt)",
+          "description": "Transifex project without prompt when starting",
+          "mimeType": "application/x-transifex",
+          "parametersLocation": "noPrompt.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_transtable": {
+      "class": "net.sf.okapi.filters.transtable.TransTableFilter",
+      "displayName": "TransTable Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-transtable"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_transtable",
+          "name": "Translation Table Default",
+          "description": "Default TransTable configuration.",
+          "mimeType": "text/x-transtable",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_ts": {
+      "class": "net.sf.okapi.filters.ts.TsFilter",
+      "displayName": "TS Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-ts"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_ts",
+          "name": "TS",
+          "description": "Configuration for Qt TS files.",
+          "mimeType": "application/x-ts",
+          "extensions": ".ts;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_ttml": {
+      "class": "net.sf.okapi.filters.ttml.TTMLFilter",
+      "displayName": "TTML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/ttml+xml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_ttml",
+          "name": "TTML",
+          "description": "TTML Documents",
+          "mimeType": "application/ttml+xml",
+          "extensions": ".ttml",
+          "parametersLocation": "okf_ttml.fprm",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_ttx": {
+      "class": "net.sf.okapi.filters.ttx.TTXFilter",
+      "displayName": "TTX Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-ttx+xml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_ttx",
+          "name": "TTX",
+          "description": "Configuration for Trados TTX documents.",
+          "mimeType": "application/x-ttx+xml",
+          "extensions": ".ttx;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_txml": {
+      "class": "net.sf.okapi.filters.txml.TXMLFilter",
+      "displayName": "TXML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/xml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_txml",
+          "name": "TXML",
+          "description": "Wordfast Pro TXML documents",
+          "mimeType": "text/xml",
+          "extensions": ".txml;",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_txml-fillEmptyTargets",
+          "name": "TXML (Fill empty targets in output)",
+          "description": "Wordfast Pro TXML documents with empty targets filled on output.",
+          "mimeType": "text/xml",
+          "extensions": ".txml;",
+          "parametersLocation": "fillEmptyTargets.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_vignette": {
+      "class": "net.sf.okapi.filters.vignette.VignetteFilter",
+      "displayName": "Vignette Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/xml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_vignette",
+          "name": "Vignette Export/Import Content",
+          "description": "Default Vignette Export/Import Content configuration.",
+          "mimeType": "text/xml",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_vignette-nocdata",
+          "name": "Vignette Export/Import Content (escaped HTML)",
+          "description": "Vignette files without CDATA sections.",
+          "mimeType": "text/xml",
+          "parametersLocation": "nocdata.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_vtt": {
+      "class": "net.sf.okapi.filters.vtt.VTTFilter",
+      "displayName": "VTT Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/vtt"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_vtt",
+          "name": "VTT",
+          "description": "VTT Documents",
+          "mimeType": "text/vtt",
+          "extensions": ".vtt;.srt",
+          "parametersLocation": "okf_vtt.fprm",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_wiki": {
+      "class": "net.sf.okapi.filters.wiki.WikiFilter",
+      "displayName": "Wiki Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-wiki-txt"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_wiki",
+          "name": "Wiki Markup",
+          "description": "Text with wiki-style markup",
+          "mimeType": "text/x-wiki-txt",
+          "extensions": ".txt;",
+          "parametersLocation": "wikiConfiguration.yml",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_wsxzpackage": {
+      "class": "net.sf.okapi.filters.wsxzpackage.WsxzPackageFilter",
+      "displayName": "WSXZ Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-wsxzpackage"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_wsxzpackage",
+          "name": "WSXZ Package Files",
+          "description": "WorldServer WSXZ Files",
+          "mimeType": "application/x-wsxzpackage",
+          "extensions": ".wsxz;",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_xini": {
+      "class": "net.sf.okapi.filters.xini.XINIFilter",
+      "displayName": "XINI Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-xini"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_xini",
+          "name": "XINI",
+          "description": "Configuration for XINI documents from ONTRAM",
+          "mimeType": "text/x-xini",
+          "extensions": ".xini;",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_xini-noOutputSegmentation",
+          "name": "XINI (no output segmentation)",
+          "description": "Configuration for XINI documents from ONTRAM (fields in the output are not segmented)",
+          "mimeType": "text/x-xini",
+          "parametersLocation": "noOutputSegmentation.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_xinirainbowkit": {
+      "class": "net.sf.okapi.filters.xini.rainbowkit.XINIRainbowkitFilter",
+      "displayName": "XINI RainbowKit Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-xini"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_rainbowkitxini",
+          "name": "XINI (Rainbow T-Kit)",
+          "description": "Configuration for XINI documents from ONTRAM T-Kits.",
+          "mimeType": "text/x-xini",
+          "isDefault": true
+        }
+      ]
+    },
+    "okf_xliff": {
+      "class": "net.sf.okapi.filters.xliff.XLIFFFilter",
+      "displayName": "XLIFF Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "application/x-xliff+xml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_xliff",
+          "name": "XLIFF",
+          "description": "Configuration for XML Localisation Interchange File Format (XLIFF) documents.",
+          "mimeType": "application/x-xliff+xml",
+          "extensions": ".xlf;.xlif;.xliff;.mxliff;.mqxliff;",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_xliff-sdl",
+          "name": "SDLXLIFF",
+          "description": "Configuration for SDL XLIFF documents. Supports SDL specific metadata",
+          "mimeType": "application/x-xliff+xml",
+          "extensions": ".sdlxliff;",
+          "parametersLocation": "sdl.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_xliff-iws",
+          "name": "IWSXLIFF",
+          "description": "Configuration for IWS XLIFF documents. Supports IWS specific metadata",
+          "mimeType": "application/x-xliff+xml",
+          "extensions": ".xlf;",
+          "parametersLocation": "iws.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_xml": {
+      "class": "net.sf.okapi.filters.xml.XMLFilter",
+      "displayName": "XML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/xml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_xml",
+          "name": "Generic XML",
+          "description": "Configuration for generic XML documents (default ITS rules).",
+          "mimeType": "text/xml",
+          "extensions": ".xml;",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_xml-resx",
+          "name": "RESX",
+          "description": "Configuration for Microsoft RESX documents (without binary data).",
+          "mimeType": "text/xml",
+          "extensions": ".resx;",
+          "parametersLocation": "resx.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_xml-MozillaRDF",
+          "name": "Mozilla RDF",
+          "description": "Configuration for Mozilla RDF documents.",
+          "mimeType": "text/xml",
+          "extensions": ".rdf;",
+          "parametersLocation": "MozillaRDF.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_xml-JavaProperties",
+          "name": "Java Properties XML",
+          "description": "Configuration for Java Properties files in XML.",
+          "mimeType": "text/xml",
+          "parametersLocation": "JavaProperties.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_xml-AndroidStrings",
+          "name": "Android Strings",
+          "description": "Configuration for Android Strings XML documents.",
+          "mimeType": "text/xml",
+          "parametersLocation": "AndroidStrings.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_xml-WixLocalization",
+          "name": "WiX Localization",
+          "description": "Configuration for WiX (Windows Installer XML) Localization files.",
+          "mimeType": "text/xml",
+          "extensions": ".wxl;",
+          "parametersLocation": "WixLocalization.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_xml-AppleStringsdict",
+          "name": "Apple Stringsdict",
+          "description": "Configuration for Apple Stringsdict files",
+          "mimeType": "text/xml",
+          "extensions": ".stringsdict;",
+          "parametersLocation": "AppleStringsdict.fprm",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_xml-docbook",
+          "name": "DocBook",
+          "description": "Configuration for DocBook v5 files",
+          "mimeType": "text/xml",
+          "parametersLocation": "okf_xml-docbook.fprm",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_xmlstream": {
+      "class": "net.sf.okapi.filters.xmlstream.XmlStreamFilter",
+      "displayName": "XML Stream Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/xml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_xmlstream",
+          "name": "XML Stream",
+          "description": "Large XML Documents",
+          "mimeType": "text/xml",
+          "parametersLocation": "default.yml",
+          "isDefault": true
+        },
+        {
+          "configId": "okf_xmlstream-dita",
+          "name": "DITA",
+          "description": "DITA XML",
+          "mimeType": "text/xml",
+          "extensions": ".dita;.ditamap;",
+          "parametersLocation": "dita.yml",
+          "isDefault": false
+        },
+        {
+          "configId": "okf_xmlstream-JavaPropertiesHTML",
+          "name": "Java Properties XML + HTML",
+          "description": "Java Properties XML with Embedded HTML",
+          "mimeType": "text/xml",
+          "parametersLocation": "javaPropertiesXml.yml",
+          "isDefault": false
+        }
+      ]
+    },
+    "okf_yaml": {
+      "class": "net.sf.okapi.filters.yaml.YamlFilter",
+      "displayName": "YAML Filter",
+      "extensions": [],
+      "mimeTypes": [
+        "text/x-yaml"
+      ],
+      "configurations": [
+        {
+          "configId": "okf_yaml",
+          "name": "YAML",
+          "description": "YAML files",
+          "mimeType": "text/x-yaml",
+          "extensions": ".yml;.yaml;",
+          "isDefault": true
+        }
+      ]
+    }
+  }
 }

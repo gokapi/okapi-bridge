@@ -1,6 +1,8 @@
 package com.gokapi.bridge.util;
 
+import com.gokapi.bridge.model.FilterConfigurationInfo;
 import com.gokapi.bridge.model.FilterInfo;
+import net.sf.okapi.common.filters.FilterConfiguration;
 import net.sf.okapi.common.filters.IFilter;
 
 import java.io.File;
@@ -112,16 +114,52 @@ public class FilterRegistry {
                     ? Collections.singletonList(mimeType)
                     : Collections.emptyList();
 
-            return new FilterInfo(
+            FilterInfo info = new FilterInfo(
                     filterClass,
                     formatId,
                     displayName != null ? displayName : name,
                     mimeTypes,
-                    Collections.emptyList() // Extensions will be empty - not critical for schema generation
+                    Collections.emptyList()
             );
+
+            // Extract filter configurations
+            extractConfigurations(filter, info);
+
+            return info;
         } catch (Exception e) {
             System.err.println("[bridge] Could not create FilterInfo for " + filterClass + ": " + e.getMessage());
             return null;
+        }
+    }
+
+    /**
+     * Extract filter configurations from the filter instance.
+     * Configurations are preset variants of a filter with specific default parameters.
+     */
+    private static void extractConfigurations(IFilter filter, FilterInfo info) {
+        try {
+            List<FilterConfiguration> configs = filter.getConfigurations();
+            if (configs == null || configs.isEmpty()) {
+                return;
+            }
+
+            boolean firstConfig = true;
+            for (FilterConfiguration config : configs) {
+                FilterConfigurationInfo configInfo = new FilterConfigurationInfo(
+                        config.configId,
+                        config.name,
+                        config.description,
+                        config.mimeType,
+                        config.extensions,
+                        config.parametersLocation,
+                        firstConfig // First config is typically the default
+                );
+                info.addConfiguration(configInfo);
+                firstConfig = false;
+            }
+        } catch (Exception e) {
+            // Some filters may not support getConfigurations()
+            System.err.println("[bridge] Could not extract configurations for " + info.getFilterClass() + ": " + e.getMessage());
         }
     }
 

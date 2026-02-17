@@ -11,6 +11,25 @@
     "extensions": [],
     "mimeTypes": [
       "text/xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_txml",
+        "name": "TXML",
+        "description": "Wordfast Pro TXML documents",
+        "mimeType": "text/xml",
+        "extensions": ".txml;",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_txml-fillEmptyTargets",
+        "name": "TXML (Fill empty targets in output)",
+        "description": "Wordfast Pro TXML documents with empty targets filled on output.",
+        "mimeType": "text/xml",
+        "extensions": ".txml;",
+        "parametersLocation": "fillEmptyTargets.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

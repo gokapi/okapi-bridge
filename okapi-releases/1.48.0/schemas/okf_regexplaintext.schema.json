@@ -11,6 +11,32 @@
     "extensions": [],
     "mimeTypes": [
       "text/plain"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_plaintext_regex",
+        "name": "Plain Text (Regex)",
+        "description": "Plain Text Filter using regex-based linebreak search. Detects a wider range of linebreaks at the price of lower speed and extra memory usage.",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_regex.fprm",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_plaintext_regex_lines",
+        "name": "Plain Text (Regex, Line=Paragraph)",
+        "description": "Plain Text Filter using regex-based linebreak search. Extracts by lines.",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_regex_lines.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_plaintext_regex_paragraphs",
+        "name": "Plain Text (Regex, Block=Paragraph)",
+        "description": "Plain Text Filter using regex-based linebreak search. Extracts by paragraphs.",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_regex_paragraphs.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

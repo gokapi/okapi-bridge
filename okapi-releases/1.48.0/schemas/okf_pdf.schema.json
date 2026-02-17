@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/pdf"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_pdf",
+        "name": "PDF (Portable Document Format)",
+        "description": "Configuration for PDF documents",
+        "mimeType": "application/pdf",
+        "extensions": ".pdf;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

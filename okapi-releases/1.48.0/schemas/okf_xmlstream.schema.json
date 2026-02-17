@@ -11,6 +11,33 @@
     "extensions": [],
     "mimeTypes": [
       "text/xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_xmlstream",
+        "name": "XML Stream",
+        "description": "Large XML Documents",
+        "mimeType": "text/xml",
+        "parametersLocation": "default.yml",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_xmlstream-dita",
+        "name": "DITA",
+        "description": "DITA XML",
+        "mimeType": "text/xml",
+        "extensions": ".dita;.ditamap;",
+        "parametersLocation": "dita.yml",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_xmlstream-JavaPropertiesHTML",
+        "name": "Java Properties XML + HTML",
+        "description": "Java Properties XML with Embedded HTML",
+        "mimeType": "text/xml",
+        "parametersLocation": "javaPropertiesXml.yml",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-ttx+xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_ttx",
+        "name": "TTX",
+        "description": "Configuration for Trados TTX documents.",
+        "mimeType": "application/x-ttx+xml",
+        "extensions": ".ttx;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

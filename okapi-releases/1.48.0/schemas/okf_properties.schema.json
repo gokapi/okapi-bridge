@@ -11,6 +11,41 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-properties"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_properties",
+        "name": "Java Properties",
+        "description": "Java properties files (Output used \\uHHHH escapes)",
+        "mimeType": "text/x-properties",
+        "extensions": ".properties;",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_properties-outputNotEscaped",
+        "name": "Java Properties (Output not escaped)",
+        "description": "Java properties files (Characters in the output encoding are not escaped)",
+        "mimeType": "text/x-properties",
+        "parametersLocation": "outputNotEscaped.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_properties-skypeLang",
+        "name": "Skype Language Files",
+        "description": "Skype language properties files (including support for HTML codes)",
+        "mimeType": "text/x-properties",
+        "extensions": ".lang;",
+        "parametersLocation": "skypeLang.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_properties-html-subfilter",
+        "name": "Properties with complex HTML Content",
+        "description": "Java Property content processed by an HTML subfilter",
+        "mimeType": "text/x-properties",
+        "parametersLocation": "html-subfilter.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

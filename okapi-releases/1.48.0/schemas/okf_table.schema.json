@@ -11,6 +11,56 @@
     "extensions": [],
     "mimeTypes": [
       "text/csv"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_table",
+        "name": "Table Files",
+        "description": "Table-like files such as tab-delimited, CSV, fixed-width columns, etc.",
+        "mimeType": "text/csv",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_table_csv",
+        "name": "Table (Comma-Separated Values)",
+        "description": "Comma-separated values, optional header with field names.",
+        "mimeType": "text/csv",
+        "extensions": ".csv;",
+        "parametersLocation": "okf_table_csv.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_table_catkeys",
+        "name": "Haiku CatKeys",
+        "description": "Haiku CatKeys resource files",
+        "mimeType": "text/csv",
+        "parametersLocation": "okf_table_catkeys.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_table_src-tab-trg",
+        "name": "Table (Tab-Separated Values)",
+        "description": "2-column (source + target), tab separated files.",
+        "mimeType": "text/csv",
+        "parametersLocation": "okf_table_src-tab-trg.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_table_fwc",
+        "name": "Table (Fixed-Width Columns)",
+        "description": "Fixed-width columns table padded with white-spaces.",
+        "mimeType": "text/csv",
+        "parametersLocation": "okf_table_fwc.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_table_tsv",
+        "name": "Table (Tab-Separated Values)",
+        "description": "Columns, separated by one or more tabs.",
+        "mimeType": "text/csv",
+        "parametersLocation": "okf_table_tsv.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

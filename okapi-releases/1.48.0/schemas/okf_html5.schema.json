@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "text/html"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_itshtml5",
+        "name": "Standard HTML5",
+        "description": "Configuration for standard HTML5 documents.",
+        "mimeType": "text/html",
+        "extensions": ".html;.htm;",
+        "parametersLocation": "default.fprm",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

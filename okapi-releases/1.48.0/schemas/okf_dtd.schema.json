@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/xml+dtd"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_dtd",
+        "name": "DTD (Document Type Definition)",
+        "description": "Configuration for XML DTD documents (entities content)",
+        "mimeType": "application/xml+dtd",
+        "extensions": ".dtd;.ent;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

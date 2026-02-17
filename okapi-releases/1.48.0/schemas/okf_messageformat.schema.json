@@ -11,6 +11,31 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-messageformat"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_messageformat",
+        "name": "ICU Message Format",
+        "description": "ICU Message Format Text",
+        "mimeType": "text/x-messageformat",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_messageformat-json",
+        "name": "ICU Message Format",
+        "description": "ICU Message Format From JSON",
+        "mimeType": "text/x-messageformat",
+        "parametersLocation": "okf_messageformat@json.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_messageformat-yaml",
+        "name": "ICU Message Format",
+        "description": "ICU Message Format From YAML",
+        "mimeType": "text/x-messageformat",
+        "parametersLocation": "okf_messageformat@yaml.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

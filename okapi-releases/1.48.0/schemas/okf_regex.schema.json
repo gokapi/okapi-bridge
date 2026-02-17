@@ -11,6 +11,49 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-regex"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_regex",
+        "name": "Regex Default",
+        "description": "Default Regex configuration.",
+        "mimeType": "text/x-regex",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_regex-srt",
+        "name": "SRT Sub-Titles",
+        "description": "Configuration for SRT (Sub-Rip Text) sub-titles files.",
+        "mimeType": "text/x-regex",
+        "extensions": ".srt;",
+        "parametersLocation": "srt.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_regex-textLine",
+        "name": "Text (Line=Paragraph)",
+        "description": "Configuration for text files where each line is a text unit",
+        "mimeType": "text/x-regex",
+        "parametersLocation": "textLine.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_regex-textBlock",
+        "name": "Text (Block=Paragraph)",
+        "description": "Configuration for text files where text units are separated by 2 or more line-breaks.",
+        "mimeType": "text/x-regex",
+        "parametersLocation": "textBlock.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_regex-macStrings",
+        "name": "Text (Mac Strings)",
+        "description": "Configuration for Macintosh .strings files.",
+        "mimeType": "text/x-regex",
+        "extensions": ".strings;",
+        "parametersLocation": "macStrings.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

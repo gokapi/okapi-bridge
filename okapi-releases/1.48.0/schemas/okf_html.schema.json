@@ -11,6 +11,26 @@
     "extensions": [],
     "mimeTypes": [
       "text/html"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_html",
+        "name": "HTML",
+        "description": "HTML or XHTML documents",
+        "mimeType": "text/html",
+        "extensions": ".html;.htm;",
+        "parametersLocation": "nonwellformedConfiguration.yml",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_html-wellFormed",
+        "name": "HTML (Well-Formed)",
+        "description": "XHTML and well-formed HTML documents",
+        "mimeType": "text/html",
+        "extensions": ".xhtml",
+        "parametersLocation": "wellformedConfiguration.yml",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

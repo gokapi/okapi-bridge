@@ -11,6 +11,34 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-xliff+xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_xliff",
+        "name": "XLIFF",
+        "description": "Configuration for XML Localisation Interchange File Format (XLIFF) documents.",
+        "mimeType": "application/x-xliff+xml",
+        "extensions": ".xlf;.xlif;.xliff;.mxliff;.mqxliff;",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_xliff-sdl",
+        "name": "SDLXLIFF",
+        "description": "Configuration for SDL XLIFF documents. Supports SDL specific metadata",
+        "mimeType": "application/x-xliff+xml",
+        "extensions": ".sdlxliff;",
+        "parametersLocation": "sdl.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_xliff-iws",
+        "name": "IWSXLIFF",
+        "description": "Configuration for IWS XLIFF documents. Supports IWS specific metadata",
+        "mimeType": "application/x-xliff+xml",
+        "extensions": ".xlf;",
+        "parametersLocation": "iws.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

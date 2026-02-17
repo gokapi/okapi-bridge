@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-wiki-txt"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_wiki",
+        "name": "Wiki Markup",
+        "description": "Text with wiki-style markup",
+        "mimeType": "text/x-wiki-txt",
+        "extensions": ".txt;",
+        "parametersLocation": "wikiConfiguration.yml",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

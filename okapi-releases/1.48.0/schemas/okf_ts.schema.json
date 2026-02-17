@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-ts"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_ts",
+        "name": "TS",
+        "description": "Configuration for Qt TS files.",
+        "mimeType": "application/x-ts",
+        "extensions": ".ts;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-doxygen-txt"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_doxygen",
+        "name": "Doxygen-commented Text",
+        "description": "Doxygen-commented Text Documents",
+        "mimeType": "text/x-doxygen-txt",
+        "extensions": ".h;.c;.cpp;.java;.py;.m;",
+        "parametersLocation": "doxygenConfiguration.yml",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

@@ -1,6 +1,8 @@
 package com.gokapi.bridge.util;
 
+import com.gokapi.bridge.model.FilterConfigurationInfo;
 import com.gokapi.bridge.model.FilterInfo;
+import net.sf.okapi.common.filters.FilterConfiguration;
 import net.sf.okapi.common.filters.IFilter;
 
 import java.io.File;
@@ -112,13 +114,34 @@ public class FilterRegistry {
                     ? Collections.singletonList(mimeType)
                     : Collections.emptyList();
 
-            return new FilterInfo(
+            FilterInfo info = new FilterInfo(
                     filterClass,
                     formatId,
                     displayName != null ? displayName : name,
                     mimeTypes,
-                    Collections.emptyList() // Extensions will be empty - not critical for schema generation
+                    Collections.emptyList()
             );
+
+            // Extract filter configurations (presets/variants)
+            List<FilterConfiguration> configs = filter.getConfigurations();
+            if (configs != null && !configs.isEmpty()) {
+                boolean firstConfig = true;
+                for (FilterConfiguration config : configs) {
+                    FilterConfigurationInfo configInfo = new FilterConfigurationInfo(
+                            config.configId,
+                            config.name,
+                            config.description,
+                            config.mimeType,
+                            config.extensions,
+                            config.parametersLocation,
+                            firstConfig
+                    );
+                    info.addConfiguration(configInfo);
+                    firstConfig = false;
+                }
+            }
+
+            return info;
         } catch (Exception e) {
             System.err.println("[bridge] Could not create FilterInfo for " + filterClass + ": " + e.getMessage());
             return null;

@@ -117,6 +117,11 @@ public class SchemaGenerator {
         filterMeta.addProperty("class", filterClass);
         filterMeta.add("extensions", GSON.toJsonTree(info.getExtensions()));
         filterMeta.add("mimeTypes", GSON.toJsonTree(info.getMimeTypes()));
+        
+        // Include filter configurations (presets/variants)
+        if (info.getConfigurations() != null && !info.getConfigurations().isEmpty()) {
+            filterMeta.add("configurations", GSON.toJsonTree(info.getConfigurations()));
+        }
         schema.add("x-filter", filterMeta);
 
         Map<String, ParameterIntrospector.ParamInfo> params = introspector.introspect(filterClass);
@@ -158,6 +163,11 @@ public class SchemaGenerator {
             filterMeta.addProperty("displayName", info.getDisplayName());
             filterMeta.add("extensions", GSON.toJsonTree(info.getExtensions()));
             filterMeta.add("mimeTypes", GSON.toJsonTree(info.getMimeTypes()));
+            
+            // Include filter configurations
+            if (info.getConfigurations() != null && !info.getConfigurations().isEmpty()) {
+                filterMeta.add("configurations", GSON.toJsonTree(info.getConfigurations()));
+            }
             filtersObj.add(filterId, filterMeta);
         }
         meta.add("filters", filtersObj);

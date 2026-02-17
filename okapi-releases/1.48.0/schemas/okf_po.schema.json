@@ -11,6 +11,25 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-gettext"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_po",
+        "name": "PO (Standard)",
+        "description": "Standard bilingual PO files",
+        "mimeType": "application/x-gettext",
+        "extensions": ".po;",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_po-monolingual",
+        "name": "PO (Monolingual)",
+        "description": "Monolingual PO files (msgid is a real ID, not the source text).",
+        "mimeType": "application/x-gettext",
+        "extensions": ".po;",
+        "parametersLocation": "monolingual.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

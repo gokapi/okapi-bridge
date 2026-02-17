@@ -1,6 +1,7 @@
 package com.gokapi.bridge.model;
 
 import com.google.gson.annotations.SerializedName;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,11 @@ public class FilterInfo {
     @SerializedName("extensions")
     private List<String> extensions;
 
+    @SerializedName("configurations")
+    private List<FilterConfigurationInfo> configurations;
+
     public FilterInfo() {
+        this.configurations = new ArrayList<>();
     }
 
     public FilterInfo(String filterClass, String name, String displayName,
@@ -33,6 +38,7 @@ public class FilterInfo {
         this.displayName = displayName;
         this.mimeTypes = mimeTypes;
         this.extensions = extensions;
+        this.configurations = new ArrayList<>();
     }
 
     public String getFilterClass() {
@@ -73,5 +79,20 @@ public class FilterInfo {
 
     public void setExtensions(List<String> extensions) {
         this.extensions = extensions;
+    }
+
+    public List<FilterConfigurationInfo> getConfigurations() {
+        return configurations;
+    }
+
+    public void setConfigurations(List<FilterConfigurationInfo> configurations) {
+        this.configurations = configurations;
+    }
+
+    public void addConfiguration(FilterConfigurationInfo config) {
+        if (this.configurations == null) {
+            this.configurations = new ArrayList<>();
+        }
+        this.configurations.add(config);
     }
 }

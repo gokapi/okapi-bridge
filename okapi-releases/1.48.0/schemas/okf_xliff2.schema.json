@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/xliff+xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_xliff2",
+        "name": "XLIFF-2",
+        "description": "Configuration for XLIFF-2 documents.",
+        "mimeType": "application/xliff+xml",
+        "extensions": ".xlf;.xliff;.xlf2;.xliff2",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

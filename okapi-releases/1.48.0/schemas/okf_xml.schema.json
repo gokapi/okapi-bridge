@@ -11,6 +11,76 @@
     "extensions": [],
     "mimeTypes": [
       "text/xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_xml",
+        "name": "Generic XML",
+        "description": "Configuration for generic XML documents (default ITS rules).",
+        "mimeType": "text/xml",
+        "extensions": ".xml;",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_xml-resx",
+        "name": "RESX",
+        "description": "Configuration for Microsoft RESX documents (without binary data).",
+        "mimeType": "text/xml",
+        "extensions": ".resx;",
+        "parametersLocation": "resx.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_xml-MozillaRDF",
+        "name": "Mozilla RDF",
+        "description": "Configuration for Mozilla RDF documents.",
+        "mimeType": "text/xml",
+        "extensions": ".rdf;",
+        "parametersLocation": "MozillaRDF.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_xml-JavaProperties",
+        "name": "Java Properties XML",
+        "description": "Configuration for Java Properties files in XML.",
+        "mimeType": "text/xml",
+        "parametersLocation": "JavaProperties.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_xml-AndroidStrings",
+        "name": "Android Strings",
+        "description": "Configuration for Android Strings XML documents.",
+        "mimeType": "text/xml",
+        "parametersLocation": "AndroidStrings.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_xml-WixLocalization",
+        "name": "WiX Localization",
+        "description": "Configuration for WiX (Windows Installer XML) Localization files.",
+        "mimeType": "text/xml",
+        "extensions": ".wxl;",
+        "parametersLocation": "WixLocalization.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_xml-AppleStringsdict",
+        "name": "Apple Stringsdict",
+        "description": "Configuration for Apple Stringsdict files",
+        "mimeType": "text/xml",
+        "extensions": ".stringsdict;",
+        "parametersLocation": "AppleStringsdict.fprm",
+        "isDefault": false
+      },
+      {
+        "configId": "okf_xml-docbook",
+        "name": "DocBook",
+        "description": "Configuration for DocBook v5 files",
+        "mimeType": "text/xml",
+        "parametersLocation": "okf_xml-docbook.fprm",
+        "isDefault": false
+      }
     ]
   },
   "properties": {

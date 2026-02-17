@@ -11,6 +11,17 @@
     "extensions": [],
     "mimeTypes": [
       "application/ttml+xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_ttml",
+        "name": "TTML",
+        "description": "TTML Documents",
+        "mimeType": "application/ttml+xml",
+        "extensions": ".ttml",
+        "parametersLocation": "okf_ttml.fprm",
+        "isDefault": true
+      }
     ]
   },
   "properties": {
