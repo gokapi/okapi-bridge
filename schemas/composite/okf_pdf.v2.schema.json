@@ -69,7 +69,7 @@
   "additionalProperties": false,
   "x-schemaVersion": 2,
   "x-baseVersion": 2,
-  "x-introducedInOkapi": "1.48.0",
   "x-baseHash": "1988138efac9",
-  "x-compositeHash": "1988138efac9"
+  "x-compositeHash": "1988138efac9",
+  "x-introducedInOkapi": "1.48.0"
 }
