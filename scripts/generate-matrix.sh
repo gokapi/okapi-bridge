@@ -67,13 +67,20 @@ generate_compact_matrix() {
     # Data rows
     for filter in $filters; do
         printf "| \`%s\` |" "$filter"
+        local prev_ver=""
         for okapi in $okapi_versions; do
             local ver
             ver=$(get_schema_version "$filter" "$okapi")
             if [[ -n "$ver" ]]; then
-                printf " v%s |" "$ver"
+                if [[ "$ver" == "$prev_ver" ]]; then
+                    printf " → |"
+                else
+                    printf " v%s |" "$ver"
+                fi
+                prev_ver="$ver"
             else
                 printf " - |"
+                prev_ver=""
             fi
         done
         echo ""
