@@ -11,6 +11,15 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-versified-txt"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_versifiedtxt",
+        "name": "Versified Text",
+        "description": "Versified Text Documents",
+        "mimeType": "text/x-versified-txt",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

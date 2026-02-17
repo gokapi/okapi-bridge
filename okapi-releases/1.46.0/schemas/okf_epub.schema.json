@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/epub+zip"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_epub",
+        "name": "EPUB Files",
+        "description": "Electronic Publication Files (EPUB)",
+        "mimeType": "application/epub+zip",
+        "extensions": ".epub;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

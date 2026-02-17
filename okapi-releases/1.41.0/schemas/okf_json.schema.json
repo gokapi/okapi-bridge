@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/json"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_json",
+        "name": "JSON (JavaScript Object Notation)",
+        "description": "Configuration for JSON files",
+        "mimeType": "application/json",
+        "extensions": ".json;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

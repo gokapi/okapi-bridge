@@ -274,7 +274,9 @@ public class FilterRegistry {
                 }
                 
                 // Try to parse as boolean/number
-                params.put(key, parseValue(value));
+                // Strip .fprm type suffixes (.b, .i) - type is inferred from value
+                String cleanKey = key.replaceAll("\\.[bi]$", "");
+                params.put(cleanKey, parseValue(value));
             }
         }
         return params;

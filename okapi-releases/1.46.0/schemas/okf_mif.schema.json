@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/vnd.mif"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_mif",
+        "name": "MIF",
+        "description": "Adobe FrameMaker MIF documents",
+        "mimeType": "application/vnd.mif",
+        "extensions": ".mif;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-yaml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_yaml",
+        "name": "YAML",
+        "description": "YAML files",
+        "mimeType": "text/x-yaml",
+        "extensions": ".yml;.yaml",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

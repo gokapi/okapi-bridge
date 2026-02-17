@@ -11,6 +11,28 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-transifex"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_transifex",
+        "name": "Transifex Project",
+        "description": "Transifex project with prompt when starting",
+        "mimeType": "application/x-transifex",
+        "extensions": ".txp;",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_transifex-noPrompt",
+        "name": "Transifex Project (without prompt)",
+        "description": "Transifex project without prompt when starting",
+        "mimeType": "application/x-transifex",
+        "parametersLocation": "noPrompt.fprm",
+        "parametersRaw": "#v1\nopenProject.b=false\n",
+        "parameters": {
+          "openProject": false
+        },
+        "isDefault": false
+      }
     ]
   },
   "properties": {

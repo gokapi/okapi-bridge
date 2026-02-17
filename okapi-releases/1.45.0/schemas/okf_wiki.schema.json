@@ -11,6 +11,21 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-wiki-txt"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_wiki",
+        "name": "Wiki Markup",
+        "description": "Text with wiki-style markup",
+        "mimeType": "text/x-wiki-txt",
+        "extensions": ".txt;",
+        "parametersLocation": "wikiConfiguration.yml",
+        "parametersRaw": "preserve_whitespace: false\n",
+        "parameters": {
+          "preserve_whitespace": false
+        },
+        "isDefault": true
+      }
     ]
   },
   "properties": {

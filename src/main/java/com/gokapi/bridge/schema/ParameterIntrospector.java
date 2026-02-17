@@ -349,9 +349,91 @@ public class ParameterIntrospector {
                 result.put(paramName, info);
             }
         }
+        
+        // Also introspect public instance fields (used by table/plaintext filters)
+        // These are fields like: public String fieldDelimiter, public boolean trimLeading
+        introspectPublicInstanceFields(paramsClass, params, result);
 
         // Also check for complex objects like InlineCodeFinder
         introspectComplexFields(paramsClass, params, result);
+    }
+    
+    /**
+     * Introspect public instance fields as parameters.
+     * Many Okapi filters (table, plaintext) use public fields directly for configuration.
+     */
+    private void introspectPublicInstanceFields(Class<?> paramsClass, IParameters params,
+                                                 Map<String, ParamInfo> result) {
+        // Reset to get default values
+        try {
+            params.reset();
+        } catch (Exception e) {
+            // Ignore reset failures
+        }
+        
+        // Internal fields that are not user-configurable parameters
+        Set<String> internalFields = new HashSet<>(java.util.Arrays.asList(
+            "data", "path", "parametersClass", "defParametersClass", 
+            "codeFinder", "logger", "LOGGER", "parentFilter"
+        ));
+        
+        // Scan current class and all superclasses for public instance fields
+        Class<?> currentClass = paramsClass;
+        while (currentClass != null && currentClass != Object.class) {
+            for (Field field : currentClass.getDeclaredFields()) {
+                // Skip static fields, we want instance fields
+                if (Modifier.isStatic(field.getModifiers())) continue;
+                
+                // Skip already processed parameters
+                String fieldName = field.getName();
+                if (result.containsKey(fieldName)) continue;
+                
+                // Skip internal fields
+                if (internalFields.contains(fieldName)) continue;
+                
+                // Skip non-configurable types
+                Class<?> fieldType = field.getType();
+                if (!isConfigurableType(fieldType)) continue;
+                
+                field.setAccessible(true);
+                try {
+                    ParamInfo info = new ParamInfo(fieldName, mapJavaType(fieldType));
+                    
+                    // Get default value
+                    Object defaultVal = field.get(params);
+                    if (defaultVal != null) {
+                        // Handle enum fields
+                        if (fieldType.isEnum()) {
+                            info.defaultValue = defaultVal.toString();
+                            info.enumValues = new java.util.ArrayList<>();
+                            for (Object c : fieldType.getEnumConstants()) {
+                                info.enumValues.add(c.toString());
+                            }
+                        } else {
+                            info.defaultValue = defaultVal;
+                        }
+                    }
+                    
+                    result.put(fieldName, info);
+                } catch (Exception e) {
+                    // Skip fields that can't be accessed
+                }
+            }
+            currentClass = currentClass.getSuperclass();
+        }
+    }
+    
+    /**
+     * Check if a field type is a configurable parameter type.
+     */
+    private boolean isConfigurableType(Class<?> type) {
+        return type == String.class ||
+               type == boolean.class || type == Boolean.class ||
+               type == int.class || type == Integer.class ||
+               type == long.class || type == Long.class ||
+               type == double.class || type == Double.class ||
+               type == float.class || type == Float.class ||
+               type.isEnum();
     }
 
     /**

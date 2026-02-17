@@ -29,7 +29,7 @@
         "parametersLocation": "noOutputSegmentation.fprm",
         "parametersRaw": "#v1\nuseOkapiSegmentation.b=false\n",
         "parameters": {
-          "useOkapiSegmentation.b": false
+          "useOkapiSegmentation": false
         },
         "isDefault": false
       }

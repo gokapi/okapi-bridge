@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-openoffice"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_openoffice",
+        "name": "OpenOffice.org Documents",
+        "description": "OpenOffice.org ODT, ODS, ODP, ODG, OTT, OTS, OTP, OTG documents",
+        "mimeType": "application/x-openoffice",
+        "extensions": ".odt;.ods;.odg;.odp;.ott;.ots;.otp;.otg;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

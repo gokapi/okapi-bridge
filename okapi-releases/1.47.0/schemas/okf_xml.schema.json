@@ -40,7 +40,7 @@
           "<its:locNoteRule locNoteType": "\"description\"",
           "locNotePointer": "\"../comment\" selector=\"//data[not(@type) and not(starts-with(@name, '&gt;') or starts-with(@name, '$'))]/value\"/>",
           "<okp:codeFinder useCodeFinder": "\"yes\">#v1",
-          "count.i": 2,
+          "count": 2,
           "rule0": "(\\{[^}]+?\\})",
           "rule1": "\\&lt;(/?)\\w+[^>]*?&gt;"
         },
@@ -94,7 +94,7 @@
           "<its:translateRule selector": "\"//*[@translatable = 'false']\" translate=\"no\"/>",
           "<its:withinTextRule selector": "\"//string/descendant::*|//item/descendant::*\" withinText=\"yes\"/>",
           "<okp:codeFinder useCodeFinder": "\"yes\">#v1",
-          "count.i": 2,
+          "count": 2,
           "rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
           "rule1": "\\{\\d.*?\\}"
         },
@@ -139,7 +139,7 @@
           "preceding-sibling::key[position()": "1])\"/>",
           "../../preceding-sibling::key[position()": "1],",
           "<okp:codeFinder useCodeFinder": "\"yes\">#v1",
-          "count.i": 4,
+          "count": 4,
           "rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn@]",
           "rule1": "(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v",
           "rule2": "\\&lt;(/?)\\w+[^>]*?>",

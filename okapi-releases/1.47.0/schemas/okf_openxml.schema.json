@@ -212,6 +212,16 @@
       "type": "string",
       "description": "Simplifier rules for code type normalization",
       "x-widget": "simplifierRulesEditor"
+    },
+    "nFileType": {
+      "type": "string",
+      "default": "MSWORD",
+      "enum": [
+        "MSWORD",
+        "MSEXCEL",
+        "MSWORDDOCPROPERTIES",
+        "MSPOWERPOINTCOMMENTS"
+      ]
     }
   },
   "additionalProperties": false

@@ -11,6 +11,15 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-transtable"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_transtable",
+        "name": "Translation Table Default",
+        "description": "Default TransTable configuration.",
+        "mimeType": "text/x-transtable",
+        "isDefault": true
+      }
     ]
   },
   "properties": {},

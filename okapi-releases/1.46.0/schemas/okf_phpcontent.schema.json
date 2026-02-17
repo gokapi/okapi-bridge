@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-php"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_phpcontent",
+        "name": "PHP Content Default",
+        "description": "Default PHP Content configuration.",
+        "mimeType": "application/x-php",
+        "extensions": ".php;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

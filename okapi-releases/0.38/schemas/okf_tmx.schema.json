@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-tmx+xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_tmx",
+        "name": "TMX",
+        "description": "Configuration for Translation Memory eXchange (TMX) documents.",
+        "mimeType": "application/x-tmx+xml",
+        "extensions": ".tmx;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

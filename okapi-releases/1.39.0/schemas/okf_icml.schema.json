@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-icml+xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_icml",
+        "name": "ICML",
+        "description": "Adobe InDesign ICML documents",
+        "mimeType": "application/x-icml+xml",
+        "extensions": ".wcml;.icml",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

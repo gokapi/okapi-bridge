@@ -28,9 +28,9 @@
         "parametersLocation": "okf_messageformat@json.fprm",
         "parametersRaw": "#v1\naddPluralForms.b=true\nnormalize.b=true\nprettyPrint.b=false\n",
         "parameters": {
-          "addPluralForms.b": true,
-          "normalize.b": true,
-          "prettyPrint.b": false
+          "addPluralForms": true,
+          "normalize": true,
+          "prettyPrint": false
         },
         "isDefault": false
       },
@@ -42,9 +42,9 @@
         "parametersLocation": "okf_messageformat@yaml.fprm",
         "parametersRaw": "#v1\naddPluralForms.b=true\nnormalize.b=true\nprettyPrint.b=true\n",
         "parameters": {
-          "addPluralForms.b": true,
-          "normalize.b": true,
-          "prettyPrint.b": true
+          "addPluralForms": true,
+          "normalize": true,
+          "prettyPrint": true
         },
         "isDefault": false
       }

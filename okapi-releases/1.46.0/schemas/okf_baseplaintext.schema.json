@@ -11,9 +11,118 @@
     "extensions": [],
     "mimeTypes": [
       "text/plain"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_plaintext",
+        "name": "Plain Text",
+        "description": "Plain text files.",
+        "mimeType": "text/plain",
+        "extensions": ".txt;",
+        "isDefault": true
+      },
+      {
+        "configId": "okf_plaintext_trim_trail",
+        "name": "Plain Text (Trim Trail)",
+        "description": "Text files; trailing spaces and tabs removed from extracted lines.",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_trim_trail.fprm",
+        "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=true\npreserveWS.b=false\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nparametersClass=net.sf.okapi.filters.plaintext.base.Parameters\n",
+        "parameters": {
+          "unescapeSource": true,
+          "trimLeading": false,
+          "trimTrailing": true,
+          "preserveWS": false,
+          "useCodeFinder": false,
+          "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+          "wrapMode": 0,
+          "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
+        },
+        "isDefault": false
+      },
+      {
+        "configId": "okf_plaintext_trim_all",
+        "name": "Plain Text (Trim All)",
+        "description": "Text files; leading and trailing spaces and tabs removed from extracted lines.",
+        "mimeType": "text/plain",
+        "parametersLocation": "okf_plaintext_trim_all.fprm",
+        "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=true\ntrimTrailing.b=true\npreserveWS.b=false\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\nparametersClass=net.sf.okapi.filters.plaintext.base.Parameters\n",
+        "parameters": {
+          "unescapeSource": true,
+          "trimLeading": true,
+          "trimTrailing": true,
+          "preserveWS": false,
+          "useCodeFinder": false,
+          "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
+          "wrapMode": 0,
+          "_parametersClass": "net.sf.okapi.filters.plaintext.base.Parameters"
+        },
+        "isDefault": false
+      }
     ]
   },
   "properties": {
+    "unescapeSource": {
+      "type": "boolean",
+      "default": true
+    },
+    "trimLeading": {
+      "type": "boolean",
+      "default": false
+    },
+    "trimTrailing": {
+      "type": "boolean",
+      "default": false
+    },
+    "preserveWS": {
+      "type": "boolean",
+      "default": true
+    },
+    "useCodeFinder": {
+      "type": "boolean",
+      "default": false
+    },
+    "codeFinderRules": {
+      "type": "object",
+      "description": "Inline code detection configuration",
+      "properties": {
+        "rules": {
+          "type": "array",
+          "description": "List of regex patterns to detect inline codes",
+          "items": {
+            "type": "object",
+            "properties": {
+              "pattern": {
+                "type": "string",
+                "description": "Regex pattern for inline code detection"
+              }
+            },
+            "required": [
+              "pattern"
+            ]
+          }
+        },
+        "sample": {
+          "type": "string",
+          "description": "Sample text to test patterns against"
+        },
+        "useAllRulesWhenTesting": {
+          "type": "boolean",
+          "default": true,
+          "description": "Test all rules together or individually"
+        }
+      },
+      "x-okapiFormat": "inlineCodeFinder"
+    },
+    "wrapMode": {
+      "type": "string",
+      "default": "NONE",
+      "enum": [
+        "NONE",
+        "SPACES",
+        "PLACEHOLDERS"
+      ]
+    },
     "simplifierRules": {
       "type": "string",
       "description": "Simplifier rules for code type normalization",

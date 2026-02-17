@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-markdown"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_markdown",
+        "name": "Markdown",
+        "description": "Markdown files",
+        "mimeType": "text/x-markdown",
+        "extensions": ".md;.markdown",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

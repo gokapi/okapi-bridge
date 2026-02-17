@@ -32,10 +32,10 @@
           "partsConfigurations": "default, okf_html, okf_html, default, default, okf_html, default, default, okf_html, default, okf_html, okf_html, default",
           "sourceId": "SOURCE_ID",
           "localeId": "LOCALE_ID",
-          "monolingual.b": false,
-          "useCDATA.b": false,
-          "quoteModeDefined.b": true,
-          "quoteMode.i": 0
+          "monolingual": false,
+          "useCDATA": false,
+          "quoteModeDefined": true,
+          "quoteMode": 0
         },
         "isDefault": false
       }

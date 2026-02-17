@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/rtf"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_tradosrtf",
+        "name": "Trados-Tagged RTF",
+        "description": "Configuration for Trados-tagged RTF files - READING ONLY.",
+        "mimeType": "application/rtf",
+        "extensions": ".rtf;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {},

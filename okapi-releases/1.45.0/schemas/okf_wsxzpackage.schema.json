@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-wsxzpackage"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_wsxzpackage",
+        "name": "WSXZ Package Files",
+        "description": "WorldServer WSXZ Files",
+        "mimeType": "application/x-wsxzpackage",
+        "extensions": ".wsxz;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

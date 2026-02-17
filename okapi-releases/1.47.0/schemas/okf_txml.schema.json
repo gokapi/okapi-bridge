@@ -30,7 +30,7 @@
         "parametersLocation": "fillEmptyTargets.fprm",
         "parametersRaw": "#v1\nallowEmptyOutputTarget.b=false\n",
         "parameters": {
-          "allowEmptyOutputTarget.b": false
+          "allowEmptyOutputTarget": false
         },
         "isDefault": false
       }

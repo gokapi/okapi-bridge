@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-xliff+xml"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_autoxliff",
+        "name": "XLIFF 1.2 and 2.0 Filter",
+        "description": "Calls the appropriate filter for any version of XLIFF",
+        "mimeType": "application/xliff+xml",
+        "extensions": ".xlf;.xliff",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

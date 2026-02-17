@@ -38,7 +38,7 @@
         "parametersLocation": "noprompt.fprm",
         "parametersRaw": "#v1\nopenManifest.b=false\n",
         "parameters": {
-          "openManifest.b": false
+          "openManifest": false
         },
         "isDefault": false
       }

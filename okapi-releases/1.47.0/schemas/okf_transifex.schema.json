@@ -29,7 +29,7 @@
         "parametersLocation": "noPrompt.fprm",
         "parametersRaw": "#v1\nopenProject.b=false\n",
         "parameters": {
-          "openProject.b": false
+          "openProject": false
         },
         "isDefault": false
       }

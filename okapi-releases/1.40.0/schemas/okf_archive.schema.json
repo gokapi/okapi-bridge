@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-archive"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_archive",
+        "name": "Archive Files",
+        "description": "Configuration for archive files",
+        "mimeType": "application/x-archive",
+        "extensions": ".archive;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {

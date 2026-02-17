@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-mosestext"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_mosestext",
+        "name": "Moses Text Default",
+        "description": "Default Moses Text configuration.",
+        "mimeType": "text/x-mosestext",
+        "extensions": ".txt;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {},

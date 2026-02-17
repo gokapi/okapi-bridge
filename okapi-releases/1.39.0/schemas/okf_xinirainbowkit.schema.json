@@ -11,6 +11,15 @@
     "extensions": [],
     "mimeTypes": [
       "text/x-xini"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_rainbowkitxini",
+        "name": "XINI (Rainbow T-Kit)",
+        "description": "Configuration for XINI documents from ONTRAM T-Kits.",
+        "mimeType": "text/x-xini",
+        "isDefault": true
+      }
     ]
   },
   "properties": {},

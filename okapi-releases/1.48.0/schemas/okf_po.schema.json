@@ -30,16 +30,16 @@
         "parametersLocation": "monolingual.fprm",
         "parametersRaw": "#v1\nbilingualMode.b=false\nmakeID.b=true\nuseLD.b=true\nlocalizeOutside.b=true\nuseCodeFinder.b=true\ncodeFinderRules.count.i=2\ncodeFinderRules.rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]\ncodeFinderRules.rule1=\\{\\d[^\\\\]*?\\}\ncodeFinderRules.sample=%s, %d, {1}, \\n, \\r, \\t, etc.\ncodeFinderRules.useAllRulesWhenTesting.b=true\n",
         "parameters": {
-          "bilingualMode.b": false,
-          "makeID.b": true,
-          "useLD.b": true,
-          "localizeOutside.b": true,
-          "useCodeFinder.b": true,
-          "codeFinderRules.count.i": 2,
+          "bilingualMode": false,
+          "makeID": true,
+          "useLD": true,
+          "localizeOutside": true,
+          "useCodeFinder": true,
+          "codeFinderRules.count": 2,
           "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
           "codeFinderRules.rule1": "\\{\\d[^\\\\]*?\\}",
           "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.",
-          "codeFinderRules.useAllRulesWhenTesting.b": true
+          "codeFinderRules.useAllRulesWhenTesting": true
         },
         "isDefault": false
       }
@@ -112,6 +112,14 @@
       "type": "string",
       "description": "Simplifier rules for code type normalization",
       "x-widget": "simplifierRulesEditor"
+    },
+    "wrapContent": {
+      "type": "boolean",
+      "default": true
+    },
+    "outputGeneric": {
+      "type": "boolean",
+      "default": false
     }
   },
   "additionalProperties": false

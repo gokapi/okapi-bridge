@@ -23,9 +23,9 @@
         "parametersRaw": "#v1\ntimeFormat=HH:mm:ss.SSS\nmaxLinesPerCaption.i=2\nmaxCharsPerLine.i=47\ncjkCharsPerLine.i=18\n",
         "parameters": {
           "timeFormat": "HH:mm:ss.SSS",
-          "maxLinesPerCaption.i": 2,
-          "maxCharsPerLine.i": 47,
-          "cjkCharsPerLine.i": 18
+          "maxLinesPerCaption": 2,
+          "maxCharsPerLine": 47,
+          "cjkCharsPerLine": 18
         },
         "isDefault": true
       }
@@ -101,6 +101,10 @@
         "parameter": "useCodeFinder",
         "enabledWhenSelected": true
       }
+    },
+    "ESCAPEBRMODE": {
+      "type": "string",
+      "default": "escapeBrMode"
     },
     "escapeBrMode": {
       "type": "boolean",

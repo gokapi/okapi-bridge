@@ -11,6 +11,16 @@
     "extensions": [],
     "mimeTypes": [
       "application/x-sdlpackage"
+    ],
+    "configurations": [
+      {
+        "configId": "okf_sdlpackage",
+        "name": "SDL Trados Package Files",
+        "description": "SDL Trados 2017 SDLPPX and SDLRPX files",
+        "mimeType": "application/x-sdlpackage",
+        "extensions": ".sdlppx;.sdlrpx;",
+        "isDefault": true
+      }
     ]
   },
   "properties": {
