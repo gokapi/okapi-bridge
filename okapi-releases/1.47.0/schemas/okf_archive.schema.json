@@ -1,19 +1,16 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_archive.schema.json",
-  "$version": "1.0.0",
-  "title": "Archive (ZIP) Filter",
-  "description": "Configuration for the Okapi Archive (ZIP) Filter",
+  "$version": "2.0.0",
+  "title": "Archive Filter Filter",
+  "description": "Configuration for the Okapi Archive Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_archive",
     "class": "net.sf.okapi.filters.archive.ArchiveFilter",
-    "extensions": [
-      ".zip",
-      ".jar"
-    ],
+    "extensions": [],
     "mimeTypes": [
-      "application/zip"
+      "application/x-archive"
     ]
   },
   "properties": {
@@ -44,18 +41,10 @@
     }
   },
   "additionalProperties": false,
-  "x-schemaVersion": 1,
+  "x-schemaVersion": 2,
   "x-okapiVersions": [
-    "0.38",
-    "1.39.0",
-    "1.40.0",
-    "1.41.0",
-    "1.42.0",
-    "1.43.0",
-    "1.44.0",
-    "1.45.0",
     "1.46.0",
     "1.47.0"
   ],
-  "x-introducedInOkapi": "0.38"
+  "x-introducedInOkapi": "1.46.0"
 }

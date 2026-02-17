@@ -1,16 +1,14 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_xliff2.schema.json",
-  "$version": "2.0.0",
-  "title": "XLIFF 2.x Filter",
-  "description": "Configuration for the Okapi XLIFF 2.x Filter",
+  "$version": "3.0.0",
+  "title": "XLIFF-2 Filter Filter",
+  "description": "Configuration for the Okapi XLIFF-2 Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_xliff2",
     "class": "net.sf.okapi.filters.xliff2.XLIFF2Filter",
-    "extensions": [
-      ".xlf"
-    ],
+    "extensions": [],
     "mimeTypes": [
       "application/xliff+xml"
     ]
@@ -118,7 +116,7 @@
     }
   ],
   "additionalProperties": false,
-  "x-schemaVersion": 2,
+  "x-schemaVersion": 3,
   "x-okapiVersions": [
     "1.43.0",
     "1.44.0"

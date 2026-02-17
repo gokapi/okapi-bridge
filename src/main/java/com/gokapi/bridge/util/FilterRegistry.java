@@ -6,404 +6,128 @@ import net.sf.okapi.common.filters.IFilter;
 import java.util.*;
 
 /**
- * Registry of known Okapi filter classes.
- * Maps fully-qualified class names to metadata and provides filter instantiation.
+ * Registry of Okapi filters.
+ * Dynamically discovers filters from Okapi's DefaultFilters.properties
+ * (bundled in okapi-core) at runtime, plus checks for extension filters
+ * that are distributed separately from okapi-core.
  */
 public class FilterRegistry {
 
     private static final Map<String, FilterInfo> FILTERS = new LinkedHashMap<>();
+    private static boolean initialized = false;
 
-    static {
-        register(new FilterInfo(
-                "net.sf.okapi.filters.openxml.OpenXMLFilter",
-                "openxml",
-                "Microsoft Office (OpenXML)",
-                Arrays.asList(
-                        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                        "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-                ),
-                Arrays.asList(".docx", ".xlsx", ".pptx")
-        ));
+    /**
+     * Extension filters that are NOT listed in DefaultFilters.properties
+     * but are commonly available as separate okapi-filter-* JARs.
+     * These are checked if available on the classpath.
+     */
+    private static final String[] EXTENSION_FILTERS = {
+            "net.sf.okapi.filters.epub.EpubFilter",
+            "net.sf.okapi.filters.wsxzpackage.WsxzPackageFilter",
+            "net.sf.okapi.filters.cascadingfilter.CascadingFilter",
+            "net.sf.okapi.filters.versifiedtext.VersifiedTextFilter"
+    };
 
-        register(new FilterInfo(
-                "net.sf.okapi.filters.html.HtmlFilter",
-                "html",
-                "HTML",
-                Collections.singletonList("text/html"),
-                Arrays.asList(".html", ".htm")
-        ));
+    /**
+     * Discover all filters from Okapi's DefaultFilters.properties plus
+     * extension filters that may be on the classpath.
+     */
+    private static synchronized void ensureInitialized() {
+        if (initialized) {
+            return;
+        }
+        initialized = true;
 
-        register(new FilterInfo(
-                "net.sf.okapi.filters.xliff.XLIFFFilter",
-                "xliff",
-                "XLIFF",
-                Collections.singletonList("application/xliff+xml"),
-                Arrays.asList(".xlf", ".xliff")
-        ));
+        Set<String> filterClasses = new TreeSet<>();
 
-        register(new FilterInfo(
-                "net.sf.okapi.filters.its.ITSFilter",
-                "xml",
-                "XML (ITS)",
-                Arrays.asList("text/xml", "application/xml"),
-                Collections.singletonList(".xml")
-        ));
+        // 1. Read from DefaultFilters.properties (bundled in okapi-core)
+        try {
+            ResourceBundle bundle = ResourceBundle.getBundle("net.sf.okapi.common.filters.DefaultFilters");
+            Enumeration<String> keys = bundle.getKeys();
+            while (keys.hasMoreElements()) {
+                String key = keys.nextElement();
+                if (key.startsWith("filterClass_")) {
+                    filterClasses.add(bundle.getString(key));
+                }
+            }
+        } catch (MissingResourceException e) {
+            System.err.println("[bridge] Could not find DefaultFilters.properties");
+        }
 
-        register(new FilterInfo(
-                "net.sf.okapi.filters.properties.PropertiesFilter",
-                "properties",
-                "Java Properties",
-                Collections.emptyList(),
-                Collections.singletonList(".properties")
-        ));
+        // 2. Add extension filters
+        filterClasses.addAll(Arrays.asList(EXTENSION_FILTERS));
 
-        register(new FilterInfo(
-                "net.sf.okapi.filters.po.POFilter",
-                "po",
-                "PO (Gettext)",
-                Collections.singletonList("text/x-po"),
-                Arrays.asList(".po", ".pot")
-        ));
+        // 3. Check availability and create FilterInfo for each
+        for (String filterClass : filterClasses) {
+            if (isFilterAvailable(filterClass)) {
+                FilterInfo info = createFilterInfo(filterClass);
+                if (info != null) {
+                    FILTERS.put(filterClass, info);
+                }
+            }
+        }
 
-        // Expanded filters (34 additional)
-        register(new FilterInfo(
-                "net.sf.okapi.filters.archive.ArchiveFilter",
-                "archive",
-                "Archive (ZIP)",
-                Collections.singletonList("application/zip"),
-                Arrays.asList(".zip", ".jar")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.autoxliff.AutoXLIFFFilter",
-                "autoxliff",
-                "Auto-detect XLIFF version",
-                Collections.singletonList("application/xliff+xml"),
-                Arrays.asList(".xlf", ".xliff")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.doxygen.DoxygenFilter",
-                "doxygen",
-                "Doxygen",
-                Collections.emptyList(),
-                Collections.emptyList()
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.dtd.DTDFilter",
-                "dtd",
-                "DTD",
-                Collections.singletonList("application/xml-dtd"),
-                Collections.singletonList(".dtd")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.epub.EpubFilter",
-                "epub",
-                "EPUB",
-                Collections.singletonList("application/epub+zip"),
-                Collections.singletonList(".epub")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.icml.ICMLFilter",
-                "icml",
-                "InCopy ICML",
-                Collections.emptyList(),
-                Collections.singletonList(".icml")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.idml.IDMLFilter",
-                "idml",
-                "InDesign IDML",
-                Collections.emptyList(),
-                Collections.singletonList(".idml")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.json.JSONFilter",
-                "json",
-                "JSON",
-                Collections.singletonList("application/json"),
-                Collections.singletonList(".json")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.markdown.MarkdownFilter",
-                "markdown",
-                "Markdown",
-                Collections.singletonList("text/markdown"),
-                Arrays.asList(".md", ".markdown")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.mif.MIFFilter",
-                "mif",
-                "FrameMaker MIF",
-                Collections.emptyList(),
-                Collections.singletonList(".mif")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.mosestext.MosesTextFilter",
-                "mosestext",
-                "Moses Text",
-                Collections.emptyList(),
-                Collections.emptyList()
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.openoffice.OpenOfficeFilter",
-                "openoffice",
-                "OpenDocument (ODF)",
-                Arrays.asList(
-                        "application/vnd.oasis.opendocument.text",
-                        "application/vnd.oasis.opendocument.spreadsheet",
-                        "application/vnd.oasis.opendocument.presentation"
-                ),
-                Arrays.asList(".odt", ".ods", ".odp")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.pdf.PdfFilter",
-                "pdf",
-                "PDF",
-                Collections.singletonList("application/pdf"),
-                Collections.singletonList(".pdf")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.pensieve.PensieveFilter",
-                "pensieve",
-                "Pensieve TM",
-                Collections.emptyList(),
-                Collections.emptyList()
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.php.PHPContentFilter",
-                "php",
-                "PHP Content",
-                Collections.emptyList(),
-                Collections.singletonList(".php")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.plaintext.PlainTextFilter",
-                "plaintext",
-                "Plain Text",
-                Collections.singletonList("text/plain"),
-                Collections.singletonList(".txt")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.rainbowkit.RainbowKitFilter",
-                "rainbowkit",
-                "Rainbow Kit",
-                Collections.emptyList(),
-                Collections.emptyList()
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.regex.RegexFilter",
-                "regex",
-                "Regex",
-                Collections.emptyList(),
-                Collections.emptyList()
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.rtf.RTFFilter",
-                "rtf",
-                "RTF",
-                Collections.singletonList("application/rtf"),
-                Collections.singletonList(".rtf")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.sdlpackage.SdlPackageFilter",
-                "sdlpackage",
-                "SDL Package (SDLPPX)",
-                Collections.emptyList(),
-                Arrays.asList(".sdlppx", ".sdlrpx")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.vtt.VTTFilter",
-                "srt",
-                "SRT Subtitles",
-                Collections.emptyList(),
-                Collections.singletonList(".srt")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.table.TableFilter",
-                "table",
-                "Table (CSV/TSV)",
-                Arrays.asList("text/csv", "text/tab-separated-values"),
-                Arrays.asList(".csv", ".tsv")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.tex.TEXFilter",
-                "tex",
-                "LaTeX",
-                Collections.singletonList("application/x-latex"),
-                Arrays.asList(".tex", ".latex")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.tmx.TmxFilter",
-                "tmx",
-                "TMX",
-                Collections.emptyList(),
-                Collections.singletonList(".tmx")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.transtable.TransTableFilter",
-                "transtable",
-                "Translation Table",
-                Collections.emptyList(),
-                Collections.emptyList()
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.transifex.TransifexFilter",
-                "transifex",
-                "Transifex",
-                Collections.emptyList(),
-                Collections.emptyList()
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.ts.TsFilter",
-                "ts",
-                "TS (Qt)",
-                Collections.emptyList(),
-                Collections.singletonList(".ts")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.ttx.TTXFilter",
-                "ttx",
-                "TTX (Trados Tag Exchange)",
-                Collections.emptyList(),
-                Collections.singletonList(".ttx")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.txml.TXMLFilter",
-                "txml",
-                "TXML (WordFast)",
-                Collections.emptyList(),
-                Collections.singletonList(".txml")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.vignette.VignetteFilter",
-                "vignette",
-                "Vignette",
-                Collections.emptyList(),
-                Collections.emptyList()
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.wiki.WikiFilter",
-                "wiki",
-                "MediaWiki",
-                Collections.emptyList(),
-                Collections.singletonList(".wiki")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.xliff2.XLIFF2Filter",
-                "xliff2",
-                "XLIFF 2.x",
-                Collections.singletonList("application/xliff+xml"),
-                Collections.singletonList(".xlf")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.xmlstream.XmlStreamFilter",
-                "xmlstream",
-                "XML Stream",
-                Arrays.asList("text/xml", "application/xml"),
-                Collections.singletonList(".xml")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.yaml.YamlFilter",
-                "yaml",
-                "YAML",
-                Collections.emptyList(),
-                Arrays.asList(".yml", ".yaml")
-        ));
-
-        // Additional filters
-        register(new FilterInfo(
-                "net.sf.okapi.filters.messageformat.MessageFormatFilter",
-                "messageformat",
-                "ICU MessageFormat",
-                Collections.emptyList(),
-                Collections.emptyList()
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.xini.XINIFilter",
-                "xini",
-                "XINI (Across)",
-                Collections.emptyList(),
-                Collections.singletonList(".xini")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.wsxzpackage.WsxzPackageFilter",
-                "wsxz",
-                "WSXZ (WorldServer)",
-                Collections.emptyList(),
-                Collections.singletonList(".wsxz")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.cascadingfilter.CascadingFilter",
-                "cascading",
-                "Cascading Filter",
-                Collections.emptyList(),
-                Collections.emptyList()
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.multiparsers.MultiParsersFilter",
-                "multiparsers",
-                "Multi-Parsers Filter",
-                Collections.emptyList(),
-                Collections.emptyList()
-        ));
-
-        // Additional subtitle formats from subtitles module
-        register(new FilterInfo(
-                "net.sf.okapi.filters.vtt.VTTFilter",
-                "vtt",
-                "WebVTT Subtitles",
-                Collections.singletonList("text/vtt"),
-                Collections.singletonList(".vtt")
-        ));
-
-        register(new FilterInfo(
-                "net.sf.okapi.filters.ttml.TTMLFilter",
-                "ttml",
-                "TTML Subtitles",
-                Collections.singletonList("application/ttml+xml"),
-                Arrays.asList(".ttml", ".xml")
-        ));
+        System.out.println("[bridge] Discovered " + FILTERS.size() + " available filters from Okapi");
     }
 
-    private static void register(FilterInfo info) {
-        FILTERS.put(info.getFilterClass(), info);
+    /**
+     * Check if a filter class is available on the classpath.
+     */
+    private static boolean isFilterAvailable(String filterClass) {
+        try {
+            Class.forName(filterClass);
+            return true;
+        } catch (ClassNotFoundException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Create FilterInfo by instantiating the filter and extracting metadata.
+     */
+    private static FilterInfo createFilterInfo(String filterClass) {
+        try {
+            Class<?> clazz = Class.forName(filterClass);
+            Object instance = clazz.getDeclaredConstructor().newInstance();
+            if (!(instance instanceof IFilter)) {
+                return null;
+            }
+
+            IFilter filter = (IFilter) instance;
+            String name = filter.getName();
+            String displayName = filter.getDisplayName();
+            String mimeType = filter.getMimeType();
+
+            // Derive format ID from class name (e.g., "HTMLFilter" -> "html")
+            String formatId = deriveFormatId(clazz.getSimpleName());
+
+            List<String> mimeTypes = mimeType != null && !mimeType.isEmpty()
+                    ? Collections.singletonList(mimeType)
+                    : Collections.emptyList();
+
+            return new FilterInfo(
+                    filterClass,
+                    formatId,
+                    displayName != null ? displayName : name,
+                    mimeTypes,
+                    Collections.emptyList() // Extensions will be empty - not critical for schema generation
+            );
+        } catch (Exception e) {
+            System.err.println("[bridge] Could not create FilterInfo for " + filterClass + ": " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Derive a format ID from the filter class simple name.
+     * E.g., "HTMLFilter" -> "html", "OpenXMLFilter" -> "openxml"
+     */
+    private static String deriveFormatId(String simpleName) {
+        String id = simpleName;
+        if (id.endsWith("Filter")) {
+            id = id.substring(0, id.length() - 6);
+        }
+        return id.toLowerCase();
     }
 
     /**
@@ -413,6 +137,7 @@ public class FilterRegistry {
      * @return FilterInfo or null if not found
      */
     public static FilterInfo getFilterInfo(String filterClass) {
+        ensureInitialized();
         return FILTERS.get(filterClass);
     }
 
@@ -423,6 +148,7 @@ public class FilterRegistry {
      * @return new IFilter instance or null
      */
     public static IFilter createFilter(String filterClass) {
+        ensureInitialized();
         try {
             Class<?> clazz = Class.forName(filterClass);
             Object instance = clazz.getDeclaredConstructor().newInstance();
@@ -437,9 +163,18 @@ public class FilterRegistry {
     }
 
     /**
-     * List all registered filters.
+     * List all discovered and available filters.
      */
     public static List<FilterInfo> listFilters() {
+        ensureInitialized();
         return new ArrayList<>(FILTERS.values());
+    }
+
+    /**
+     * Get all discovered filter class names.
+     */
+    public static Set<String> getFilterClasses() {
+        ensureInitialized();
+        return new LinkedHashSet<>(FILTERS.keySet());
     }
 }

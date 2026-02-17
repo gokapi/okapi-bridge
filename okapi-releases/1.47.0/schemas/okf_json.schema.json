@@ -2,15 +2,13 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_json.schema.json",
   "$version": "3.0.0",
-  "title": "JSON Filter",
-  "description": "Configuration for the Okapi JSON Filter",
+  "title": "Json Filter Filter",
+  "description": "Configuration for the Okapi Json Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_json",
     "class": "net.sf.okapi.filters.json.JSONFilter",
-    "extensions": [
-      ".json"
-    ],
+    "extensions": [],
     "mimeTypes": [
       "application/json"
     ]

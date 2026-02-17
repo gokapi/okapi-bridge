@@ -2,32 +2,29 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_xmlstream.schema.json",
   "$version": "1.0.0",
-  "title": "XML Stream Filter",
-  "description": "Configuration for the Okapi XML Stream Filter",
+  "title": "XML Stream Filter Filter",
+  "description": "Configuration for the Okapi XML Stream Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_xmlstream",
     "class": "net.sf.okapi.filters.xmlstream.XmlStreamFilter",
-    "extensions": [
-      ".xml"
-    ],
+    "extensions": [],
     "mimeTypes": [
-      "text/xml",
-      "application/xml"
+      "text/xml"
     ]
   },
   "properties": {
-    "simplifierRules": {
-      "type": "string",
-      "description": "Simplifier rules for code type normalization",
-      "x-widget": "simplifierRulesEditor"
-    },
     "taggedConfig": {
       "type": "object"
     },
     "editorTitle": {
       "type": "string",
       "default": "Parameters Editor"
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     },
     "path": {
       "type": "string"

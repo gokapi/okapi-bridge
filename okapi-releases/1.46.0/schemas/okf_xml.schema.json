@@ -2,21 +2,27 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_xml.schema.json",
   "$version": "1.0.0",
-  "title": "XML (ITS) Filter",
-  "description": "Configuration for the Okapi XML (ITS) Filter",
+  "title": "XML Filter Filter",
+  "description": "Configuration for the Okapi XML Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_xml",
-    "class": "net.sf.okapi.filters.its.ITSFilter",
-    "extensions": [
-      ".xml"
-    ],
+    "class": "net.sf.okapi.filters.xml.XMLFilter",
+    "extensions": [],
     "mimeTypes": [
-      "text/xml",
-      "application/xml"
+      "text/xml"
     ]
   },
-  "properties": {},
+  "properties": {
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
+    },
+    "path": {
+      "type": "string"
+    }
+  },
   "additionalProperties": false,
   "x-schemaVersion": 1,
   "x-okapiVersions": [

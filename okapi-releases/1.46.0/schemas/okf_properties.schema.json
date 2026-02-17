@@ -2,16 +2,16 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_properties.schema.json",
   "$version": "2.0.0",
-  "title": "Java Properties Filter",
-  "description": "Configuration for the Okapi Java Properties Filter",
+  "title": "Properties Filter Filter",
+  "description": "Configuration for the Okapi Properties Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_properties",
     "class": "net.sf.okapi.filters.properties.PropertiesFilter",
-    "extensions": [
-      ".properties"
-    ],
-    "mimeTypes": []
+    "extensions": [],
+    "mimeTypes": [
+      "text/x-properties"
+    ]
   },
   "properties": {
     "useLd": {

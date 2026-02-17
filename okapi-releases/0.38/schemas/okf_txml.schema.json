@@ -2,16 +2,16 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_txml.schema.json",
   "$version": "1.0.0",
-  "title": "TXML (WordFast) Filter",
-  "description": "Configuration for the Okapi TXML (WordFast) Filter",
+  "title": "TXML Filter Filter",
+  "description": "Configuration for the Okapi TXML Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_txml",
     "class": "net.sf.okapi.filters.txml.TXMLFilter",
-    "extensions": [
-      ".txml"
-    ],
-    "mimeTypes": []
+    "extensions": [],
+    "mimeTypes": [
+      "text/xml"
+    ]
   },
   "properties": {
     "allowEmptyOutputTarget": {

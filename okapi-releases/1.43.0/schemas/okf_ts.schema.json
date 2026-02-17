@@ -2,16 +2,16 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_ts.schema.json",
   "$version": "1.0.0",
-  "title": "TS (Qt) Filter",
-  "description": "Configuration for the Okapi TS (Qt) Filter",
+  "title": "TS Filter Filter",
+  "description": "Configuration for the Okapi TS Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_ts",
     "class": "net.sf.okapi.filters.ts.TsFilter",
-    "extensions": [
-      ".ts"
-    ],
-    "mimeTypes": []
+    "extensions": [],
+    "mimeTypes": [
+      "application/x-ts"
+    ]
   },
   "properties": {
     "escapeGT": {

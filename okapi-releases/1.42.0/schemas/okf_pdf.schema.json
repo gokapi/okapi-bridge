@@ -2,15 +2,13 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_pdf.schema.json",
   "$version": "1.0.0",
-  "title": "PDF Filter",
-  "description": "Configuration for the Okapi PDF Filter",
+  "title": "PDF Filter Filter",
+  "description": "Configuration for the Okapi PDF Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_pdf",
     "class": "net.sf.okapi.filters.pdf.PdfFilter",
-    "extensions": [
-      ".pdf"
-    ],
+    "extensions": [],
     "mimeTypes": [
       "application/pdf"
     ]

@@ -2,16 +2,16 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_idml.schema.json",
   "$version": "6.0.0",
-  "title": "InDesign IDML Filter",
-  "description": "Configuration for the Okapi InDesign IDML Filter",
+  "title": "IDML Filter Filter",
+  "description": "Configuration for the Okapi IDML Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_idml",
     "class": "net.sf.okapi.filters.idml.IDMLFilter",
-    "extensions": [
-      ".idml"
-    ],
-    "mimeTypes": []
+    "extensions": [],
+    "mimeTypes": [
+      "application/vnd.adobe.indesign-idml-package"
+    ]
   },
   "properties": {
     "maxAttributeSize": {

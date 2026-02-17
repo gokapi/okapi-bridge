@@ -2,18 +2,15 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_po.schema.json",
   "$version": "1.0.0",
-  "title": "PO (Gettext) Filter",
-  "description": "Configuration for the Okapi PO (Gettext) Filter",
+  "title": "PO Filter Filter",
+  "description": "Configuration for the Okapi PO Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_po",
     "class": "net.sf.okapi.filters.po.POFilter",
-    "extensions": [
-      ".po",
-      ".pot"
-    ],
+    "extensions": [],
     "mimeTypes": [
-      "text/x-po"
+      "application/x-gettext"
     ]
   },
   "properties": {

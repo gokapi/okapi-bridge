@@ -2,17 +2,16 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_yaml.schema.json",
   "$version": "1.0.0",
-  "title": "YAML Filter",
-  "description": "Configuration for the Okapi YAML Filter",
+  "title": "YAML Filter Filter",
+  "description": "Configuration for the Okapi YAML Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_yaml",
     "class": "net.sf.okapi.filters.yaml.YamlFilter",
-    "extensions": [
-      ".yml",
-      ".yaml"
-    ],
-    "mimeTypes": []
+    "extensions": [],
+    "mimeTypes": [
+      "text/x-yaml"
+    ]
   },
   "properties": {
     "extractIsolatedStrings": {

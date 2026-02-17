@@ -2,17 +2,16 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_sdlpackage.schema.json",
   "$version": "1.0.0",
-  "title": "SDL Package (SDLPPX) Filter",
-  "description": "Configuration for the Okapi SDL Package (SDLPPX) Filter",
+  "title": "SDLPPX and SDLRPX Filter (BETA) Filter",
+  "description": "Configuration for the Okapi SDLPPX and SDLRPX Filter (BETA) Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_sdlpackage",
     "class": "net.sf.okapi.filters.sdlpackage.SdlPackageFilter",
-    "extensions": [
-      ".sdlppx",
-      ".sdlrpx"
-    ],
-    "mimeTypes": []
+    "extensions": [],
+    "mimeTypes": [
+      "application/x-sdlpackage"
+    ]
   },
   "properties": {
     "mimeType": {

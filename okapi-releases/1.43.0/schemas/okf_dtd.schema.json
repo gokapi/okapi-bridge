@@ -2,17 +2,15 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_dtd.schema.json",
   "$version": "1.0.0",
-  "title": "DTD Filter",
-  "description": "Configuration for the Okapi DTD Filter",
+  "title": "DTD Filter Filter",
+  "description": "Configuration for the Okapi DTD Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_dtd",
     "class": "net.sf.okapi.filters.dtd.DTDFilter",
-    "extensions": [
-      ".dtd"
-    ],
+    "extensions": [],
     "mimeTypes": [
-      "application/xml-dtd"
+      "application/xml+dtd"
     ]
   },
   "properties": {
