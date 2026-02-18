@@ -1,0 +1,98 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FilterDocumentation",
+  "description": "Structured metadata extracted from Okapi filter wiki documentation",
+  "type": "object",
+  "properties": {
+    "filterName": {
+      "type": "string",
+      "description": "Human-readable filter name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Brief description of what the filter does (1-2 sentences)"
+    },
+    "supportedFormats": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of file formats this filter can process"
+    },
+    "fileExtensions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "File extensions including the dot (e.g., .json, .xml)"
+    },
+    "features": {
+      "type": "object",
+      "properties": {
+        "supportsSubfilters": { "type": "boolean" },
+        "supportsBilingualOutput": { "type": "boolean" },
+        "supportsCodeSimplification": { "type": "boolean" }
+      }
+    },
+    "encodingHandling": {
+      "type": "object",
+      "properties": {
+        "inputEncoding": { "type": "string" },
+        "outputEncoding": { "type": "string" },
+        "bomHandling": { "type": "string" }
+      }
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "type": { "type": "string" },
+          "defaultValue": { "type": "string" },
+          "enumValues": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["name", "description"]
+      }
+    },
+    "configurations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "configId": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "fileExtensions": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        }
+      }
+    },
+    "examples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "input": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "processingNotes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "limitations": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "relatedFilters": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "required": ["filterName", "description"]
+}

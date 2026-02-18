@@ -102,6 +102,13 @@
             <version>${gson.version}</version>
         </dependency>
 
+        <!-- YAML parsing (for filter parameter files) -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.2</version>
+        </dependency>
+
         <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
