@@ -2,16 +2,19 @@
 # Parse Okapi filter documentation using Claude CLI
 # Usage: ./scripts/parse-filter-docs.sh [filter-docs-dir]
 #
-# Extracts structured metadata from wiki docs and outputs JSON files
-# Uses Claude CLI with --json-schema for guaranteed well-formed output
+# Extracts structured documentation from wiki docs, keyed to composite schema
+# property names, for UI consumption. Uses Claude CLI with --json-schema.
 
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 DOCS_DIR="${1:-filter-docs}"
 RAW_DIR="$DOCS_DIR/raw"
 PARSED_DIR="$DOCS_DIR/parsed"
 JSON_SCHEMA="$SCRIPT_DIR/filter-doc-schema.json"
+COMPOSITE_DIR="$REPO_ROOT/schemas/composite"
+VERSIONS_FILE="$REPO_ROOT/schema-versions.json"
 
 # Check prerequisites
 if ! command -v claude &> /dev/null; then
@@ -85,19 +88,44 @@ get_filter_ids() {
     esac
 }
 
+# Resolve the latest composite schema file for a filter ID
+get_composite_schema() {
+    local filter_id="$1"
+    if [ ! -f "$VERSIONS_FILE" ]; then
+        return
+    fi
+    local latest_version
+    latest_version=$(jq -r --arg id "$filter_id" '.filters[$id].versions[-1].version // empty' "$VERSIONS_FILE" 2>/dev/null)
+    if [ -n "$latest_version" ]; then
+        local schema_file="$COMPOSITE_DIR/${filter_id}.v${latest_version}.schema.json"
+        if [ -f "$schema_file" ]; then
+            echo "$schema_file"
+        fi
+    fi
+}
+
 # The prompt for Claude to extract structured information
-EXTRACTION_PROMPT='Extract structured metadata from this Okapi Framework filter documentation (MediaWiki format).
+EXTRACTION_PROMPT='Extract structured documentation from this Okapi Framework filter wiki page.
 
-Rules:
-- Extract the filter name, description, supported formats, and file extensions
-- Extract parameters from the Parameters/Options sections with name, description, type, and default values
-- Include all pre-defined configurations (configId like okf_*, name, description)
-- Extract code examples and sample files shown in the documentation
-- Note any processing details, limitations, and related filters
-- Use null for fields where information is not available
-- Be precise with file extensions (include the dot)
+You are given:
+1. The wiki page content (MediaWiki format) with the full filter documentation
+2. The composite JSON Schema for this filter (if available) — use its property names as keys in the output
 
-Wiki content:'
+Rules for the "parameters" object:
+- Key each entry by the EXACT property name from the composite schema (e.g., "extractIsolatedStrings", not "Extract strings without associated key")
+- Only include parameters that exist in the provided composite schema
+- The "description" should be richer than the schema description — include behavioral details, valid value ranges, and formatting rules from the wiki
+- Extract "notes" for any Note:/Warning:/Important: text attached to the parameter
+- Extract "dependsOn" when the wiki says a parameter requires another to be set, cannot be used with another, or only takes effect when another is enabled
+- Extract "introducedIn" for version-specific parameters (e.g., "M39", "1.48.0")
+
+Rules for filter-level fields:
+- "overview": 2-4 sentences from the Overview section describing the filter purpose and key capabilities
+- "limitations": concise statements from the Limitations section
+- "processingNotes": important behavioral details from Processing Details (encoding, BOM, line-breaks, memory usage)
+- "examples": worked examples showing input→output or configuration patterns; include both input and output when available
+
+If no composite schema is provided, do your best to identify the camelCase Java property names from context.'
 
 echo "Parsing filter documentation with Claude CLI..."
 echo ""
@@ -138,13 +166,36 @@ for wiki_file in "$RAW_DIR"/*.wiki; do
     # Read wiki content
     wiki_content=$(cat "$wiki_file")
     
-    # Construct the wiki URL
-    wiki_page=$(echo "$basename" | sed 's/-/_/g' | sed 's/\b\(.\)/\u\1/g')
+    # Construct the wiki URL by looking up the actual page name from index.html
+    index_file="$RAW_DIR/index.html"
+    # Match the basename (with hyphens→underscores, case-insensitive) against real wiki page names
+    basename_pattern=$(echo "$basename" | sed 's/-/_/g')
+    wiki_page=$(grep -oi "wiki/index\.php/${basename_pattern}[^\"]*" "$index_file" 2>/dev/null | head -1 | sed 's|wiki/index.php/||')
+    if [ -z "$wiki_page" ]; then
+        # Fallback: title-case with underscores
+        wiki_page=$(echo "$basename" | sed 's/-/_/g' | sed 's/\b\(.\)/\u\1/g')
+    fi
     wiki_url="https://okapiframework.org/wiki/index.php/${wiki_page}"
+
+    # Resolve the composite schema for context
+    schema_context=""
+    composite_file=$(get_composite_schema "$primary_id")
+    if [ -n "$composite_file" ]; then
+        schema_context="
+
+COMPOSITE JSON SCHEMA (use these property names as keys):
+$(cat "$composite_file")"
+    else
+        schema_context="
+
+No composite schema available for this filter. Infer camelCase Java property names from the wiki content."
+    fi
     
     # Call Claude CLI with --json-schema for guaranteed well-formed output
     full_prompt="$EXTRACTION_PROMPT
+$schema_context
 
+WIKI CONTENT:
 $wiki_content"
     
     if raw_result=$(echo "$full_prompt" | claude --print --dangerously-skip-permissions \
