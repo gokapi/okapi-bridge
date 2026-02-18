@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_html.schema.json",
-  "$version": "1.0.0",
+  "$version": "14.0.0",
   "title": "HTML/XHTML Filter Filter",
   "description": "Configuration for the Okapi HTML/XHTML Filter Filter",
   "type": "object",
@@ -1451,7 +1451,7 @@
   "properties": {
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     },
     "taggedConfig": {
@@ -1466,7 +1466,8 @@
     },
     "assumeWellformed": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Assume input HTML is well-formed XML. Faster but may fail on non-conforming HTML."
     },
     "preserve_whitespace": {
       "type": "boolean",
@@ -2319,5 +2320,69 @@
         }
       ]
     }
-  }
+  },
+  "x-groups": [
+    {
+      "id": "attributes",
+      "label": "Attribute Handling",
+      "description": "Configure which attributes to extract",
+      "collapsed": true,
+      "fields": [
+        "translatableAttributes",
+        "idAttributes"
+      ]
+    },
+    {
+      "id": "elements",
+      "label": "Element Handling",
+      "description": "Configure which elements to extract",
+      "collapsed": true,
+      "fields": [
+        "extractMetaTitle",
+        "extractMetaDescription",
+        "extractComments",
+        "excludeElements"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    },
+    {
+      "id": "parserMode",
+      "label": "Parser Mode",
+      "description": "Configure HTML parsing behavior",
+      "collapsed": false,
+      "fields": [
+        "assumeWellformed",
+        "extractOuterStrings"
+      ]
+    },
+    {
+      "id": "whitespace",
+      "label": "Whitespace Handling",
+      "description": "Control how whitespace is processed in extracted text",
+      "collapsed": true,
+      "fields": [
+        "preserveWhitespace",
+        "collapseWhitespace",
+        "trimLeadingWS",
+        "trimTrailingWS"
+      ]
+    }
+  ],
+  "x-schemaVersion": 14,
+  "x-baseVersion": 14,
+  "x-introducedInOkapi": "1.40.0",
+  "x-baseHash": "c6a47007f859",
+  "x-compositeHash": "4432f3e437bd"
 }

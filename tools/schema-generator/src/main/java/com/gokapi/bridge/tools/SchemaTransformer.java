@@ -1,5 +1,7 @@
 package com.gokapi.bridge.tools;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -16,6 +18,8 @@ import java.util.Map;
  */
 public class SchemaTransformer {
 
+    private static final Gson GSON = new GsonBuilder().disableHtmlEscaping().create();
+
     /**
      * Transform a single parameter into JSON Schema property format.
      * 
@@ -29,6 +33,14 @@ public class SchemaTransformer {
         // Handle special Okapi formats
         if ("inlineCodeFinder".equals(paramInfo.okapiFormat)) {
             return transformCodeFinderRules();
+        }
+        
+        if ("elementRules".equals(paramInfo.okapiFormat)) {
+            return transformElementRules(paramInfo);
+        }
+        
+        if ("attributeRules".equals(paramInfo.okapiFormat)) {
+            return transformAttributeRules(paramInfo);
         }
         
         if ("simplifierRules".equals(paramName)) {
@@ -179,6 +191,193 @@ public class SchemaTransformer {
         prop.addProperty("description", "Simplifier rules for code type normalization");
         prop.addProperty("x-widget", "simplifierRulesEditor");
         return prop;
+    }
+
+    /**
+     * Transform element rules map to a schema with $ref to $defs/elementRule.
+     */
+    private JsonObject transformElementRules(ParameterIntrospector.ParamInfo paramInfo) {
+        JsonObject prop = new JsonObject();
+        prop.addProperty("type", "object");
+        prop.addProperty("description", "Element extraction rules — maps element names to their rule configuration");
+        prop.addProperty("x-widget", "elementRulesEditor");
+        prop.add("additionalProperties", createRef("#/$defs/elementRule"));
+        if (paramInfo.defaultValue != null) {
+            prop.add("default", GSON.toJsonTree(paramInfo.defaultValue));
+        }
+        return prop;
+    }
+
+    /**
+     * Transform attribute rules map to a schema with $ref to $defs/attributeRule.
+     */
+    private JsonObject transformAttributeRules(ParameterIntrospector.ParamInfo paramInfo) {
+        JsonObject prop = new JsonObject();
+        prop.addProperty("type", "object");
+        prop.addProperty("description", "Global attribute extraction rules — maps attribute names to their rule configuration");
+        prop.addProperty("x-widget", "attributeRulesEditor");
+        prop.add("additionalProperties", createRef("#/$defs/attributeRule"));
+        if (paramInfo.defaultValue != null) {
+            prop.add("default", GSON.toJsonTree(paramInfo.defaultValue));
+        }
+        return prop;
+    }
+
+    private JsonObject createRef(String ref) {
+        JsonObject obj = new JsonObject();
+        obj.addProperty("$ref", ref);
+        return obj;
+    }
+
+    /**
+     * Generate $defs for element and attribute rule sub-schemas.
+     * Called by SchemaGenerator for YAML-based filters.
+     */
+    public JsonObject generateYamlConfigDefs() {
+        JsonObject defs = new JsonObject();
+        defs.add("elementRule", generateElementRuleDef());
+        defs.add("attributeRule", generateAttributeRuleDef());
+        defs.add("conditionalAttributeValue", generateConditionalAttributeValueDef());
+        return defs;
+    }
+
+    private JsonObject generateElementRuleDef() {
+        JsonObject def = new JsonObject();
+        def.addProperty("type", "object");
+        def.addProperty("description", "Extraction rule for an HTML/XML element");
+
+        JsonObject properties = new JsonObject();
+
+        // ruleTypes - array of RULE_TYPE enum values
+        JsonObject ruleTypes = new JsonObject();
+        ruleTypes.addProperty("type", "array");
+        ruleTypes.addProperty("description", "Extraction rule types for this element");
+        JsonObject ruleTypeItems = new JsonObject();
+        ruleTypeItems.addProperty("type", "string");
+        JsonArray ruleTypeEnum = new JsonArray();
+        for (String rt : new String[]{"INLINE", "INLINE_EXCLUDED", "INLINE_INCLUDED",
+                "TEXTUNIT", "EXCLUDE", "INCLUDE", "GROUP", "ATTRIBUTES_ONLY",
+                "PRESERVE_WHITESPACE", "SCRIPT", "SERVER"}) {
+            ruleTypeEnum.add(rt);
+        }
+        ruleTypeItems.add("enum", ruleTypeEnum);
+        ruleTypes.add("items", ruleTypeItems);
+        properties.add("ruleTypes", ruleTypes);
+
+        // elementType - optional element type hint
+        JsonObject elementType = new JsonObject();
+        elementType.addProperty("type", "string");
+        elementType.addProperty("description", "Element type hint (e.g. bold, italic, link, image, paragraph)");
+        properties.add("elementType", elementType);
+
+        // translatableAttributes, writableLocalizableAttributes, readOnlyLocalizableAttributes
+        for (String attrProp : new String[]{"translatableAttributes", "writableLocalizableAttributes", "readOnlyLocalizableAttributes"}) {
+            JsonObject attr = new JsonObject();
+            attr.addProperty("description", "Attributes to extract as " + attrProp.replace("Attributes", ""));
+            // Can be a simple string array OR a conditional map
+            JsonArray oneOf = new JsonArray();
+            // Simple array: ["alt", "title"]
+            JsonObject simpleArray = new JsonObject();
+            simpleArray.addProperty("type", "array");
+            JsonObject strItem = new JsonObject();
+            strItem.addProperty("type", "string");
+            simpleArray.add("items", strItem);
+            oneOf.add(simpleArray);
+            // Conditional map: { attrName: [[condAttr, operator, value]] }
+            JsonObject condMap = new JsonObject();
+            condMap.addProperty("type", "object");
+            condMap.add("additionalProperties", createRef("#/$defs/conditionalAttributeValue"));
+            oneOf.add(condMap);
+            attr.add("oneOf", oneOf);
+            properties.add(attrProp, attr);
+        }
+
+        // idAttributes - always a simple string array
+        JsonObject idAttrs = new JsonObject();
+        idAttrs.addProperty("type", "array");
+        idAttrs.addProperty("description", "Attributes that contain segment IDs");
+        JsonObject idStrItem = new JsonObject();
+        idStrItem.addProperty("type", "string");
+        idAttrs.add("items", idStrItem);
+        properties.add("idAttributes", idAttrs);
+
+        // conditions - element-level conditions
+        JsonObject conditions = new JsonObject();
+        conditions.addProperty("type", "array");
+        conditions.addProperty("description", "Conditions for this rule: [attributeName, operator, value]");
+        properties.add("conditions", conditions);
+
+        def.add("properties", properties);
+        // ruleTypes is required
+        JsonArray required = new JsonArray();
+        required.add("ruleTypes");
+        def.add("required", required);
+        def.addProperty("additionalProperties", false);
+        return def;
+    }
+
+    private JsonObject generateAttributeRuleDef() {
+        JsonObject def = new JsonObject();
+        def.addProperty("type", "object");
+        def.addProperty("description", "Global extraction rule for an HTML/XML attribute");
+
+        JsonObject properties = new JsonObject();
+
+        // ruleTypes
+        JsonObject ruleTypes = new JsonObject();
+        ruleTypes.addProperty("type", "array");
+        ruleTypes.addProperty("description", "Attribute rule types");
+        JsonObject ruleTypeItems = new JsonObject();
+        ruleTypeItems.addProperty("type", "string");
+        JsonArray ruleTypeEnum = new JsonArray();
+        for (String rt : new String[]{"ATTRIBUTE_TRANS", "ATTRIBUTE_WRITABLE",
+                "ATTRIBUTE_READONLY", "ATTRIBUTE_ID"}) {
+            ruleTypeEnum.add(rt);
+        }
+        ruleTypeItems.add("enum", ruleTypeEnum);
+        ruleTypes.add("items", ruleTypeItems);
+        properties.add("ruleTypes", ruleTypes);
+
+        // allElementsExcept
+        JsonObject allExcept = new JsonObject();
+        allExcept.addProperty("type", "array");
+        allExcept.addProperty("description", "Apply to all elements except these");
+        JsonObject strItem = new JsonObject();
+        strItem.addProperty("type", "string");
+        allExcept.add("items", strItem);
+        properties.add("allElementsExcept", allExcept);
+
+        // onlyTheseElements
+        JsonObject onlyThese = new JsonObject();
+        onlyThese.addProperty("type", "array");
+        onlyThese.addProperty("description", "Apply only to these elements");
+        JsonObject strItem2 = new JsonObject();
+        strItem2.addProperty("type", "string");
+        onlyThese.add("items", strItem2);
+        properties.add("onlyTheseElements", onlyThese);
+
+        def.add("properties", properties);
+        JsonArray required = new JsonArray();
+        required.add("ruleTypes");
+        def.add("required", required);
+        def.addProperty("additionalProperties", false);
+        return def;
+    }
+
+    private JsonObject generateConditionalAttributeValueDef() {
+        JsonObject def = new JsonObject();
+        def.addProperty("description", "Conditional attribute value — null (unconditional) or array of condition triples [attrName, operator, value/values]");
+        // Can be null (unconditional) or an array of conditions
+        JsonArray oneOf = new JsonArray();
+        JsonObject nullType = new JsonObject();
+        nullType.addProperty("type", "null");
+        oneOf.add(nullType);
+        JsonObject condArray = new JsonObject();
+        condArray.addProperty("type", "array");
+        condArray.addProperty("description", "Condition triples: [attributeName, EQUALS|NOT_EQUALS|MATCHES, value(s)]");
+        oneOf.add(condArray);
+        def.add("oneOf", oneOf);
+        return def;
     }
 
     /**

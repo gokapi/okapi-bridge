@@ -131,10 +131,15 @@ public class SchemaGenerator {
         Map<String, ParameterIntrospector.ParamInfo> params = introspector.introspect(filterClass);
 
         JsonObject properties = new JsonObject();
+        boolean needsYamlDefs = false;
         if (params != null) {
             for (Map.Entry<String, ParameterIntrospector.ParamInfo> entry : params.entrySet()) {
                 String paramName = entry.getKey();
                 ParameterIntrospector.ParamInfo paramInfo = entry.getValue();
+                
+                if ("elementRules".equals(paramInfo.okapiFormat) || "attributeRules".equals(paramInfo.okapiFormat)) {
+                    needsYamlDefs = true;
+                }
                 
                 JsonObject propSchema = transformer.transformParameter(paramName, paramInfo);
                 if (propSchema != null) {
@@ -144,6 +149,11 @@ public class SchemaGenerator {
         }
         schema.add("properties", properties);
         schema.addProperty("additionalProperties", false);
+        
+        // Add $defs for YAML-config filters that use element/attribute rules
+        if (needsYamlDefs) {
+            schema.add("$defs", transformer.generateYamlConfigDefs());
+        }
 
         return schema;
     }

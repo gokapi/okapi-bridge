@@ -38,6 +38,10 @@
     },
     "path": {
       "type": "string"
+    },
+    "preserve_whitespace": {
+      "type": "boolean",
+      "default": false
     }
   },
   "additionalProperties": false

@@ -9,6 +9,8 @@ import net.sf.okapi.common.filters.IFilter;
 import net.sf.okapi.common.filters.InlineCodeFinder;
 import net.sf.okapi.common.uidescription.*;
 
+import org.yaml.snakeyaml.Yaml;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -102,6 +104,8 @@ public class ParameterIntrospector {
             } else {
                 // For other types, use getter/setter introspection
                 introspectByAccessors(paramsClass, params, result);
+                // For YAML-based configs (AbstractMarkupParameters), also introspect the YAML blob
+                introspectYamlConfig(params, result);
             }
             
             // Extract descriptions from ParametersDescription if available
@@ -557,6 +561,78 @@ public class ParameterIntrospector {
             }
         }
     }
+
+
+	// Properties that come from the AbstractMarkupParameters wrapper, not the YAML config
+	private static final Set<String> YAML_INTERNAL_PROPS = new HashSet<>(Arrays.asList(
+		"taggedConfig", "editorTitle", "path", "data"
+	));
+
+	/**
+	 * Introspect YAML-based filter configurations (AbstractMarkupParameters / TaggedFilterConfiguration).
+	 * Parses the default YAML config to extract top-level properties with their types.
+	 */
+	@SuppressWarnings("unchecked")
+	private void introspectYamlConfig(IParameters params, Map<String, ParamInfo> result) {
+		try {
+			// Reset to get defaults, then serialize to YAML string
+			params.reset();
+			String yamlStr = params.toString();
+			if (yamlStr == null || yamlStr.isEmpty()) return;
+
+			// Parse YAML to Map
+			Yaml yaml = new Yaml();
+			Object parsed = yaml.load(yamlStr);
+			if (!(parsed instanceof Map)) return;
+
+			Map<String, Object> config = (Map<String, Object>) parsed;
+
+			for (Map.Entry<String, Object> entry : config.entrySet()) {
+				String key = entry.getKey();
+				Object value = entry.getValue();
+
+				// Skip properties already discovered by accessor introspection
+				if (result.containsKey(key)) continue;
+				// Skip internal wrapper properties
+				if (YAML_INTERNAL_PROPS.contains(key)) continue;
+
+				if (value instanceof Boolean) {
+					ParamInfo info = new ParamInfo(key, "boolean");
+					info.defaultValue = value;
+					result.put(key, info);
+				} else if (value instanceof Integer || value instanceof Long) {
+					ParamInfo info = new ParamInfo(key, "integer");
+					info.defaultValue = value;
+					result.put(key, info);
+				} else if (value instanceof Number) {
+					ParamInfo info = new ParamInfo(key, "number");
+					info.defaultValue = value;
+					result.put(key, info);
+				} else if (value instanceof String) {
+					ParamInfo info = new ParamInfo(key, "string");
+					info.defaultValue = value;
+					result.put(key, info);
+				} else if (value instanceof Map) {
+					// Complex map properties like "elements" and "attributes"
+					ParamInfo info = new ParamInfo(key, "object");
+					info.defaultValue = value;
+					if ("elements".equals(key)) {
+						info.okapiFormat = "elementRules";
+					} else if ("attributes".equals(key)) {
+						info.okapiFormat = "attributeRules";
+					}
+					result.put(key, info);
+				} else if (value instanceof List) {
+					ParamInfo info = new ParamInfo(key, "array");
+					info.defaultValue = value;
+					result.put(key, info);
+				}
+			}
+		} catch (Exception e) {
+			// YAML parsing failed - skip silently
+			System.err.println("YAML config introspection failed: " + e.getMessage());
+		}
+	}
 
     /**
      * Introspect by examining getter/setter methods.

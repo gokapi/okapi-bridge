@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_doxygen.schema.json",
-  "$version": "1.0.0",
+  "$version": "5.0.0",
   "title": "Doxygen Filter Filter",
   "description": "Configuration for the Okapi Doxygen Filter Filter",
   "type": "object",
@@ -1571,7 +1571,7 @@
   "properties": {
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
+      "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     },
     "path": {
@@ -1588,5 +1588,33 @@
       "type": "object"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "x-groups": [
+    {
+      "id": "general",
+      "label": "General Settings",
+      "collapsed": true,
+      "fields": [
+        "path"
+      ]
+    },
+    {
+      "id": "inlineCodes",
+      "label": "Inline Code Handling",
+      "description": "Configure detection and handling of inline codes (placeholders, tags, etc.)",
+      "collapsed": true,
+      "fields": [
+        "useCodeFinder",
+        "codeFinderRules",
+        "mergeAdjacentCodes",
+        "moveLeadingAndTrailingCodesToSkeleton",
+        "simplifierRules"
+      ]
+    }
+  ],
+  "x-schemaVersion": 5,
+  "x-baseVersion": 5,
+  "x-introducedInOkapi": "0.38",
+  "x-baseHash": "d738cf02f571",
+  "x-compositeHash": "7db1cd14af61"
 }

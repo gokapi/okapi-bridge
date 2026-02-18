@@ -1576,6 +1576,16 @@
     },
     "path": {
       "type": "string"
+    },
+    "preserve_whitespace": {
+      "type": "boolean",
+      "default": false
+    },
+    "doxygen_commands": {
+      "type": "object"
+    },
+    "html_commands": {
+      "type": "object"
     }
   },
   "additionalProperties": false

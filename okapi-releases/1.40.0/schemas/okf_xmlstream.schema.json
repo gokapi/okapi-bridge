@@ -499,7 +499,202 @@
     },
     "path": {
       "type": "string"
+    },
+    "assumeWellformed": {
+      "type": "boolean",
+      "default": true
+    },
+    "preserve_whitespace": {
+      "type": "boolean",
+      "default": false
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Global attribute extraction rules — maps attribute names to their rule configuration",
+      "x-widget": "attributeRulesEditor",
+      "additionalProperties": {
+        "$ref": "#/$defs/attributeRule"
+      },
+      "default": {
+        "xml:lang": {
+          "ruleTypes": [
+            "ATTRIBUTE_WRITABLE"
+          ]
+        },
+        "xml:id": {
+          "ruleTypes": [
+            "ATTRIBUTE_ID"
+          ]
+        },
+        "id": {
+          "ruleTypes": [
+            "ATTRIBUTE_ID"
+          ]
+        },
+        "xml:space": {
+          "ruleTypes": [
+            "ATTRIBUTE_PRESERVE_WHITESPACE"
+          ],
+          "preserve": [
+            "xml:space",
+            "EQUALS",
+            "preserve"
+          ],
+          "default": [
+            "xml:space",
+            "EQUALS",
+            "default"
+          ]
+        }
+      }
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "$defs": {
+    "elementRule": {
+      "type": "object",
+      "description": "Extraction rule for an HTML/XML element",
+      "properties": {
+        "ruleTypes": {
+          "type": "array",
+          "description": "Extraction rule types for this element",
+          "items": {
+            "type": "string",
+            "enum": [
+              "INLINE",
+              "INLINE_EXCLUDED",
+              "INLINE_INCLUDED",
+              "TEXTUNIT",
+              "EXCLUDE",
+              "INCLUDE",
+              "GROUP",
+              "ATTRIBUTES_ONLY",
+              "PRESERVE_WHITESPACE",
+              "SCRIPT",
+              "SERVER"
+            ]
+          }
+        },
+        "elementType": {
+          "type": "string",
+          "description": "Element type hint (e.g. bold, italic, link, image, paragraph)"
+        },
+        "translatableAttributes": {
+          "description": "Attributes to extract as translatable",
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/$defs/conditionalAttributeValue"
+              }
+            }
+          ]
+        },
+        "writableLocalizableAttributes": {
+          "description": "Attributes to extract as writableLocalizable",
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/$defs/conditionalAttributeValue"
+              }
+            }
+          ]
+        },
+        "readOnlyLocalizableAttributes": {
+          "description": "Attributes to extract as readOnlyLocalizable",
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/$defs/conditionalAttributeValue"
+              }
+            }
+          ]
+        },
+        "idAttributes": {
+          "type": "array",
+          "description": "Attributes that contain segment IDs",
+          "items": {
+            "type": "string"
+          }
+        },
+        "conditions": {
+          "type": "array",
+          "description": "Conditions for this rule: [attributeName, operator, value]"
+        }
+      },
+      "required": [
+        "ruleTypes"
+      ],
+      "additionalProperties": false
+    },
+    "attributeRule": {
+      "type": "object",
+      "description": "Global extraction rule for an HTML/XML attribute",
+      "properties": {
+        "ruleTypes": {
+          "type": "array",
+          "description": "Attribute rule types",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ATTRIBUTE_TRANS",
+              "ATTRIBUTE_WRITABLE",
+              "ATTRIBUTE_READONLY",
+              "ATTRIBUTE_ID"
+            ]
+          }
+        },
+        "allElementsExcept": {
+          "type": "array",
+          "description": "Apply to all elements except these",
+          "items": {
+            "type": "string"
+          }
+        },
+        "onlyTheseElements": {
+          "type": "array",
+          "description": "Apply only to these elements",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "ruleTypes"
+      ],
+      "additionalProperties": false
+    },
+    "conditionalAttributeValue": {
+      "description": "Conditional attribute value — null (unconditional) or array of condition triples [attrName, operator, value/values]",
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "description": "Condition triples: [attributeName, EQUALS|NOT_EQUALS|MATCHES, value(s)]"
+        }
+      ]
+    }
+  }
 }
