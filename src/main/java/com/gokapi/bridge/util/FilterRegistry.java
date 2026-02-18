@@ -5,6 +5,7 @@ import com.gokapi.bridge.model.FilterInfo;
 import net.sf.okapi.common.filters.FilterConfiguration;
 import net.sf.okapi.common.filters.IFilter;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.resolver.Resolver;
 
 import java.io.*;
 import java.lang.reflect.Method;
@@ -315,8 +316,13 @@ public class FilterRegistry {
             
             // Parse based on file extension
             if (parametersLocation.endsWith(".yml") || parametersLocation.endsWith(".yaml")) {
-                // Parse YAML
-                Yaml yaml = new Yaml();
+                // Parse YAML with YAML 1.2 boolean rules (yes/no are strings, not booleans)
+                Yaml yaml = new Yaml(new org.yaml.snakeyaml.constructor.Constructor(
+                        new org.yaml.snakeyaml.LoaderOptions()),
+                    new org.yaml.snakeyaml.representer.Representer(
+                        new org.yaml.snakeyaml.DumperOptions()),
+                    new org.yaml.snakeyaml.DumperOptions(),
+                    new Yaml12BoolResolver());
                 Object parsed = yaml.load(raw);
                 if (parsed instanceof Map) {
                     @SuppressWarnings("unchecked")
@@ -463,5 +469,25 @@ public class FilterRegistry {
     public static Set<String> getFilterClasses() {
         ensureInitialized();
         return new LinkedHashSet<>(FILTERS.keySet());
+    }
+
+    /**
+     * Custom SnakeYAML Resolver that uses YAML 1.2 boolean rules.
+     * In YAML 1.2 only "true" and "false" are booleans, not "yes"/"no"/"on"/"off".
+     */
+    private static class Yaml12BoolResolver extends Resolver {
+        @Override
+        public org.yaml.snakeyaml.nodes.Tag resolve(org.yaml.snakeyaml.nodes.NodeId kind,
+                String value, boolean implicit) {
+            if (implicit && kind == org.yaml.snakeyaml.nodes.NodeId.scalar && value != null) {
+                String lower = value.toLowerCase();
+                if (lower.equals("yes") || lower.equals("no") ||
+                    lower.equals("on") || lower.equals("off") ||
+                    lower.equals("y") || lower.equals("n")) {
+                    return org.yaml.snakeyaml.nodes.Tag.STR;
+                }
+            }
+            return super.resolve(kind, value, implicit);
+        }
     }
 }

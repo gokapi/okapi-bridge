@@ -509,17 +509,17 @@
     "serializationFormat": "yaml"
   },
   "properties": {
-    "simplifierRules": {
-      "type": "string",
-      "description": "Simplifier rules for code type normalization",
-      "x-widget": "simplifierRulesEditor"
-    },
     "taggedConfig": {
       "type": "object"
     },
     "editorTitle": {
       "type": "string",
       "default": "Parameters Editor"
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     },
     "path": {
       "type": "string"

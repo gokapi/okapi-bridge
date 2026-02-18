@@ -485,10 +485,6 @@
     "serializationFormat": "yaml"
   },
   "properties": {
-    "editorTitle": {
-      "type": "string",
-      "default": "Parameters Editor"
-    },
     "simplifierRules": {
       "type": "string",
       "description": "Simplifier rules for code type normalization",
@@ -496,6 +492,10 @@
     },
     "taggedConfig": {
       "type": "object"
+    },
+    "editorTitle": {
+      "type": "string",
+      "default": "Parameters Editor"
     },
     "path": {
       "type": "string"

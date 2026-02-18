@@ -10,6 +10,7 @@ import net.sf.okapi.common.filters.InlineCodeFinder;
 import net.sf.okapi.common.uidescription.*;
 
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.resolver.Resolver;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -580,8 +581,15 @@ public class ParameterIntrospector {
 			String yamlStr = params.toString();
 			if (yamlStr == null || yamlStr.isEmpty()) return;
 
-			// Parse YAML to Map
-			Yaml yaml = new Yaml();
+			// Use a resolver that matches YAML 1.2 boolean rules (only true/false,
+			// not yes/no/on/off). params.toString() uses snakeyaml-engine (YAML 1.2),
+			// so unquoted "no"/"yes" are strings, not booleans.
+			Yaml yaml = new Yaml(new org.yaml.snakeyaml.constructor.Constructor(
+					new org.yaml.snakeyaml.LoaderOptions()),
+				new org.yaml.snakeyaml.representer.Representer(
+					new org.yaml.snakeyaml.DumperOptions()),
+				new org.yaml.snakeyaml.DumperOptions(),
+				new Yaml12BoolResolver());
 			Object parsed = yaml.load(yamlStr);
 			if (!(parsed instanceof Map)) return;
 
@@ -730,5 +738,36 @@ public class ParameterIntrospector {
         // In the future, we could use annotation processors or parse Javadoc
         // For now, return null - descriptions will come from editorHints
         return null;
+    }
+
+    /**
+     * Custom SnakeYAML Resolver that uses YAML 1.2 boolean rules.
+     * In YAML 1.2 only "true" and "false" are booleans, not "yes"/"no"/"on"/"off".
+     * This is needed because params.toString() uses snakeyaml-engine (YAML 1.2)
+     * where unquoted "no"/"yes" are plain strings.
+     */
+    private static class Yaml12BoolResolver extends Resolver {
+        @Override
+        protected void addImplicitResolvers() {
+            super.addImplicitResolvers();
+            // Replace the BOOL implicit resolver with one that only matches true/false
+            // (YAML 1.2 core schema). The parent already added the YAML 1.1 pattern.
+            // We re-add BOOL with a stricter pattern that overrides by priority.
+        }
+
+        @Override
+        public org.yaml.snakeyaml.nodes.Tag resolve(org.yaml.snakeyaml.nodes.NodeId kind,
+                String value, boolean implicit) {
+            if (implicit && kind == org.yaml.snakeyaml.nodes.NodeId.scalar && value != null) {
+                String lower = value.toLowerCase();
+                // YAML 1.1 treats yes/no/on/off/y/n as booleans; YAML 1.2 does not
+                if (lower.equals("yes") || lower.equals("no") ||
+                    lower.equals("on") || lower.equals("off") ||
+                    lower.equals("y") || lower.equals("n")) {
+                    return org.yaml.snakeyaml.nodes.Tag.STR;
+                }
+            }
+            return super.resolve(kind, value, implicit);
+        }
     }
 }

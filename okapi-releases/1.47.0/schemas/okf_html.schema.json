@@ -2187,7 +2187,7 @@
           "conditions": [
             "translate",
             "EQUALS",
-            false
+            "no"
           ]
         },
         ".+": {
@@ -2197,7 +2197,7 @@
           "conditions": [
             "translate",
             "EQUALS",
-            true
+            "yes"
           ]
         },
         "style": {
