@@ -5,7 +5,8 @@ SHELL := /bin/bash
 .PHONY: help list-upstream list-local add-release regenerate regenerate-all \
         version-schemas build clean test generate-pom generate-all-poms \
         centralize regenerate-composites build-runtime build-tools \
-        download-filter-docs parse-filter-docs parse-filter-docs-force clean-filter-docs
+        download-filter-docs parse-filter-docs parse-filter-docs-force \
+        bundle-filter-docs clean-filter-docs
 
 # Configuration - derived from okapi-releases directory
 SUPPORTED_VERSIONS := $(shell ls -1 okapi-releases 2>/dev/null | sort -V)
@@ -34,6 +35,7 @@ help:
 	@echo "Documentation:"
 	@echo "  make download-filter-docs  Download filter docs from Okapi wiki"
 	@echo "  make parse-filter-docs     Parse docs into structured JSON (uses Claude CLI)"
+	@echo "  make bundle-filter-docs    Bundle parsed docs into filter-docs-bundle.json"
 	@echo "  make clean-filter-docs     Remove downloaded docs"
 	@echo ""
 	@echo "Dependencies:"
@@ -223,6 +225,10 @@ parse-filter-docs:
 # Force re-parse all filter docs (even if already parsed)
 parse-filter-docs-force:
 	@FORCE=1 ./scripts/parse-filter-docs.sh $(FILTER_DOCS_DIR)
+
+# Bundle parsed docs into a single JSON file for UI consumption
+bundle-filter-docs:
+	@./scripts/bundle-filter-docs.sh $(FILTER_DOCS_DIR)
 
 # Clean downloaded docs
 clean-filter-docs:
