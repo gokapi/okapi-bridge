@@ -22,7 +22,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.wsxzpackage.WsxzPackageFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "mimeType": {

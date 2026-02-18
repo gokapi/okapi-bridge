@@ -21,7 +21,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.xini.rainbowkit.XINIRainbowkitFilter"
       }
-    ]
+    ],
+    "serializationFormat": "yaml"
   },
   "properties": {},
   "additionalProperties": false

@@ -206,7 +206,8 @@
         "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter",
         "schemaRef": "okf_regexplaintext.schema.json"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "simplifierRules": {

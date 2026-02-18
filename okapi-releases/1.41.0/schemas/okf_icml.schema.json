@@ -22,7 +22,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.icml.ICMLFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "extractNotes": {

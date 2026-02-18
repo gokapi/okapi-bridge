@@ -21,7 +21,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.transtable.TransTableFilter"
       }
-    ]
+    ],
+    "serializationFormat": "yaml"
   },
   "properties": {},
   "additionalProperties": false

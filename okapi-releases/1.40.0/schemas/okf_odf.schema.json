@@ -21,7 +21,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.openoffice.ODFFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "extractNotes": {

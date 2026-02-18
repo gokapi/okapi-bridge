@@ -112,7 +112,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "addAltTrans": {

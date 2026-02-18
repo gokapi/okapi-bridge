@@ -70,7 +70,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "(^(?=.+))(.*?)$": {

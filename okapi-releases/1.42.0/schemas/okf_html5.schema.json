@@ -37,7 +37,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.its.html5.HTML5Filter"
       }
-    ]
+    ],
+    "serializationFormat": "yaml"
   },
   "properties": {
     "simplifierRules": {

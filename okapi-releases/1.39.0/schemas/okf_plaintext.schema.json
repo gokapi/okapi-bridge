@@ -197,7 +197,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.PlainTextFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "simplifierRules": {

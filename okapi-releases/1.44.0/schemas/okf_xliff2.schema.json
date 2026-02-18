@@ -22,7 +22,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.xliff2.XLIFF2Filter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "maxValidation": {

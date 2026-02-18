@@ -36,7 +36,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.txml.TXMLFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "allowEmptyOutputTarget": {

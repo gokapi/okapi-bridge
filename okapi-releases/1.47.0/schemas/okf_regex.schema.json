@@ -251,7 +251,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.regex.RegexFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "extractOuterStrings": {

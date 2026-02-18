@@ -50,7 +50,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.table.tsv.TabSeparatedValuesFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "columnNamesLineNum": {

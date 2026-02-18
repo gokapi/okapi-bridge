@@ -62,7 +62,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.base.BasePlainTextFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "unescapeSource": {

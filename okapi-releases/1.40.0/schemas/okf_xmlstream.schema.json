@@ -481,7 +481,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.xmlstream.XmlStreamFilter"
       }
-    ]
+    ],
+    "serializationFormat": "yaml"
   },
   "properties": {
     "simplifierRules": {

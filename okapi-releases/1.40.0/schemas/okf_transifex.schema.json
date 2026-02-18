@@ -35,7 +35,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.transifex.TransifexFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "openProject": {

@@ -57,6 +57,24 @@ public class ParameterIntrospector {
     }
 
     /**
+     * Determine the serialization format used by a filter's parameters.
+     * Returns "stringParameters" for #v1 key=value format, "yaml" for YAML-based.
+     */
+    public String getSerializationFormat(String filterClass) {
+        try {
+            Class<?> clazz = Class.forName(filterClass);
+            IFilter filter = (IFilter) clazz.getDeclaredConstructor().newInstance();
+            IParameters params = filter.getParameters();
+            if (params instanceof StringParameters) {
+                return "stringParameters";
+            }
+            return "yaml";
+        } catch (Exception e) {
+            return "stringParameters"; // default assumption
+        }
+    }
+
+    /**
      * Introspect a filter class to extract its parameter metadata.
      * 
      * @param filterClass Fully-qualified filter class name

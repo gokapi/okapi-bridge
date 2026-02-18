@@ -1565,7 +1565,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.doxygen.DoxygenFilter"
       }
-    ]
+    ],
+    "serializationFormat": "yaml"
   },
   "properties": {
     "simplifierRules": {

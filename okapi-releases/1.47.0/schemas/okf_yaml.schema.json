@@ -22,7 +22,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.yaml.YamlFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "extractIsolatedStrings": {

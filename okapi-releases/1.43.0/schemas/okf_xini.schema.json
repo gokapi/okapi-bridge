@@ -35,7 +35,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.xini.XINIFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "useOkapiSegmentation": {

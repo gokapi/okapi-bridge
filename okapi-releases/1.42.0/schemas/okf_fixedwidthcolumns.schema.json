@@ -52,7 +52,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.table.fwc.FixedWidthColumnsFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "columnStartPositions": {

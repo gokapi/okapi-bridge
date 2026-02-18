@@ -22,7 +22,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.markdown.MarkdownFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "htmlSubfilter": {

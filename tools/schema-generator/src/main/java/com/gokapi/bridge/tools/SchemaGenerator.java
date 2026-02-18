@@ -122,6 +122,10 @@ public class SchemaGenerator {
         if (info.getConfigurations() != null && !info.getConfigurations().isEmpty()) {
             filterMeta.add("configurations", GSON.toJsonTree(info.getConfigurations()));
         }
+        
+        // Include serialization format
+        filterMeta.addProperty("serializationFormat", introspector.getSerializationFormat(filterClass));
+        
         schema.add("x-filter", filterMeta);
 
         Map<String, ParameterIntrospector.ParamInfo> params = introspector.introspect(filterClass);

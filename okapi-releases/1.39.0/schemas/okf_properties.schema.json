@@ -107,7 +107,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.properties.PropertiesFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "useLd": {

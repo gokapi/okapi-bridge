@@ -88,7 +88,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "splicer": {

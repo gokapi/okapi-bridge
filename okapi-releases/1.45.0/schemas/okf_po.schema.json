@@ -45,7 +45,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.po.POFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "protectApproved": {

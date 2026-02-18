@@ -154,7 +154,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
       }
-    ]
+    ],
+    "serializationFormat": "yaml"
   },
   "properties": {
     "simplifierRules": {

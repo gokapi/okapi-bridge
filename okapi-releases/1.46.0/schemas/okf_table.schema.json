@@ -224,7 +224,8 @@
         "filterClass": "net.sf.okapi.filters.table.tsv.TabSeparatedValuesFilter",
         "schemaRef": "okf_tabseparatedvalues.schema.json"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "simplifierRules": {

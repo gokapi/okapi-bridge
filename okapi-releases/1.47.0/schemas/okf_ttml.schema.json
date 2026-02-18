@@ -30,7 +30,8 @@
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.ttml.TTMLFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "timeFormat": {

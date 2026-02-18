@@ -45,7 +45,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.rainbowkit.RainbowKitFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "openManifest": {

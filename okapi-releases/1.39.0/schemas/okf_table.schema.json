@@ -219,7 +219,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.table.TableFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "simplifierRules": {

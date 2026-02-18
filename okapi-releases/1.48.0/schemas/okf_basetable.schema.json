@@ -62,7 +62,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.table.base.BaseTableFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "columnNamesLineNum": {

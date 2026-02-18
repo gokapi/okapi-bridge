@@ -135,7 +135,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "fieldDelimiter": {

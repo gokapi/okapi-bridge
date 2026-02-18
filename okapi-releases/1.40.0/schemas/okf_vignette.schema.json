@@ -41,7 +41,8 @@
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.vignette.VignetteFilter"
       }
-    ]
+    ],
+    "serializationFormat": "stringParameters"
   },
   "properties": {
     "partsConfigurations": {
