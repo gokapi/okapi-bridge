@@ -37,16 +37,12 @@ jobs:
       - name: Run tests
         run: mvn -B test -Dokapi.version=${{ needs.setup.outputs.latest }}
 
-  regenerate-composites:
+  verify-schemas:
     needs: setup
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Java 17 (for schema tools)
         uses: actions/setup-java@v4
@@ -61,18 +57,14 @@ jobs:
       - name: Update README matrix
         run: ./scripts/update-readme-matrix.sh
 
-      - name: Check for changes
-        id: changes
+      - name: Verify schemas are up to date
         run: |
-          if [[ -n $(git status --porcelain schemas/ schema-versions.json README.md) ]]; then
-            echo "changed=true" >> $GITHUB_OUTPUT
+          # Ignore generatedAt timestamps which change on every run
+          git diff --stat -- schemas/ README.md
+          git diff -- schemas/ README.md | grep '^[+-]' | grep -v '^[+-][+-][+-]' | grep -v '"generatedAt"' > /tmp/meaningful-diff.txt || true
+          if [[ -s /tmp/meaningful-diff.txt ]]; then
+            echo "::error::Composite schemas or README are out of date. Run 'make version-schemas' locally and commit the results."
+            cat /tmp/meaningful-diff.txt | head -40
+            exit 1
           fi
-
-      - name: Commit regenerated files
-        if: steps.changes.outputs.changed == 'true'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add schemas/ schema-versions.json README.md
-          git commit -m "[ci] Regenerate schemas and update matrix"
-          git push
+          echo "✓ Schemas and README are up to date"
