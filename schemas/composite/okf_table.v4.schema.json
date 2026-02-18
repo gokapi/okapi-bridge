@@ -252,7 +252,7 @@
   ],
   "x-schemaVersion": 4,
   "x-baseVersion": 4,
-  "x-introducedInOkapi": "1.42.0",
   "x-baseHash": "1b450d3ad06d",
-  "x-compositeHash": "16f9ab1fd156"
+  "x-compositeHash": "16f9ab1fd156",
+  "x-introducedInOkapi": "1.42.0"
 }

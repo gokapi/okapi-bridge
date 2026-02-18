@@ -29,7 +29,7 @@
   "additionalProperties": false,
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
-  "x-introducedInOkapi": "0.38",
   "x-baseHash": "974d930a96d9",
-  "x-compositeHash": "974d930a96d9"
+  "x-compositeHash": "974d930a96d9",
+  "x-introducedInOkapi": "0.38"
 }
