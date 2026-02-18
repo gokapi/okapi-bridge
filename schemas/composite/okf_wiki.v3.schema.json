@@ -70,7 +70,7 @@
   ],
   "x-schemaVersion": 3,
   "x-baseVersion": 3,
-  "x-introducedInOkapi": "0.38",
   "x-baseHash": "982e51424e87",
-  "x-compositeHash": "2a2bcddafcbc"
+  "x-compositeHash": "2a2bcddafcbc",
+  "x-introducedInOkapi": "0.38"
 }
