@@ -131,20 +131,15 @@ public class FilterRegistry {
             IFilter filter = (IFilter) instance;
             String name = filter.getName();
             String displayName = filter.getDisplayName();
-            String mimeType = filter.getMimeType();
 
             // Derive format ID from class name (e.g., "HTMLFilter" -> "html")
             String formatId = deriveFormatId(clazz.getSimpleName());
-
-            List<String> mimeTypes = mimeType != null && !mimeType.isEmpty()
-                    ? Collections.singletonList(mimeType)
-                    : Collections.emptyList();
 
             FilterInfo info = new FilterInfo(
                     filterClass,
                     formatId,
                     displayName != null ? displayName : name,
-                    mimeTypes,
+                    Collections.emptyList(),
                     Collections.emptyList()
             );
 
@@ -191,6 +186,25 @@ public class FilterRegistry {
                     firstConfig = false;
                 }
             }
+
+            // Aggregate unique MIME types and extensions from configurations
+            Set<String> allMimeTypes = new LinkedHashSet<>();
+            Set<String> allExtensions = new LinkedHashSet<>();
+            for (FilterConfigurationInfo ci : info.getConfigurations()) {
+                if (ci.getMimeType() != null && !ci.getMimeType().isEmpty()) {
+                    allMimeTypes.add(ci.getMimeType());
+                }
+                if (ci.getExtensions() != null && !ci.getExtensions().isEmpty()) {
+                    for (String ext : ci.getExtensions().split(";")) {
+                        ext = ext.trim();
+                        if (!ext.isEmpty()) {
+                            allExtensions.add(ext);
+                        }
+                    }
+                }
+            }
+            info.setMimeTypes(new ArrayList<>(allMimeTypes));
+            info.setExtensions(new ArrayList<>(allExtensions));
 
             return info;
         } catch (Exception e) {
