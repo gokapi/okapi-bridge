@@ -71,8 +71,14 @@ jobs:
           cp okapi.bridge.json staging/
           
           # Include composite schemas for this Okapi version from centralized location
-          for filter in $(jq -r ".filters | to_entries[] | select(.value.versions[] | .okapiVersions | index(\"${OKAPI_VERSION}\")) | .key" schema-versions.json); do
-            version=$(jq -r ".filters[\"${filter}\"].versions[] | select(.okapiVersions | index(\"${OKAPI_VERSION}\")) | .version" schema-versions.json)
+          # Use max version per filter to handle any duplicate entries in schema-versions.json
+          jq -r --arg ov "${OKAPI_VERSION}" '
+            .filters | to_entries[] |
+            .key as $f |
+            [.value.versions[] | select(.okapiVersions | index($ov))] |
+            max_by(.version) | select(.) |
+            "\($f) \(.version)"
+          ' schema-versions.json | while read filter version; do
             cp "schemas/composite/${filter}.v${version}.schema.json" staging/schemas/
           done
 
