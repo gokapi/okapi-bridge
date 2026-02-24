@@ -61,12 +61,6 @@
       "title": "Skip discretionary hyphens",
       "x-widget": "checkbox"
     },
-    "extractBreaksInline": {
-      "type": "boolean",
-      "default": false,
-      "title": "Extract breaks inline",
-      "x-widget": "checkbox"
-    },
     "ignoreCharacterKerning": {
       "type": "boolean",
       "default": false,
@@ -196,8 +190,8 @@
     }
   ],
   "x-schemaVersion": 1,
-  "x-baseVersion": 10,
-  "x-baseHash": "845ee0d39a73",
-  "x-compositeHash": "14fdc1bcd659",
-  "x-introducedInOkapi": "1.39.0"
+  "x-baseVersion": 9,
+  "x-baseHash": "1463486ab1f0",
+  "x-compositeHash": "aa8206e17263",
+  "x-introducedInOkapi": "0.38"
 }

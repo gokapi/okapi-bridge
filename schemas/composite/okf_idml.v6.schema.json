@@ -127,44 +127,6 @@
       "type": "string",
       "default": ""
     },
-    "useCodeFinder": {
-      "type": "boolean",
-      "default": false,
-      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
-    },
-    "codeFinderRules": {
-      "type": "object",
-      "description": "Regex patterns to identify inline codes in translatable text",
-      "properties": {
-        "rules": {
-          "type": "array",
-          "description": "List of regex patterns to detect inline codes",
-          "items": {
-            "type": "object",
-            "properties": {
-              "pattern": {
-                "type": "string",
-                "description": "Regex pattern for inline code detection"
-              }
-            },
-            "required": [
-              "pattern"
-            ]
-          }
-        },
-        "sample": {
-          "type": "string",
-          "description": "Sample text to test patterns against"
-        },
-        "useAllRulesWhenTesting": {
-          "type": "boolean",
-          "default": true,
-          "description": "Test all rules together or individually"
-        }
-      },
-      "x-okapiFormat": "inlineCodeFinder",
-      "x-widget": "codeFinderRules"
-    },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
@@ -227,8 +189,8 @@
     }
   ],
   "x-schemaVersion": 6,
-  "x-baseVersion": 15,
-  "x-baseHash": "3bd0dc0a3312",
-  "x-compositeHash": "a61bfbd9721d",
-  "x-introducedInOkapi": "1.47.0"
+  "x-baseVersion": 14,
+  "x-baseHash": "e07b6264b0a2",
+  "x-compositeHash": "5496d2cac170",
+  "x-introducedInOkapi": "1.46.0"
 }

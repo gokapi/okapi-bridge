@@ -34,9 +34,7 @@
     },
     "useCodeFinder": {
       "type": "boolean",
-      "default": false,
-      "title": "Has inline codes as defined below:",
-      "x-widget": "checkbox"
+      "default": false
     },
     "codeFinderRules": {
       "type": "object",
@@ -77,37 +75,6 @@
     "needsSegmentation": {
       "type": "boolean",
       "default": false
-    },
-    "forceUniqueIds": {
-      "type": "boolean",
-      "default": false,
-      "title": "Ensure tag IDs are unique within units",
-      "x-widget": "checkbox"
-    },
-    "ignoreTagTypeMatch": {
-      "type": "boolean",
-      "default": false,
-      "title": "Ignore tag type mismatch between source and target",
-      "x-widget": "checkbox"
-    },
-    "discardInvalidTargets": {
-      "type": "boolean",
-      "default": false,
-      "title": "Discard invalid targets rather than rejecting the file",
-      "x-widget": "checkbox"
-    },
-    "writeOriginalData": {
-      "type": "boolean",
-      "default": true,
-      "title": "Output includes original data when available",
-      "x-widget": "checkbox"
-    },
-    "subfilterOverwriteTarget": {
-      "type": "boolean",
-      "default": false,
-      "title": "Subfilter: Always Overwrite Target?",
-      "description": "Should the writer always overwrite an existing target even if state is final?",
-      "x-widget": "checkbox"
     }
   },
   "additionalProperties": false,
@@ -158,8 +125,8 @@
     }
   ],
   "x-schemaVersion": 5,
-  "x-baseVersion": 14,
-  "x-baseHash": "2fec3dc2446c",
-  "x-compositeHash": "efe7ed12f1b7",
-  "x-introducedInOkapi": "1.47.0"
+  "x-baseVersion": 12,
+  "x-baseHash": "cd88ab24f1f7",
+  "x-compositeHash": "a6fd91e2c032",
+  "x-introducedInOkapi": "1.45.0"
 }

@@ -18,7 +18,7 @@
         "name": "XLIFF-2",
         "description": "Configuration for XLIFF-2 documents.",
         "mimeType": "application/xliff+xml",
-        "extensions": ".xlf;.xliff;.xlf2;.xliff2",
+        "extensions": ".xlf;",
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.xliff2.XLIFF2Filter"
       }
@@ -31,6 +31,10 @@
       "default": true,
       "title": "Perform maximum validation when parsing",
       "x-widget": "checkbox"
+    },
+    "mergeAsParagraph": {
+      "type": "boolean",
+      "default": false
     },
     "useCodeFinder": {
       "type": "boolean",
@@ -70,7 +74,7 @@
     },
     "simplifyTags": {
       "type": "boolean",
-      "default": false
+      "default": true
     },
     "needsSegmentation": {
       "type": "boolean",
@@ -125,8 +129,8 @@
     }
   ],
   "x-schemaVersion": 3,
-  "x-baseVersion": 12,
-  "x-baseHash": "cd88ab24f1f7",
-  "x-compositeHash": "a6fd91e2c032",
-  "x-introducedInOkapi": "1.45.0"
+  "x-baseVersion": 10,
+  "x-baseHash": "c0646023a347",
+  "x-compositeHash": "2352543864f8",
+  "x-introducedInOkapi": "1.42.0"
 }

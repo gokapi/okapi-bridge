@@ -34,45 +34,9 @@
       "type": "boolean",
       "default": true
     },
-    "translatePowerpointDocProperties": {
-      "type": "boolean",
-      "default": true
-    },
-    "reorderPowerpointDocProperties": {
-      "type": "boolean",
-      "default": false
-    },
-    "reorderPowerpointRelationships": {
-      "type": "boolean",
-      "default": false
-    },
-    "translatePowerpointDiagramData": {
-      "type": "boolean",
-      "default": true
-    },
-    "reorderPowerpointDiagramData": {
-      "type": "boolean",
-      "default": false
-    },
-    "translatePowerpointCharts": {
-      "type": "boolean",
-      "default": true
-    },
-    "reorderPowerpointCharts": {
-      "type": "boolean",
-      "default": false
-    },
     "bPreferenceTranslateComments": {
       "type": "boolean",
       "default": true
-    },
-    "translatePowerpointComments": {
-      "type": "boolean",
-      "default": true
-    },
-    "reorderPowerpointComments": {
-      "type": "boolean",
-      "default": false
     },
     "bPreferenceAggressiveCleanup": {
       "type": "boolean",
@@ -86,10 +50,6 @@
       "type": "boolean",
       "default": true,
       "description": "Extract speaker notes in PowerPoint presentations."
-    },
-    "bPreferenceReorderPowerpointNotes": {
-      "type": "boolean",
-      "default": false
     },
     "bPreferenceTranslatePowerpointMasters": {
       "type": "boolean",
@@ -105,10 +65,6 @@
       "default": true,
       "description": "Extract text from headers and footers in Word documents."
     },
-    "translateWordNumberingLevelText": {
-      "type": "boolean",
-      "default": false
-    },
     "bPreferenceTranslateWordHidden": {
       "type": "boolean",
       "default": false
@@ -117,14 +73,14 @@
       "type": "boolean",
       "default": false
     },
+    "bPreferenceTranslateExcelExcludeColumns": {
+      "type": "boolean",
+      "default": false
+    },
     "bPreferenceTranslateExcelSheetNames": {
       "type": "boolean",
       "default": false,
       "description": "Extract sheet names in Excel workbooks."
-    },
-    "translateExcelCellsCopied": {
-      "type": "boolean",
-      "default": true
     },
     "bPreferenceTranslateExcelDiagramData": {
       "type": "boolean",
@@ -192,26 +148,9 @@
       "type": "boolean",
       "default": false
     },
-    "ignoreWordFontColors": {
-      "type": "boolean",
-      "default": false
-    },
-    "wordFontColorsMinIgnoranceThreshold": {
-      "type": "string",
-      "default": ""
-    },
-    "wordFontColorsMaxIgnoranceThreshold": {
-      "type": "string",
-      "default": ""
-    },
     "bPreferenceAllowEmptyTargets": {
       "type": "boolean",
       "default": false
-    },
-    "simplifierRules": {
-      "type": "string",
-      "description": "Rules for simplifying inline code representation",
-      "x-widget": "simplifierRulesEditor"
     },
     "nFileType": {
       "type": "string",
@@ -286,8 +225,8 @@
     }
   ],
   "x-schemaVersion": 3,
-  "x-baseVersion": 12,
-  "x-baseHash": "b2b867204a20",
-  "x-compositeHash": "c4663e69a08a",
-  "x-introducedInOkapi": "1.46.0"
+  "x-baseVersion": 10,
+  "x-baseHash": "38c7bd7cd701",
+  "x-compositeHash": "8f187df88388",
+  "x-introducedInOkapi": "1.43.0"
 }

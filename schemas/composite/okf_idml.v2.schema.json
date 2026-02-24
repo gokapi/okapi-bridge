@@ -55,12 +55,6 @@
       "title": "Extract hidden layers",
       "x-widget": "checkbox"
     },
-    "extractHiddenPasteboardItems": {
-      "type": "boolean",
-      "default": false,
-      "title": "Extract hidden pasteboard items",
-      "x-widget": "checkbox"
-    },
     "skipDiscretionaryHyphens": {
       "type": "boolean",
       "default": false,
@@ -202,8 +196,8 @@
     }
   ],
   "x-schemaVersion": 2,
-  "x-baseVersion": 11,
-  "x-baseHash": "38eef7a78e19",
-  "x-compositeHash": "6735cc3010b6",
-  "x-introducedInOkapi": "1.41.0"
+  "x-baseVersion": 10,
+  "x-baseHash": "845ee0d39a73",
+  "x-compositeHash": "14fdc1bcd659",
+  "x-introducedInOkapi": "1.39.0"
 }

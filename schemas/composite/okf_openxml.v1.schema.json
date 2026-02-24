@@ -26,10 +26,6 @@
     "serializationFormat": "stringParameters"
   },
   "properties": {
-    "maxAttributeSize": {
-      "type": "integer",
-      "default": 4194304
-    },
     "bPreferenceTranslateDocProperties": {
       "type": "boolean",
       "default": true
@@ -148,10 +144,6 @@
       "type": "boolean",
       "default": false
     },
-    "bPreferenceAllowEmptyTargets": {
-      "type": "boolean",
-      "default": false
-    },
     "nFileType": {
       "type": "string",
       "default": "MSWORD",
@@ -225,8 +217,8 @@
     }
   ],
   "x-schemaVersion": 1,
-  "x-baseVersion": 10,
-  "x-baseHash": "38c7bd7cd701",
-  "x-compositeHash": "8f187df88388",
-  "x-introducedInOkapi": "1.43.0"
+  "x-baseVersion": 8,
+  "x-baseHash": "c485f7f2b6a2",
+  "x-compositeHash": "2dd8654b367e",
+  "x-introducedInOkapi": "0.38"
 }

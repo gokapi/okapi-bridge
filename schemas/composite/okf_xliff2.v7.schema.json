@@ -18,7 +18,7 @@
         "name": "XLIFF-2",
         "description": "Configuration for XLIFF-2 documents.",
         "mimeType": "application/xliff+xml",
-        "extensions": ".xlf",
+        "extensions": ".xlf;.xliff;.xlf2;.xliff2",
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.xliff2.XLIFF2Filter"
       }
@@ -32,13 +32,11 @@
       "title": "Perform maximum validation when parsing",
       "x-widget": "checkbox"
     },
-    "mergeAsParagraph": {
-      "type": "boolean",
-      "default": false
-    },
     "useCodeFinder": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Has inline codes as defined below:",
+      "x-widget": "checkbox"
     },
     "codeFinderRules": {
       "type": "object",
@@ -74,11 +72,42 @@
     },
     "simplifyTags": {
       "type": "boolean",
-      "default": true
+      "default": false
     },
     "needsSegmentation": {
       "type": "boolean",
       "default": false
+    },
+    "forceUniqueIds": {
+      "type": "boolean",
+      "default": false,
+      "title": "Ensure tag IDs are unique within units",
+      "x-widget": "checkbox"
+    },
+    "ignoreTagTypeMatch": {
+      "type": "boolean",
+      "default": false,
+      "title": "Ignore tag type mismatch between source and target",
+      "x-widget": "checkbox"
+    },
+    "discardInvalidTargets": {
+      "type": "boolean",
+      "default": false,
+      "title": "Discard invalid targets rather than rejecting the file",
+      "x-widget": "checkbox"
+    },
+    "writeOriginalData": {
+      "type": "boolean",
+      "default": true,
+      "title": "Output includes original data when available",
+      "x-widget": "checkbox"
+    },
+    "subfilterOverwriteTarget": {
+      "type": "boolean",
+      "default": false,
+      "title": "Subfilter: Always Overwrite Target?",
+      "description": "Should the writer always overwrite an existing target even if state is final?",
+      "x-widget": "checkbox"
     }
   },
   "additionalProperties": false,
@@ -129,8 +158,8 @@
     }
   ],
   "x-schemaVersion": 7,
-  "x-baseVersion": 9,
-  "x-baseHash": "58f0cddd16ee",
-  "x-compositeHash": "1fe048479633",
-  "x-introducedInOkapi": "1.41.0"
+  "x-baseVersion": 14,
+  "x-baseHash": "2fec3dc2446c",
+  "x-compositeHash": "efe7ed12f1b7",
+  "x-introducedInOkapi": "1.47.0"
 }

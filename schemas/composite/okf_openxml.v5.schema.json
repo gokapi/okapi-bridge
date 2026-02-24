@@ -78,18 +78,6 @@
       "type": "boolean",
       "default": false
     },
-    "ignoreWhitespaceStyles": {
-      "type": "boolean",
-      "default": false
-    },
-    "preserveAsciiAndHighAnsiFontCategoriesOnDetection": {
-      "type": "boolean",
-      "default": false
-    },
-    "removeEmbeddedExcel": {
-      "type": "boolean",
-      "default": false
-    },
     "bPreferenceAutomaticallyAcceptRevisions": {
       "type": "boolean",
       "default": true
@@ -155,30 +143,6 @@
       "type": "boolean",
       "default": false
     },
-    "translateWordGraphicName": {
-      "type": "boolean",
-      "default": true
-    },
-    "translateWordGraphicDescription": {
-      "type": "boolean",
-      "default": false
-    },
-    "translatePowerpointGraphicName": {
-      "type": "boolean",
-      "default": true
-    },
-    "translatePowerpointGraphicDescription": {
-      "type": "boolean",
-      "default": false
-    },
-    "translatePowerpointCachedChartStrings": {
-      "type": "boolean",
-      "default": false
-    },
-    "translatePowerpointCachedChartNumbers": {
-      "type": "boolean",
-      "default": false
-    },
     "bPreferenceTranslateExcelHidden": {
       "type": "boolean",
       "default": false,
@@ -240,97 +204,9 @@
       "type": "string",
       "default": ""
     },
-    "allowWordStyleOptimisation": {
-      "type": "boolean",
-      "default": true
-    },
-    "preserveExcelStylesInTargetColumns": {
-      "type": "boolean",
-      "default": false
-    },
-    "treatExcelSourceColumnStylesForExclusion": {
-      "type": "boolean",
-      "default": false
-    },
-    "extractExcelSourceAndTargetColumnsJoined": {
-      "type": "boolean",
-      "default": false
-    },
-    "extractExcelWorksheetsExplicitlySpecified": {
-      "type": "boolean",
-      "default": false
-    },
-    "extractExcelCellsExplicitlySpecified": {
-      "type": "boolean",
-      "default": false
-    },
     "bPreferenceAllowEmptyTargets": {
       "type": "boolean",
       "default": false
-    },
-    "useCodeFinder": {
-      "type": "boolean",
-      "default": false,
-      "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
-    },
-    "codeFinderRules": {
-      "type": "object",
-      "description": "Inline code detection configuration",
-      "properties": {
-        "rules": {
-          "type": "array",
-          "description": "List of regex patterns to detect inline codes",
-          "items": {
-            "type": "object",
-            "properties": {
-              "pattern": {
-                "type": "string",
-                "description": "Regex pattern for inline code detection"
-              }
-            },
-            "required": [
-              "pattern"
-            ]
-          }
-        },
-        "sample": {
-          "type": "string",
-          "description": "Sample text to test patterns against"
-        },
-        "useAllRulesWhenTesting": {
-          "type": "boolean",
-          "default": true,
-          "description": "Test all rules together or individually"
-        }
-      },
-      "x-okapiFormat": "inlineCodeFinder",
-      "x-widget": "codeFinderRules",
-      "x-presets": {
-        "mergeFields": {
-          "rules": [
-            {
-              "pattern": "«[^»]+»"
-            }
-          ],
-          "sample": "Dear «FirstName» «LastName»"
-        },
-        "placeholders": {
-          "rules": [
-            {
-              "pattern": "\\{[^}]+\\}"
-            }
-          ],
-          "sample": "Hello {name}"
-        }
-      }
-    },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
-      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
-    },
-    "mergeAdjacentCodes": {
-      "type": "boolean",
-      "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
       "type": "string",
@@ -410,8 +286,8 @@
     }
   ],
   "x-schemaVersion": 5,
-  "x-baseVersion": 14,
-  "x-baseHash": "2c5329d37c56",
-  "x-compositeHash": "8e8e957ac9b6",
-  "x-introducedInOkapi": "1.48.0"
+  "x-baseVersion": 12,
+  "x-baseHash": "b2b867204a20",
+  "x-compositeHash": "c4663e69a08a",
+  "x-introducedInOkapi": "1.46.0"
 }

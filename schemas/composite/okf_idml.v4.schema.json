@@ -59,10 +59,6 @@
       "type": "boolean",
       "default": false
     },
-    "extractHyperlinkTextSourcesInline": {
-      "type": "boolean",
-      "default": false
-    },
     "extractCustomTextVariables": {
       "type": "boolean",
       "default": false
@@ -176,8 +172,8 @@
     }
   ],
   "x-schemaVersion": 4,
-  "x-baseVersion": 13,
-  "x-baseHash": "c9857a66db74",
-  "x-compositeHash": "5eaf95a20e08",
-  "x-introducedInOkapi": "1.45.0"
+  "x-baseVersion": 12,
+  "x-baseHash": "eb5aaf71fa4b",
+  "x-compositeHash": "f4c15f1fd51e",
+  "x-introducedInOkapi": "1.44.0"
 }

@@ -260,6 +260,10 @@
       "type": "string",
       "default": "text/plain"
     },
+    "subFilter": {
+      "type": "string",
+      "default": ""
+    },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
@@ -329,8 +333,8 @@
     }
   ],
   "x-schemaVersion": 3,
-  "x-baseVersion": 7,
-  "x-baseHash": "816f4de057fb",
-  "x-compositeHash": "7458aeeb049c",
-  "x-introducedInOkapi": "1.42.0"
+  "x-baseVersion": 8,
+  "x-baseHash": "77f9ccd9365f",
+  "x-compositeHash": "d66ca451856b",
+  "x-introducedInOkapi": "1.43.0"
 }

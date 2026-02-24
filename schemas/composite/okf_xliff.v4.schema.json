@@ -29,7 +29,7 @@
         "mimeType": "application/x-xliff+xml",
         "extensions": ".sdlxliff;",
         "parametersLocation": "sdl.fprm",
-        "parametersRaw": "#v1\nuseCustomParser.b=true\nfactoryClass=com.ctc.wstx.stax.WstxInputFactory\nfallbackToID.b=false\nescapeGT.b=false\naddTargetLanguage.b=true\noverrideTargetLanguage.b=false\noutputSegmentationType.i=0\nignoreInputSegmentation.b=false\naddAltTrans.b=false\naddAltTransGMode.b=true\neditAltTrans.b=false\nincludeExtensions.b=true\nincludeIts.b=true\nbalanceCodes.b=true\nallowEmptyTargets.b=false\ntargetStateMode.i=0\ntargetStateValue=needs-translation\nalwaysUseSegSource.b=false\nquoteModeDefined.b=true\nquoteMode.i=0\nuseSdlXliffWriter.b=true\nsdlSegConfValue=Translated\npreserveSpaceByDefault.b=true\nskipNoMrkSegSource.b=true\nuseTranslationTargetState.b=false\n",
+        "parametersRaw": "#v1\nuseCustomParser.b=true\nfactoryClass=com.ctc.wstx.stax.WstxInputFactory\nfallbackToID.b=false\nescapeGT.b=false\naddTargetLanguage.b=true\noverrideTargetLanguage.b=false\noutputSegmentationType.i=0\nignoreInputSegmentation.b=false\naddAltTrans.b=false\naddAltTransGMode.b=true\neditAltTrans.b=false\nincludeExtensions.b=true\nincludeIts.b=true\nbalanceCodes.b=true\nallowEmptyTargets.b=false\ntargetStateMode.i=0\ntargetStateValue=needs-translation\nalwaysUseSegSource.b=false\nquoteModeDefined.b=true\nquoteMode.i=0\nuseSdlXliffWriter.b=true\nsdlSegConfValue=Translated\npreserveSpaceByDefault.b=true\nskipNoMrkSegSource.b=true\n",
         "parameters": {
           "useCustomParser": true,
           "factoryClass": "com.ctc.wstx.stax.WstxInputFactory",
@@ -54,8 +54,7 @@
           "useSdlXliffWriter": true,
           "sdlSegConfValue": "Translated",
           "preserveSpaceByDefault": true,
-          "skipNoMrkSegSource": true,
-          "useTranslationTargetState": false
+          "skipNoMrkSegSource": true
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
@@ -176,6 +175,10 @@
       "type": "boolean",
       "default": true
     },
+    "balanceCodes": {
+      "type": "boolean",
+      "default": true
+    },
     "alwaysUseSegSource": {
       "type": "boolean",
       "default": false
@@ -211,10 +214,6 @@
     "useSegsForSdlProps": {
       "type": "boolean",
       "default": false
-    },
-    "useTranslationTargetState": {
-      "type": "boolean",
-      "default": true
     },
     "useIwsXliffWriter": {
       "type": "boolean",
@@ -358,8 +357,8 @@
     }
   ],
   "x-schemaVersion": 4,
-  "x-baseVersion": 13,
-  "x-baseHash": "8f3fbf2f67b9",
-  "x-compositeHash": "3389199f1a6e",
-  "x-introducedInOkapi": "1.43.0"
+  "x-baseVersion": 12,
+  "x-baseHash": "f831c93eca25",
+  "x-compositeHash": "b385dbde227b",
+  "x-introducedInOkapi": "1.42.0"
 }

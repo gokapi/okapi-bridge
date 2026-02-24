@@ -327,7 +327,8 @@ regenerate_composites() {
 
         # Find all base versions for this filter
         local base_files
-        base_files=$(ls "$BASE_DIR/${filter}".v*.schema.json 2>/dev/null | sort -V)
+        base_files=$(ls "$BASE_DIR/${filter}".v*.schema.json 2>/dev/null | \
+            sed 's/.*\.v\([0-9]*\)\.schema\.json$/\1 &/' | sort -n | awk '{print $2}')
 
         local override_file="$OVERRIDES_DIR/${filter}.overrides.json"
         local override_hash=""

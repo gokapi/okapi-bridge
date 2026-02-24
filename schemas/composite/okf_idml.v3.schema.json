@@ -32,88 +32,118 @@
     },
     "untagXmlStructures": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "title": "Untag XML structures",
+      "x-widget": "checkbox"
     },
     "extractNotes": {
       "type": "boolean",
       "default": false,
+      "title": "Extract notes",
+      "x-widget": "checkbox",
       "description": "Extract notes/comments as translator notes"
     },
     "extractMasterSpreads": {
       "type": "boolean",
-      "default": true
+      "default": true,
+      "title": "Extract master spreads",
+      "x-widget": "checkbox"
     },
     "extractHiddenLayers": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Extract hidden layers",
+      "x-widget": "checkbox"
     },
     "extractHiddenPasteboardItems": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Extract hidden pasteboard items",
+      "x-widget": "checkbox"
     },
     "skipDiscretionaryHyphens": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Skip discretionary hyphens",
+      "x-widget": "checkbox"
     },
     "extractBreaksInline": {
       "type": "boolean",
-      "default": false
-    },
-    "extractCustomTextVariables": {
-      "type": "boolean",
-      "default": false
-    },
-    "extractIndexTopics": {
-      "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Extract breaks inline",
+      "x-widget": "checkbox"
     },
     "ignoreCharacterKerning": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Ignore character kerning",
+      "x-widget": "checkbox"
     },
     "characterKerningMinIgnoranceThreshold": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Character kerning minimum ignorance threshold",
+      "x-widget": "text"
     },
     "characterKerningMaxIgnoranceThreshold": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Character kerning maximum ignorance threshold",
+      "x-widget": "text"
     },
     "ignoreCharacterTracking": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Ignore character tracking",
+      "x-widget": "checkbox"
     },
     "characterTrackingMinIgnoranceThreshold": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Character tracking minimum ignorance threshold",
+      "x-widget": "text"
     },
     "characterTrackingMaxIgnoranceThreshold": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Character tracking maximum ignorance threshold",
+      "x-widget": "text"
     },
     "ignoreCharacterLeading": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Ignore character leading",
+      "x-widget": "checkbox"
     },
     "characterLeadingMinIgnoranceThreshold": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Character leading minimum ignorance threshold",
+      "x-widget": "text"
     },
     "characterLeadingMaxIgnoranceThreshold": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Character leading maximum ignorance threshold",
+      "x-widget": "text"
     },
     "ignoreCharacterBaselineShift": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Ignore character baseline shift",
+      "x-widget": "checkbox"
     },
     "characterBaselineShiftMinIgnoranceThreshold": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Character baseline shift minimum ignorance threshold",
+      "x-widget": "text"
     },
     "characterBaselineShiftMaxIgnoranceThreshold": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Character baseline shift maximum ignorance threshold",
+      "x-widget": "text"
     }
   },
   "additionalProperties": false,
@@ -172,8 +202,8 @@
     }
   ],
   "x-schemaVersion": 3,
-  "x-baseVersion": 12,
-  "x-baseHash": "eb5aaf71fa4b",
-  "x-compositeHash": "f4c15f1fd51e",
-  "x-introducedInOkapi": "1.44.0"
+  "x-baseVersion": 11,
+  "x-baseHash": "38eef7a78e19",
+  "x-compositeHash": "6735cc3010b6",
+  "x-introducedInOkapi": "1.41.0"
 }

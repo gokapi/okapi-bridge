@@ -38,10 +38,6 @@
       "type": "boolean",
       "default": true
     },
-    "mergeAdjacentCodes": {
-      "type": "boolean",
-      "description": "Merge consecutive inline codes into a single placeholder"
-    },
     "extractNotes": {
       "type": "boolean",
       "default": false,
@@ -80,14 +76,6 @@
       "default": false
     },
     "extractExternalHyperlinks": {
-      "type": "boolean",
-      "default": false
-    },
-    "extractMathZones": {
-      "type": "boolean",
-      "default": true
-    },
-    "excludedStyleConfigurations": {
       "type": "boolean",
       "default": false
     },
@@ -177,10 +165,6 @@
       "x-okapiFormat": "inlineCodeFinder",
       "x-widget": "codeFinderRules"
     },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
-      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
-    },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
@@ -243,8 +227,8 @@
     }
   ],
   "x-schemaVersion": 7,
-  "x-baseVersion": 16,
-  "x-baseHash": "5a40ee1a6ef2",
-  "x-compositeHash": "07c64e8bf142",
-  "x-introducedInOkapi": "1.48.0"
+  "x-baseVersion": 15,
+  "x-baseHash": "3bd0dc0a3312",
+  "x-compositeHash": "a61bfbd9721d",
+  "x-introducedInOkapi": "1.47.0"
 }

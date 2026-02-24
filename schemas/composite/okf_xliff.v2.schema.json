@@ -207,10 +207,6 @@
       "type": "boolean",
       "default": false
     },
-    "subAsTextUnit": {
-      "type": "boolean",
-      "default": false
-    },
     "useSegsForSdlProps": {
       "type": "boolean",
       "default": false
@@ -297,10 +293,6 @@
       "x-okapiFormat": "inlineCodeFinder",
       "x-widget": "codeFinderRules"
     },
-    "cdataSubfilter": {
-      "type": "string",
-      "default": ""
-    },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
@@ -357,8 +349,8 @@
     }
   ],
   "x-schemaVersion": 2,
-  "x-baseVersion": 11,
-  "x-baseHash": "bf5df88ab8e6",
-  "x-compositeHash": "083a3bc06d6d",
-  "x-introducedInOkapi": "1.41.0"
+  "x-baseVersion": 10,
+  "x-baseHash": "c9708b1a530c",
+  "x-compositeHash": "8aa3af14eb63",
+  "x-introducedInOkapi": "1.39.0"
 }

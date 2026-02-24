@@ -15,7 +15,7 @@
     "configurations": [
       {
         "configId": "okf_mif",
-        "name": "MIF (BETA)",
+        "name": "MIF",
         "description": "Adobe FrameMaker MIF documents",
         "mimeType": "application/vnd.mif",
         "extensions": ".mif;",
@@ -100,6 +100,18 @@
       "type": "boolean",
       "default": false
     },
+    "extractHardReturnsAsText": {
+      "type": "boolean",
+      "default": true
+    },
+    "moveLeadingAndTrailingCodesToSkeleton": {
+      "type": "boolean",
+      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
+    },
+    "mergeAdjacentCodes": {
+      "type": "boolean",
+      "description": "Merge consecutive inline codes into a single placeholder"
+    },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
@@ -123,8 +135,8 @@
     }
   ],
   "x-schemaVersion": 6,
-  "x-baseVersion": 9,
-  "x-baseHash": "888dde0745e0",
-  "x-compositeHash": "59a837e99ceb",
-  "x-introducedInOkapi": "1.40.0"
+  "x-baseVersion": 12,
+  "x-baseHash": "beebee6965c0",
+  "x-compositeHash": "94f4e8073f3b",
+  "x-introducedInOkapi": "1.48.0"
 }

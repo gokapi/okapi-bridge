@@ -32,11 +32,13 @@
       "title": "Perform maximum validation when parsing",
       "x-widget": "checkbox"
     },
+    "mergeAsParagraph": {
+      "type": "boolean",
+      "default": false
+    },
     "useCodeFinder": {
       "type": "boolean",
-      "default": false,
-      "title": "Has inline codes as defined below:",
-      "x-widget": "checkbox"
+      "default": false
     },
     "codeFinderRules": {
       "type": "object",
@@ -77,18 +79,6 @@
     "needsSegmentation": {
       "type": "boolean",
       "default": false
-    },
-    "forceUniqueIds": {
-      "type": "boolean",
-      "default": false,
-      "title": "Ensure tag IDs are unique within units",
-      "x-widget": "checkbox"
-    },
-    "ignoreTagTypeMatch": {
-      "type": "boolean",
-      "default": false,
-      "title": "Ignore tag type mismatch between source and target",
-      "x-widget": "checkbox"
     }
   },
   "additionalProperties": false,
@@ -139,8 +129,8 @@
     }
   ],
   "x-schemaVersion": 4,
-  "x-baseVersion": 13,
-  "x-baseHash": "d152b1c695b3",
-  "x-compositeHash": "46c2ce41ab2a",
-  "x-introducedInOkapi": "1.46.0"
+  "x-baseVersion": 11,
+  "x-baseHash": "dc31b7af6862",
+  "x-compositeHash": "7c7276c54db3",
+  "x-introducedInOkapi": "1.43.0"
 }

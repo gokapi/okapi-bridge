@@ -268,10 +268,6 @@
       "type": "boolean",
       "default": false
     },
-    "xtmAttributes": {
-      "type": "boolean",
-      "default": false
-    },
     "useCodeFinder": {
       "type": "boolean",
       "default": false,
@@ -317,14 +313,6 @@
     "pcdataSubfilter": {
       "type": "string",
       "default": ""
-    },
-    "moveLeadingAndTrailingCodesToSkeleton": {
-      "type": "boolean",
-      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
-    },
-    "mergeAdjacentCodes": {
-      "type": "boolean",
-      "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
       "type": "string",
@@ -382,8 +370,8 @@
     }
   ],
   "x-schemaVersion": 7,
-  "x-baseVersion": 16,
-  "x-baseHash": "9bb4cb8c82f3",
-  "x-compositeHash": "8d82e6327a6d",
-  "x-introducedInOkapi": "1.48.0"
+  "x-baseVersion": 15,
+  "x-baseHash": "ae062925c1a0",
+  "x-compositeHash": "5084943d22cd",
+  "x-introducedInOkapi": "1.47.0"
 }
