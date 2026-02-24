@@ -57,6 +57,7 @@ jobs:
       - name: Package release archive
         run: |
           TAG="${GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
           OKAPI_VERSION="${{ matrix.okapi-version }}"
           ARCHIVE_NAME="okapi-bridge-${TAG}-okapi${OKAPI_VERSION}"
 
@@ -69,7 +70,28 @@ jobs:
           fi
           cp "$JAR_FILE" staging/gokapi-bridge-jar-with-dependencies.jar
           cp okapi.bridge.json staging/
-          
+
+          # Generate manifest.json with capabilities from the built JAR
+          CAPABILITIES=$(echo '{"command":"list_filters"}' | java -jar "$JAR_FILE" 2>/dev/null \
+            | tail -1 \
+            | jq '[.data.filters[] | {
+                type: "format",
+                name: .name,
+                display_name: .display_name,
+                mime_types: (if (.mime_types | length) > 0 then .mime_types else null end),
+                extensions: (if (.extensions | length) > 0 then .extensions else null end)
+              } | with_entries(select(.value != null))]')
+
+          jq -n --arg name "okapi-bridge" \
+                --arg version "$VERSION" \
+                --argjson capabilities "$CAPABILITIES" \
+                '{
+                  name: $name,
+                  version: $version,
+                  plugin_type: "bundle",
+                  capabilities: $capabilities
+                }' > staging/manifest.json
+
           # Include composite schemas for this Okapi version from centralized location
           # Use max version per filter to handle any duplicate entries in schema-versions.json
           jq -r --arg ov "${OKAPI_VERSION}" '
@@ -88,22 +110,9 @@ jobs:
 
           sha256sum "${ARCHIVE_NAME}.tar.gz" > "${ARCHIVE_NAME}.tar.gz.sha256"
 
-      - name: Generate capabilities JSON
+      - name: Extract capabilities JSON for registry
         if: matrix.okapi-version == needs.setup.outputs.latest
-        run: |
-          OKAPI_VERSION="${{ matrix.okapi-version }}"
-          # Send list_filters command via stdin, parse JSON response (skip ready message)
-          JAR_FILE=$(ls okapi-releases/${OKAPI_VERSION}/target/gokapi-bridge-*-jar-with-dependencies.jar | head -1)
-          echo '{"command":"list_filters"}' | java -jar "$JAR_FILE" 2>/dev/null \
-            | tail -1 \
-            | jq '.data.filters | [.[] | {
-                type: "format",
-                name: .name,
-                display_name: .display_name,
-                mime_types: (if (.mime_types | length) > 0 then .mime_types else null end),
-                extensions: (if (.extensions | length) > 0 then .extensions else null end)
-              } | with_entries(select(.value != null))]' \
-            > capabilities.json
+        run: jq '.capabilities' staging/manifest.json > capabilities.json
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
@@ -191,7 +200,7 @@ jobs:
                  name: $name,
                  version: $version,
                  description: $desc,
-                 plugin_type: "bridge",
+                 plugin_type: "bundle",
                  install_type: "bridge",
                  platform: "",
                  checksum: $checksum,
