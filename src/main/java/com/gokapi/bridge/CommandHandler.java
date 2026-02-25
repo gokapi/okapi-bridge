@@ -149,8 +149,10 @@ public class CommandHandler {
 
     private ResponseMessage handleWrite(JsonObject params) throws Exception {
         String filterClass = params.get("filter_class").getAsString();
-        String locale = params.has("locale") ? params.get("locale").getAsString() : "";
-        String encoding = params.has("encoding") ? params.get("encoding").getAsString() : "UTF-8";
+        String locale = params.has("locale") && !params.get("locale").getAsString().isEmpty()
+                ? params.get("locale").getAsString() : "en";
+        String encoding = params.has("encoding") && !params.get("encoding").getAsString().isEmpty()
+                ? params.get("encoding").getAsString() : "UTF-8";
         String originalBase64 = params.has("original_content_base64")
                 ? params.get("original_content_base64").getAsString() : "";
         
