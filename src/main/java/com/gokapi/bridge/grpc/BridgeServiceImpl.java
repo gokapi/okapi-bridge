@@ -110,6 +110,7 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             byte[] content = request.getContent().toByteArray();
             String uri = request.getUri();
             String sourceLocale = request.getSourceLocale().isEmpty() ? "en" : request.getSourceLocale();
+            String targetLocale = request.getTargetLocale().isEmpty() ? "fr" : request.getTargetLocale();
             String encoding = request.getEncoding().isEmpty() ? "UTF-8" : request.getEncoding();
 
             currentContent = content;
@@ -141,7 +142,8 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             Files.write(tempFile.toPath(), content);
 
             LocaleId srcLocale = LocaleId.fromString(sourceLocale);
-            RawDocument rawDoc = new RawDocument(tempFile.toURI(), encoding, srcLocale);
+            LocaleId tgtLocale = LocaleId.fromString(targetLocale);
+            RawDocument rawDoc = new RawDocument(tempFile.toURI(), encoding, srcLocale, tgtLocale);
 
             filter.open(rawDoc);
             currentFilter = filter;
@@ -312,7 +314,8 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         Files.write(tempFile.toPath(), originalContent);
 
         LocaleId srcLocale = LocaleId.fromString("en");
-        RawDocument rawDoc = new RawDocument(tempFile.toURI(), encoding, srcLocale);
+        LocaleId tgtLocale = LocaleId.fromString(locale);
+        RawDocument rawDoc = new RawDocument(tempFile.toURI(), encoding, srcLocale, tgtLocale);
         filter.open(rawDoc);
 
         // Feed events through the filter writer, replacing text units with translations.
