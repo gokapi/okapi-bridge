@@ -36,6 +36,12 @@ public class BlockDTO {
     @SerializedName("annotations")
     private Map<String, AnnotationEntryDTO> annotations;
 
+    @SerializedName("display_hint")
+    private DisplayHintDTO displayHint;
+
+    @SerializedName("skeleton")
+    private SkeletonDTO skeleton;
+
     @SerializedName("preserve_whitespace")
     private boolean preserveWhitespace;
 
@@ -112,6 +118,22 @@ public class BlockDTO {
 
     public void setAnnotations(Map<String, AnnotationEntryDTO> annotations) {
         this.annotations = annotations;
+    }
+
+    public DisplayHintDTO getDisplayHint() {
+        return displayHint;
+    }
+
+    public void setDisplayHint(DisplayHintDTO displayHint) {
+        this.displayHint = displayHint;
+    }
+
+    public SkeletonDTO getSkeleton() {
+        return skeleton;
+    }
+
+    public void setSkeleton(SkeletonDTO skeleton) {
+        this.skeleton = skeleton;
     }
 
     public boolean isPreserveWhitespace() {

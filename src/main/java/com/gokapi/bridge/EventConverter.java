@@ -3,6 +3,7 @@ package com.gokapi.bridge;
 import com.gokapi.bridge.model.*;
 import com.gokapi.bridge.util.AnnotationExtractor;
 import com.gokapi.bridge.util.OkapiCodeConverter;
+import com.gokapi.bridge.util.SkeletonConverter;
 
 import net.sf.okapi.common.Event;
 import net.sf.okapi.common.EventType;
@@ -203,6 +204,9 @@ public class EventConverter {
         // Extract annotations (notes, alt-translations, ITS metadata).
         block.setAnnotations(AnnotationExtractor.extractAnnotations(tu));
 
+        // Extract skeleton.
+        block.setSkeleton(SkeletonConverter.convert(tu));
+
         part.setBlock(block);
         return part;
     }
@@ -230,6 +234,9 @@ public class EventConverter {
                 data.setProperties(props);
             }
         }
+
+        // Extract skeleton.
+        data.setSkeleton(SkeletonConverter.convert(dp));
 
         part.setData(data);
         return part;

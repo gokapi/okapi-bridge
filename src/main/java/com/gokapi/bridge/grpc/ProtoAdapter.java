@@ -136,6 +136,14 @@ public class ProtoAdapter {
             b.putAllProperties(dto.getProperties());
         }
 
+        if (dto.getDisplayHint() != null) {
+            b.setDisplayHint(toProto(dto.getDisplayHint()));
+        }
+
+        if (dto.getSkeleton() != null) {
+            b.setSkeleton(toProto(dto.getSkeleton()));
+        }
+
         if (dto.getAnnotations() != null) {
             for (Map.Entry<String, AnnotationEntryDTO> entry : dto.getAnnotations().entrySet()) {
                 AnnotationEntryDTO ae = entry.getValue();
@@ -187,6 +195,14 @@ public class ProtoAdapter {
 
         if (msg.getPropertiesCount() > 0) {
             dto.setProperties(new LinkedHashMap<>(msg.getPropertiesMap()));
+        }
+
+        if (msg.hasDisplayHint()) {
+            dto.setDisplayHint(fromProto(msg.getDisplayHint()));
+        }
+
+        if (msg.hasSkeleton()) {
+            dto.setSkeleton(fromProto(msg.getSkeleton()));
         }
 
         if (msg.getAnnotationsCount() > 0) {
@@ -255,6 +271,10 @@ public class ProtoAdapter {
             b.putAllProperties(dto.getProperties());
         }
 
+        if (dto.getSkeleton() != null) {
+            b.setSkeleton(toProto(dto.getSkeleton()));
+        }
+
         return b.build();
     }
 
@@ -265,6 +285,9 @@ public class ProtoAdapter {
         dto.setReferent(msg.getIsReferent());
         if (msg.getPropertiesCount() > 0) {
             dto.setProperties(new LinkedHashMap<>(msg.getPropertiesMap()));
+        }
+        if (msg.hasSkeleton()) {
+            dto.setSkeleton(fromProto(msg.getSkeleton()));
         }
         return dto;
     }
@@ -427,6 +450,68 @@ public class ProtoAdapter {
         dto.setFlags(msg.getFlags());
         dto.setEquivText(msg.getEquivText());
         dto.setCanReorder(msg.getCanReorder());
+        return dto;
+    }
+
+    // ── SkeletonDTO ↔ SkeletonMessage ──────────────────────────────────────
+
+    public static SkeletonMessage toProto(SkeletonDTO dto) {
+        SkeletonMessage.Builder b = SkeletonMessage.newBuilder()
+                .setStrategy(dto.getStrategy())
+                .setSourceUri(nullSafe(dto.getSourceUri()));
+
+        if (dto.getParts() != null) {
+            for (SkeletonPartDTO part : dto.getParts()) {
+                SkeletonPartMessage.Builder pb = SkeletonPartMessage.newBuilder()
+                        .setText(nullSafe(part.getText()))
+                        .setResourceId(nullSafe(part.getResourceId()))
+                        .setProperty(nullSafe(part.getProperty()))
+                        .setLocale(nullSafe(part.getLocale()));
+                b.addParts(pb);
+            }
+        }
+
+        return b.build();
+    }
+
+    public static SkeletonDTO fromProto(SkeletonMessage msg) {
+        SkeletonDTO dto = new SkeletonDTO();
+        dto.setStrategy(msg.getStrategy());
+        dto.setSourceUri(msg.getSourceUri());
+
+        if (msg.getPartsCount() > 0) {
+            List<SkeletonPartDTO> parts = new ArrayList<>();
+            for (SkeletonPartMessage pm : msg.getPartsList()) {
+                SkeletonPartDTO part = new SkeletonPartDTO();
+                part.setText(pm.getText());
+                part.setResourceId(pm.getResourceId());
+                part.setProperty(pm.getProperty());
+                part.setLocale(pm.getLocale());
+                parts.add(part);
+            }
+            dto.setParts(parts);
+        }
+
+        return dto;
+    }
+
+    // ── DisplayHintDTO ↔ DisplayHintMessage ─────────────────────────────────
+
+    public static DisplayHintMessage toProto(DisplayHintDTO dto) {
+        return DisplayHintMessage.newBuilder()
+                .setMaxLength(dto.getMaxLength())
+                .setContentType(nullSafe(dto.getContentType()))
+                .setContext(nullSafe(dto.getContext()))
+                .setPreview(nullSafe(dto.getPreview()))
+                .build();
+    }
+
+    public static DisplayHintDTO fromProto(DisplayHintMessage msg) {
+        DisplayHintDTO dto = new DisplayHintDTO();
+        dto.setMaxLength(msg.getMaxLength());
+        dto.setContentType(msg.getContentType());
+        dto.setContext(msg.getContext());
+        dto.setPreview(msg.getPreview());
         return dto;
     }
 
