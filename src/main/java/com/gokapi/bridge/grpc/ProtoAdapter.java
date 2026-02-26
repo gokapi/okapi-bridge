@@ -133,7 +133,7 @@ public class ProtoAdapter {
         }
 
         if (dto.getProperties() != null) {
-            b.putAllProperties(dto.getProperties());
+            b.putAllProperties(sanitizeProperties(dto.getProperties()));
         }
 
         if (dto.getDisplayHint() != null) {
@@ -233,7 +233,7 @@ public class ProtoAdapter {
                 .setHasBom(dto.isHasBom());
 
         if (dto.getProperties() != null) {
-            b.putAllProperties(dto.getProperties());
+            b.putAllProperties(sanitizeProperties(dto.getProperties()));
         }
 
         return b.build();
@@ -268,7 +268,7 @@ public class ProtoAdapter {
                 .setIsReferent(dto.isReferent());
 
         if (dto.getProperties() != null) {
-            b.putAllProperties(dto.getProperties());
+            b.putAllProperties(sanitizeProperties(dto.getProperties()));
         }
 
         if (dto.getSkeleton() != null) {
@@ -301,7 +301,7 @@ public class ProtoAdapter {
                 .setType(nullSafe(dto.getType()));
 
         if (dto.getProperties() != null) {
-            b.putAllProperties(dto.getProperties());
+            b.putAllProperties(sanitizeProperties(dto.getProperties()));
         }
 
         return b.build();
@@ -342,7 +342,7 @@ public class ProtoAdapter {
                 .setAltText(nullSafe(dto.getAltText()));
 
         if (dto.getProperties() != null) {
-            b.putAllProperties(dto.getProperties());
+            b.putAllProperties(sanitizeProperties(dto.getProperties()));
         }
 
         return b.build();
@@ -371,7 +371,7 @@ public class ProtoAdapter {
         }
 
         if (dto.getProperties() != null) {
-            b.putAllProperties(dto.getProperties());
+            b.putAllProperties(sanitizeProperties(dto.getProperties()));
         }
 
         return b.build();
@@ -519,5 +519,17 @@ public class ProtoAdapter {
 
     private static String nullSafe(String s) {
         return s != null ? s : "";
+    }
+
+    /**
+     * Sanitize a properties map for protobuf: replace null values with empty strings.
+     * Protobuf map fields reject null values with NullPointerException.
+     */
+    private static Map<String, String> sanitizeProperties(Map<String, String> map) {
+        Map<String, String> clean = new LinkedHashMap<>();
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            clean.put(entry.getKey(), entry.getValue() != null ? entry.getValue() : "");
+        }
+        return clean;
     }
 }
