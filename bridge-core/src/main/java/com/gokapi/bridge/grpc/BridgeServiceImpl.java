@@ -109,6 +109,7 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             String filterClass = request.getFilterClass();
             byte[] content = request.getContent().toByteArray();
             String uri = request.getUri();
+            String sourcePath = request.getSourcePath();
             String sourceLocale = request.getSourceLocale().isEmpty() ? "en" : request.getSourceLocale();
             String targetLocale = request.getTargetLocale().isEmpty() ? "fr" : request.getTargetLocale();
             String encoding = request.getEncoding().isEmpty() ? "UTF-8" : request.getEncoding();
@@ -131,19 +132,22 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
                 applyFilterParams(filter, filterParams);
             }
 
-            // Write content to temp file for filters needing random access.
-            String ext = "";
-            int dotIdx = uri.lastIndexOf('.');
-            if (dotIdx >= 0) {
-                ext = uri.substring(dotIdx);
+            // Use source_path for direct disk access when available.
+            // This enables relative URI resolution for auxiliary files
+            // (e.g. ITS standoff annotations, external skeleton files).
+            File inputFile;
+            if (sourcePath != null && !sourcePath.isEmpty()) {
+                inputFile = new File(sourcePath);
+                if (!inputFile.exists()) {
+                    inputFile = writeTempFile(content, uri);
+                }
+            } else {
+                inputFile = writeTempFile(content, uri);
             }
-            File tempFile = File.createTempFile("gokapi-bridge-", ext);
-            tempFile.deleteOnExit();
-            Files.write(tempFile.toPath(), content);
 
             LocaleId srcLocale = LocaleId.fromString(sourceLocale);
             LocaleId tgtLocale = LocaleId.fromString(targetLocale);
-            RawDocument rawDoc = new RawDocument(tempFile.toURI(), encoding, srcLocale, tgtLocale);
+            RawDocument rawDoc = new RawDocument(inputFile.toURI(), encoding, srcLocale, tgtLocale);
 
             filter.open(rawDoc);
             currentFilter = filter;
@@ -285,6 +289,7 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         String locale = header.getLocale().isEmpty() ? "en" : header.getLocale();
         String encoding = header.getEncoding().isEmpty() ? "UTF-8" : header.getEncoding();
         byte[] originalContent = header.getOriginalContent().toByteArray();
+        String sourcePath = header.getSourcePath();
 
         // Create filter for reading the skeleton.
         IFilter filter = FilterRegistry.createFilter(filterClass);
@@ -308,14 +313,20 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         writer.setOptions(LocaleId.fromString(locale), encoding);
         writer.setOutput(outputStream);
 
-        // Write original content to temp file.
-        File tempFile = File.createTempFile("gokapi-bridge-write-", "");
-        tempFile.deleteOnExit();
-        Files.write(tempFile.toPath(), originalContent);
+        // Use source_path for direct disk access when available.
+        File inputFile;
+        if (sourcePath != null && !sourcePath.isEmpty()) {
+            inputFile = new File(sourcePath);
+            if (!inputFile.exists()) {
+                inputFile = writeTempFile(originalContent, "");
+            }
+        } else {
+            inputFile = writeTempFile(originalContent, "");
+        }
 
         LocaleId srcLocale = LocaleId.fromString("en");
         LocaleId tgtLocale = LocaleId.fromString(locale);
-        RawDocument rawDoc = new RawDocument(tempFile.toURI(), encoding, srcLocale, tgtLocale);
+        RawDocument rawDoc = new RawDocument(inputFile.toURI(), encoding, srcLocale, tgtLocale);
         filter.open(rawDoc);
 
         // Feed events through the filter writer, replacing text units with translations.
@@ -331,6 +342,25 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
 
         System.err.println("[bridge] Wrote output (" + outputStream.size() + " bytes)");
         return outputStream.toByteArray();
+    }
+
+    /**
+     * Write content to a temp file for filters needing random access.
+     * The file extension is derived from the URI (if any) to help Okapi
+     * auto-detect the format.
+     */
+    private File writeTempFile(byte[] content, String uri) throws IOException {
+        String ext = "";
+        if (uri != null && !uri.isEmpty()) {
+            int dotIdx = uri.lastIndexOf('.');
+            if (dotIdx >= 0) {
+                ext = uri.substring(dotIdx);
+            }
+        }
+        File tempFile = File.createTempFile("gokapi-bridge-", ext);
+        tempFile.deleteOnExit();
+        Files.write(tempFile.toPath(), content);
+        return tempFile;
     }
 
     /**
