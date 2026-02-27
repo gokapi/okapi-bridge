@@ -70,18 +70,12 @@ abstract class AbstractOkapiCompat implements OkapiCompat {
     @Override
     public Object getValue(GenericAnnotation ann, String fieldName) {
         // Try each type-specific getter in order. These exist in all Okapi versions.
-        String s = ann.getString(fieldName);
-        if (s != null) return s;
-
-        Double d = ann.getDouble(fieldName);
-        if (d != null) return d;
-
-        Integer i = ann.getInteger(fieldName);
-        if (i != null) return i;
-
-        Boolean b = ann.getBoolean(fieldName);
-        if (b != null) return b;
-
+        // Each getter throws InvalidParameterException if the field exists but is a
+        // different type, so we catch and fall through to the next type.
+        try { String s = ann.getString(fieldName); if (s != null) return s; } catch (Exception ignored) {}
+        try { Double d = ann.getDouble(fieldName); if (d != null) return d; } catch (Exception ignored) {}
+        try { Integer i = ann.getInteger(fieldName); if (i != null) return i; } catch (Exception ignored) {}
+        try { Boolean b = ann.getBoolean(fieldName); if (b != null) return b; } catch (Exception ignored) {}
         return null;
     }
 

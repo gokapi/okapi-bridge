@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class StreamingTranslationApplier {
 
-    private static final long POLL_TIMEOUT_SECONDS = 30;
+    private static final long POLL_TIMEOUT_SECONDS = 120;
 
     private final BlockingQueue<TranslationEntry> queue;
     private final LocaleId targetLocale;
