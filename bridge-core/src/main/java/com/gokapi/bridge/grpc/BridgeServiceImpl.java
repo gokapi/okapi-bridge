@@ -312,8 +312,21 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         // invalid XML with duplicate attributes.
         if (isXliffFilter(filterClass)) {
             originalContent = stripEmptyTargetLanguage(originalContent, sourcePath);
-            // Force temp file path since we modified the content.
-            sourcePath = "";
+            // We modified the content, so we can't use sourcePath for reading.
+            // But we still need the directory context for auxiliary file resolution
+            // (e.g., ITS standoff annotations like lqiTestIssues.xml).
+            // Write modified content as a sibling temp file in the source directory.
+            if (sourcePath != null && !sourcePath.isEmpty()) {
+                File sourceDir = new File(sourcePath).getParentFile();
+                if (sourceDir != null && sourceDir.isDirectory()) {
+                    File siblingTemp = File.createTempFile("gokapi-bridge-", ".xlf", sourceDir);
+                    siblingTemp.deleteOnExit();
+                    Files.write(siblingTemp.toPath(), originalContent);
+                    sourcePath = siblingTemp.getAbsolutePath();
+                } else {
+                    sourcePath = "";
+                }
+            }
         }
 
         // Create filter for reading the skeleton.
