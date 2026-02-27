@@ -7,7 +7,7 @@ A Java bridge for [gokapi](https://github.com/gokapi/gokapi) that provides acces
 - **57+ Filters**: HTML, XML, XLIFF, OpenXML, Markdown, JSON, YAML, PO, and many more
 - **Centralized Schemas**: Deduplicated base schemas with composite versioning
 - **Multi-version Support**: Builds for 10 Okapi versions (0.38 to 1.47.0)
-- **NDJSON Protocol**: Go plugin interface via stdin/stdout
+- **gRPC Protocol**: Streaming bridge protocol for Go ↔ JVM communication
 - **Per-version Dependencies**: Each Okapi version has its own discovered filter dependencies
 
 ## Installation
