@@ -251,15 +251,7 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
     @Override
     public void close(CloseRequest request, StreamObserver<CloseResponse> responseObserver) {
         try {
-            if (currentFilter != null) {
-                try {
-                    currentFilter.close();
-                } catch (Exception e) {
-                    System.err.println("[bridge] Error closing filter: " + e.getMessage());
-                }
-                currentFilter = null;
-                currentContent = null;
-            }
+            closeCurrentFilter();
             responseObserver.onNext(CloseResponse.newBuilder().build());
             responseObserver.onCompleted();
         } catch (Exception e) {
@@ -267,6 +259,29 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
                     .setError(e.getMessage())
                     .build());
             responseObserver.onCompleted();
+        }
+    }
+
+    /**
+     * Close the current filter and release all associated resources.
+     * Nullifies references eagerly to prevent stale state when the bridge
+     * is reused from the pool for the next document. This is especially
+     * important for complex filters like OpenXML that manage ZIP archives
+     * with internal sub-filter pipelines.
+     */
+    private void closeCurrentFilter() {
+        if (currentFilter == null) {
+            return;
+        }
+
+        IFilter filter = currentFilter;
+        currentFilter = null;
+        currentContent = null;
+
+        try {
+            filter.close();
+        } catch (Exception e) {
+            System.err.println("[bridge] Error closing filter: " + e.getMessage());
         }
     }
 
@@ -290,6 +305,16 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         String encoding = header.getEncoding().isEmpty() ? "UTF-8" : header.getEncoding();
         byte[] originalContent = header.getOriginalContent().toByteArray();
         String sourcePath = header.getSourcePath();
+
+        // For XLIFF filters, strip empty target-language="" from the original content.
+        // Okapi's XLIFF writer sets target-language from the RawDocument target locale,
+        // but doesn't remove a pre-existing empty one from the skeleton, producing
+        // invalid XML with duplicate attributes.
+        if (isXliffFilter(filterClass)) {
+            originalContent = stripEmptyTargetLanguage(originalContent, sourcePath);
+            // Force temp file path since we modified the content.
+            sourcePath = "";
+        }
 
         // Create filter for reading the skeleton.
         IFilter filter = FilterRegistry.createFilter(filterClass);
@@ -395,6 +420,40 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         } else {
             System.err.println("[bridge] Warning: Some filter parameters could not be applied");
         }
+    }
+
+    /**
+     * Check if a filter class is an XLIFF filter (1.2 or 2.0).
+     */
+    private static boolean isXliffFilter(String filterClass) {
+        return filterClass != null && (
+                filterClass.contains("XLIFFFilter") ||
+                filterClass.contains("XLIFF2Filter"));
+    }
+
+    /**
+     * Strip empty target-language="" attributes from XLIFF content.
+     * When sourcePath is set, reads the file content first. Returns the
+     * cleaned content bytes (always use temp file after this).
+     */
+    private byte[] stripEmptyTargetLanguage(byte[] content, String sourcePath) {
+        byte[] raw = content;
+        if ((raw == null || raw.length == 0) && sourcePath != null && !sourcePath.isEmpty()) {
+            try {
+                raw = Files.readAllBytes(new File(sourcePath).toPath());
+            } catch (IOException e) {
+                return content; // fall back to original
+            }
+        }
+        if (raw == null || raw.length == 0) {
+            return content;
+        }
+        String text = new String(raw, java.nio.charset.StandardCharsets.UTF_8);
+        // Remove empty target-language="" or target-language='' attributes.
+        // This prevents duplicate attributes when Okapi's XLIFF writer sets
+        // the target-language from the RawDocument target locale.
+        String cleaned = text.replaceAll("\\s+target-language\\s*=\\s*[\"'][\"']", "");
+        return cleaned.getBytes(java.nio.charset.StandardCharsets.UTF_8);
     }
 
     private static String nullSafe(String s) {

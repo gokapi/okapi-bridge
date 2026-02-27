@@ -392,8 +392,12 @@ public class ProtoAdapter {
     // ── FragmentDTO ↔ FragmentMessage ───────────────────────────────────────
 
     public static FragmentMessage toProto(FragmentDTO dto) {
-        FragmentMessage.Builder b = FragmentMessage.newBuilder()
-                .setCodedText(nullSafe(dto.getCodedText()));
+        FragmentMessage.Builder b = FragmentMessage.newBuilder();
+
+        // Use bytes-based setter to preserve supplementary Unicode characters
+        // (emoji, codepoints >= U+10000). The standard setCodedText(String)
+        // can corrupt surrogate pairs in some protobuf-java versions.
+        b.setCodedTextBytes(ByteString.copyFromUtf8(nullSafe(dto.getCodedText())));
 
         if (dto.getSpans() != null) {
             for (SpanDTO span : dto.getSpans()) {
@@ -420,20 +424,24 @@ public class ProtoAdapter {
     // ── SpanDTO ↔ SpanMessage ───────────────────────────────────────────────
 
     public static SpanMessage toProto(SpanDTO dto) {
-        return SpanMessage.newBuilder()
+        SpanMessage.Builder b = SpanMessage.newBuilder()
                 .setSpanType(dto.getSpanType())
                 .setType(nullSafe(dto.getType()))
                 .setId(nullSafe(dto.getId()))
-                .setData(nullSafe(dto.getData()))
-                .setOuterData(nullSafe(dto.getOuterData()))
                 .setDeletable(dto.isDeletable())
                 .setCloneable(dto.isCloneable())
                 .setOriginalId(nullSafe(dto.getOriginalId()))
-                .setDisplayText(nullSafe(dto.getDisplayText()))
                 .setFlags(dto.getFlags())
-                .setEquivText(nullSafe(dto.getEquivText()))
-                .setCanReorder(dto.isCanReorder())
-                .build();
+                .setCanReorder(dto.isCanReorder());
+
+        // Use bytes-based setters for content fields that may contain
+        // supplementary Unicode characters (emoji, codepoints >= U+10000).
+        b.setDataBytes(ByteString.copyFromUtf8(nullSafe(dto.getData())));
+        b.setOuterDataBytes(ByteString.copyFromUtf8(nullSafe(dto.getOuterData())));
+        b.setDisplayTextBytes(ByteString.copyFromUtf8(nullSafe(dto.getDisplayText())));
+        b.setEquivTextBytes(ByteString.copyFromUtf8(nullSafe(dto.getEquivText())));
+
+        return b.build();
     }
 
     public static SpanDTO fromProto(SpanMessage msg) {
