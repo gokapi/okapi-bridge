@@ -196,6 +196,7 @@ ifndef V
 	$(error V is required. Usage: make snapshot V=1.49.0-SNAPSHOT)
 endif
 	@echo "Building against local Okapi $(V)..."
+	@mvn -B install -N -DskipTests -q
 	@SNAPSHOT_DIR=$$(mktemp -d) && \
 	./scripts/generate-version-pom.sh --local --output-dir "$$SNAPSHOT_DIR" $(V) && \
 	mvn -B package -f "$$SNAPSHOT_DIR/pom.xml" -DskipTests && \

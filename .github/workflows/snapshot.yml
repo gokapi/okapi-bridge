@@ -60,6 +60,9 @@ jobs:
           mvn -B install -f okapi/pom.xml -DskipTests -T 1C
           echo "::endgroup::"
 
+      - name: Install parent pom
+        run: mvn -B install -N -DskipTests
+
       - name: Generate SNAPSHOT pom
         env:
           OKAPI_VERSION: ${{ steps.okapi-version.outputs.version }}
