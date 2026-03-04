@@ -148,6 +148,11 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
                 inputFile = writeTempFile(content, uri);
             }
 
+            // Set up FilterConfigurationMapper for sub-filtering support.
+            // Filters like RegexFilter with useCodeFinder/subfilter configs need
+            // a mapper to resolve sub-filter classes (e.g., okf_html -> HTMLFilter).
+            setupFilterConfigurationMapper(filter);
+
             LocaleId srcLocale = LocaleId.fromString(sourceLocale);
             LocaleId tgtLocale = LocaleId.fromString(targetLocale);
             RawDocument rawDoc = new RawDocument(inputFile.toURI(), encoding, srcLocale, tgtLocale);
@@ -550,6 +555,11 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
      * Apply filter parameters from the gRPC map<string, string> format.
      * Values that look like JSON are parsed back to JsonElements for
      * the ParameterApplier, which expects a JsonObject.
+     *
+     * Special handling for "configFile": when present, the file is read and
+     * its content is loaded via params.fromString() before applying any
+     * remaining parameters. This supports filters with non-YAML config formats
+     * (e.g., .fprm files used by RegexFilter, PlainTextFilter).
      */
     private void applyFilterParams(IFilter filter, Map<String, String> params) {
         IParameters filterParameters = filter.getParameters();
@@ -558,10 +568,43 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             return;
         }
 
-        // Convert map<string, string> back to JsonObject.
+        // Handle configFile: load the entire configuration from a file.
+        // This is essential for filters like RegexFilter whose .fprm configs
+        // define rules, escape settings, and other structured parameters that
+        // cannot be applied as individual key-value pairs.
+        //
+        // We prefer load(URL) over fromString() because load(URL) is what
+        // Okapi's own test infrastructure uses. Some filters (e.g., RegexFilter)
+        // have fromString() implementations that silently succeed but produce
+        // incomplete configurations — load(URL) handles all format versions
+        // correctly including the #v1 header in .fprm files.
+        String configFilePath = params.get("configFile");
+        if (configFilePath != null && !configFilePath.isEmpty()) {
+            try {
+                java.net.URL configUrl = new File(configFilePath).toURI().toURL();
+                filterParameters.load(configUrl, false);
+                System.err.println("[bridge] Loaded config from file: " + configFilePath);
+            } catch (Exception e) {
+                // Fall back to fromString() if load(URL) fails.
+                try {
+                    String configContent = new String(Files.readAllBytes(
+                            new File(configFilePath).toPath()), java.nio.charset.StandardCharsets.UTF_8);
+                    filterParameters.fromString(configContent);
+                    System.err.println("[bridge] Loaded config from file via fromString: " + configFilePath);
+                } catch (Exception e2) {
+                    System.err.println("[bridge] Warning: Could not load config file " +
+                            configFilePath + ": " + e2.getMessage());
+                }
+            }
+        }
+
+        // Convert remaining params (excluding configFile) to JsonObject.
         // The Go side JSON-encodes non-string values (booleans, numbers, objects).
         JsonObject jsonParams = new JsonObject();
         for (Map.Entry<String, String> entry : params.entrySet()) {
+            if ("configFile".equals(entry.getKey())) {
+                continue; // Already handled above
+            }
             String value = entry.getValue();
             try {
                 JsonElement parsed = JsonParser.parseString(value);
@@ -572,12 +615,16 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             }
         }
 
-        boolean success = ParameterApplier.applyParameters(filterParameters, jsonParams);
-        if (success) {
-            System.err.println("[bridge] Applied " + params.size() + " filter parameters");
-        } else {
-            System.err.println("[bridge] Warning: Some filter parameters could not be applied");
+        if (jsonParams.size() > 0) {
+            boolean success = ParameterApplier.applyParameters(filterParameters, jsonParams);
+            if (success) {
+                System.err.println("[bridge] Applied " + jsonParams.size() + " additional filter parameters");
+            } else {
+                System.err.println("[bridge] Warning: Some filter parameters could not be applied");
+            }
         }
+
+        System.err.println("[bridge] Applied " + params.size() + " filter parameters");
     }
 
     /**
@@ -612,6 +659,43 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         // the target-language from the RawDocument target locale.
         String cleaned = text.replaceAll("\\s+target-language\\s*=\\s*[\"'][\"']", "");
         return cleaned.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Set up a FilterConfigurationMapper on the filter so that sub-filtering works.
+     * Filters like RegexFilter with useCodeFinder need to resolve sub-filter IDs
+     * (e.g., "okf_html") to their filter classes. Without this mapper, opening a
+     * filter with sub-filtering config causes a NullPointerException on fcMapper.
+     */
+    private void setupFilterConfigurationMapper(IFilter filter) {
+        try {
+            // Create a FilterConfigurationMapper with all discovered filters.
+            net.sf.okapi.common.filters.FilterConfigurationMapper fcMapper =
+                    new net.sf.okapi.common.filters.FilterConfigurationMapper();
+
+            // Register all discovered filters and their configurations.
+            for (String fc : FilterRegistry.getFilterClasses()) {
+                try {
+                    IFilter f = FilterRegistry.createFilter(fc);
+                    if (f != null) {
+                        List<net.sf.okapi.common.filters.FilterConfiguration> configs = f.getConfigurations();
+                        if (configs != null) {
+                            for (net.sf.okapi.common.filters.FilterConfiguration cfg : configs) {
+                                fcMapper.addConfigurations(fc);
+                                break; // Only need to register each filter class once
+                            }
+                        }
+                    }
+                } catch (Exception e) {
+                    // Skip filters that fail to instantiate
+                }
+            }
+
+            filter.setFilterConfigurationMapper(fcMapper);
+        } catch (Exception e) {
+            // Non-fatal: sub-filtering won't work but basic filtering will.
+            System.err.println("[bridge] Warning: Could not set up FilterConfigurationMapper: " + e.getMessage());
+        }
     }
 
     private static String nullSafe(String s) {
