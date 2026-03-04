@@ -188,18 +188,31 @@ public class EventConverter {
             block.setTargets(targets);
         }
 
-        // Convert properties.
+        // Convert properties (generic + source).
+        Map<String, String> tuProps = new LinkedHashMap<>();
+
         if (tu.getPropertyNames() != null && !tu.getPropertyNames().isEmpty()) {
-            Map<String, String> props = new LinkedHashMap<>();
             for (String propName : tu.getPropertyNames()) {
                 Property prop = tu.getProperty(propName);
                 if (prop != null) {
-                    props.put(propName, prop.getValue());
+                    tuProps.put(propName, prop.getValue());
                 }
             }
-            if (!props.isEmpty()) {
-                block.setProperties(props);
+        }
+
+        // Source properties (e.g., id attribute from HTML elements).
+        Set<String> tuSrcNames = tu.getSourcePropertyNames();
+        if (tuSrcNames != null && !tuSrcNames.isEmpty()) {
+            for (String propName : tuSrcNames) {
+                Property prop = tu.getSourceProperty(propName);
+                if (prop != null) {
+                    tuProps.put(propName, prop.getValue());
+                }
             }
+        }
+
+        if (!tuProps.isEmpty()) {
+            block.setProperties(tuProps);
         }
 
         // Extract annotations (notes, alt-translations, ITS metadata).
@@ -222,18 +235,32 @@ public class EventConverter {
         data.setName(dp.getName());
         data.setReferent(dp.isReferent());
 
-        // Convert properties.
+        // Convert properties (generic + source).
+        Map<String, String> props = new LinkedHashMap<>();
+
+        // Generic properties.
         if (dp.getPropertyNames() != null && !dp.getPropertyNames().isEmpty()) {
-            Map<String, String> props = new LinkedHashMap<>();
             for (String propName : dp.getPropertyNames()) {
                 Property prop = dp.getProperty(propName);
                 if (prop != null) {
                     props.put(propName, prop.getValue());
                 }
             }
-            if (!props.isEmpty()) {
-                data.setProperties(props);
+        }
+
+        // Source properties (localizable attributes like lang, href, charset).
+        Set<String> srcNames = dp.getSourcePropertyNames();
+        if (srcNames != null && !srcNames.isEmpty()) {
+            for (String propName : srcNames) {
+                Property prop = dp.getSourceProperty(propName);
+                if (prop != null) {
+                    props.put(propName, prop.getValue());
+                }
             }
+        }
+
+        if (!props.isEmpty()) {
+            data.setProperties(props);
         }
 
         // Extract skeleton.
