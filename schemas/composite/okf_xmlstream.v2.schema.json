@@ -533,53 +533,6 @@
         }
       }
     },
-    "attributes": {
-      "type": "object",
-      "description": "Attribute extraction rules",
-      "properties": {
-        "attributes": {
-          "type": "object",
-          "description": "Global attribute rule map",
-          "x-widget": "attributeRulesEditor",
-          "additionalProperties": {
-            "$ref": "#/$defs/attributeRule"
-          },
-          "default": {
-            "xml:lang": {
-              "ruleTypes": [
-                "ATTRIBUTE_WRITABLE"
-              ]
-            },
-            "xml:id": {
-              "ruleTypes": [
-                "ATTRIBUTE_ID"
-              ]
-            },
-            "id": {
-              "ruleTypes": [
-                "ATTRIBUTE_ID"
-              ]
-            },
-            "xml:space": {
-              "ruleTypes": [
-                "ATTRIBUTE_PRESERVE_WHITESPACE"
-              ],
-              "preserve": [
-                "xml:space",
-                "EQUALS",
-                "preserve"
-              ],
-              "default": [
-                "xml:space",
-                "EQUALS",
-                "default"
-              ]
-            }
-          },
-          "x-flattenPath": "attributes"
-        }
-      }
-    },
     "taggedConfig": {
       "type": "object"
     },
@@ -589,6 +542,46 @@
     },
     "path": {
       "type": "string"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Global attribute extraction rules — maps attribute names to their rule configuration",
+      "x-widget": "attributeRulesEditor",
+      "additionalProperties": {
+        "$ref": "#/$defs/attributeRule"
+      },
+      "default": {
+        "xml:lang": {
+          "ruleTypes": [
+            "ATTRIBUTE_WRITABLE"
+          ]
+        },
+        "xml:id": {
+          "ruleTypes": [
+            "ATTRIBUTE_ID"
+          ]
+        },
+        "id": {
+          "ruleTypes": [
+            "ATTRIBUTE_ID"
+          ]
+        },
+        "xml:space": {
+          "ruleTypes": [
+            "ATTRIBUTE_PRESERVE_WHITESPACE"
+          ],
+          "preserve": [
+            "xml:space",
+            "EQUALS",
+            "preserve"
+          ],
+          "default": [
+            "xml:space",
+            "EQUALS",
+            "default"
+          ]
+        }
+      }
     }
   },
   "additionalProperties": false,
@@ -810,8 +803,8 @@
     }
   },
   "x-schemaVersion": 2,
-  "x-baseVersion": 2,
+  "x-baseVersion": 4,
   "x-introducedInOkapi": "1.43.0",
-  "x-baseHash": "ce38715d9485",
-  "x-compositeHash": "c5f58b9b29ea"
+  "x-baseHash": "a2c3a2ccb0a9",
+  "x-compositeHash": "8f569d120bcb"
 }
