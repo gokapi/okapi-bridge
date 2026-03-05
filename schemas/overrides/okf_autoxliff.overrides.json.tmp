@@ -1,7 +1,0 @@
-{
-  "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
-  "fields": {
-    "xliff_config": {},
-    "xliff2_config": {}
-  }
-}

@@ -287,7 +287,32 @@ cat >> "$OUTPUT_FILE" << EOF
                                 <resource>
                                     <directory>${PATH_PREFIX}tools/schema-generator/src/main/resources</directory>
                                 </resource>
+                                <resource>
+                                    <directory>\${project.build.directory}/schema-resources</directory>
+                                </resource>
                             </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Exec plugin: schema generation (inherited from parent) + schema preparation -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>prepare-schemas</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>bash</executable>
+                            <arguments>
+                                <argument>${PATH_PREFIX}scripts/prepare-schemas-for-jar.sh</argument>
+                                <argument>\${okapi.version}</argument>
+                                <argument>\${project.build.directory}/schema-resources/schemas</argument>
+                            </arguments>
                         </configuration>
                     </execution>
                 </executions>
@@ -296,11 +321,6 @@ cat >> "$OUTPUT_FILE" << EOF
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-            </plugin>
-            <!-- Exec: schema generation (config inherited from parent) -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>

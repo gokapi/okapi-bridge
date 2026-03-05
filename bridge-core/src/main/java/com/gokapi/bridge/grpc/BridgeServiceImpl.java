@@ -7,6 +7,7 @@ import com.gokapi.bridge.proto.*;
 import com.gokapi.bridge.util.FilterRegistry;
 import com.gokapi.bridge.util.ParameterApplier;
 import com.gokapi.bridge.util.ParameterFlattener;
+import com.gokapi.bridge.util.SchemaValidator;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -39,6 +40,7 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
     private final CountDownLatch shutdownLatch = new CountDownLatch(1);
     private final ExecutorService mergeExecutor = Executors.newCachedThreadPool();
     private final Map<String, ParameterFlattener> flattenerCache = new ConcurrentHashMap<>();
+    private final Map<String, JsonObject> schemaCache = new ConcurrentHashMap<>();
 
     /**
      * Block until the Shutdown RPC is called.
@@ -562,15 +564,24 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         return tempFile;
     }
 
+    /** Reserved param keys handled specially by the bridge. */
+    private static final java.util.Set<String> RESERVED_PARAMS = new java.util.HashSet<>(
+            java.util.Arrays.asList("configFile", "fprmContent"));
+
     /**
-     * Apply filter parameters from the gRPC map<string, string> format.
+     * Apply filter parameters from the gRPC map&lt;string, string&gt; format.
      * Values that look like JSON are parsed back to JsonElements for
      * the ParameterApplier, which expects a JsonObject.
      *
-     * Special handling for "configFile": when present, the file is read and
-     * its content is loaded via params.fromString() before applying any
-     * remaining parameters. This supports filters with non-YAML config formats
-     * (e.g., .fprm files used by RegexFilter, PlainTextFilter).
+     * <p>Special handling:
+     * <ul>
+     *   <li>{@code configFile} — load native Okapi config from a file path (.fprm, YAML, etc.)</li>
+     *   <li>{@code fprmContent} — load native Okapi config from inline content (same formats)</li>
+     * </ul>
+     *
+     * <p>When a schema is available for the filter, incoming JSON config is
+     * validated against it (warnings logged) and hierarchical params are
+     * flattened to flat Okapi names via {@link ParameterFlattener}.
      */
     private void applyFilterParams(IFilter filter, Map<String, String> params) {
         IParameters filterParameters = filter.getParameters();
@@ -580,41 +591,29 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         }
 
         // Handle configFile: load the entire configuration from a file.
-        // This is essential for filters like RegexFilter whose .fprm configs
-        // define rules, escape settings, and other structured parameters that
-        // cannot be applied as individual key-value pairs.
-        //
-        // We prefer load(URL) over fromString() because load(URL) is what
-        // Okapi's own test infrastructure uses. Some filters (e.g., RegexFilter)
-        // have fromString() implementations that silently succeed but produce
-        // incomplete configurations — load(URL) handles all format versions
-        // correctly including the #v1 header in .fprm files.
         String configFilePath = params.get("configFile");
         if (configFilePath != null && !configFilePath.isEmpty()) {
+            loadConfigFromFile(filterParameters, configFilePath);
+        }
+
+        // Handle fprmContent: load native Okapi config from inline content.
+        // This allows sending .fprm or YAML config inline without writing to disk.
+        String fprmContent = params.get("fprmContent");
+        if (fprmContent != null && !fprmContent.isEmpty()) {
             try {
-                java.net.URL configUrl = new File(configFilePath).toURI().toURL();
-                filterParameters.load(configUrl, false);
-                System.err.println("[bridge] Loaded config from file: " + configFilePath);
+                filterParameters.fromString(fprmContent);
+                System.err.println("[bridge] Loaded config from inline fprmContent");
             } catch (Exception e) {
-                // Fall back to fromString() if load(URL) fails.
-                try {
-                    String configContent = new String(Files.readAllBytes(
-                            new File(configFilePath).toPath()), java.nio.charset.StandardCharsets.UTF_8);
-                    filterParameters.fromString(configContent);
-                    System.err.println("[bridge] Loaded config from file via fromString: " + configFilePath);
-                } catch (Exception e2) {
-                    System.err.println("[bridge] Warning: Could not load config file " +
-                            configFilePath + ": " + e2.getMessage());
-                }
+                System.err.println("[bridge] Warning: Could not parse fprmContent: " + e.getMessage());
             }
         }
 
-        // Convert remaining params (excluding configFile) to JsonObject.
+        // Convert remaining params (excluding reserved keys) to JsonObject.
         // The Go side JSON-encodes non-string values (booleans, numbers, objects).
         JsonObject jsonParams = new JsonObject();
         for (Map.Entry<String, String> entry : params.entrySet()) {
-            if ("configFile".equals(entry.getKey())) {
-                continue; // Already handled above
+            if (RESERVED_PARAMS.contains(entry.getKey())) {
+                continue;
             }
             String value = entry.getValue();
             try {
@@ -627,6 +626,24 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         }
 
         if (jsonParams.size() > 0) {
+            // Load schema for validation and flattening.
+            JsonObject schema = loadSchema(
+                    FilterRegistry.getFilterId(filter.getClass().getName()));
+
+            // Validate against schema (warnings only — don't reject config).
+            if (schema != null) {
+                SchemaValidator validator = new SchemaValidator(schema);
+                SchemaValidator.ValidationResult result = validator.validate(jsonParams);
+                if (!result.getErrors().isEmpty()) {
+                    System.err.println("[bridge] Config validation errors: " +
+                            String.join("; ", result.getErrors()));
+                }
+                if (!result.getWarnings().isEmpty()) {
+                    System.err.println("[bridge] Config validation warnings: " +
+                            String.join("; ", result.getWarnings()));
+                }
+            }
+
             // Flatten hierarchical params if a schema with x-flattenPath is available.
             // This is backwards-compatible: flat input passes through unchanged.
             ParameterFlattener flattener = getFlattener(filter.getClass().getName());
@@ -643,6 +660,28 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         }
 
         System.err.println("[bridge] Applied " + params.size() + " filter parameters");
+    }
+
+    /**
+     * Load native Okapi configuration from a file path (.fprm, YAML, etc.).
+     * Prefers load(URL) over fromString() for correct #v1 header handling.
+     */
+    private void loadConfigFromFile(IParameters filterParameters, String configFilePath) {
+        try {
+            java.net.URL configUrl = new File(configFilePath).toURI().toURL();
+            filterParameters.load(configUrl, false);
+            System.err.println("[bridge] Loaded config from file: " + configFilePath);
+        } catch (Exception e) {
+            try {
+                String configContent = new String(Files.readAllBytes(
+                        new File(configFilePath).toPath()), java.nio.charset.StandardCharsets.UTF_8);
+                filterParameters.fromString(configContent);
+                System.err.println("[bridge] Loaded config from file via fromString: " + configFilePath);
+            } catch (Exception e2) {
+                System.err.println("[bridge] Warning: Could not load config file " +
+                        configFilePath + ": " + e2.getMessage());
+            }
+        }
     }
 
     /**
@@ -732,24 +771,28 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
 
     /**
      * Load a composite JSON Schema from the classpath for the given filter ID.
+     * Results are cached for the lifetime of the bridge instance.
      */
     private JsonObject loadSchema(String filterId) {
-        String[] paths = {
-            "/schemas/" + filterId + ".schema.json",
-            "schemas/" + filterId + ".schema.json"
-        };
-        for (String path : paths) {
-            try (InputStream is = getClass().getResourceAsStream(path)) {
-                if (is != null) {
-                    try (InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
-                        return JsonParser.parseReader(reader).getAsJsonObject();
+        if (filterId == null) return null;
+        return schemaCache.computeIfAbsent(filterId, id -> {
+            String[] paths = {
+                "/schemas/" + id + ".schema.json",
+                "schemas/" + id + ".schema.json"
+            };
+            for (String path : paths) {
+                try (InputStream is = getClass().getResourceAsStream(path)) {
+                    if (is != null) {
+                        try (InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
+                            return JsonParser.parseReader(reader).getAsJsonObject();
+                        }
                     }
+                } catch (Exception e) {
+                    System.err.println("[bridge] Could not load schema for " + id + ": " + e.getMessage());
                 }
-            } catch (Exception e) {
-                System.err.println("[bridge] Could not load schema for " + filterId + ": " + e.getMessage());
             }
-        }
-        return null;
+            return null;
+        });
     }
 
     private static String nullSafe(String s) {
