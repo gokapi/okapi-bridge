@@ -399,9 +399,10 @@ regenerate_composites() {
                     "$version": "\($v).0.0",
                     "x-schemaVersion": $v,
                     "x-baseVersion": $bv,
+                    "x-introducedInOkapi": $intro,
                     "x-baseHash": $bh,
                     "x-compositeHash": $ch
-                } + (if $intro != "null" then {"x-introducedInOkapi": $intro} else {} end)
+                } | if .["x-introducedInOkapi"] == "null" then del(.["x-introducedInOkapi"]) else . end
             ' "$tmp_composite" > "$composite_output"
 
             rm -f "$tmp_composite"
