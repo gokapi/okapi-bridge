@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     Okapi Bridge - Build for Okapi 1.45.0
-    Generated: 2026-03-05T21:35:14Z
+    Generated: 2026-03-05T21:40:15Z
     Filters: 42
 
     Inherits infrastructure deps (gRPC, Gson, etc.) and plugin config from parent.
@@ -15,7 +15,7 @@
     <parent>
         <groupId>com.gokapi</groupId>
         <artifactId>okapi-bridge-parent</artifactId>
-        <version>2.4.0</version>
+        <version>2.5.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
