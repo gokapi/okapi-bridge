@@ -218,18 +218,6 @@
         "assumeWellformed": { "flattenPath": "assumeWellformed", "description": "Assume well-formed HTML" },
         "preserveWhitespace": { "flattenPath": "preserve_whitespace", "description": "Preserve whitespace" }
       }
-    },
-    "elements": {
-      "description": "Element extraction rules",
-      "properties": {
-        "elements": { "flattenPath": "elements", "description": "Element extraction rule map" }
-      }
-    },
-    "attributes": {
-      "description": "Attribute extraction rules",
-      "properties": {
-        "attributes": { "flattenPath": "attributes", "description": "Global attribute rule map" }
-      }
     }
   },
 
@@ -243,18 +231,6 @@
       "properties": {
         "assumeWellformed": { "flattenPath": "assumeWellformed", "description": "Assume well-formed XML" },
         "preserveWhitespace": { "flattenPath": "preserve_whitespace", "description": "Preserve whitespace" }
-      }
-    },
-    "elements": {
-      "description": "Element extraction rules",
-      "properties": {
-        "elements": { "flattenPath": "elements", "description": "Element extraction rule map" }
-      }
-    },
-    "attributes": {
-      "description": "Attribute extraction rules",
-      "properties": {
-        "attributes": { "flattenPath": "attributes", "description": "Global attribute rule map" }
       }
     }
   },

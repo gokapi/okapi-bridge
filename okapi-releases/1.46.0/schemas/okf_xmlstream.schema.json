@@ -533,62 +533,55 @@
         }
       }
     },
-    "attributes": {
-      "type": "object",
-      "description": "Attribute extraction rules",
-      "properties": {
-        "attributes": {
-          "type": "object",
-          "description": "Global attribute rule map",
-          "x-widget": "attributeRulesEditor",
-          "additionalProperties": {
-            "$ref": "#/$defs/attributeRule"
-          },
-          "default": {
-            "xml:lang": {
-              "ruleTypes": [
-                "ATTRIBUTE_WRITABLE"
-              ]
-            },
-            "xml:id": {
-              "ruleTypes": [
-                "ATTRIBUTE_ID"
-              ]
-            },
-            "id": {
-              "ruleTypes": [
-                "ATTRIBUTE_ID"
-              ]
-            },
-            "xml:space": {
-              "ruleTypes": [
-                "ATTRIBUTE_PRESERVE_WHITESPACE"
-              ],
-              "preserve": [
-                "xml:space",
-                "EQUALS",
-                "preserve"
-              ],
-              "default": [
-                "xml:space",
-                "EQUALS",
-                "default"
-              ]
-            }
-          },
-          "x-flattenPath": "attributes"
-        }
-      }
+    "taggedConfig": {
+      "type": "object"
     },
     "editorTitle": {
       "type": "string",
       "default": "Parameters Editor"
     },
-    "taggedConfig": {
-      "type": "object"
-    },
     "path": {
       "type": "string"
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Global attribute extraction rules — maps attribute names to their rule configuration",
+      "x-widget": "attributeRulesEditor",
+      "additionalProperties": {
+        "$ref": "#/$defs/attributeRule"
+      },
+      "default": {
+        "xml:lang": {
+          "ruleTypes": [
+            "ATTRIBUTE_WRITABLE"
+          ]
+        },
+        "xml:id": {
+          "ruleTypes": [
+            "ATTRIBUTE_ID"
+          ]
+        },
+        "id": {
+          "ruleTypes": [
+            "ATTRIBUTE_ID"
+          ]
+        },
+        "xml:space": {
+          "ruleTypes": [
+            "ATTRIBUTE_PRESERVE_WHITESPACE"
+          ],
+          "preserve": [
+            "xml:space",
+            "EQUALS",
+            "preserve"
+          ],
+          "default": [
+            "xml:space",
+            "EQUALS",
+            "default"
+          ]
+        }
+      }
     }
   },
   "additionalProperties": false,

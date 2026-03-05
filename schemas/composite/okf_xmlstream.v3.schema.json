@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_xmlstream.schema.json",
-  "$version": "1.0.0",
+  "$version": "3.0.0",
   "title": "XML Stream Filter Filter",
   "description": "Configuration for the Okapi XML Stream Filter Filter",
   "type": "object",
@@ -714,12 +714,14 @@
         "enabled": {
           "type": "boolean",
           "default": false,
-          "description": "Enable pattern-based detection of inline codes",
+          "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)",
           "x-flattenPath": "useCodeFinder"
         },
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
-          "x-flattenPath": "codeFinderRules"
+          "x-flattenPath": "codeFinderRules",
+          "x-widget": "codeFinderRules",
+          "description": "Regex patterns to identify inline codes in translatable text"
         },
         "mergeAdjacent": {
           "type": "boolean",
@@ -728,12 +730,13 @@
         },
         "moveBoundaryCodes": {
           "type": "boolean",
-          "description": "Move codes at segment boundaries to the skeleton",
+          "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)",
           "x-flattenPath": "moveLeadingAndTrailingCodesToSkeleton"
         },
         "simplifierRules": {
           "$ref": "#/$defs/simplifierRules",
-          "x-flattenPath": "simplifierRules"
+          "x-flattenPath": "simplifierRules",
+          "description": "Rules for simplifying inline code representation"
         }
       }
     },
@@ -774,5 +777,10 @@
       "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
-  }
+  },
+  "x-schemaVersion": 3,
+  "x-baseVersion": 3,
+  "x-introducedInOkapi": "0.38",
+  "x-baseHash": "f61124dde0c1",
+  "x-compositeHash": "362b9225d4a2"
 }

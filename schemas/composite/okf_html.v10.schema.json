@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://gokapi.dev/schemas/filters/okf_html.schema.json",
-  "$version": "1.0.0",
+  "$version": "10.0.0",
   "title": "HTML/XHTML Filter Filter",
   "description": "Configuration for the Okapi HTML/XHTML Filter Filter",
   "type": "object",
@@ -1493,13 +1493,13 @@
           "type": "boolean",
           "default": false,
           "x-flattenPath": "assumeWellformed",
-          "description": "Assume well-formed HTML"
+          "description": "Assume input HTML is well-formed XML. Faster but may fail on non-conforming HTML."
         },
         "preserveWhitespace": {
           "type": "boolean",
           "default": false,
           "x-flattenPath": "preserve_whitespace",
-          "description": "Preserve whitespace"
+          "description": "Preserve original whitespace in extracted text"
         }
       }
     },
@@ -2311,10 +2311,12 @@
         },
         "idAttributes": {
           "type": "array",
-          "description": "Attributes that contain segment IDs",
+          "description": "Comma-separated list of attributes to use as IDs.",
           "items": {
             "type": "string"
-          }
+          },
+          "x-widget": "tagList",
+          "x-placeholder": "id,name"
         },
         "conditions": {
           "type": "array",
@@ -2382,12 +2384,31 @@
         "enabled": {
           "type": "boolean",
           "default": false,
-          "description": "Enable pattern-based detection of inline codes",
+          "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)",
           "x-flattenPath": "useCodeFinder"
         },
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
-          "x-flattenPath": "codeFinderRules"
+          "x-flattenPath": "codeFinderRules",
+          "x-widget": "codeFinderRules",
+          "x-presets": {
+            "entities": {
+              "rules": [
+                {
+                  "pattern": "&[a-zA-Z]+;"
+                }
+              ],
+              "sample": "Click &amp; drag"
+            },
+            "placeholders": {
+              "rules": [
+                {
+                  "pattern": "\\{\\{[^}]+\\}\\}"
+                }
+              ],
+              "sample": "Hello {{name}}"
+            }
+          }
         },
         "mergeAdjacent": {
           "type": "boolean",
@@ -2396,12 +2417,13 @@
         },
         "moveBoundaryCodes": {
           "type": "boolean",
-          "description": "Move codes at segment boundaries to the skeleton",
+          "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)",
           "x-flattenPath": "moveLeadingAndTrailingCodesToSkeleton"
         },
         "simplifierRules": {
           "$ref": "#/$defs/simplifierRules",
-          "x-flattenPath": "simplifierRules"
+          "x-flattenPath": "simplifierRules",
+          "description": "Rules for simplifying inline code representation"
         }
       }
     },
@@ -2442,5 +2464,10 @@
       "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
-  }
+  },
+  "x-schemaVersion": 10,
+  "x-baseVersion": 10,
+  "x-introducedInOkapi": "1.43.0",
+  "x-baseHash": "ccea25a10ed5",
+  "x-compositeHash": "503bf8820733"
 }
