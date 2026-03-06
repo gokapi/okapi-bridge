@@ -188,7 +188,7 @@ jobs:
                 extensions: (if (.extensions | length) > 0 then .extensions else null end)
               } | with_entries(select(.value != null))]')
 
-          jq -n --arg name "okapi-bridge" \
+          jq -n --arg name "okapi" \
                 --arg version "$VERSION" \
                 --argjson capabilities "$CAPABILITIES" \
                 '{
@@ -292,12 +292,12 @@ jobs:
             CHECKSUM=$(cat ../artifacts/okapi-bridge-${TAG}-okapi${okapi_version}.tar.gz.sha256 | awk '{print $1}')
             URL="${BASE_URL}/okapi-bridge-${TAG}-okapi${okapi_version}.tar.gz"
 
-            # Determine plugin name (latest gets "okapi-bridge", others get version suffix)
+            # Determine plugin name (latest gets "okapi", others get version suffix)
             if [ "$okapi_version" = "$OKAPI_LATEST" ]; then
-              PLUGIN_NAME="okapi-bridge"
+              PLUGIN_NAME="okapi"
               DESCRIPTION="Okapi filters (v${okapi_version}, latest)"
             else
-              PLUGIN_NAME="okapi-bridge-${okapi_version}"
+              PLUGIN_NAME="okapi-${okapi_version}"
               DESCRIPTION="Okapi filters (v${okapi_version})"
             fi
 
@@ -327,5 +327,5 @@ jobs:
           git config user.name "gokapi-bot"
           git config user.email "bot@gokapi.dev"
           git add plugins.json
-          git commit -m "Update okapi-bridge to ${GITHUB_REF_NAME}"
+          git commit -m "Update okapi to ${GITHUB_REF_NAME}"
           git push

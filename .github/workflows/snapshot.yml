@@ -169,7 +169,7 @@ jobs:
           jq -n --arg version "snapshot-${OKAPI_VERSION}" \
                 --argjson capabilities "$CAPABILITIES" \
                 '{
-                  name: "okapi-bridge",
+                  name: "okapi",
                   version: $version,
                   plugin_type: "bundle",
                   install_type: "bridge",
@@ -225,7 +225,7 @@ jobs:
                 '{
                   version: 1,
                   plugins: [{
-                    name: "okapi-bridge",
+                    name: "okapi",
                     version: $version,
                     description: $desc,
                     plugin_type: "bundle",
@@ -241,5 +241,5 @@ jobs:
           git config user.name "gokapi-bot"
           git config user.email "bot@gokapi.dev"
           git add channels/snapshot.json
-          git commit -m "Update snapshot channel (Okapi ${OKAPI_VERSION})"
+          git commit -m "Update okapi snapshot channel (Okapi ${OKAPI_VERSION})"
           git push
