@@ -385,9 +385,17 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             throw new IllegalStateException("filter does not support writing: " + filterClass);
         }
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        // Resolve output destination before processing. When output_ref is set,
+        // Okapi writes directly to disk — no in-memory buffering needed.
+        String outputPath = resolveOutputPath(header);
+        ByteArrayOutputStream outputStream = null;
         writer.setOptions(LocaleId.fromString(locale), encoding);
-        writer.setOutput(outputStream);
+        if (outputPath != null) {
+            writer.setOutput(outputPath);
+        } else {
+            outputStream = new ByteArrayOutputStream();
+            writer.setOutput(outputStream);
+        }
 
         LocaleId srcLocale = LocaleId.fromString("en");
         LocaleId tgtLocale = LocaleId.fromString(locale);
@@ -405,9 +413,14 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         filter.close();
         writer.close();
 
-        byte[] output = outputStream.toByteArray();
-        System.err.println("[bridge] Wrote output (" + output.length + " bytes)");
-        return writeOutput(header, output);
+        if (outputPath != null) {
+            System.err.println("[bridge] Wrote output to " + outputPath);
+            return WriteResult.ofPath(outputPath);
+        } else {
+            byte[] output = outputStream.toByteArray();
+            System.err.println("[bridge] Wrote output (" + output.length + " bytes)");
+            return WriteResult.ofBytes(output);
+        }
     }
 
     /**
@@ -442,9 +455,17 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             throw new IllegalStateException("filter does not support writing: " + filterClass);
         }
 
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        // Resolve output destination before processing. When output_ref is set,
+        // Okapi writes directly to disk — no in-memory buffering needed.
+        String outputPath = resolveOutputPath(header);
+        ByteArrayOutputStream outputStream = null;
         writer.setOptions(LocaleId.fromString(locale), encoding);
-        writer.setOutput(outputStream);
+        if (outputPath != null) {
+            writer.setOutput(outputPath);
+        } else {
+            outputStream = new ByteArrayOutputStream();
+            writer.setOutput(outputStream);
+        }
 
         LocaleId srcLocale = LocaleId.fromString("en");
         LocaleId tgtLocale = LocaleId.fromString(locale);
@@ -463,9 +484,14 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         filter.close();
         writer.close();
 
-        byte[] output = outputStream.toByteArray();
-        System.err.println("[bridge] Wrote output (" + output.length + " bytes, streaming)");
-        return writeOutput(header, output);
+        if (outputPath != null) {
+            System.err.println("[bridge] Wrote output to " + outputPath + " (streaming)");
+            return WriteResult.ofPath(outputPath);
+        } else {
+            byte[] output = outputStream.toByteArray();
+            System.err.println("[bridge] Wrote output (" + output.length + " bytes, streaming)");
+            return WriteResult.ofBytes(output);
+        }
     }
 
     /**
@@ -524,60 +550,26 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
 
     /**
      * Resolve content for a Write request using the content resolver.
-     * Handles XLIFF preprocessing (strip empty target-language) before resolution.
      * Checks original_content_ref first (new API), then falls back to legacy fields.
      */
     private File resolveWriteContent(WriteHeader header) throws IOException {
-        String filterClass = header.getFilterClass();
-
         // Prefer original_content_ref (new unified API).
         if (header.hasOriginalContentRef()) {
             ContentRef ref = header.getOriginalContentRef();
             switch (ref.getLocationCase()) {
                 case PATH:
-                    File file = contentResolver.resolvePath(ref.getPath());
-                    if (isXliffFilter(filterClass)) {
-                        return preprocessXliffFile(file);
-                    }
-                    return file;
+                    return contentResolver.resolvePath(ref.getPath());
                 case URI:
-                    File resolved = contentResolver.resolveUri(ref.getUri(), "");
-                    if (isXliffFilter(filterClass)) {
-                        return preprocessXliffFile(resolved);
-                    }
-                    return resolved;
+                    return contentResolver.resolveUri(ref.getUri(), "");
                 case INLINE:
-                    byte[] content = ref.getInline().toByteArray();
-                    if (isXliffFilter(filterClass)) {
-                        content = stripEmptyTargetLanguage(content, null);
-                    }
-                    return contentResolver.resolveInline(content, "");
+                    return contentResolver.resolveInline(ref.getInline().toByteArray(), "");
                 default:
                     break;
             }
         }
 
         // Legacy fallback.
-        byte[] originalContent = header.getOriginalContent().toByteArray();
         String sourcePath = header.getSourcePath();
-
-        if (isXliffFilter(filterClass)) {
-            originalContent = stripEmptyTargetLanguage(originalContent, sourcePath);
-            // Content was modified, so we can't use sourcePath directly.
-            // Write modified content as a sibling temp file in the source directory
-            // to preserve directory context for auxiliary file resolution.
-            if (sourcePath != null && !sourcePath.isEmpty()) {
-                File sourceDir = new File(sourcePath).getParentFile();
-                if (sourceDir != null && sourceDir.isDirectory()) {
-                    File siblingTemp = File.createTempFile("gokapi-bridge-", ".xlf", sourceDir);
-                    siblingTemp.deleteOnExit();
-                    Files.write(siblingTemp.toPath(), originalContent);
-                    return siblingTemp;
-                }
-            }
-            return contentResolver.resolveInline(originalContent, "");
-        }
-
         if (sourcePath != null && !sourcePath.isEmpty()) {
             File file = new File(sourcePath);
             if (file.exists()) {
@@ -585,51 +577,31 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             }
         }
 
-        return contentResolver.resolveInline(originalContent, "");
+        return contentResolver.resolveInline(header.getOriginalContent().toByteArray(), "");
     }
 
     /**
-     * Preprocess an XLIFF file: strip empty target-language attributes and
-     * write to a sibling temp file to preserve directory context.
+     * Resolve the output file path from the header's output_ref.
+     * Returns null if no output_ref is set (output should be returned inline).
+     * When a path is returned, Okapi's filter writer can write directly to it
+     * via setOutput(String), avoiding in-memory buffering entirely.
      */
-    private File preprocessXliffFile(File inputFile) throws IOException {
-        byte[] content = Files.readAllBytes(inputFile.toPath());
-        byte[] cleaned = stripEmptyTargetLanguage(content, null);
-        if (cleaned == content) {
-            return inputFile; // No modification needed.
+    private String resolveOutputPath(WriteHeader header) throws IOException {
+        if (!header.hasOutputRef()) return null;
+        OutputRef ref = header.getOutputRef();
+        switch (ref.getDestinationCase()) {
+            case PATH:
+                // Ensure parent directories exist.
+                File parent = new File(ref.getPath()).getParentFile();
+                if (parent != null) {
+                    Files.createDirectories(parent.toPath());
+                }
+                return ref.getPath();
+            case URI:
+                return outputWriter.resolveUri(ref.getUri());
+            default:
+                return null;
         }
-        // Write cleaned content as a sibling temp file to preserve directory context.
-        File parentDir = inputFile.getParentFile();
-        File dir = (parentDir != null && parentDir.isDirectory()) ? parentDir : null;
-        File siblingTemp = File.createTempFile("gokapi-bridge-", ".xlf", dir);
-        siblingTemp.deleteOnExit();
-        Files.write(siblingTemp.toPath(), cleaned);
-        return siblingTemp;
-    }
-
-    /**
-     * Write output bytes to an output reference, or return them inline.
-     * If the header has an output_ref, writes to the referenced location and returns a path.
-     * Otherwise returns the bytes inline.
-     */
-    private WriteResult writeOutput(WriteHeader header, byte[] output) throws IOException {
-        if (header.hasOutputRef()) {
-            OutputRef ref = header.getOutputRef();
-            String writtenPath;
-            switch (ref.getDestinationCase()) {
-                case PATH:
-                    writtenPath = outputWriter.writePath(ref.getPath(), output);
-                    System.err.println("[bridge] Output written to path: " + writtenPath);
-                    return WriteResult.ofPath(writtenPath);
-                case URI:
-                    writtenPath = outputWriter.writeUri(ref.getUri(), output);
-                    System.err.println("[bridge] Output written to URI: " + writtenPath);
-                    return WriteResult.ofPath(writtenPath);
-                default:
-                    break;
-            }
-        }
-        return WriteResult.ofBytes(output);
     }
 
     /**
@@ -759,40 +731,6 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
                         configFilePath + ": " + e2.getMessage());
             }
         }
-    }
-
-    /**
-     * Check if a filter class is an XLIFF filter (1.2 or 2.0).
-     */
-    private static boolean isXliffFilter(String filterClass) {
-        return filterClass != null && (
-                filterClass.contains("XLIFFFilter") ||
-                filterClass.contains("XLIFF2Filter"));
-    }
-
-    /**
-     * Strip empty target-language="" attributes from XLIFF content.
-     * When sourcePath is set, reads the file content first. Returns the
-     * cleaned content bytes (always use temp file after this).
-     */
-    private byte[] stripEmptyTargetLanguage(byte[] content, String sourcePath) {
-        byte[] raw = content;
-        if ((raw == null || raw.length == 0) && sourcePath != null && !sourcePath.isEmpty()) {
-            try {
-                raw = Files.readAllBytes(new File(sourcePath).toPath());
-            } catch (IOException e) {
-                return content; // fall back to original
-            }
-        }
-        if (raw == null || raw.length == 0) {
-            return content;
-        }
-        String text = new String(raw, java.nio.charset.StandardCharsets.UTF_8);
-        // Remove empty target-language="" or target-language='' attributes.
-        // This prevents duplicate attributes when Okapi's XLIFF writer sets
-        // the target-language from the RawDocument target locale.
-        String cleaned = text.replaceAll("\\s+target-language\\s*=\\s*[\"'][\"']", "");
-        return cleaned.getBytes(java.nio.charset.StandardCharsets.UTF_8);
     }
 
     /**

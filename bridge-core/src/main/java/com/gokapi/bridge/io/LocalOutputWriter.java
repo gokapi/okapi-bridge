@@ -52,4 +52,38 @@ public class LocalOutputWriter implements OutputWriter {
                 "Only local file paths and file:// URIs are currently supported. " +
                 "Remote storage (s3://, gs://) requires additional output writer implementations.");
     }
+
+    @Override
+    public String resolveUri(String uri) throws IOException {
+        URI parsed;
+        try {
+            parsed = URI.create(uri);
+        } catch (IllegalArgumentException e) {
+            throw new IOException("Invalid URI: " + uri, e);
+        }
+
+        String scheme = parsed.getScheme();
+        if (scheme == null || "file".equals(scheme)) {
+            String path;
+            if ("file".equals(scheme)) {
+                try {
+                    path = new File(parsed).getAbsolutePath();
+                } catch (IllegalArgumentException e) {
+                    path = parsed.getPath();
+                }
+            } else {
+                path = uri;
+            }
+            // Ensure parent directories exist.
+            File parent = new File(path).getParentFile();
+            if (parent != null) {
+                Files.createDirectories(parent.toPath());
+            }
+            return path;
+        }
+
+        throw new IOException("Unsupported URI scheme '" + scheme + "'. " +
+                "Only local file paths and file:// URIs are currently supported. " +
+                "Remote storage (s3://, gs://) requires additional output writer implementations.");
+    }
 }

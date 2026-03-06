@@ -50,4 +50,25 @@ class LocalOutputWriterTest {
                 writer.writeUri("s3://bucket/output.txt", "content".getBytes()));
         assertTrue(ex.getMessage().contains("Unsupported URI scheme"));
     }
+
+    @Test
+    void resolveUri_fileUri_returnsPath(@TempDir Path tempDir) throws IOException {
+        Path outFile = tempDir.resolve("output.xml");
+        String result = writer.resolveUri(outFile.toUri().toString());
+        assertEquals(outFile.toFile().getAbsolutePath(), result);
+    }
+
+    @Test
+    void resolveUri_createsParentDirectories(@TempDir Path tempDir) throws IOException {
+        Path outFile = tempDir.resolve("sub/dir/output.txt");
+        String result = writer.resolveUri(outFile.toUri().toString());
+        assertTrue(Files.isDirectory(tempDir.resolve("sub/dir")));
+    }
+
+    @Test
+    void resolveUri_unsupportedScheme_throwsIOException() {
+        IOException ex = assertThrows(IOException.class, () ->
+                writer.resolveUri("s3://bucket/output.txt"));
+        assertTrue(ex.getMessage().contains("Unsupported URI scheme"));
+    }
 }

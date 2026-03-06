@@ -25,4 +25,14 @@ public interface OutputWriter {
      * @return the resolved path/URI where content was written
      */
     String writeUri(String uri, byte[] content) throws IOException;
+
+    /**
+     * Resolve a URI to a local file path that can be used for direct file output.
+     * For file:// URIs, returns the local path. For remote URIs, returns a local
+     * staging path (the implementation is responsible for uploading on close).
+     *
+     * @param uri the destination URI
+     * @return the resolved local file path
+     */
+    String resolveUri(String uri) throws IOException;
 }
