@@ -285,7 +285,7 @@ cat >> "$OUTPUT_FILE" << EOF
                         <configuration>
                             <resources>
                                 <resource>
-                                    <directory>${PATH_PREFIX}tools/schema-generator/src/main/resources</directory>
+                                    <directory>${PATH_PREFIX}schemagen</directory>
                                 </resource>
                                 <resource>
                                     <directory>\${project.build.directory}/schema-resources</directory>

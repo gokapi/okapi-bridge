@@ -200,14 +200,14 @@ jobs:
                 }' > staging/manifest.json
 
           # Include composite schemas for this Okapi version from centralized location
-          # Use max version per filter to handle any duplicate entries in schema-versions.json
+          # Use max version per filter to handle any duplicate entries in schemas/versions.json
           jq -r --arg ov "${OKAPI_VERSION}" '
             .filters | to_entries[] |
             .key as $f |
             [.value.versions[] | select(.okapiVersions | index($ov))] |
             max_by(.version) | select(.) |
             "\($f) \(.version)"
-          ' schema-versions.json | while read filter version; do
+          ' schemas/versions.json | while read filter version; do
             cp "schemas/composite/${filter}.v${version}.schema.json" staging/schemas/
           done
 

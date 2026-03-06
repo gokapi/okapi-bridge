@@ -8,7 +8,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT_DIR="$(dirname "$SCRIPT_DIR")"
 cd "$ROOT_DIR"
 
-VERSIONS_FILE="schema-versions.json"
+VERSIONS_FILE="schemas/versions.json"
 
 # Get Okapi versions from okapi-releases directories
 get_okapi_versions() {

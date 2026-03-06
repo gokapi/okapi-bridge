@@ -11,7 +11,7 @@ SHELL := /bin/bash
 # Configuration - derived from okapi-releases directory
 SUPPORTED_VERSIONS := $(shell ls -1 okapi-releases 2>/dev/null | sort -V)
 LATEST_VERSION := $(shell ls -1 okapi-releases 2>/dev/null | sort -V | tail -1)
-VERSIONS_FILE := schema-versions.json
+VERSIONS_FILE := schemas/versions.json
 
 # Default target
 help:
@@ -109,8 +109,8 @@ endif
 	@echo "Created okapi-releases/$(V)/ with $$(ls -1 okapi-releases/$(V)/schemas/*.schema.json | wc -l | tr -d ' ') schemas"
 	@echo ""
 	@echo "Next steps:"
-	@echo "  1. Review changes: git diff schema-versions.json README.md"
-	@echo "  2. Commit: git add okapi-releases/$(V) schemas/ schema-versions.json README.md"
+	@echo "  1. Review changes: git diff schemas/versions.json README.md"
+	@echo "  2. Commit: git add okapi-releases/$(V) schemas/ schemagen/ README.md"
 	@echo "  3. Push to trigger CI"
 
 # Regenerate schemas for a single version

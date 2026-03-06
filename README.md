@@ -25,16 +25,15 @@ okapi-bridge/
 ├── bridge-core/                # Bridge runtime source + tests
 │   └── src/main/java/          # gRPC server, event conversion, parameter handling
 ├── tools/schema-generator/     # Schema generation tool (Java 17+)
-│   └── src/main/resources/
-│       ├── groupings.json      # Per-filter param → group + clean name mappings
-│       └── common.defs.json    # Shared $defs (inlineCodes, whitespace, etc.)
-├── schemas/                    # Centralized schema storage
+├── schemagen/                  # All schema authoring inputs
+│   ├── groupings.json          # Per-filter param → group + clean name mappings
+│   ├── common.defs.json        # Shared $defs (inlineCodes, whitespace, etc.)
+│   └── overrides/              # Human-curated UI hints (widgets, presets, descriptions)
+│       └── _fragments/         # Shared override fragments ($include)
+├── schemas/                    # All generated output
 │   ├── base/                   # Auto-generated hierarchical base schemas (versioned)
 │   ├── composite/              # Merged schemas (base + overrides, served to consumers)
-│   ├── overrides/              # Human-curated UI hints (widgets, presets, descriptions)
-│   │   └── _fragments/         # Shared override fragments ($include)
-│   └── defs/
-│       └── common.defs.json    # Canonical shared type definitions
+│   └── versions.json           # Version tracking with content hashes
 ├── okapi-releases/             # Per-version configuration
 │   ├── 1.47.0/
 │   │   ├── pom.xml             # Version-specific dependencies (auto-generated)
@@ -44,7 +43,6 @@ okapi-bridge/
 │   ├── centralize-schemas.sh   # Orchestrates schema centralization + versioning
 │   ├── merge-schema.sh         # Merges base + override (walks nested properties)
 │   └── generate-version-pom.sh # Discovers filters for Okapi version
-├── schema-versions.json        # Version tracking with content hashes
 ├── pom.xml                     # Parent pom (shared deps, plugin config)
 └── Makefile                    # Build automation
 ```
@@ -55,11 +53,11 @@ The project uses a three-layer centralized schema architecture:
 
 1. **Base Schemas** (`schemas/base/`): Auto-generated from Okapi filter introspection. Versioned per-filter (e.g., `okf_html.v1.schema.json`, `okf_html.v2.schema.json`).
 
-2. **Overrides** (`schemas/overrides/`): Human-curated UI hints (widgets, presets, descriptions). Single file per filter that applies to all versions.
+2. **Overrides** (`schemagen/overrides/`): Human-curated UI hints (widgets, presets, descriptions). Single file per filter that applies to all versions.
 
 3. **Composite Schemas** (`schemas/composite/`): Final schemas served to consumers (base + override merged). Versioned when composite content changes.
 
-4. **schema-versions.json**: Index tracking base version, base hash, override hash, and composite hash for each filter version.
+4. **schemas/versions.json**: Index tracking base version, base hash, override hash, and composite hash for each filter version.
 
 ### Hierarchical Schemas
 
@@ -95,8 +93,8 @@ Each renamed property carries an `x-flattenPath` annotation mapping back to the 
 
 **Key files:**
 
-- `tools/schema-generator/src/main/resources/groupings.json` — Per-filter param-to-group mappings with clean names
-- `schemas/defs/common.defs.json` — Shared `$defs` (inlineCodes, whitespace, codeFinderRules, simplifierRules) referenced via `$ref`
+- `schemagen/groupings.json` — Per-filter param-to-group mappings with clean names
+- `schemagen/common.defs.json` — Shared `$defs` (inlineCodes, whitespace, codeFinderRules, simplifierRules) referenced via `$ref`
 - `bridge-core/.../util/ParameterFlattener.java` — Runtime converter: walks hierarchical configs and uses `x-flattenPath` to produce flat Okapi params
 
 **Backwards compatibility:** The `ParameterFlattener` passes flat input through unchanged, so older clients sending flat params continue to work.
@@ -214,7 +212,7 @@ make test              # Run tests
 
 3. Commit and push:
    ```bash
-   git add okapi-releases/1.48.0 schemas/ schema-versions.json
+   git add okapi-releases/1.48.0 schemas/ schemagen/
    git commit -m "feat: Add Okapi 1.48.0 support"
    git push
    ```
@@ -246,13 +244,13 @@ Or explicit dot-paths for precision: `"extraction.extractAll"`.
 
 1. Edit the override file:
    ```bash
-   vim schemas/overrides/okf_json.overrides.json
+   vim schemagen/overrides/okf_json.overrides.json
    ```
 
 2. Regenerate and commit:
    ```bash
    make regenerate-composites
-   git add schemas/ schema-versions.json
+   git add schemas/ schemagen/
    git commit -m "Improve JSON filter override hints"
    git push
    ```

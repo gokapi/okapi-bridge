@@ -16,9 +16,9 @@ CONTENT_FILE=$(mktemp)
 
 # Generate the matrix content to a file
 generate_matrix_content() {
-    local total_filters=$(jq '.filters | length' schema-versions.json)
-    local total_versions=$(jq '[.filters[].versions | length] | add' schema-versions.json)
-    local filters_with_changes=$(jq '[.filters | to_entries[] | select(.value.versions | length > 1)] | length' schema-versions.json)
+    local total_filters=$(jq '.filters | length' schemas/versions.json)
+    local total_versions=$(jq '[.filters[].versions | length] | add' schemas/versions.json)
+    local filters_with_changes=$(jq '[.filters | to_entries[] | select(.value.versions | length > 1)] | length' schemas/versions.json)
     
     cat << HEADER
 ### Schema Statistics

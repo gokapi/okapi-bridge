@@ -15,15 +15,15 @@ cd "$ROOT_DIR"
 SCHEMAS_DIR="schemas"
 BASE_DIR="$SCHEMAS_DIR/base"
 COMPOSITE_DIR="$SCHEMAS_DIR/composite"
-OVERRIDES_DIR="$SCHEMAS_DIR/overrides"
-VERSIONS_FILE="schema-versions.json"
+OVERRIDES_DIR="schemagen/overrides"
+VERSIONS_FILE="schemas/versions.json"
 
 # Get all Okapi versions sorted
 get_versions() {
     ls -1 okapi-releases 2>/dev/null | sort -V
 }
 
-# Initialize schema-versions.json if needed
+# Initialize versions.json if needed
 init_versions_file() {
     if [[ ! -f "$VERSIONS_FILE" ]]; then
         echo '{"$schema":"https://gokapi.dev/schemas/schema-versions.json","generatedAt":"","filters":{}}' > "$VERSIONS_FILE"

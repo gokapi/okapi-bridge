@@ -15,21 +15,19 @@ okapi-bridge/                      (parent pom — shared deps, plugin config)
 │   └── src/main/proto/            (gRPC protobuf definitions)
 │   └── src/test/java/             (unit tests)
 ├── tools/schema-generator/        (schema gen tool, depends on bridge-core)
-│   └── src/main/resources/
-│       ├── groupings.json         (per-filter param→group mappings)
-│       └── common.defs.json       (shared $defs for schema generation)
+├── schemagen/                     (all schema authoring inputs)
+│   ├── groupings.json             (per-filter param→group mappings)
+│   ├── common.defs.json           (shared $defs: inlineCodes, whitespace, etc.)
+│   └── overrides/                 (human-curated UI hints per filter)
+│       └── _fragments/            (shared override fragments via $include)
 ├── okapi-releases/{version}/      (per-version build, inherits parent config)
 │   ├── pom.xml                    (auto-generated: parent ref + filter deps)
 │   ├── meta.json                  (version metadata)
 │   └── schemas/                   (generated hierarchical JSON schemas)
-├── schemas/
-│   ├── base/                      (versioned base schemas)
-│   ├── composite/                 (merged base + overrides, served to consumers)
-│   ├── overrides/                 (human-curated UI hints per filter)
-│   │   └── _fragments/            (shared override fragments via $include)
-│   └── defs/
-│       └── common.defs.json       (canonical shared type definitions)
-└── schema-versions.json           (version tracking with content hashes)
+└── schemas/                       (all generated output)
+    ├── base/                      (versioned base schemas)
+    ├── composite/                 (merged base + overrides, served to consumers)
+    └── versions.json              (version tracking with content hashes)
 ```
 
 **Key design**: Infrastructure deps (gRPC, Gson, etc.) and plugin config live in the parent pom. Per-version poms only declare Okapi filter dependencies. Adding a new dep to the bridge only requires updating the parent — zero per-version pom changes needed.
@@ -110,25 +108,25 @@ The CI release workflow generates this manifest at build time by querying the br
 ### Three-Layer Schema Architecture
 
 1. **Base schemas** (`schemas/base/okf_*.vN.schema.json`) — Auto-generated from Okapi filter introspection. Hierarchical with nested property groups. Versioned per-filter.
-2. **Overrides** (`schemas/overrides/okf_*.overrides.json`) — Human-curated UI hints (widgets, presets, descriptions). Single file per filter. Field names auto-resolve into nested groups, or use dot-paths (`"extraction.extractAll"`).
+2. **Overrides** (`schemagen/overrides/okf_*.overrides.json`) — Human-curated UI hints (widgets, presets, descriptions). Single file per filter. Field names auto-resolve into nested groups, or use dot-paths (`"extraction.extractAll"`).
 3. **Composite schemas** (`schemas/composite/okf_*.vN.schema.json`) — Merged base + override, served to consumers. Version increments when either base or override content changes.
 
-`schema-versions.json` tracks all versions with content hashes (first 12 chars of SHA1 of canonical JSON).
+`schemas/versions.json` tracks all versions with content hashes (first 12 chars of SHA1 of canonical JSON).
 
 ### Hierarchical Schema Model
 
 Okapi filters use flat key-value parameters internally. The schema generator restructures these into **nested groups with clean property names**. Each property carries `x-flattenPath` mapping to the original Okapi parameter name (e.g., `extractAll` → `extractAllPairs`).
 
 **Key files:**
-- `tools/schema-generator/src/main/resources/groupings.json` — Per-filter param→group+clean-name mappings (single source of truth for hierarchy)
-- `schemas/defs/common.defs.json` (also at `tools/schema-generator/src/main/resources/common.defs.json`) — Shared `$defs` referenced via `$ref` (inlineCodes, codeFinderRules, whitespace, simplifierRules)
+- `schemagen/groupings.json` — Per-filter param→group+clean-name mappings (single source of truth for hierarchy)
+- `schemagen/common.defs.json` — Shared `$defs` referenced via `$ref` (inlineCodes, codeFinderRules, whitespace, simplifierRules)
 - `bridge-core/.../util/ParameterFlattener.java` — Runtime: walks hierarchical JSON configs and uses `x-flattenPath` from schema to produce flat Okapi params
 - `tools/.../SchemaTransformer.java` — `restructureIntoHierarchy()` transforms flat schemas into groups at generation time
 - `scripts/merge-schema.sh` — jq-based `apply_hints()` walks nested properties when merging overrides
 
 **Runtime flow:** `BridgeServiceImpl` caches a `ParameterFlattener` per filter (loaded from schema). Before applying params via `ParameterApplier`, hierarchical input is flattened. Flat input passes through unchanged (backwards-compatible).
 
-**Build note:** Version poms need `build-helper` `add-resource` execution to put `groupings.json`/`common.defs.json` on the classpath. This is configured in `scripts/generate-version-pom.sh`.
+**Build note:** Version poms need `build-helper` `add-resource` execution to put `schemagen/` on the classpath (for `groupings.json`/`common.defs.json`). This is configured in `scripts/generate-version-pom.sh`.
 
 ### Multi-Version Support
 

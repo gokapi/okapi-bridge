@@ -14,7 +14,7 @@ RAW_DIR="$DOCS_DIR/raw"
 PARSED_DIR="$DOCS_DIR/parsed"
 JSON_SCHEMA="$SCRIPT_DIR/filter-doc-schema.json"
 COMPOSITE_DIR="$REPO_ROOT/schemas/composite"
-VERSIONS_FILE="$REPO_ROOT/schema-versions.json"
+VERSIONS_FILE="$REPO_ROOT/schemas/versions.json"
 
 # Check prerequisites
 if ! command -v claude &> /dev/null; then

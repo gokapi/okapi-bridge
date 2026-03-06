@@ -10,10 +10,10 @@ set -euo pipefail
 OKAPI_VERSION="${1:?Usage: prepare-schemas-for-jar.sh <okapi-version> <output-dir>}"
 OUTPUT_DIR="${2:?Usage: prepare-schemas-for-jar.sh <okapi-version> <output-dir>}"
 
-# Find the project root (where schema-versions.json lives)
+# Find the project root
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-VERSIONS_FILE="$PROJECT_ROOT/schema-versions.json"
+VERSIONS_FILE="$PROJECT_ROOT/schemas/versions.json"
 COMPOSITE_DIR="$PROJECT_ROOT/schemas/composite"
 
 if [ ! -f "$VERSIONS_FILE" ]; then

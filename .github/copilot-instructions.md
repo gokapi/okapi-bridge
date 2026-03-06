@@ -31,7 +31,7 @@ make version-schemas
 
 Supported versions are derived automatically from `okapi-releases/` directories.
 
-Schema versions (v1, v2, etc.) are tracked in `schema-versions.json` and increment when schema content changes between Okapi versions.
+Schema versions (v1, v2, etc.) are tracked in `schemas/versions.json` and increment when schema content changes between Okapi versions.
 
 ## Architecture
 
@@ -55,10 +55,14 @@ This is a Java bridge that exposes [Okapi Framework](https://okapiframework.org/
 ### Directory Structure
 
 ```
-okapi-releases/{version}/
-  schemas/      # Generated JSON schemas (okf_*.schema.json)
-  overrides/    # Optional UI hints (okf_*.overrides.json)
-schema-versions.json  # Version history across all Okapi releases
+schemagen/            # Schema authoring inputs
+  groupings.json      # Per-filter param → group mappings
+  common.defs.json    # Shared $defs (inlineCodes, whitespace, etc.)
+  overrides/          # UI hints (okf_*.overrides.json)
+schemas/              # Generated output
+  base/               # Versioned base schemas
+  composite/          # Merged base + overrides
+  versions.json       # Version tracking with content hashes
 ```
 
 ## Conventions

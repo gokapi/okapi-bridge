@@ -92,7 +92,7 @@ jobs:
             ## Changes
             - Added `okapi-releases/${{ steps.upstream.outputs.new_version }}/pom.xml`
             - Updated centralized schemas in `schemas/`
-            - Updated `schema-versions.json`
+            - Updated `schemas/versions.json`
 
             ## Checklist
             - [ ] Review generated schemas for any issues
