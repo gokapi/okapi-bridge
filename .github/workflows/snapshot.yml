@@ -167,10 +167,12 @@ jobs:
               } | with_entries(select(.value != null))]')
 
           jq -n --arg version "snapshot-${OKAPI_VERSION}" \
+                --arg framework_version "$OKAPI_VERSION" \
                 --argjson capabilities "$CAPABILITIES" \
                 '{
                   name: "okapi",
                   version: $version,
+                  framework_version: $framework_version,
                   plugin_type: "bundle",
                   install_type: "bridge",
                   command: "java",

@@ -204,10 +204,12 @@ jobs:
 
           jq -n --arg name "okapi" \
                 --arg version "$VERSION" \
+                --arg framework_version "$OKAPI_VERSION" \
                 --argjson capabilities "$CAPABILITIES" \
                 '{
                   name: $name,
                   version: $version,
+                  framework_version: $framework_version,
                   plugin_type: "bundle",
                   install_type: "bridge",
                   command: "java",
@@ -317,6 +319,7 @@ jobs:
 
             jq --arg name "$PLUGIN_NAME" \
                --arg version "$VERSION" \
+               --arg framework_version "$okapi_version" \
                --arg desc "$DESCRIPTION" \
                --arg checksum "$CHECKSUM" \
                --arg url "$URL" \
@@ -324,6 +327,7 @@ jobs:
                '.plugins += [{
                  name: $name,
                  version: $version,
+                 framework_version: $framework_version,
                  description: $desc,
                  plugin_type: "bundle",
                  install_type: "bridge",
