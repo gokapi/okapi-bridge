@@ -23,6 +23,17 @@ get_versions() {
     ls -1 okapi-releases 2>/dev/null | sort -V
 }
 
+# Compute envelope Kind from filter ID: okf_html -> OkfHtmlFilterConfig
+# PascalCases the format name (first letter uppercase, rest lowercase).
+filter_to_kind() {
+    local filter="$1"
+    local format="${filter#okf_}"
+    # PascalCase: first letter uppercase
+    local pascal
+    pascal="$(echo "${format:0:1}" | tr '[:lower:]' '[:upper:]')${format:1}"
+    echo "Okf${pascal}FilterConfig"
+}
+
 # Initialize versions.json if needed
 init_versions_file() {
     if [[ ! -f "$VERSIONS_FILE" ]]; then
@@ -104,7 +115,11 @@ update_version_entry() {
         if [[ -n "$override_hash" ]]; then
             override_json="\"$override_hash\""
         fi
-        
+
+        local kind
+        kind=$(filter_to_kind "$filter")
+        local api_version="v${version}"
+
         jq --arg f "$filter" \
            --argjson v "$version" \
            --argjson bv "$base_version" \
@@ -112,7 +127,9 @@ update_version_entry() {
            --argjson oh "$override_json" \
            --arg ch "$composite_hash" \
            --arg ov "$okapi_version" \
-           --arg intro "$introduced_in" '
+           --arg intro "$introduced_in" \
+           --arg k "$kind" \
+           --arg av "$api_version" '
             .filters[$f].versions //= [] |
             .filters[$f].versions += [{
                 version: $v,
@@ -120,6 +137,8 @@ update_version_entry() {
                 baseHash: $bh,
                 overrideHash: $oh,
                 compositeHash: $ch,
+                kind: $k,
+                apiVersion: $av,
                 introducedInOkapi: $intro,
                 okapiVersions: [$ov]
             }]
@@ -190,30 +209,38 @@ process_schema() {
     # Save composite schema
     local composite_output="$COMPOSITE_DIR/${filter}.v${new_version}.schema.json"
     
+    local kind
+    kind=$(filter_to_kind "$filter")
+    local api_version="v${new_version}"
+
     # Add version metadata to composite (reorder so $schema, $id, version come first)
     jq --argjson v "$new_version" \
        --argjson bv "$base_version" \
        --arg intro "$okapi_version" \
        --arg bh "$base_hash" \
        --arg ch "$composite_hash" \
-       --arg f "$filter" '
+       --arg f "$filter" \
+       --arg k "$kind" \
+       --arg av "$api_version" '
         {
             "$schema": ."$schema",
             "$id": "https://gokapi.github.io/schemas/filters/\($f).v\($v).schema.json",
             "version": $v
         } + del(."$schema", ."$id", ."$version", .["x-schemaVersion"]) + {
+            "x-kind": $k,
+            "x-apiVersion": $av,
             "x-baseVersion": $bv,
             "x-introducedInOkapi": $intro,
             "x-baseHash": $bh,
             "x-compositeHash": $ch
         }
     ' "$tmp_composite" > "$composite_output"
-    
+
     rm -f "$tmp_composite"
-    
+
     # Update versions file
     update_version_entry "$filter" "$new_version" "$base_version" "$base_hash" "$override_hash" "$composite_hash" "$okapi_version" "$okapi_version"
-    
+
     if [[ "$new_version" -eq 1 ]]; then
         echo "  + $filter v1 (new)"
     else
@@ -392,18 +419,26 @@ regenerate_composites() {
             local introduced_in
             introduced_in=$(echo "$okapi_versions" | jq -r 'sort_by(split(".") | map(tonumber? // .)) | .[0] // null')
 
+            local kind
+            kind=$(filter_to_kind "$filter")
+            local api_version="v${composite_version}"
+
             # Add version metadata (reorder so $schema, $id, version come first)
             jq --argjson v "$composite_version" \
                --argjson bv "$base_version" \
                --arg bh "$base_hash" \
                --arg ch "$composite_hash" \
                --arg intro "$introduced_in" \
-               --arg f "$filter" '
+               --arg f "$filter" \
+               --arg k "$kind" \
+               --arg av "$api_version" '
                 {
                     "$schema": ."$schema",
                     "$id": "https://gokapi.github.io/schemas/filters/\($f).v\($v).schema.json",
                     "version": $v
                 } + del(."$schema", ."$id", ."$version", .["x-schemaVersion"]) + {
+                    "x-kind": $k,
+                    "x-apiVersion": $av,
                     "x-baseVersion": $bv,
                     "x-introducedInOkapi": $intro,
                     "x-baseHash": $bh,
@@ -426,13 +461,17 @@ regenerate_composites() {
                --argjson oh "$override_json" \
                --arg ch "$composite_hash" \
                --argjson ov "$okapi_versions" \
-               --arg intro "$introduced_in" '
+               --arg intro "$introduced_in" \
+               --arg k "$kind" \
+               --arg av "$api_version" '
                 .filters[$f].versions += [{
                     version: $v,
                     baseVersion: $bv,
                     baseHash: $bh,
                     overrideHash: $oh,
                     compositeHash: $ch,
+                    kind: $k,
+                    apiVersion: $av,
                     okapiVersions: $ov
                 } + (if $intro != "null" then {introducedInOkapi: $intro} else {} end)]
             ' "$VERSIONS_FILE" > "$VERSIONS_FILE.tmp" && mv "$VERSIONS_FILE.tmp" "$VERSIONS_FILE"
@@ -540,6 +579,10 @@ add_version() {
             local composite_version
             composite_version=$(get_next_version "$filter")
             
+            local kind
+            kind=$(filter_to_kind "$filter")
+            local api_version="v${composite_version}"
+
             # Save composite with metadata
             local composite_output="$COMPOSITE_DIR/${filter}.v${composite_version}.schema.json"
             jq --argjson v "$composite_version" \
@@ -547,27 +590,31 @@ add_version() {
                --arg intro "$version" \
                --arg bh "$base_hash" \
                --arg ch "$composite_hash" \
-               --arg f "$filter" '
+               --arg f "$filter" \
+               --arg k "$kind" \
+               --arg av "$api_version" '
                 {
                     "$schema": ."$schema",
                     "$id": "https://gokapi.github.io/schemas/filters/\($f).v\($v).schema.json",
                     "version": $v
                 } + del(."$schema", ."$id", ."$version", .["x-schemaVersion"]) + {
+                    "x-kind": $k,
+                    "x-apiVersion": $av,
                     "x-baseVersion": $bv,
                     "x-introducedInOkapi": $intro,
                     "x-baseHash": $bh,
                     "x-compositeHash": $ch
                 }
             ' "$tmp_composite" > "$composite_output"
-            
+
             rm -f "$tmp_composite"
-            
+
             # Add to versions file
             local override_json="null"
             if [[ -n "$override_hash" ]]; then
                 override_json="\"$override_hash\""
             fi
-            
+
             jq --arg f "$filter" \
                --argjson v "$composite_version" \
                --argjson bv "$base_version" \
@@ -575,7 +622,9 @@ add_version() {
                --argjson oh "$override_json" \
                --arg ch "$composite_hash" \
                --arg ov "$version" \
-               --arg intro "$version" '
+               --arg intro "$version" \
+               --arg k "$kind" \
+               --arg av "$api_version" '
                 .filters[$f] //= {versions: []} |
                 .filters[$f].versions += [{
                     version: $v,
@@ -583,11 +632,13 @@ add_version() {
                     baseHash: $bh,
                     overrideHash: $oh,
                     compositeHash: $ch,
+                    kind: $k,
+                    apiVersion: $av,
                     introducedInOkapi: $intro,
                     okapiVersions: [$ov]
                 }]
             ' "$VERSIONS_FILE" > "$VERSIONS_FILE.tmp" && mv "$VERSIONS_FILE.tmp" "$VERSIONS_FILE"
-            
+
             echo "  + $filter v$composite_version (new in $version)"
             new_bases=$((new_bases + 1))
         fi

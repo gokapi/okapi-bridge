@@ -1,7 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://gokapi.dev/schemas/filters/okf_messageformat.schema.json",
-  "$version": "1.0.0",
   "title": "Message Format Filter Filter",
   "description": "Configuration for the Okapi Message Format Filter Filter",
   "type": "object",
@@ -31,7 +29,11 @@
         "parameters": {
           "addPluralForms": true,
           "normalize": true,
-          "prettyPrint": false
+          "prettyPrint": false,
+          "useCodeFinder": false,
+          "codeFinderRules.count": 0,
+          "codeFinderRules.sample": "",
+          "codeFinderRules.useAllRulesWhenTesting": false
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.messageformat.MessageFormatFilter"
@@ -46,7 +48,11 @@
         "parameters": {
           "addPluralForms": true,
           "normalize": true,
-          "prettyPrint": true
+          "prettyPrint": true,
+          "useCodeFinder": false,
+          "codeFinderRules.count": 0,
+          "codeFinderRules.sample": "",
+          "codeFinderRules.useAllRulesWhenTesting": false
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.messageformat.MessageFormatFilter"

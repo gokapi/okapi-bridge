@@ -47,7 +47,9 @@
     }
   },
   "additionalProperties": false,
-  "x-baseVersion": 2,
+  "x-kind": "OkfWikiFilterConfig",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
   "x-baseHash": "c8178578e4af",
   "x-compositeHash": "b82fea4ae423"

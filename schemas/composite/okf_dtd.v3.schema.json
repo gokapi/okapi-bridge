@@ -49,7 +49,9 @@
     }
   },
   "additionalProperties": false,
-  "x-baseVersion": 6,
+  "x-kind": "OkfDtdFilterConfig",
+  "x-apiVersion": "v3",
+  "x-baseVersion": 3,
   "x-introducedInOkapi": "1.48.0",
   "x-baseHash": "1d5414500cca",
   "x-compositeHash": "8e39ee4c5eb8"

@@ -202,7 +202,9 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 2,
+  "x-kind": "OkfVignetteFilterConfig",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
   "x-baseHash": "29757a72cc9e",
   "x-compositeHash": "c612ae263351"

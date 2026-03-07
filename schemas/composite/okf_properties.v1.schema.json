@@ -33,22 +33,25 @@
         "parametersLocation": "outputNotEscaped.fprm",
         "parametersRaw": "#v1\nuseLD.b=true\nlocalizeOutside.b=true\nuseKeyCondition.b=false\nextractOnlyMatchingKey.b=true\nkeyCondition=.*text.*\nextraComments.b=false\ncommentsAreNotes.b=true\nescapeExtendedChars.b=false\nuseCodeFinder.b=true\ncodeFinderRules.count.i=4\ncodeFinderRules.rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]\ncodeFinderRules.rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v\ncodeFinderRules.rule2=\\{\\d.*?\\}\ncodeFinderRules.rule3=\\<(/?)\\w+[^>]*?>\ncodeFinderRules.sample=%s, %d, {1}, \\n, \\r, \\t, etc.\ncodeFinderRules.useAllRulesWhenTesting.b=true\n",
         "parameters": {
-          "useLD": true,
-          "localizeOutside": true,
+          "escapeExtendedChars": false,
+          "convertLFandTab": true,
           "useKeyCondition": false,
           "extractOnlyMatchingKey": true,
           "keyCondition": ".*text.*",
           "extraComments": false,
           "commentsAreNotes": true,
-          "escapeExtendedChars": false,
+          "idLikeResname": false,
           "useCodeFinder": true,
+          "useLD": true,
+          "localizeOutside": true,
           "codeFinderRules.count": 4,
           "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
           "codeFinderRules.rule1": "(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v",
           "codeFinderRules.rule2": "\\{\\d.*?\\}",
           "codeFinderRules.rule3": "\\<(/?)\\w+[^>]*?>",
           "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.",
-          "codeFinderRules.useAllRulesWhenTesting": true
+          "codeFinderRules.useAllRulesWhenTesting": true,
+          "useLd": true
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.properties.PropertiesFilter"
@@ -62,22 +65,25 @@
         "parametersLocation": "skypeLang.fprm",
         "parametersRaw": "#v1\nuseLD.b=true\nlocalizeOutside.b=true\nuseKeyCondition.b=false\nextractOnlyMatchingKey.b=true\nkeyCondition=.*text.*\nextraComments.b=false\ncommentsAreNotes.b=true\nescapeExtendedChars.b=false\nuseCodeFinder.b=true\ncodeFinderRules.count.i=4\ncodeFinderRules.rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]\ncodeFinderRules.rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v\ncodeFinderRules.rule2=\\{\\d.*?\\}\ncodeFinderRules.rule3=\\<(/?)\\w+[^>]*?>\ncodeFinderRules.sample=%s, %d, {1}, \\n, \\r, \\t, etc.$0a$<a attr=\"qwerty\">text</a>text<img/>$0a$Test &tl; and more.\ncodeFinderRules.useAllRulesWhenTesting.b=true\n",
         "parameters": {
-          "useLD": true,
-          "localizeOutside": true,
+          "escapeExtendedChars": false,
+          "convertLFandTab": true,
           "useKeyCondition": false,
           "extractOnlyMatchingKey": true,
           "keyCondition": ".*text.*",
           "extraComments": false,
           "commentsAreNotes": true,
-          "escapeExtendedChars": false,
+          "idLikeResname": false,
           "useCodeFinder": true,
+          "useLD": true,
+          "localizeOutside": true,
           "codeFinderRules.count": 4,
           "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
           "codeFinderRules.rule1": "(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v",
           "codeFinderRules.rule2": "\\{\\d.*?\\}",
           "codeFinderRules.rule3": "\\<(/?)\\w+[^>]*?>",
           "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t, etc.$0a$<a attr=\"qwerty\">text</a>text<img/>$0a$Test &tl; and more.",
-          "codeFinderRules.useAllRulesWhenTesting": true
+          "codeFinderRules.useAllRulesWhenTesting": true,
+          "useLd": true
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.properties.PropertiesFilter"
@@ -90,22 +96,25 @@
         "parametersLocation": "html-subfilter.fprm",
         "parametersRaw": "#v1\nuseLD.b=true\nlocalizeOutside.b=true\nuseKeyCondition.b=false\nextractOnlyMatchingKey.b=true\nkeyCondition=.*text.*\nextraComments.b=false\ncommentsAreNotes.b=true\nescapeExtendedChars.b=false\nuseCodeFinder.b=true\ncodeFinderRules.count.i=3\ncodeFinderRules.rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]\ncodeFinderRules.rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v\ncodeFinderRules.rule2=\\{\\d.*?\\}\ncodeFinderRules.sample=%s, %d, {1}, \\n, \\r, \\t.\ncodeFinderRules.useAllRulesWhenTesting.b=true\nsubfilter=okf_html\n",
         "parameters": {
-          "useLD": true,
-          "localizeOutside": true,
+          "escapeExtendedChars": false,
+          "convertLFandTab": true,
           "useKeyCondition": false,
           "extractOnlyMatchingKey": true,
           "keyCondition": ".*text.*",
           "extraComments": false,
           "commentsAreNotes": true,
-          "escapeExtendedChars": false,
+          "idLikeResname": false,
           "useCodeFinder": true,
+          "useLD": true,
+          "localizeOutside": true,
           "codeFinderRules.count": 3,
           "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
           "codeFinderRules.rule1": "(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v",
           "codeFinderRules.rule2": "\\{\\d.*?\\}",
           "codeFinderRules.sample": "%s, %d, {1}, \\n, \\r, \\t.",
           "codeFinderRules.useAllRulesWhenTesting": true,
-          "subfilter": "okf_html"
+          "subfilter": "okf_html",
+          "useLd": true
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.properties.PropertiesFilter"
@@ -275,8 +284,10 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 3,
+  "x-kind": "OkfPropertiesFilterConfig",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "07a9e54c9ea7",
-  "x-compositeHash": "55d011a8c1f4"
+  "x-baseHash": "32d022948358",
+  "x-compositeHash": "b970754c5fd8"
 }

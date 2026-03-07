@@ -26,7 +26,15 @@
           "timeFormat": "HH:mm:ss.SSS",
           "maxLinesPerCaption": 2,
           "maxCharsPerLine": 47,
-          "cjkCharsPerLine": 18
+          "cjkCharsPerLine": 18,
+          "keepTimecodes": false,
+          "splitWords": true,
+          "writeCharAnnotations": false,
+          "mergeCaptions": true,
+          "useCodeFinder": false,
+          "codeFinderRules.count": 0,
+          "codeFinderRules.sample": "",
+          "codeFinderRules.useAllRulesWhenTesting": false
         },
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.vtt.VTTFilter"

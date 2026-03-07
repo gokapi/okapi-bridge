@@ -1473,12 +1473,12 @@
         }
       }
     },
-    "taggedConfig": {
-      "type": "object"
-    },
     "editorTitle": {
       "type": "string",
       "default": "Parameters Editor"
+    },
+    "taggedConfig": {
+      "type": "object"
     },
     "path": {
       "type": "string"
@@ -2420,7 +2420,9 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 14,
+  "x-kind": "OkfHtmlFilterConfig",
+  "x-apiVersion": "v2",
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "1.40.0",
   "x-baseHash": "f725c237376a",
   "x-compositeHash": "aed88cd49117"

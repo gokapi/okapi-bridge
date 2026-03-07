@@ -1,7 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://gokapi.dev/schemas/filters/okf_po.schema.json",
-  "$version": "1.0.0",
   "title": "PO Filter Filter",
   "description": "Configuration for the Okapi PO Filter Filter",
   "type": "object",
@@ -35,9 +33,11 @@
         "parameters": {
           "bilingualMode": false,
           "makeID": true,
+          "protectApproved": false,
+          "useCodeFinder": true,
+          "allowEmptyOutputTarget": false,
           "useLD": true,
           "localizeOutside": true,
-          "useCodeFinder": true,
           "codeFinderRules.count": 3,
           "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
           "codeFinderRules.rule1": "(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v",

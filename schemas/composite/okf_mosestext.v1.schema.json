@@ -29,7 +29,9 @@
   },
   "properties": {},
   "additionalProperties": false,
-  "x-baseVersion": 3,
+  "x-kind": "OkfMosestextFilterConfig",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
   "x-baseHash": "543e0108ce90",
   "x-compositeHash": "543e0108ce90"

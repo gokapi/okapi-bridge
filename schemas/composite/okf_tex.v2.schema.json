@@ -29,7 +29,9 @@
   },
   "properties": {},
   "additionalProperties": false,
-  "x-baseVersion": 4,
+  "x-kind": "OkfTexFilterConfig",
+  "x-apiVersion": "v2",
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "1.46.0",
   "x-baseHash": "29107a8c4439",
   "x-compositeHash": "29107a8c4439"

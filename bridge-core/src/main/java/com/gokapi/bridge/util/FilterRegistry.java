@@ -2,6 +2,7 @@ package com.gokapi.bridge.util;
 
 import com.gokapi.bridge.model.FilterConfigurationInfo;
 import com.gokapi.bridge.model.FilterInfo;
+import net.sf.okapi.common.IParameters;
 import net.sf.okapi.common.filters.FilterConfiguration;
 import net.sf.okapi.common.filters.IFilter;
 import org.yaml.snakeyaml.Yaml;
@@ -363,10 +364,25 @@ public class FilterRegistry {
                     configInfo.setParameters(params);
                 }
             } else if (parametersLocation.endsWith(".fprm")) {
-                // Parse .fprm (properties-like format)
-                Map<String, Object> params = parseFprmFormat(raw);
-                if (!params.isEmpty()) {
-                    configInfo.setParameters(params);
+                // Load .fprm via Okapi's own IParameters.fromString(), then extract
+                // parameter values. Only extract for filters with known serialization
+                // formats (StringParameters or YAML). For opaque configs (XML ITS rules,
+                // custom formats), we keep parametersRaw only — the bridge can apply
+                // them at runtime via the fprmContent parameter.
+                IParameters filterParams = filter.getParameters();
+                if (filterParams != null) {
+                    // Only extract if the filter uses StringParameters or YAML-based params.
+                    // Opaque formats (like XML ITS rules) can't be meaningfully decomposed.
+                    boolean isStringParams = filterParams instanceof net.sf.okapi.common.StringParameters;
+                    boolean isYamlBased = isAbstractMarkupParameters(filterParams);
+                    if (isStringParams || isYamlBased) {
+                        com.google.gson.JsonObject json = FprmConverter.toJson(filterParams, raw);
+                        if (json != null && json.size() > 0) {
+                            Map<String, Object> params = jsonObjectToMap(json);
+                            configInfo.setParameters(params);
+                        }
+                    }
+                    // else: opaque config — parametersRaw is already set, no structured parameters
                 }
             }
         } catch (Exception e) {
@@ -376,57 +392,65 @@ public class FilterRegistry {
     }
     
     /**
-     * Parse Okapi .fprm format (first line is parametersClass=..., rest are key=value).
+     * Check if the IParameters instance uses YAML-based serialization (AbstractMarkupParameters).
      */
-    private static Map<String, Object> parseFprmFormat(String content) {
-        Map<String, Object> params = new LinkedHashMap<>();
-        String[] lines = content.split("\n");
-        
-        for (String line : lines) {
-            line = line.trim();
-            if (line.isEmpty() || line.startsWith("#")) {
-                continue;
-            }
-            
-            int eq = line.indexOf('=');
-            if (eq > 0) {
-                String key = line.substring(0, eq).trim();
-                String value = line.substring(eq + 1).trim();
-                
-                // Skip the parametersClass line - it's metadata, not a parameter
-                if ("parametersClass".equals(key)) {
-                    params.put("_parametersClass", value);
-                    continue;
-                }
-                
-                // Try to parse as boolean/number
-                // Strip .fprm type suffixes (.b, .i) - type is inferred from value
-                String cleanKey = key.replaceAll("\\.[bi]$", "");
-                params.put(cleanKey, parseValue(value));
-            }
-        }
-        return params;
-    }
-    
-    /**
-     * Parse a string value into appropriate type (boolean, int, double, or string).
-     */
-    private static Object parseValue(String value) {
-        if ("true".equalsIgnoreCase(value)) {
-            return true;
-        }
-        if ("false".equalsIgnoreCase(value)) {
+    private static boolean isAbstractMarkupParameters(IParameters params) {
+        try {
+            Class<?> markupClass = Class.forName(
+                    "net.sf.okapi.filters.abstractmarkup.AbstractMarkupParameters");
+            return markupClass.isInstance(params);
+        } catch (ClassNotFoundException e) {
             return false;
         }
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException e1) {
-            try {
-                return Double.parseDouble(value);
-            } catch (NumberFormatException e2) {
-                return value;
-            }
+    }
+
+    /**
+     * Convert a Gson JsonObject to a Map&lt;String, Object&gt; for use as parameters.
+     */
+    @SuppressWarnings("unchecked")
+    private static Map<String, Object> jsonObjectToMap(com.google.gson.JsonObject json) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        for (Map.Entry<String, com.google.gson.JsonElement> entry : json.entrySet()) {
+            map.put(entry.getKey(), jsonElementToObject(entry.getValue()));
         }
+        return map;
+    }
+
+    /**
+     * Convert a Gson JsonElement to a plain Java object.
+     */
+    @SuppressWarnings("unchecked")
+    private static Object jsonElementToObject(com.google.gson.JsonElement element) {
+        if (element == null || element.isJsonNull()) {
+            return null;
+        }
+        if (element.isJsonPrimitive()) {
+            com.google.gson.JsonPrimitive p = element.getAsJsonPrimitive();
+            if (p.isBoolean()) return p.getAsBoolean();
+            if (p.isNumber()) {
+                double d = p.getAsDouble();
+                if (d == Math.floor(d) && !Double.isInfinite(d)) {
+                    long l = p.getAsLong();
+                    if (l >= Integer.MIN_VALUE && l <= Integer.MAX_VALUE) {
+                        return (int) l;
+                    }
+                    return l;
+                }
+                return d;
+            }
+            return p.getAsString();
+        }
+        if (element.isJsonObject()) {
+            return jsonObjectToMap(element.getAsJsonObject());
+        }
+        if (element.isJsonArray()) {
+            List<Object> list = new ArrayList<>();
+            for (com.google.gson.JsonElement e : element.getAsJsonArray()) {
+                list.add(jsonElementToObject(e));
+            }
+            return list;
+        }
+        return null;
     }
     
     /**
@@ -517,6 +541,75 @@ public class FilterRegistry {
     public static Set<String> getFilterClasses() {
         ensureInitialized();
         return new LinkedHashSet<>(FILTERS.keySet());
+    }
+
+    /**
+     * Resolve a filter class from an envelope Kind string.
+     * Format: {@code Okf{Format}FilterConfig} where Format is PascalCase and maps
+     * to filter ID {@code okf_{format}}.
+     *
+     * @param kind e.g. "OkfHtmlFilterConfig"
+     * @return the filter class name, or null if not found
+     * @throws IllegalArgumentException if the kind format is invalid
+     */
+    public static String resolveByKind(String kind) {
+        ensureInitialized();
+        if (kind == null || kind.isEmpty()) {
+            return null;
+        }
+
+        if (!kind.startsWith("Okf") || !kind.endsWith("FilterConfig")) {
+            throw new IllegalArgumentException(
+                    "invalid kind format: " + kind + " (expected Okf{Format}FilterConfig)");
+        }
+
+        // Extract format: "OkfHtmlFilterConfig" -> "Html" -> "html"
+        String format = kind.substring(3, kind.length() - 12); // strip "Okf" and "FilterConfig"
+        if (format.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "invalid kind: " + kind + " (empty format)");
+        }
+        String formatLower = format.toLowerCase();
+
+        // Map format to filter ID: "html" -> "okf_html"
+        String filterId = "okf_" + formatLower;
+
+        // Find the filter class with this filter ID
+        for (FilterInfo info : FILTERS.values()) {
+            if (filterId.equals(info.getId())) {
+                return info.getFilterClass();
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Compute the Kind string for a filter.
+     * Maps filter ID {@code okf_{format}} to {@code Okf{Format}FilterConfig}.
+     *
+     * @param filterId e.g. "okf_html"
+     * @return Kind string e.g. "OkfHtmlFilterConfig"
+     */
+    public static String toKind(String filterId) {
+        if (filterId == null || !filterId.startsWith("okf_")) {
+            return null;
+        }
+        String format = filterId.substring(4); // strip "okf_"
+        // PascalCase the format: "html" -> "Html", "openxml" -> "Openxml"
+        String pascal = format.substring(0, 1).toUpperCase() + format.substring(1);
+        return "Okf" + pascal + "FilterConfig";
+    }
+
+    /**
+     * Compute the apiVersion string for a filter schema version.
+     * The apiVersion is simply {@code vN} where N is the schema version.
+     *
+     * @param schemaVersion the schema version number (1, 2, etc.)
+     * @return apiVersion string e.g. "v1"
+     */
+    public static String toApiVersion(int schemaVersion) {
+        return "v" + schemaVersion;
     }
 
     /**

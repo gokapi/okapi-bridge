@@ -192,7 +192,9 @@
       }
     }
   },
-  "x-baseVersion": 4,
+  "x-kind": "OkfPdfFilterConfig",
+  "x-apiVersion": "v2",
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "1.48.0",
   "x-baseHash": "a081711ab411",
   "x-compositeHash": "224b07bb5a07"

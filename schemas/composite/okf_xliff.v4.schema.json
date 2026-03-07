@@ -58,9 +58,26 @@
           "quoteModeDefined": true,
           "quoteMode": 0,
           "useSdlXliffWriter": true,
-          "sdlSegConfValue": "Translated",
           "preserveSpaceByDefault": true,
-          "skipNoMrkSegSource": true
+          "useSegsForSdlProps": false,
+          "useIwsXliffWriter": false,
+          "iwsBlockFinished": true,
+          "iwsTransStatusValue": "finished",
+          "iwsTransTypeValue": "manual_translation",
+          "iwsRemoveTmOrigin": false,
+          "iwsBlockLockStatus": false,
+          "iwsBlockTmScore": false,
+          "iwsBlockTmScoreValue": 100,
+          "iwsIncludeMultipleExact": false,
+          "iwsBlockMultipleExact": false,
+          "inlineCdata": false,
+          "skipNoMrkSegSource": true,
+          "useCodeFinder": false,
+          "subAsTextUnit": false,
+          "sdlSegConfValue": "Translated",
+          "codeFinderRules.count": 0,
+          "codeFinderRules.sample": "",
+          "codeFinderRules.useAllRulesWhenTesting": false
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
@@ -104,12 +121,13 @@
           "iwsRemoveTmOrigin": false,
           "iwsBlockLockStatus": false,
           "iwsBlockTmScore": false,
-          "iwsBlockTmScoreValue": 100.0,
+          "iwsBlockTmScoreValue": 100,
           "iwsIncludeMultipleExact": false,
           "iwsBlockMultipleExact": false,
           "inlineCdata": false,
           "skipNoMrkSegSource": true,
           "useCodeFinder": false,
+          "subAsTextUnit": false,
           "sdlSegConfValue": "Translated",
           "codeFinderRules.count": 0,
           "codeFinderRules.sample": "",
@@ -460,8 +478,10 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 12,
+  "x-kind": "OkfXliffFilterConfig",
+  "x-apiVersion": "v4",
+  "x-baseVersion": 4,
   "x-introducedInOkapi": "1.42.0",
-  "x-baseHash": "5e3b15954c47",
-  "x-compositeHash": "a4fbe891db4f"
+  "x-baseHash": "307d9eda661f",
+  "x-compositeHash": "d727c6d77b93"
 }

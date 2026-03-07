@@ -132,7 +132,9 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 4,
+  "x-kind": "OkfOdfFilterConfig",
+  "x-apiVersion": "v2",
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "1.46.0",
   "x-baseHash": "eb51aa822e56",
   "x-compositeHash": "dfa439d6eb62"

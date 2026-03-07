@@ -96,7 +96,9 @@
     }
   },
   "additionalProperties": false,
-  "x-baseVersion": 2,
+  "x-kind": "OkfMultiparsersFilterConfig",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
   "x-baseHash": "01158e1f7140",
   "x-compositeHash": "01158e1f7140"

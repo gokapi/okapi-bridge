@@ -51,7 +51,8 @@
           "fieldDelimiter": ",",
           "textQualifier": "\"",
           "removeQualifiers": true,
-          "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
+          "escapingMode": 1,
+          "addQualifiers": false
         },
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter"
@@ -91,7 +92,8 @@
           "fieldDelimiter": "",
           "textQualifier": "%%%^^^$$$nonenonenone$$$^^^%%%",
           "removeQualifiers": false,
-          "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
+          "escapingMode": 1,
+          "addQualifiers": false
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter"
@@ -132,7 +134,7 @@
           "textQualifier": "\"",
           "removeQualifiers": true,
           "escapingMode": 1,
-          "_parametersClass": "net.sf.okapi.filters.table.csv.Parameters"
+          "addQualifiers": false
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.table.csv.CommaSeparatedValuesFilter"
@@ -347,8 +349,10 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 5,
+  "x-kind": "OkfCommaseparatedvaluesFilterConfig",
+  "x-apiVersion": "v2",
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "1.46.0",
-  "x-baseHash": "68975fc28bb4",
-  "x-compositeHash": "650800c81db8"
+  "x-baseHash": "d80eb2c51a18",
+  "x-compositeHash": "637995d52fb1"
 }

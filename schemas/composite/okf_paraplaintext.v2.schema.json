@@ -28,8 +28,7 @@
           "useCodeFinder": false,
           "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
           "wrapMode": 0,
-          "extractParagraphs": true,
-          "_parametersClass": "net.sf.okapi.filters.plaintext.paragraphs.Parameters"
+          "extractParagraphs": true
         },
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.plaintext.paragraphs.ParaPlainTextFilter"
@@ -177,8 +176,10 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 4,
+  "x-kind": "OkfParaplaintextFilterConfig",
+  "x-apiVersion": "v2",
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "1.46.0",
-  "x-baseHash": "b97d0e58f4b9",
-  "x-compositeHash": "b0726419cf3c"
+  "x-baseHash": "4024482837af",
+  "x-compositeHash": "3fe5b92af835"
 }

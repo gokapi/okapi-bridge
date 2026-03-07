@@ -69,7 +69,9 @@
     }
   },
   "additionalProperties": false,
-  "x-baseVersion": 2,
+  "x-kind": "OkfRainbowkitFilterConfig",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
   "x-baseHash": "7fc38c230d23",
   "x-compositeHash": "7fc38c230d23"

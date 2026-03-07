@@ -125,7 +125,9 @@
     }
   },
   "additionalProperties": false,
-  "x-baseVersion": 3,
+  "x-kind": "OkfVttFilterConfig",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 1,
   "x-introducedInOkapi": "1.46.0",
   "x-baseHash": "be513d9e00b5",
   "x-compositeHash": "be513d9e00b5"

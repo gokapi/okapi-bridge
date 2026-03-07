@@ -170,6 +170,77 @@ Only filters with multiple versions are shown (`-` = filter not available).
 | `okf_yaml` | **v1** | v1 | v1 | v1 | v1 | v1 | v1 | v1 | **v2** | v2 | v2 |
 <!-- SCHEMA_MATRIX_END -->
 
+## Envelope Config Format
+
+The bridge supports K8s-style versioned config envelopes. Each filter has its own Kind, and the `apiVersion` is versioned independently per kind:
+
+```yaml
+apiVersion: v1
+kind: OkfHtmlFilterConfig
+metadata:
+  name: my-html-config
+  description: "Custom HTML extraction rules"
+spec:
+  parser:
+    preserveWhitespace: true
+    assumeWellformed: false
+  useCodeFinder: true
+```
+
+### Kind Scheme
+
+Each Okapi filter maps to a Kind following the pattern `Okf{Format}FilterConfig`:
+
+| Filter ID | Kind | apiVersion |
+|---|---|---|
+| `okf_html` | `OkfHtmlFilterConfig` | `v1` |
+| `okf_json` | `OkfJsonFilterConfig` | `v1` |
+| `okf_xml` | `OkfXmlFilterConfig` | `v1` |
+| `okf_xliff` | `OkfXliffFilterConfig` | `v1` |
+| `okf_openxml` | `OkfOpenxmlFilterConfig` | `v1` |
+| `okf_po` | `OkfPoFilterConfig` | `v1` |
+| `okf_properties` | `OkfPropertiesFilterConfig` | `v1` |
+| `okf_yaml` | `OkfYamlFilterConfig` | `v1` |
+| `okf_markdown` | `OkfMarkdownFilterConfig` | `v1` |
+| `okf_plaintext` | `OkfPlaintextFilterConfig` | `v1` |
+
+The `apiVersion` (`v1`, `v2`, etc.) tracks schema versions independently per kind. When a native gokapi reader encounters an `Okf{Format}FilterConfig`, a registered transformer converts it to the equivalent `{Format}FormatConfig`.
+
+### Sending Enveloped Configs via gRPC
+
+When sending an enveloped config to the bridge via gRPC, include the envelope fields in `filter_params`:
+
+- `kind` — e.g. `"OkfHtmlFilterConfig"` (also used to resolve filter class if `filter_class` is empty)
+- `apiVersion` — e.g. `"v1"`
+- `spec` — JSON-encoded spec object containing the filter parameters
+
+The bridge validates the kind (must start with `Okf` and end with `FilterConfig`), extracts the `spec`, and applies it as filter parameters. If `filter_class` is empty in the `OpenRequest`, the bridge resolves it from the `kind`.
+
+### Schema Metadata
+
+Each composite schema includes `x-kind` and `x-apiVersion` fields:
+
+```json
+{
+  "$id": "https://gokapi.github.io/schemas/filters/okf_html.v1.schema.json",
+  "version": 1,
+  "x-kind": "OkfHtmlFilterConfig",
+  "x-apiVersion": "v1",
+  ...
+}
+```
+
+The `schemas/versions.json` index also tracks `kind` and `apiVersion` for each filter version.
+
+### Migrating from Raw Parameter Configs
+
+Existing raw parameter configs continue to work unchanged. To migrate to the envelope format:
+
+1. Wrap your parameters in a `spec` field
+2. Add `kind` (use the filter's `x-kind` from the schema, e.g. `OkfHtmlFilterConfig`)
+3. Set `apiVersion` (use the filter's `x-apiVersion`, e.g. `v1`)
+4. Optionally add `metadata` with `name` and `description`
+
 ## Schema Management
 
 ### Makefile Targets

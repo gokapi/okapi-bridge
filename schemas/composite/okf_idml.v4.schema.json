@@ -174,7 +174,9 @@
     }
   },
   "additionalProperties": false,
-  "x-baseVersion": 11,
+  "x-kind": "OkfIdmlFilterConfig",
+  "x-apiVersion": "v4",
+  "x-baseVersion": 4,
   "x-introducedInOkapi": "1.44.0",
   "x-baseHash": "56fc2d03f1b9",
   "x-compositeHash": "bf91ad347e1a"

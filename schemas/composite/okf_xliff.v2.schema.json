@@ -58,9 +58,25 @@
           "quoteModeDefined": true,
           "quoteMode": 0,
           "useSdlXliffWriter": true,
-          "sdlSegConfValue": "Translated",
           "preserveSpaceByDefault": true,
-          "skipNoMrkSegSource": true
+          "useSegsForSdlProps": false,
+          "useIwsXliffWriter": false,
+          "iwsBlockFinished": true,
+          "iwsTransStatusValue": "finished",
+          "iwsTransTypeValue": "manual_translation",
+          "iwsRemoveTmOrigin": false,
+          "iwsBlockLockStatus": false,
+          "iwsBlockTmScore": false,
+          "iwsBlockTmScoreValue": 100,
+          "iwsIncludeMultipleExact": false,
+          "iwsBlockMultipleExact": false,
+          "inlineCdata": false,
+          "skipNoMrkSegSource": true,
+          "useCodeFinder": false,
+          "sdlSegConfValue": "Translated",
+          "codeFinderRules.count": 0,
+          "codeFinderRules.sample": "",
+          "codeFinderRules.useAllRulesWhenTesting": false
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
@@ -104,7 +120,7 @@
           "iwsRemoveTmOrigin": false,
           "iwsBlockLockStatus": false,
           "iwsBlockTmScore": false,
-          "iwsBlockTmScoreValue": 100.0,
+          "iwsBlockTmScoreValue": 100,
           "iwsIncludeMultipleExact": false,
           "iwsBlockMultipleExact": false,
           "inlineCdata": false,
@@ -442,8 +458,10 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 10,
+  "x-kind": "OkfXliffFilterConfig",
+  "x-apiVersion": "v2",
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "1.39.0",
-  "x-baseHash": "566ea098704b",
-  "x-compositeHash": "8212411e7e91"
+  "x-baseHash": "9ae92df49182",
+  "x-compositeHash": "94fb923fb5af"
 }

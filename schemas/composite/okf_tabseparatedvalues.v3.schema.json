@@ -22,8 +22,8 @@
         "parametersRaw": "#v1\nunescapeSource.b=true\ntrimLeading.b=false\ntrimTrailing.b=false\npreserveWS.b=true\nuseCodeFinder.b=false\ncodeFinderRules=#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false\nwrapMode.i=0\ncolumnNamesLineNum.i=1\nvaluesStartLineNum.i=2\ndetectColumnsMode.i=0\nnumColumns.i=1\nsendHeaderMode.i=0\ntrimMode.i=1\nsendColumnsMode.i=2\nsourceIdColumns=\nsourceColumns=\ntargetColumns=\ncommentColumns=\ncommentSourceRefs=\nrecordIdColumn.i=0\nsourceIdSourceRefs=\nsourceIdSuffixes=\ntargetLanguages=\ntargetSourceRefs=\nparametersClass=net.sf.okapi.filters.table.tsv.Parameters\n",
         "parameters": {
           "unescapeSource": true,
-          "trimLeading": false,
-          "trimTrailing": false,
+          "trimLeading": true,
+          "trimTrailing": true,
           "preserveWS": true,
           "useCodeFinder": false,
           "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
@@ -40,12 +40,12 @@
           "targetColumns": "",
           "commentColumns": "",
           "commentSourceRefs": "",
+          "exposeCommentsAsMetadata": false,
           "recordIdColumn": 0,
           "sourceIdSourceRefs": "",
           "sourceIdSuffixes": "",
           "targetLanguages": "",
-          "targetSourceRefs": "",
-          "_parametersClass": "net.sf.okapi.filters.table.tsv.Parameters"
+          "targetSourceRefs": ""
         },
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.table.tsv.TabSeparatedValuesFilter"
@@ -169,8 +169,10 @@
     }
   },
   "additionalProperties": false,
-  "x-baseVersion": 6,
+  "x-kind": "OkfTabseparatedvaluesFilterConfig",
+  "x-apiVersion": "v3",
+  "x-baseVersion": 3,
   "x-introducedInOkapi": "1.47.0",
-  "x-baseHash": "5e7de86aa312",
-  "x-compositeHash": "fb57daec13a6"
+  "x-baseHash": "2cf9faf7d7a4",
+  "x-compositeHash": "31d651295028"
 }

@@ -38,8 +38,7 @@
           "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
           "wrapMode": 0,
           "splicer": "\\",
-          "createPlaceholders": true,
-          "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
+          "createPlaceholders": true
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
@@ -60,8 +59,7 @@
           "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
           "wrapMode": 0,
           "splicer": "_",
-          "createPlaceholders": true,
-          "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
+          "createPlaceholders": true
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
@@ -82,8 +80,7 @@
           "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
           "wrapMode": 0,
           "splicer": "",
-          "createPlaceholders": true,
-          "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
+          "createPlaceholders": true
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
@@ -228,8 +225,10 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 3,
+  "x-kind": "OkfSplicedlinesFilterConfig",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "fc3281c447b0",
-  "x-compositeHash": "7df6e3339016"
+  "x-baseHash": "4c5593ab2981",
+  "x-compositeHash": "b9b255b7bc06"
 }

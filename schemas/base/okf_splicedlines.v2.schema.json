@@ -1,7 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://gokapi.dev/schemas/filters/okf_splicedlines.schema.json",
-  "$version": "1.0.0",
   "title": "Plain Text Filter Filter",
   "description": "Configuration for the Okapi Plain Text Filter Filter",
   "type": "object",
@@ -38,8 +36,7 @@
           "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
           "wrapMode": 0,
           "splicer": "\\",
-          "createPlaceholders": true,
-          "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
+          "createPlaceholders": true
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
@@ -60,8 +57,7 @@
           "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
           "wrapMode": 0,
           "splicer": "_",
-          "createPlaceholders": true,
-          "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
+          "createPlaceholders": true
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"
@@ -82,8 +78,7 @@
           "codeFinderRules": "#v1$0a$count.i=2$0a$rule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]$0a$rule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v$0a$sample=$0a$useAllRulesWhenTesting.b=false",
           "wrapMode": 0,
           "splicer": "",
-          "createPlaceholders": true,
-          "_parametersClass": "net.sf.okapi.filters.plaintext.spliced.Parameters"
+          "createPlaceholders": true
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.spliced.SplicedLinesFilter"

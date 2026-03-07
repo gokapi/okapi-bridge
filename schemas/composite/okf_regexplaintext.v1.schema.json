@@ -40,8 +40,7 @@
           "rule": "(^(?=.+))(.*?)$",
           "sourceGroup": 2,
           "regexOptions": 8,
-          "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
-          "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
+          "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break."
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter"
@@ -64,8 +63,7 @@
           "rule": "(\\n*)(.*?)(\\n\\n|\\Z)",
           "sourceGroup": 2,
           "regexOptions": 40,
-          "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
-          "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
+          "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break."
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter"
@@ -226,8 +224,10 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 2,
+  "x-kind": "OkfRegexplaintextFilterConfig",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "5e747a7add77",
-  "x-compositeHash": "bb99630650cf"
+  "x-baseHash": "076335fad69c",
+  "x-compositeHash": "603970ed0528"
 }

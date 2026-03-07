@@ -28,7 +28,15 @@
           "timeFormat": "HH:mm:ss.SSS",
           "maxLinesPerCaption": 2,
           "maxCharsPerLine": 47,
-          "cjkCharsPerLine": 18
+          "cjkCharsPerLine": 18,
+          "keepTimecodes": false,
+          "splitWords": true,
+          "writeCharAnnotations": false,
+          "mergeCaptions": true,
+          "useCodeFinder": false,
+          "codeFinderRules.count": 0,
+          "codeFinderRules.sample": "",
+          "codeFinderRules.useAllRulesWhenTesting": false
         },
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.vtt.VTTFilter"
@@ -212,8 +220,10 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 4,
+  "x-kind": "OkfVttFilterConfig",
+  "x-apiVersion": "v2",
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "be4fb6ac39f4",
-  "x-compositeHash": "31ae7dcaf87b"
+  "x-baseHash": "b3cc7d7fbfd6",
+  "x-compositeHash": "bf0c1b68fda1"
 }

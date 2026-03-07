@@ -26,7 +26,9 @@
   },
   "properties": {},
   "additionalProperties": false,
-  "x-baseVersion": 4,
+  "x-kind": "OkfTranstableFilterConfig",
+  "x-apiVersion": "v2",
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "1.46.0",
   "x-baseHash": "0de5875337f3",
   "x-compositeHash": "0de5875337f3"

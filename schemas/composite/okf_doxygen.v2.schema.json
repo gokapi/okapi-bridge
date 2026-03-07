@@ -1678,7 +1678,9 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 4,
+  "x-kind": "OkfDoxygenFilterConfig",
+  "x-apiVersion": "v2",
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "1.46.0",
   "x-baseHash": "3cd3025cfc09",
   "x-compositeHash": "8743f5062dda"

@@ -35,9 +35,11 @@
         "parameters": {
           "bilingualMode": false,
           "makeID": true,
+          "protectApproved": false,
+          "useCodeFinder": true,
+          "allowEmptyOutputTarget": false,
           "useLD": true,
           "localizeOutside": true,
-          "useCodeFinder": true,
           "codeFinderRules.count": 3,
           "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
           "codeFinderRules.rule1": "(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v",
@@ -189,8 +191,10 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 3,
+  "x-kind": "OkfPoFilterConfig",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "f52d4af9325b",
-  "x-compositeHash": "59279ef01067"
+  "x-baseHash": "8c750da0cbbd",
+  "x-compositeHash": "b4b404e1dd57"
 }

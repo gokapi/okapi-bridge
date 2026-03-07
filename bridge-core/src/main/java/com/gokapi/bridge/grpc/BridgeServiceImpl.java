@@ -133,6 +133,25 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             String targetLocale = request.getTargetLocale().isEmpty() ? "fr" : request.getTargetLocale();
             String encoding = request.getEncoding().isEmpty() ? "UTF-8" : request.getEncoding();
 
+            Map<String, String> filterParams = request.getFilterParamsMap();
+
+            // If filter_class is empty, try resolving from kind in filter_params.
+            if (filterClass.isEmpty() && filterParams != null) {
+                String kind = filterParams.get("kind");
+                if (kind != null && !kind.isEmpty()) {
+                    filterClass = FilterRegistry.resolveByKind(kind);
+                    if (filterClass == null) {
+                        responseObserver.onNext(OpenResponse.newBuilder()
+                                .setError("no filter found for kind: " + kind)
+                                .build());
+                        responseObserver.onCompleted();
+                        return;
+                    }
+                    System.err.println("[bridge] Resolved kind " + kind +
+                            " to filter " + filterClass);
+                }
+            }
+
             // Instantiate filter.
             IFilter filter = FilterRegistry.createFilter(filterClass);
             if (filter == null) {
@@ -144,7 +163,6 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             }
 
             // Apply filter parameters.
-            Map<String, String> filterParams = request.getFilterParamsMap();
             if (filterParams != null && !filterParams.isEmpty()) {
                 applyFilterParams(filter, filterParams);
             }
@@ -619,7 +637,7 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
 
     /** Reserved param keys handled specially by the bridge. */
     private static final java.util.Set<String> RESERVED_PARAMS = new java.util.HashSet<>(
-            java.util.Arrays.asList("configFile", "fprmContent"));
+            java.util.Arrays.asList("configFile", "fprmContent", "apiVersion", "kind", "spec"));
 
     /**
      * Apply filter parameters from the gRPC map&lt;string, string&gt; format.
@@ -636,11 +654,48 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
      * validated against it (warnings logged) and hierarchical params are
      * flattened to flat Okapi names via {@link ParameterFlattener}.
      */
-    private void applyFilterParams(IFilter filter, Map<String, String> params) {
+    private void applyFilterParams(IFilter filter, Map<String, String> originalParams) {
+        // Make a mutable copy — proto maps are unmodifiable and envelope
+        // unwrapping may replace the map entirely.
+        Map<String, String> params = new HashMap<>(originalParams);
         IParameters filterParameters = filter.getParameters();
         if (filterParameters == null) {
             System.err.println("[bridge] Warning: Filter does not support parameters");
             return;
+        }
+
+        // Handle enveloped config: if kind is an Okf*FilterConfig, validate and unwrap.
+        // The envelope format is: apiVersion (vN), kind (Okf{Format}FilterConfig),
+        // spec (JSON-encoded params).
+        String kind = params.get("kind");
+        if (kind != null && !kind.isEmpty()) {
+            // Validate kind format
+            if (!kind.startsWith("Okf") || !kind.endsWith("FilterConfig")) {
+                System.err.println("[bridge] Warning: unexpected kind '" + kind +
+                        "' (expected Okf{Format}FilterConfig), proceeding anyway");
+            }
+
+            // If spec is present, use it as the source of filter parameters
+            String specJson = params.get("spec");
+            if (specJson != null && !specJson.isEmpty()) {
+                try {
+                    JsonElement specElement = JsonParser.parseString(specJson);
+                    if (specElement.isJsonObject()) {
+                        JsonObject specParams = specElement.getAsJsonObject();
+                        String apiVersion = params.get("apiVersion");
+                        // Replace params with the unwrapped spec (pass to the flattener + applier below)
+                        params = new HashMap<>();
+                        for (Map.Entry<String, JsonElement> entry : specParams.entrySet()) {
+                            params.put(entry.getKey(), entry.getValue().toString());
+                        }
+                        System.err.println("[bridge] Unwrapped envelope config (kind=" + kind +
+                                ", apiVersion=" + (apiVersion != null ? apiVersion : "unset") +
+                                "), " + specParams.size() + " spec params");
+                    }
+                } catch (Exception e) {
+                    System.err.println("[bridge] Warning: Could not parse spec from envelope: " + e.getMessage());
+                }
+            }
         }
 
         // Handle configFile: load the entire configuration from a file.

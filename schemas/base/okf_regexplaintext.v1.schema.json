@@ -1,7 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://gokapi.dev/schemas/filters/okf_regexplaintext.schema.json",
-  "$version": "1.0.0",
   "title": "okf_plaintext_regex Filter",
   "description": "Configuration for the Okapi okf_plaintext_regex Filter",
   "type": "object",
@@ -40,8 +38,7 @@
           "rule": "(^(?=.+))(.*?)$",
           "sourceGroup": 2,
           "regexOptions": 8,
-          "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
-          "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
+          "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break."
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter"
@@ -64,8 +61,7 @@
           "rule": "(\\n*)(.*?)(\\n\\n|\\Z)",
           "sourceGroup": 2,
           "regexOptions": 40,
-          "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break.",
-          "_parametersClass": "net.sf.okapi.filters.plaintext.regex.Parameters"
+          "sample": "$0d$$0a$This is the first sentence. And this is the second one.$0d$$0a$Second paragraph. Each one ends at the line-break.$0d$$0a$$0d$$0a$Third paragraph.$0d$$0a$And the last paragraph may have no line-break."
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.plaintext.regex.RegexPlainTextFilter"

@@ -1,7 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://gokapi.dev/schemas/filters/okf_vtt.schema.json",
-  "$version": "1.0.0",
   "title": "VTT Filter Filter",
   "description": "Configuration for the Okapi VTT Filter Filter",
   "type": "object",
@@ -28,7 +26,15 @@
           "timeFormat": "HH:mm:ss.SSS",
           "maxLinesPerCaption": 2,
           "maxCharsPerLine": 47,
-          "cjkCharsPerLine": 18
+          "cjkCharsPerLine": 18,
+          "keepTimecodes": false,
+          "splitWords": true,
+          "writeCharAnnotations": false,
+          "mergeCaptions": true,
+          "useCodeFinder": false,
+          "codeFinderRules.count": 0,
+          "codeFinderRules.sample": "",
+          "codeFinderRules.useAllRulesWhenTesting": false
         },
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.vtt.VTTFilter"

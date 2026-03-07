@@ -49,7 +49,9 @@
     }
   },
   "additionalProperties": false,
-  "x-baseVersion": 3,
+  "x-kind": "OkfAutoxliffFilterConfig",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
   "x-baseHash": "43165298d2fd",
   "x-compositeHash": "43165298d2fd"

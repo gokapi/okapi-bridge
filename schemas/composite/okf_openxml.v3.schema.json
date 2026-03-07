@@ -259,7 +259,9 @@
     }
   },
   "additionalProperties": false,
-  "x-baseVersion": 10,
+  "x-kind": "OkfOpenxmlFilterConfig",
+  "x-apiVersion": "v3",
+  "x-baseVersion": 3,
   "x-introducedInOkapi": "1.43.0",
   "x-baseHash": "dce31efbc1ac",
   "x-compositeHash": "049fc0891b45"

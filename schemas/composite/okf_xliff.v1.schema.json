@@ -58,9 +58,25 @@
           "quoteModeDefined": true,
           "quoteMode": 0,
           "useSdlXliffWriter": true,
-          "sdlSegConfValue": "Translated",
           "preserveSpaceByDefault": true,
-          "skipNoMrkSegSource": true
+          "useSegsForSdlProps": false,
+          "useIwsXliffWriter": false,
+          "iwsBlockFinished": true,
+          "iwsTransStatusValue": "finished",
+          "iwsTransTypeValue": "manual_translation",
+          "iwsRemoveTmOrigin": false,
+          "iwsBlockLockStatus": false,
+          "iwsBlockTmScore": false,
+          "iwsBlockTmScoreValue": 100,
+          "iwsIncludeMultipleExact": false,
+          "iwsBlockMultipleExact": false,
+          "inlineCdata": false,
+          "skipNoMrkSegSource": true,
+          "useCodeFinder": false,
+          "sdlSegConfValue": "Translated",
+          "codeFinderRules.count": 0,
+          "codeFinderRules.sample": "",
+          "codeFinderRules.useAllRulesWhenTesting": false
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
@@ -95,13 +111,25 @@
           "quoteModeDefined": true,
           "quoteMode": 0,
           "useSdlXliffWriter": false,
-          "sdlSegConfValue": "Translated",
           "preserveSpaceByDefault": true,
-          "skipNoMrkSegSource": true,
+          "useSegsForSdlProps": false,
           "useIwsXliffWriter": true,
           "iwsBlockFinished": true,
           "iwsTransStatusValue": "pending",
-          "iwsTransTypeValue": "manual_translation"
+          "iwsTransTypeValue": "manual_translation",
+          "iwsRemoveTmOrigin": false,
+          "iwsBlockLockStatus": false,
+          "iwsBlockTmScore": false,
+          "iwsBlockTmScoreValue": 100,
+          "iwsIncludeMultipleExact": false,
+          "iwsBlockMultipleExact": false,
+          "inlineCdata": false,
+          "skipNoMrkSegSource": true,
+          "useCodeFinder": false,
+          "sdlSegConfValue": "Translated",
+          "codeFinderRules.count": 0,
+          "codeFinderRules.sample": "",
+          "codeFinderRules.useAllRulesWhenTesting": false
         },
         "isDefault": false,
         "filterClass": "net.sf.okapi.filters.xliff.XLIFFFilter"
@@ -430,8 +458,10 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 9,
+  "x-kind": "OkfXliffFilterConfig",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "182c7868c44a",
-  "x-compositeHash": "dc102d0a00e4"
+  "x-baseHash": "0a6756c815d2",
+  "x-compositeHash": "fb70e9a715dc"
 }

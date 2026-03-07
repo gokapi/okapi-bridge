@@ -235,7 +235,9 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "x-baseVersion": 6,
+  "x-kind": "OkfJsonFilterConfig",
+  "x-apiVersion": "v2",
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "1.42.0",
   "x-baseHash": "5e39dc2c6666",
   "x-compositeHash": "8d9b8ec32559"

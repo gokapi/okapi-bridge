@@ -33,9 +33,11 @@
         "parameters": {
           "bilingualMode": false,
           "makeID": true,
+          "protectApproved": false,
+          "useCodeFinder": true,
+          "allowEmptyOutputTarget": false,
           "useLD": true,
           "localizeOutside": true,
-          "useCodeFinder": true,
           "codeFinderRules.count": 3,
           "codeFinderRules.rule0": "%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]",
           "codeFinderRules.rule1": "(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v",
