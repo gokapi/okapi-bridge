@@ -31,6 +31,7 @@ jobs:
           echo "latest=$LATEST" >> $GITHUB_OUTPUT
 
   cache-deps:
+    if: github.event_name == 'workflow_dispatch'
     needs: setup
     runs-on: ubuntu-latest
     strategy:
@@ -76,29 +77,12 @@ jobs:
             ./scripts/generate-version-pom.sh ${{ matrix.okapi-version }}
           fi
 
-      - name: Validate cached Okapi JARs
-        id: validate-cache
-        run: |
-          CORRUPT=0
-          if [ -d ~/.m2/repository/net/sf/okapi ]; then
-            while IFS= read -r -d '' jar; do
-              if ! jar tf "$jar" > /dev/null 2>&1; then
-                echo "::warning::Corrupt JAR detected, removing: $jar"
-                rm -f "$jar"
-                CORRUPT=$((CORRUPT + 1))
-              fi
-            done < <(find ~/.m2/repository/net/sf/okapi -name '*.jar' -type f -print0)
-          fi
-          echo "corrupt=$CORRUPT" >> $GITHUB_OUTPUT
-          if [ "$CORRUPT" -gt 0 ]; then
-            echo "Removed $CORRUPT corrupt JAR(s) from Maven cache — will re-resolve"
-          fi
-
       - name: Resolve dependencies
-        if: steps.maven-cache.outputs.cache-hit != 'true' || steps.validate-cache.outputs.corrupt != '0'
+        if: steps.maven-cache.outputs.cache-hit != 'true'
         run: mvn -B dependency:go-offline -f okapi-releases/${{ matrix.okapi-version }}/pom.xml
 
       - name: Verify resolved JARs are valid
+        if: steps.maven-cache.outputs.cache-hit != 'true'
         run: |
           CORRUPT=0
           while IFS= read -r -d '' jar; do
@@ -114,7 +98,7 @@ jobs:
 
   build:
     if: github.event_name == 'push'
-    needs: [setup, cache-deps]
+    needs: [setup]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -136,8 +120,9 @@ jobs:
             | grep -v '<version>' | sha256sum | cut -c1-16)
           echo "hash=$HASH" >> "$GITHUB_OUTPUT"
 
-      - name: Restore Maven cache (Okapi ${{ matrix.okapi-version }})
-        uses: actions/cache/restore@v4
+      - name: Cache Maven repository (Okapi ${{ matrix.okapi-version }})
+        uses: actions/cache@v4
+        id: maven-cache
         with:
           path: ~/.m2/repository
           key: maven-okapi-${{ matrix.okapi-version }}-${{ steps.dep-hash.outputs.hash }}
@@ -149,26 +134,8 @@ jobs:
             ./scripts/generate-version-pom.sh ${{ matrix.okapi-version }}
           fi
 
-      - name: Validate cached Okapi JARs
-        id: validate-build-cache
-        run: |
-          CORRUPT=0
-          if [ -d ~/.m2/repository/net/sf/okapi ]; then
-            while IFS= read -r -d '' jar; do
-              if ! jar tf "$jar" > /dev/null 2>&1; then
-                echo "::warning::Corrupt JAR in build cache, removing: $jar"
-                rm -f "$jar"
-                CORRUPT=$((CORRUPT + 1))
-              fi
-            done < <(find ~/.m2/repository/net/sf/okapi -name '*.jar' -type f -print0)
-          fi
-          echo "corrupt=$CORRUPT" >> $GITHUB_OUTPUT
-          if [ "$CORRUPT" -gt 0 ]; then
-            echo "Removed $CORRUPT corrupt JAR(s) — will re-resolve before build"
-          fi
-
-      - name: Re-resolve dependencies (corrupt cache)
-        if: steps.validate-build-cache.outputs.corrupt != '0'
+      - name: Resolve dependencies (cache miss)
+        if: steps.maven-cache.outputs.cache-hit != 'true'
         run: mvn -B dependency:go-offline -f okapi-releases/${{ matrix.okapi-version }}/pom.xml
 
       - name: Build with Okapi ${{ matrix.okapi-version }}
