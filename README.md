@@ -1,6 +1,6 @@
 # Okapi Bridge
 
-A Java bridge for [gokapi](https://github.com/gokapi/gokapi) that provides access to [Okapi Framework](https://okapiframework.org/) filters. This enables gokapi to process 40+ document formats through Okapi's proven filter implementations.
+A Java bridge for [neokapi](https://github.com/neokapi/neokapi) that provides access to [Okapi Framework](https://okapiframework.org/) filters. This enables neokapi to process 40+ document formats through Okapi's proven filter implementations.
 
 ## Features
 
@@ -12,7 +12,7 @@ A Java bridge for [gokapi](https://github.com/gokapi/gokapi) that provides acces
 
 ## Installation
 
-Download a release from GitHub or use gokapi's plugin installer:
+Download a release from GitHub or use neokapi's plugin installer:
 
 ```bash
 kapi plugins install okapi-bridge
@@ -204,7 +204,7 @@ Each Okapi filter maps to a Kind following the pattern `Okf{Format}FilterConfig`
 | `okf_markdown` | `OkfMarkdownFilterConfig` | `v1` |
 | `okf_plaintext` | `OkfPlaintextFilterConfig` | `v1` |
 
-The `apiVersion` (`v1`, `v2`, etc.) tracks schema versions independently per kind. When a native gokapi reader encounters an `Okf{Format}FilterConfig`, a registered transformer converts it to the equivalent `{Format}FormatConfig`.
+The `apiVersion` (`v1`, `v2`, etc.) tracks schema versions independently per kind. When a native neokapi reader encounters an `Okf{Format}FilterConfig`, a registered transformer converts it to the equivalent `{Format}FormatConfig`.
 
 ### Sending Enveloped Configs via gRPC
 
@@ -222,7 +222,7 @@ Each composite schema includes `x-kind` and `x-apiVersion` fields:
 
 ```json
 {
-  "$id": "https://gokapi.github.io/schemas/filters/okf_html.v1.schema.json",
+  "$id": "https://neokapi.github.io/schemas/filters/okf_html.v1.schema.json",
   "version": 1,
   "x-kind": "OkfHtmlFilterConfig",
   "x-apiVersion": "v1",
@@ -367,7 +367,7 @@ gh workflow run snapshot.yml -f okapi_ref=some-branch
 1. **Setup job** scans `okapi-releases/` to get version list
 2. **Build matrix** compiles a JAR for each Okapi version in parallel
 3. **Release job** creates GitHub release with all artifacts
-4. **Registry job** updates the gokapi plugin registry
+4. **Registry job** updates the neokapi plugin registry
 
 ## Development
 

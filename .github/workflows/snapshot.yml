@@ -97,7 +97,7 @@ jobs:
 
       - name: Smoke test
         run: |
-          JAR=$(ls "$SNAPSHOT_DIR"/target/gokapi-bridge-*-jar-with-dependencies.jar)
+          JAR=$(ls "$SNAPSHOT_DIR"/target/neokapi-bridge-*-jar-with-dependencies.jar)
           FILTERS=$(java -jar "$JAR" --list-filters)
           FILTER_COUNT=$(echo "$FILTERS" | wc -l | tr -d ' ')
           echo "Filters found: $FILTER_COUNT"
@@ -113,7 +113,7 @@ jobs:
           OKAPI_VERSION: ${{ steps.okapi-version.outputs.version }}
           OKAPI_REF: ${{ inputs.okapi_ref || 'main' }}
         run: |
-          JAR=$(ls "$SNAPSHOT_DIR"/target/gokapi-bridge-*-jar-with-dependencies.jar 2>/dev/null || echo "")
+          JAR=$(ls "$SNAPSHOT_DIR"/target/neokapi-bridge-*-jar-with-dependencies.jar 2>/dev/null || echo "")
           JAR_SIZE=""
           FILTER_COUNT="N/A"
           if [ -n "$JAR" ]; then
@@ -135,8 +135,8 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: gokapi-bridge-snapshot
-          path: ${{ env.SNAPSHOT_DIR }}/target/gokapi-bridge-*-jar-with-dependencies.jar
+          name: neokapi-bridge-snapshot
+          path: ${{ env.SNAPSHOT_DIR }}/target/neokapi-bridge-*-jar-with-dependencies.jar
           retention-days: 7
           if-no-files-found: ignore
 
@@ -147,12 +147,12 @@ jobs:
           ARCHIVE_NAME="okapi-bridge-snapshot-okapi${OKAPI_VERSION}"
 
           mkdir -p staging
-          JAR_FILE=$(ls "$SNAPSHOT_DIR"/target/gokapi-bridge-*-jar-with-dependencies.jar 2>/dev/null | head -1)
+          JAR_FILE=$(ls "$SNAPSHOT_DIR"/target/neokapi-bridge-*-jar-with-dependencies.jar 2>/dev/null | head -1)
           if [ -z "$JAR_FILE" ]; then
             echo "Error: No jar-with-dependencies found"
             exit 1
           fi
-          cp "$JAR_FILE" staging/gokapi-bridge-jar-with-dependencies.jar
+          cp "$JAR_FILE" staging/neokapi-bridge-jar-with-dependencies.jar
 
           # Generate manifest.json with capabilities
           CAPABILITIES=$(java -jar "$JAR_FILE" --list-filters 2>/dev/null \
@@ -176,7 +176,7 @@ jobs:
                   plugin_type: "bundle",
                   install_type: "bridge",
                   command: "java",
-                  args: ["-jar", "gokapi-bridge-jar-with-dependencies.jar"],
+                  args: ["-jar", "neokapi-bridge-jar-with-dependencies.jar"],
                   capabilities: $capabilities
                 }' > staging/manifest.json
 
@@ -211,10 +211,10 @@ jobs:
         run: |
           CHECKSUM=$(awk '{print $1}' "${ARCHIVE_NAME}.tar.gz.sha256")
           CAPABILITIES=$(jq '.capabilities' staging/manifest.json)
-          DOWNLOAD_URL="https://github.com/gokapi/okapi-bridge/releases/download/snapshot/${ARCHIVE_NAME}.tar.gz"
+          DOWNLOAD_URL="https://github.com/neokapi/okapi-bridge/releases/download/snapshot/${ARCHIVE_NAME}.tar.gz"
 
           # Checkout registry
-          git clone "https://x-access-token:${{ secrets.GOKAPI_REGISTRY_TOKEN }}@github.com/gokapi/registry.git" registry
+          git clone "https://x-access-token:${{ secrets.NEOKAPI_GITHUB_TOKEN }}@github.com/neokapi/registry.git" registry
 
           cd registry
           mkdir -p channels
@@ -240,8 +240,8 @@ jobs:
                   }]
                 }' > channels/snapshot.json
 
-          git config user.name "gokapi-bot"
-          git config user.email "bot@gokapi.dev"
+          git config user.name "neokapi-bot"
+          git config user.email "bot@neokapi.dev"
           git add channels/snapshot.json
           git commit -m "Update okapi snapshot channel (Okapi ${OKAPI_VERSION})"
           git push

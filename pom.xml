@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.gokapi</groupId>
+    <groupId>neokapi</groupId>
     <artifactId>okapi-bridge-parent</artifactId>
     <version>2.13.0</version>
     <packaging>pom</packaging>
@@ -108,12 +108,12 @@
         <dependencies>
             <!-- Internal module versions (for cross-module references) -->
             <dependency>
-                <groupId>com.gokapi</groupId>
+                <groupId>neokapi</groupId>
                 <artifactId>bridge-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.gokapi.tools</groupId>
+                <groupId>neokapi.tools</groupId>
                 <artifactId>schema-generator</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -157,7 +157,7 @@
                             <configuration>
                                 <transformers>
                                     <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                        <mainClass>com.gokapi.bridge.OkapiBridgeServer</mainClass>
+                                        <mainClass>neokapi.bridge.OkapiBridgeServer</mainClass>
                                     </transformer>
                                     <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 </transformers>
@@ -172,7 +172,7 @@
                                         </excludes>
                                     </filter>
                                 </filters>
-                                <finalName>gokapi-bridge-${project.version}-jar-with-dependencies</finalName>
+                                <finalName>neokapi-bridge-${project.version}-jar-with-dependencies</finalName>
                             </configuration>
                         </execution>
                     </executions>
@@ -190,7 +190,7 @@
                                 <goal>java</goal>
                             </goals>
                             <configuration>
-                                <mainClass>com.gokapi.bridge.tools.SchemaGenerator</mainClass>
+                                <mainClass>neokapi.bridge.tools.SchemaGenerator</mainClass>
                             </configuration>
                         </execution>
                     </executions>

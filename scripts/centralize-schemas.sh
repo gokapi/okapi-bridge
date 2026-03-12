@@ -37,7 +37,7 @@ filter_to_kind() {
 # Initialize versions.json if needed
 init_versions_file() {
     if [[ ! -f "$VERSIONS_FILE" ]]; then
-        echo '{"$schema":"https://gokapi.dev/schemas/schema-versions.json","generatedAt":"","filters":{}}' > "$VERSIONS_FILE"
+        echo '{"$schema":"https://neokapi.dev/schemas/schema-versions.json","generatedAt":"","filters":{}}' > "$VERSIONS_FILE"
     fi
 }
 
@@ -224,7 +224,7 @@ process_schema() {
        --arg av "$api_version" '
         {
             "$schema": ."$schema",
-            "$id": "https://gokapi.github.io/schemas/filters/\($f).v\($v).schema.json",
+            "$id": "https://neokapi.github.io/schemas/filters/\($f).v\($v).schema.json",
             "version": $v
         } + del(."$schema", ."$id", ."$version", .["x-schemaVersion"]) + {
             "x-kind": $k,
@@ -434,7 +434,7 @@ regenerate_composites() {
                --arg av "$api_version" '
                 {
                     "$schema": ."$schema",
-                    "$id": "https://gokapi.github.io/schemas/filters/\($f).v\($v).schema.json",
+                    "$id": "https://neokapi.github.io/schemas/filters/\($f).v\($v).schema.json",
                     "version": $v
                 } + del(."$schema", ."$id", ."$version", .["x-schemaVersion"]) + {
                     "x-kind": $k,
@@ -595,7 +595,7 @@ add_version() {
                --arg av "$api_version" '
                 {
                     "$schema": ."$schema",
-                    "$id": "https://gokapi.github.io/schemas/filters/\($f).v\($v).schema.json",
+                    "$id": "https://neokapi.github.io/schemas/filters/\($f).v\($v).schema.json",
                     "version": $v
                 } + del(."$schema", ."$id", ."$version", .["x-schemaVersion"]) + {
                     "x-kind": $k,

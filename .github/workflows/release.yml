@@ -149,13 +149,13 @@ jobs:
           ARCHIVE_NAME="okapi-bridge-${TAG}-okapi${OKAPI_VERSION}"
 
           mkdir -p staging/schemas
-          JAR_FILE=$(ls okapi-releases/${OKAPI_VERSION}/target/gokapi-bridge-*-jar-with-dependencies.jar 2>/dev/null | head -1)
+          JAR_FILE=$(ls okapi-releases/${OKAPI_VERSION}/target/neokapi-bridge-*-jar-with-dependencies.jar 2>/dev/null | head -1)
           if [ -z "$JAR_FILE" ]; then
             echo "Error: No jar-with-dependencies found in okapi-releases/${OKAPI_VERSION}/target/"
             ls -la okapi-releases/${OKAPI_VERSION}/target/
             exit 1
           fi
-          cp "$JAR_FILE" staging/gokapi-bridge-jar-with-dependencies.jar
+          cp "$JAR_FILE" staging/neokapi-bridge-jar-with-dependencies.jar
 
           # Generate unified manifest.json with capabilities and runtime config
           CAPABILITIES=$(java -jar "$JAR_FILE" --list-filters 2>/dev/null \
@@ -180,7 +180,7 @@ jobs:
                   plugin_type: "bundle",
                   install_type: "bridge",
                   command: "java",
-                  args: ["-jar", "gokapi-bridge-jar-with-dependencies.jar"],
+                  args: ["-jar", "neokapi-bridge-jar-with-dependencies.jar"],
                   capabilities: $capabilities
                 }' > staging/manifest.json
 
@@ -252,8 +252,8 @@ jobs:
       - name: Checkout registry
         uses: actions/checkout@v4
         with:
-          repository: gokapi/registry
-          token: ${{ secrets.GOKAPI_REGISTRY_TOKEN }}
+          repository: neokapi/registry
+          token: ${{ secrets.NEOKAPI_GITHUB_TOKEN }}
           path: registry
 
       - name: Update plugins.json
@@ -262,7 +262,7 @@ jobs:
         run: |
           TAG="${GITHUB_REF_NAME}"
           VERSION="${TAG#v}"
-          BASE_URL="https://github.com/gokapi/okapi-bridge/releases/download/${TAG}"
+          BASE_URL="https://github.com/neokapi/okapi-bridge/releases/download/${TAG}"
 
           # Read capabilities generated from the bridge JAR
           CAPABILITIES=$(cat artifacts/capabilities.json)
@@ -309,8 +309,8 @@ jobs:
       - name: Commit and push registry update
         run: |
           cd registry
-          git config user.name "gokapi-bot"
-          git config user.email "bot@gokapi.dev"
+          git config user.name "neokapi-bot"
+          git config user.email "bot@neokapi.dev"
           git add plugins.json
           git commit -m "Update okapi to ${GITHUB_REF_NAME}"
           git push

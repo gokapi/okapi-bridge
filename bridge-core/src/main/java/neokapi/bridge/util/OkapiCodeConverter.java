@@ -1,0 +1,214 @@
+package neokapi.bridge.util;
+
+import neokapi.bridge.model.FragmentDTO;
+import neokapi.bridge.model.SpanDTO;
+import net.sf.okapi.common.resource.Code;
+import net.sf.okapi.common.resource.TextFragment;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Converts between Okapi's coded text (marker + index pairs) and neokapi's
+ * coded text (single marker characters with sequential spans).
+ *
+ * <h3>Marker character mapping:</h3>
+ * <table>
+ *     <tr><th></th><th>Okapi</th><th>neokapi</th></tr>
+ *     <tr><td>Opening</td><td>\uE101 + index</td><td>\uE001</td></tr>
+ *     <tr><td>Closing</td><td>\uE102 + index</td><td>\uE002</td></tr>
+ *     <tr><td>Placeholder</td><td>\uE103 + index</td><td>\uE003</td></tr>
+ * </table>
+ *
+ * Okapi uses marker + index pairs (2 chars per code reference).
+ * neokapi uses single marker chars (spans are sequential in the Spans array).
+ */
+public class OkapiCodeConverter {
+
+    // Okapi marker characters
+    private static final char OKAPI_OPENING = '\uE101';
+    private static final char OKAPI_CLOSING = '\uE102';
+    private static final char OKAPI_PLACEHOLDER = '\uE103';
+
+    // neokapi marker characters
+    private static final char NEOKAPI_OPENING = '\uE001';
+    private static final char NEOKAPI_CLOSING = '\uE002';
+    private static final char NEOKAPI_PLACEHOLDER = '\uE003';
+
+    // neokapi SpanType values
+    private static final int SPAN_OPENING = 0;
+    private static final int SPAN_CLOSING = 1;
+    private static final int SPAN_PLACEHOLDER = 2;
+
+    // neokapi SpanFlag values (must match model.SpanFlag* constants)
+    private static final int SPAN_FLAG_HAS_REF = 1;
+
+    /**
+     * Convert an Okapi TextFragment to a neokapi FragmentDTO.
+     */
+    public static FragmentDTO toFragmentDTO(TextFragment tf) {
+        if (tf == null) {
+            return null;
+        }
+
+        FragmentDTO dto = new FragmentDTO();
+        String codedText = tf.getCodedText();
+        List<Code> codes = tf.getCodes();
+        List<SpanDTO> spans = new ArrayList<>();
+        StringBuilder neokapiText = new StringBuilder();
+
+        int i = 0;
+        while (i < codedText.length()) {
+            char c = codedText.charAt(i);
+
+            if (c == OKAPI_OPENING || c == OKAPI_CLOSING || c == OKAPI_PLACEHOLDER) {
+                // Next char is the index into the codes list.
+                if (i + 1 < codedText.length()) {
+                    int codeIndex = TextFragment.toIndex(codedText.charAt(i + 1));
+                    Code code = (codeIndex >= 0 && codeIndex < codes.size()) ? codes.get(codeIndex) : null;
+
+                    SpanDTO span = new SpanDTO();
+                    if (c == OKAPI_OPENING) {
+                        neokapiText.append(NEOKAPI_OPENING);
+                        span.setSpanType(SPAN_OPENING);
+                    } else if (c == OKAPI_CLOSING) {
+                        neokapiText.append(NEOKAPI_CLOSING);
+                        span.setSpanType(SPAN_CLOSING);
+                    } else {
+                        neokapiText.append(NEOKAPI_PLACEHOLDER);
+                        span.setSpanType(SPAN_PLACEHOLDER);
+                    }
+
+                    if (code != null) {
+                        span.setId(String.valueOf(code.getId()));
+                        span.setData(code.getData());
+                        span.setOuterData(code.getOuterData());
+                        span.setType(code.getType());
+                        span.setDeletable(code.isDeleteable());
+                        span.setCloneable(code.isCloneable());
+
+                        // Enriched fields
+                        String displayText = code.getDisplayText();
+                        if (displayText != null && !displayText.isEmpty()) {
+                            span.setDisplayText(displayText);
+                        }
+
+                        String originalId = code.getOriginalId();
+                        if (originalId != null && !originalId.isEmpty()) {
+                            span.setOriginalId(originalId);
+                        }
+
+                        // Flags
+                        int flags = 0;
+                        if (code.hasReference()) {
+                            flags |= SPAN_FLAG_HAS_REF;
+                        }
+                        if (flags != 0) {
+                            span.setFlags(flags);
+                        }
+                    }
+
+                    spans.add(span);
+                    i += 2; // Skip marker + index
+                } else {
+                    // Malformed: marker without index. Append as text.
+                    neokapiText.append(c);
+                    i++;
+                }
+            } else {
+                neokapiText.append(c);
+                i++;
+            }
+        }
+
+        dto.setCodedText(neokapiText.toString());
+        dto.setSpans(spans.isEmpty() ? null : spans);
+        return dto;
+    }
+
+    /**
+     * Convert a neokapi FragmentDTO to an Okapi TextFragment.
+     */
+    public static TextFragment toTextFragment(FragmentDTO dto) {
+        if (dto == null || dto.getCodedText() == null) {
+            return new TextFragment();
+        }
+
+        String neokapiText = dto.getCodedText();
+        List<SpanDTO> spans = dto.getSpans();
+        int spanIndex = 0;
+
+        StringBuilder okapiText = new StringBuilder();
+        List<Code> codes = new ArrayList<>();
+
+        for (int i = 0; i < neokapiText.length(); i++) {
+            char c = neokapiText.charAt(i);
+
+            if (c == NEOKAPI_OPENING || c == NEOKAPI_CLOSING || c == NEOKAPI_PLACEHOLDER) {
+                SpanDTO span = (spans != null && spanIndex < spans.size()) ? spans.get(spanIndex) : null;
+                spanIndex++;
+
+                Code code;
+                String codeData = (span != null && span.getData() != null) ? span.getData() : "";
+                int codeId = 0;
+                if (span != null && span.getId() != null && !span.getId().isEmpty()) {
+                    try {
+                        codeId = Integer.parseInt(span.getId());
+                    } catch (NumberFormatException ignored) {
+                    }
+                }
+
+                if (c == NEOKAPI_OPENING) {
+                    code = new Code(TextFragment.TagType.OPENING, codeData);
+                    okapiText.append(OKAPI_OPENING);
+                } else if (c == NEOKAPI_CLOSING) {
+                    code = new Code(TextFragment.TagType.CLOSING, codeData);
+                    okapiText.append(OKAPI_CLOSING);
+                } else {
+                    code = new Code(TextFragment.TagType.PLACEHOLDER, codeData);
+                    okapiText.append(OKAPI_PLACEHOLDER);
+                }
+
+                code.setId(codeId);
+                if (span != null) {
+                    if (span.getOuterData() != null) {
+                        code.setOuterData(span.getOuterData());
+                    }
+                    if (span.getType() != null) {
+                        code.setType(span.getType());
+                    }
+                    code.setDeleteable(span.isDeletable());
+                    code.setCloneable(span.isCloneable());
+
+                    // Restore enriched fields
+                    if (span.getDisplayText() != null && !span.getDisplayText().isEmpty()) {
+                        code.setDisplayText(span.getDisplayText());
+                    }
+                    if (span.getOriginalId() != null && !span.getOriginalId().isEmpty()) {
+                        code.setOriginalId(span.getOriginalId());
+                    }
+                    if ((span.getFlags() & SPAN_FLAG_HAS_REF) != 0) {
+                        code.setReferenceFlag(true);
+                    }
+                }
+
+                int idx = codes.size();
+                codes.add(code);
+                okapiText.append(TextFragment.toChar(idx));
+            } else {
+                okapiText.append(c);
+            }
+        }
+
+        TextFragment tf = new TextFragment();
+        tf.setCodedText(okapiText.toString(), codes);
+        return tf;
+    }
+
+    /**
+     * Check if a character is a neokapi marker.
+     */
+    public static boolean isGokapiMarker(char c) {
+        return c == NEOKAPI_OPENING || c == NEOKAPI_CLOSING || c == NEOKAPI_PLACEHOLDER;
+    }
+}

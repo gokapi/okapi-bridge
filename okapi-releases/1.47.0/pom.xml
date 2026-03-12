@@ -13,13 +13,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.gokapi</groupId>
+        <groupId>neokapi</groupId>
         <artifactId>okapi-bridge-parent</artifactId>
         <version>2.13.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <artifactId>gokapi-bridge-okapi-1.47.0</artifactId>
+    <artifactId>neokapi-bridge-okapi-1.47.0</artifactId>
     <packaging>jar</packaging>
     <name>Okapi Bridge - Okapi 1.47.0</name>
 

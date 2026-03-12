@@ -204,13 +204,13 @@ cat > "$OUTPUT_FILE" << EOF
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.gokapi</groupId>
+        <groupId>neokapi</groupId>
         <artifactId>okapi-bridge-parent</artifactId>
         <version>$BRIDGE_VERSION</version>
         <relativePath>${PATH_PREFIX}pom.xml</relativePath>
     </parent>
 
-    <artifactId>gokapi-bridge-okapi-$VERSION</artifactId>
+    <artifactId>neokapi-bridge-okapi-$VERSION</artifactId>
     <packaging>jar</packaging>
     <name>Okapi Bridge - Okapi $VERSION</name>
 

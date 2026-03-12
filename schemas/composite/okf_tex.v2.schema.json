@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://gokapi.github.io/schemas/filters/okf_tex.v2.schema.json",
+  "$id": "https://neokapi.github.io/schemas/filters/okf_tex.v2.schema.json",
   "version": 2,
   "title": "TEX Filter Filter",
   "description": "Configuration for the Okapi TEX Filter Filter",

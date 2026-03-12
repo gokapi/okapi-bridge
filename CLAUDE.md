@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-Okapi Bridge is a Java bridge that enables [gokapi](https://github.com/gokapi/gokapi) (a Go tool) to access [Okapi Framework](https://okapiframework.org/) document format filters (57+) via gRPC. It supports 11 Okapi versions (0.38 through 1.48.0).
+Okapi Bridge is a Java bridge that enables [neokapi](https://github.com/neokapi/neokapi) (a Go tool) to access [Okapi Framework](https://okapiframework.org/) document format filters (57+) via gRPC. It supports 11 Okapi versions (0.38 through 1.48.0).
 
 ## Project Structure (Multi-Module Maven)
 
@@ -98,7 +98,7 @@ A single `manifest.json` serves as both the install-time and runtime descriptor.
   "plugin_type": "bundle",
   "install_type": "bridge",
   "command": "java",
-  "args": ["-jar", "gokapi-bridge-jar-with-dependencies.jar"],
+  "args": ["-jar", "neokapi-bridge-jar-with-dependencies.jar"],
   "capabilities": [...]
 }
 ```

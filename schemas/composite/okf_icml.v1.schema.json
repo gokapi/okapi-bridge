@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://gokapi.github.io/schemas/filters/okf_icml.v1.schema.json",
+  "$id": "https://neokapi.github.io/schemas/filters/okf_icml.v1.schema.json",
   "version": 1,
   "title": "ICML Filter Filter",
   "description": "Configuration for the Okapi ICML Filter Filter",

@@ -17,13 +17,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.gokapi</groupId>
+        <groupId>neokapi</groupId>
         <artifactId>okapi-bridge-parent</artifactId>
         <version>2.13.0</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
 
-    <groupId>com.gokapi.tools</groupId>
+    <groupId>neokapi.tools</groupId>
     <artifactId>schema-generator</artifactId>
     <packaging>jar</packaging>
     <name>Okapi Bridge Schema Generator</name>
@@ -40,7 +40,7 @@
 
         <!-- Bridge core (FilterRegistry, ParameterApplier, model classes) -->
         <dependency>
-            <groupId>com.gokapi</groupId>
+            <groupId>neokapi</groupId>
             <artifactId>bridge-core</artifactId>
         </dependency>
 

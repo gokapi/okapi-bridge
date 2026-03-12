@@ -1,5 +1,5 @@
 {
-  "$schema": "https://gokapi.dev/schemas/editorHints.schema.json",
+  "$schema": "https://neokapi.dev/schemas/editorHints.schema.json",
   "fields": {
     "extractSource": {
       "description": "Extract source text from XLIFF 2.x file."

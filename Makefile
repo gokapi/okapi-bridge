@@ -201,7 +201,7 @@ endif
 	./scripts/generate-version-pom.sh --local --output-dir "$$SNAPSHOT_DIR" $(V) && \
 	mvn -B package -f "$$SNAPSHOT_DIR/pom.xml" -DskipTests && \
 	echo "" && \
-	echo "Built: $$(ls $$SNAPSHOT_DIR/target/gokapi-bridge-*-jar-with-dependencies.jar)" && \
+	echo "Built: $$(ls $$SNAPSHOT_DIR/target/neokapi-bridge-*-jar-with-dependencies.jar)" && \
 	echo "Test:  mvn -B test -pl bridge-core -Dokapi.version=$(V)"
 
 test:

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://gokapi.github.io/schemas/filters/okf_po.v3.schema.json",
+  "$id": "https://neokapi.github.io/schemas/filters/okf_po.v3.schema.json",
   "version": 3,
   "title": "PO Filter Filter",
   "description": "Configuration for the Okapi PO Filter Filter",

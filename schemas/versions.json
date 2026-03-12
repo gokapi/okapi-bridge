@@ -1,5 +1,5 @@
 {
-  "$schema": "https://gokapi.dev/schemas/schema-versions.json",
+  "$schema": "https://neokapi.dev/schemas/schema-versions.json",
   "generatedAt": "2026-03-07T18:09:26Z",
   "filters": {
     "okf_archive": {
