@@ -236,6 +236,19 @@ jobs:
             artifacts/okapi-bridge-*.tar.gz.sha256
           generate_release_notes: true
 
+  publish-testdata:
+    name: Publish Okapi Test Data
+    needs: [setup, release]
+    if: always() && !cancelled() && needs.release.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Publish testdata for latest Okapi version
+        run: bash scripts/publish-okapi-testdata.sh "${{ needs.setup.outputs.latest }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.NEOKAPI_GITHUB_TOKEN }}
+
   update-registry:
     needs: [setup, release]
     if: always() && !cancelled() && needs.release.result == 'success'
