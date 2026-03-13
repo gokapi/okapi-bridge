@@ -1095,43 +1095,42 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
     }
 
     /**
-     * Set up a FilterConfigurationMapper on the filter so that sub-filtering works.
-     * Filters like RegexFilter with useCodeFinder need to resolve sub-filter IDs
-     * (e.g., "okf_html") to their filter classes. Without this mapper, opening a
-     * filter with sub-filtering config causes a NullPointerException on fcMapper.
+     * Lazily-initialized FilterConfigurationMapper with all discovered filters
+     * registered. Built once and reused across all filter instances so that
+     * container/delegating filters (Archive, AutoXLIFF, MultiParsers, SdlPackage,
+     * WsxzPackage) can resolve any sub-filter ID (e.g., "okf_xliff", "okf_tmx",
+     * "okf_markdown") to the correct filter class.
      */
-    /** Common sub-filter targets that might be referenced by compound/regex filters. */
-    private static final String[] COMMON_SUB_FILTER_CLASSES = {
-        "net.sf.okapi.filters.html.HtmlFilter",
-        "net.sf.okapi.filters.xml.XMLFilter",
-        "net.sf.okapi.filters.plaintext.PlainTextFilter",
-        "net.sf.okapi.filters.properties.PropertiesFilter",
-    };
+    private volatile net.sf.okapi.common.filters.FilterConfigurationMapper sharedFcMapper;
+
+    private net.sf.okapi.common.filters.FilterConfigurationMapper getSharedFilterConfigurationMapper() {
+        if (sharedFcMapper == null) {
+            synchronized (this) {
+                if (sharedFcMapper == null) {
+                    net.sf.okapi.common.filters.FilterConfigurationMapper mapper =
+                            new net.sf.okapi.common.filters.FilterConfigurationMapper();
+                    for (String fc : FilterRegistry.getFilterClasses()) {
+                        try {
+                            mapper.addConfigurations(fc);
+                        } catch (Exception e) {
+                            // Skip filters that fail to register (e.g., missing dependencies)
+                        }
+                    }
+                    sharedFcMapper = mapper;
+                }
+            }
+        }
+        return sharedFcMapper;
+    }
 
     /**
      * Set up a FilterConfigurationMapper on the filter so that sub-filtering works.
-     * Only registers common sub-filter targets to avoid triggering full JAR discovery.
-     * Filters like RegexFilter with useCodeFinder need to resolve sub-filter IDs
-     * (e.g., "okf_html") to their filter classes.
+     * Uses a shared mapper with all discovered filters registered, enabling
+     * container filters to delegate to any sub-filter available on the classpath.
      */
     private void setupFilterConfigurationMapper(IFilter filter) {
         try {
-            net.sf.okapi.common.filters.FilterConfigurationMapper fcMapper =
-                    new net.sf.okapi.common.filters.FilterConfigurationMapper();
-
-            // Register the filter itself and common sub-filter targets.
-            // This avoids scanning all 57 filters — most sub-filtering only
-            // references HTML, XML, plaintext, or properties.
-            fcMapper.addConfigurations(filter.getClass().getName());
-            for (String fc : COMMON_SUB_FILTER_CLASSES) {
-                try {
-                    fcMapper.addConfigurations(fc);
-                } catch (Exception e) {
-                    // Skip if class not on classpath
-                }
-            }
-
-            filter.setFilterConfigurationMapper(fcMapper);
+            filter.setFilterConfigurationMapper(getSharedFilterConfigurationMapper());
         } catch (Exception e) {
             // Non-fatal: sub-filtering won't work but basic filtering will.
             System.err.println("[bridge] Warning: Could not set up FilterConfigurationMapper: " + e.getMessage());
