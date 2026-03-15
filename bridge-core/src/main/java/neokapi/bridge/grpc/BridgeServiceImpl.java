@@ -1,10 +1,8 @@
 package neokapi.bridge.grpc;
 
 import neokapi.bridge.EventConverter;
-import neokapi.bridge.PartDTOConverter;
 import neokapi.bridge.io.ContentResolver;
 import neokapi.bridge.io.OutputWriter;
-import neokapi.bridge.io.WriteResult;
 import neokapi.bridge.model.*;
 import neokapi.bridge.proto.*;
 import neokapi.bridge.util.FilterRegistry;
@@ -31,14 +29,10 @@ import java.util.concurrent.*;
 
 /**
  * gRPC implementation of the BridgeService.
- * Delegates to existing EventConverter/PartDTOConverter for Okapi event handling.
+ * Implements the single bidirectional-streaming Process RPC that replaces the
+ * old Open/Read/Write/Close/RoundTrip RPCs.
  */
 public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
-
-    private static final int QUEUE_CAPACITY = 1024;
-
-    private IFilter currentFilter;
-    private String currentSourceLocale = "";
 
     private final ContentResolver contentResolver;
     private final OutputWriter outputWriter;
@@ -59,332 +53,53 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         shutdownLatch.await();
     }
 
-    @Override
-    public void info(InfoRequest request, StreamObserver<InfoResponse> responseObserver) {
-        try {
-            FilterInfo info = FilterRegistry.getFilterInfo(request.getFilterClass());
-            if (info == null) {
-                responseObserver.onError(
-                        io.grpc.Status.NOT_FOUND
-                                .withDescription("filter class not found: " + request.getFilterClass())
-                                .asRuntimeException());
-                return;
-            }
-
-            InfoResponse.Builder resp = InfoResponse.newBuilder()
-                    .setName(nullSafe(info.getName()))
-                    .setDisplayName(nullSafe(info.getDisplayName()));
-            if (info.getMimeTypes() != null) {
-                resp.addAllMimeTypes(info.getMimeTypes());
-            }
-            if (info.getExtensions() != null) {
-                resp.addAllExtensions(info.getExtensions());
-            }
-
-            responseObserver.onNext(resp.build());
-            responseObserver.onCompleted();
-        } catch (Exception e) {
-            responseObserver.onError(
-                    io.grpc.Status.INTERNAL
-                            .withDescription(e.getMessage())
-                            .asRuntimeException());
-        }
-    }
+    // ── Process RPC ────────────────────────────────────────────────────────────
 
     @Override
-    public void listFilters(ListFiltersRequest request, StreamObserver<ListFiltersResponse> responseObserver) {
-        try {
-            List<FilterInfo> filters = FilterRegistry.listFilters();
-            ListFiltersResponse.Builder resp = ListFiltersResponse.newBuilder();
+    public StreamObserver<ProcessRequest> process(StreamObserver<ProcessResponse> responseObserver) {
+        // Use manual flow control so we explicitly request messages.
+        io.grpc.stub.ServerCallStreamObserver<ProcessResponse> serverObserver =
+                (io.grpc.stub.ServerCallStreamObserver<ProcessResponse>) responseObserver;
+        serverObserver.disableAutoRequest();
+        // Request the first message (Header).
+        serverObserver.request(1);
 
-            for (FilterInfo info : filters) {
-                FilterEntry.Builder entry = FilterEntry.newBuilder()
-                        .setFilterClass(info.getFilterClass())
-                        .setName(nullSafe(info.getName()))
-                        .setDisplayName(nullSafe(info.getDisplayName()))
-                        .setFilterId(nullSafe(info.getId()));
-                if (info.getMimeTypes() != null) {
-                    entry.addAllMimeTypes(info.getMimeTypes());
-                }
-                if (info.getExtensions() != null) {
-                    entry.addAllExtensions(info.getExtensions());
-                }
-                if (info.getCapabilities() != null) {
-                    entry.addAllCapabilities(info.getCapabilities());
-                }
-                resp.addFilters(entry);
-            }
-
-            responseObserver.onNext(resp.build());
-            responseObserver.onCompleted();
-        } catch (Exception e) {
-            responseObserver.onError(
-                    io.grpc.Status.INTERNAL
-                            .withDescription(e.getMessage())
-                            .asRuntimeException());
-        }
-    }
-
-    @Override
-    public void open(OpenRequest request, StreamObserver<OpenResponse> responseObserver) {
-        try {
-            String filterClass = request.getFilterClass();
-            String uri = request.getUri();
-            String sourceLocale = request.getSourceLocale();
-            currentSourceLocale = sourceLocale;
-            String targetLocale = request.getTargetLocale();
-            String encoding = request.getEncoding().isEmpty() ? "UTF-8" : request.getEncoding();
-
-            Map<String, String> filterParams = request.getFilterParamsMap();
-
-            // If filter_class is empty, try resolving from kind in filter_params.
-            if (filterClass.isEmpty() && filterParams != null) {
-                String kind = filterParams.get("kind");
-                if (kind != null && !kind.isEmpty()) {
-                    filterClass = FilterRegistry.resolveByKind(kind);
-                    if (filterClass == null) {
-                        responseObserver.onNext(OpenResponse.newBuilder()
-                                .setError("no filter found for kind: " + kind)
-                                .build());
-                        responseObserver.onCompleted();
-                        return;
-                    }
-                    System.err.println("[bridge] Resolved kind " + kind +
-                            " to filter " + filterClass);
-                }
-            }
-
-            // Instantiate filter.
-            IFilter filter = FilterRegistry.createFilter(filterClass);
-            if (filter == null) {
-                responseObserver.onNext(OpenResponse.newBuilder()
-                        .setError("cannot instantiate filter: " + filterClass)
-                        .build());
-                responseObserver.onCompleted();
-                return;
-            }
-
-            // Apply filter parameters.
-            if (filterParams != null && !filterParams.isEmpty()) {
-                applyFilterParams(filter, filterParams);
-            }
-
-            // Resolve content to a local file via the content resolver.
-            File inputFile = resolveOpenContent(request);
-
-            // Set up FilterConfigurationMapper for sub-filtering support.
-            // Filters like RegexFilter with useCodeFinder/subfilter configs need
-            // a mapper to resolve sub-filter classes (e.g., okf_html -> HTMLFilter).
-            setupFilterConfigurationMapper(filter);
-
-            LocaleId srcLocale = LocaleId.fromString(sourceLocale);
-            LocaleId tgtLocale = LocaleId.fromString(targetLocale);
-            RawDocument rawDoc = new RawDocument(inputFile.toURI(), encoding, srcLocale, tgtLocale);
-
-            filter.open(rawDoc);
-            currentFilter = filter;
-
-            System.err.println("[bridge] Opened filter " + filterClass + " for " + uri);
-            responseObserver.onNext(OpenResponse.newBuilder().build());
-            responseObserver.onCompleted();
-        } catch (Exception e) {
-            System.err.println("[bridge] Open error: " + e.getMessage());
-            e.printStackTrace(System.err);
-            responseObserver.onNext(OpenResponse.newBuilder()
-                    .setError(e.getMessage())
-                    .build());
-            responseObserver.onCompleted();
-        }
-    }
-
-    @Override
-    public void read(ReadRequest request, StreamObserver<PartMessage> responseObserver) {
-        try {
-            if (currentFilter == null) {
-                responseObserver.onError(
-                        io.grpc.Status.FAILED_PRECONDITION
-                                .withDescription("no filter is currently open")
-                                .asRuntimeException());
-                return;
-            }
-
-            int count = 0;
-            while (currentFilter.hasNext()) {
-                Event event = currentFilter.next();
-                PartDTO partDTO = EventConverter.convert(event);
-                if (partDTO != null) {
-                    PartMessage protoMsg = ProtoAdapter.toProto(partDTO);
-                    responseObserver.onNext(protoMsg);
-                    count++;
-                }
-            }
-
-            System.err.println("[bridge] Streamed " + count + " parts");
-            responseObserver.onCompleted();
-        } catch (Exception e) {
-            System.err.println("[bridge] Read error: " + e.getMessage());
-            e.printStackTrace(System.err);
-            responseObserver.onError(
-                    io.grpc.Status.INTERNAL
-                            .withDescription(e.getMessage())
-                            .asRuntimeException());
-        }
-    }
-
-    @Override
-    public StreamObserver<WriteChunk> write(StreamObserver<WriteResponse> responseObserver) {
-        return new StreamObserver<WriteChunk>() {
-            private WriteHeader header;
-            private final BlockingQueue<TranslationEntry> queue =
-                    new LinkedBlockingQueue<>(QUEUE_CAPACITY);
-            private Future<WriteResult> mergeFuture;
+        return new StreamObserver<ProcessRequest>() {
+            private ProcessHeader header;
+            private final BlockingQueue<TranslationEntry> translationQueue = new LinkedBlockingQueue<>();
+            private final CountDownLatch clientDone = new CountDownLatch(1);
+            private volatile boolean writeEnabled = false;
+            private String targetLocale = "";
 
             @Override
-            public void onNext(WriteChunk chunk) {
-                if (chunk.hasHeader()) {
-                    header = chunk.getHeader();
-                    // Start merge thread immediately — it blocks on queue.poll()
-                    // until parts arrive. Filter setup happens while Go is still
-                    // streaming parts.
-                    mergeFuture = mergeExecutor.submit(() -> {
-                        try {
-                            return performWriteStreaming(header, queue);
-                        } catch (Exception e) {
-                            // Drain the queue so onNext's queue.put() doesn't block
-                            // the gRPC thread indefinitely.
-                            queue.clear();
-                            queue.offer(TranslationEntry.END);
-                            throw e;
-                        }
-                    });
-                } else if (chunk.hasPart()) {
-                    PartMessage msg = chunk.getPart();
-                    if (msg.getPartType() == PartDTO.TYPE_BLOCK && msg.hasBlock()) {
-                        BlockMessage blockMsg = msg.getBlock();
-                        String locale = header != null ? header.getLocale() : "";
-                        List<FragmentDTO> fragments = extractTargetFragments(blockMsg, locale);
-                        if (fragments != null) {
+            public void onNext(ProcessRequest request) {
+                switch (request.getRequestCase()) {
+                    case HEADER:
+                        header = request.getHeader();
+                        writeEnabled = header.hasOutput() || !header.getOutputLocale().isEmpty();
+                        targetLocale = header.getOutputLocale().isEmpty()
+                                ? header.getTargetLocale() : header.getOutputLocale();
+                        startProcessing(serverObserver);
+                        // Request next messages (processed parts from Go).
+                        // Use a large number — Go sends parts as fast as it can.
+                        serverObserver.request(Integer.MAX_VALUE);
+                        break;
+
+                    case PART:
+                        // Processed part from Go — extract target translations.
+                        PartMessage pm = request.getPart();
+                        if (pm.getPartType() == PartDTO.TYPE_BLOCK && pm.hasBlock()) {
+                            BlockMessage blockMsg = pm.getBlock();
+                            List<FragmentDTO> fragments = extractTargetFragments(blockMsg, targetLocale);
+                            // Always enqueue for blocks — null fragments means "pass through".
                             try {
-                                // Use offer with timeout instead of blocking put.
-                                // If the merge thread failed early, the queue is drained
-                                // and the END sentinel is placed. Offer will succeed after
-                                // the queue drains, or time out gracefully.
-                                if (!queue.offer(new TranslationEntry(blockMsg.getId(), fragments),
-                                        5, TimeUnit.SECONDS)) {
-                                    System.err.println("[bridge] Write queue full, dropping part");
-                                }
+                                translationQueue.offer(
+                                        new TranslationEntry(blockMsg.getId(), fragments),
+                                        120, TimeUnit.SECONDS);
                             } catch (InterruptedException e) {
                                 Thread.currentThread().interrupt();
                             }
                         }
-                    }
-                    // Non-block parts discarded — skeleton provides structure.
-                }
-            }
-
-            @Override
-            public void onError(Throwable t) {
-                System.err.println("[bridge] Write stream error: " + t.getMessage());
-                queue.clear(); // Make room for sentinel.
-                queue.offer(TranslationEntry.END); // Unblock merge thread.
-                if (mergeFuture != null) {
-                    mergeFuture.cancel(true); // Interrupt merge thread.
-                }
-            }
-
-            @Override
-            public void onCompleted() {
-                try {
-                    if (header == null) {
-                        responseObserver.onNext(WriteResponse.newBuilder()
-                                .setError("no header received")
-                                .build());
-                        responseObserver.onCompleted();
-                        return;
-                    }
-
-                    // Signal end of stream and wait for merge to complete.
-                    queue.put(TranslationEntry.END);
-                    WriteResult result = mergeFuture.get();
-                    WriteResponse.Builder resp = WriteResponse.newBuilder();
-                    if (result.isReferenced()) {
-                        resp.setOutputPath(result.getOutputPath());
-                    } else {
-                        resp.setOutput(ByteString.copyFrom(result.getBytes()));
-                    }
-                    responseObserver.onNext(resp.build());
-                    responseObserver.onCompleted();
-                } catch (Exception e) {
-                    Throwable cause = e instanceof ExecutionException ? e.getCause() : e;
-                    System.err.println("[bridge] Write error: " + cause.getMessage());
-                    cause.printStackTrace(System.err);
-                    responseObserver.onNext(WriteResponse.newBuilder()
-                            .setError(cause.getMessage())
-                            .build());
-                    responseObserver.onCompleted();
-                }
-            }
-        };
-    }
-
-    @Override
-    public void close(CloseRequest request, StreamObserver<CloseResponse> responseObserver) {
-        try {
-            closeCurrentFilter();
-            responseObserver.onNext(CloseResponse.newBuilder().build());
-            responseObserver.onCompleted();
-        } catch (Exception e) {
-            responseObserver.onNext(CloseResponse.newBuilder()
-                    .setError(e.getMessage())
-                    .build());
-            responseObserver.onCompleted();
-        }
-    }
-
-    /**
-     * Close the current filter and release all associated resources.
-     * Nullifies references eagerly to prevent stale state when the bridge
-     * is reused from the pool for the next document. This is especially
-     * important for complex filters like OpenXML that manage ZIP archives
-     * with internal sub-filter pipelines.
-     */
-    private void closeCurrentFilter() {
-        if (currentFilter == null) {
-            return;
-        }
-
-        IFilter filter = currentFilter;
-        currentFilter = null;
-
-        try {
-            filter.close();
-        } catch (Exception e) {
-            System.err.println("[bridge] Error closing filter: " + e.getMessage());
-        }
-    }
-
-    @Override
-    public StreamObserver<RoundTripRequest> roundTrip(StreamObserver<RoundTripResponse> responseObserver) {
-        return new StreamObserver<RoundTripRequest>() {
-            private RoundTripHeader header;
-            private final BlockingQueue<TranslationEntry> writeQueue =
-                    new LinkedBlockingQueue<>(QUEUE_CAPACITY);
-            private Future<WriteResult> writeFuture;
-
-            @Override
-            public void onNext(RoundTripRequest request) {
-                switch (request.getRequestCase()) {
-                    case HEADER:
-                        header = request.getHeader();
-                        performReadPhase();
-                        break;
-
-                    case PROCESSED_PART:
-                        handleProcessedPart(request.getProcessedPart());
-                        break;
-
-                    case FLUSH:
-                        handleFlush();
                         break;
 
                     default:
@@ -393,165 +108,293 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             }
 
             @Override
-            public void onError(Throwable t) {
-                System.err.println("[bridge] RoundTrip stream error: " + t.getMessage());
-                writeQueue.clear();
-                writeQueue.offer(TranslationEntry.END);
-                if (writeFuture != null) {
-                    writeFuture.cancel(true);
-                }
+            public void onCompleted() {
+                // Go called CloseSend() — signal end of translations.
+                translationQueue.offer(TranslationEntry.END);
+                clientDone.countDown();
             }
 
             @Override
-            public void onCompleted() {
-                responseObserver.onCompleted();
+            public void onError(Throwable t) {
+                System.err.println("[bridge] Process stream error: " + t.getMessage());
+                translationQueue.clear();
+                translationQueue.offer(TranslationEntry.END);
+                clientDone.countDown();
             }
 
             /**
-             * Read phase: open the document, stream all parts to the client,
-             * then send RoundTripReadDone.
+             * Run a single-pass Okapi pipeline: one filter instance, one read,
+             * inline writing. Go participates as a pipeline step — for each event,
+             * the part is sent to Go, the translation is received back, and the
+             * event is written immediately. The filter stays open throughout.
              */
-            private void performReadPhase() {
-                try {
-                    String filterClass = header.getFilterClass();
-                    String sourceLocale = header.getSourceLocale();
-                    String targetLocale = header.getTargetLocale();
-                    String encoding = header.getEncoding().isEmpty() ? "UTF-8" : header.getEncoding();
-
-                    IFilter filter = FilterRegistry.createFilter(filterClass);
-                    if (filter == null) {
-                        sendError("cannot instantiate filter: " + filterClass);
-                        return;
-                    }
-
-                    // Apply filter parameters.
-                    Map<String, String> filterParams = header.getFilterParamsMap();
-                    if (filterParams != null && !filterParams.isEmpty()) {
-                        applyFilterParams(filter, filterParams);
-                    }
-
-                    // Resolve input content.
-                    File inputFile = resolveRoundTripContent(header);
-
-                    setupFilterConfigurationMapper(filter);
-
-                    LocaleId srcLocale = LocaleId.fromString(sourceLocale);
-                    LocaleId tgtLocale = LocaleId.fromString(targetLocale);
-                    RawDocument rawDoc = new RawDocument(inputFile.toURI(), encoding, srcLocale, tgtLocale);
-
-                    filter.open(rawDoc);
-
-                    // Stream all parts to the client.
-                    int count = 0;
-                    while (filter.hasNext()) {
-                        Event event = filter.next();
-                        PartDTO partDTO = EventConverter.convert(event);
-                        if (partDTO != null) {
-                            PartMessage protoMsg = ProtoAdapter.toProto(partDTO);
-                            responseObserver.onNext(RoundTripResponse.newBuilder()
-                                    .setPart(protoMsg)
-                                    .build());
-                            count++;
-                        }
-                    }
-
-                    filter.close();
-                    System.err.println("[bridge] RoundTrip read phase: streamed " + count + " parts");
-
-                    // Signal read phase complete.
-                    responseObserver.onNext(RoundTripResponse.newBuilder()
-                            .setReadDone(RoundTripReadDone.newBuilder().build())
-                            .build());
-
-                    // Start the write phase merge thread now — it will block on the
-                    // queue waiting for processed parts to arrive.
-                    startWritePhase();
-
-                } catch (Exception e) {
-                    System.err.println("[bridge] RoundTrip read error: " + e.getMessage());
-                    e.printStackTrace(System.err);
-                    sendError(e.getMessage());
-                }
-            }
-
             /**
-             * Start the write phase in a background thread. It re-opens the document
-             * and merges translations from the queue as they arrive.
+             * True single-pass pipeline like Tikal: one filter, one read, inline
+             * writing. For each event, send the part to Go, wait for translation,
+             * apply it, write immediately. Uses manual gRPC flow control to ensure
+             * Go's responses are delivered while the pipeline thread is blocked.
              */
-            private void startWritePhase() {
-                writeFuture = mergeExecutor.submit(() -> {
+            private void startProcessing(io.grpc.stub.ServerCallStreamObserver<ProcessResponse> respObserver) {
+                mergeExecutor.submit(() -> {
+                    IFilter filter = null;
+                    IFilterWriter writer = null;
                     try {
-                        return performRoundTripWrite(header, writeQueue);
+                        File inputFile = resolveProcessContent(header);
+                        String filterClass = header.getFilterClass();
+                        String sourceLocale = header.getSourceLocale();
+                        String tgtLoc = header.getTargetLocale();
+                        String encoding = header.getEncoding().isEmpty() ? "UTF-8" : header.getEncoding();
+                        String outputLocale = header.getOutputLocale().isEmpty() ? tgtLoc : header.getOutputLocale();
+
+                        filter = FilterRegistry.createFilter(filterClass);
+                        if (filter == null) {
+                            sendComplete(respObserver, "cannot instantiate filter: " + filterClass);
+                            return;
+                        }
+
+                        Map<String, String> filterParams = header.getFilterParamsMap();
+                        if (filterParams != null && !filterParams.isEmpty()) {
+                            applyFilterParams(filter, filterParams);
+                        }
+                        setupFilterConfigurationMapper(filter);
+
+                        LocaleId srcLocale = LocaleId.fromString(sourceLocale);
+                        LocaleId tgtLocale = LocaleId.fromString(tgtLoc);
+                        RawDocument rawDoc = new RawDocument(inputFile.toURI(), encoding, srcLocale, tgtLocale);
+                        filter.open(rawDoc);
+
+                        // Create writer BEFORE iterating — filter is fresh.
+                        ByteArrayOutputStream outputStream = null;
+                        String outputPath = null;
+                        StreamingTranslationApplier applier = null;
+                        if (writeEnabled) {
+                            writer = filter.createFilterWriter();
+                            if (writer == null) {
+                                throw new IllegalStateException("filter does not support writing: " + filterClass);
+                            }
+                            outputPath = resolveProcessOutputPath(header);
+                            writer.setOptions(LocaleId.fromString(outputLocale), encoding);
+                            if (outputPath != null) {
+                                writer.setOutput(outputPath);
+                            } else {
+                                outputStream = new ByteArrayOutputStream();
+                                writer.setOutput(outputStream);
+                            }
+                            applier = new StreamingTranslationApplier(
+                                    translationQueue, LocaleId.fromString(outputLocale));
+                        }
+
+                        // Build subscription filter: which part types to send to Go.
+                        // Empty list = send all (backward compatible).
+                        Set<Integer> subscribedTypes = new HashSet<>();
+                        for (int pt : header.getSubscribePartsList()) {
+                            subscribedTypes.add(pt);
+                        }
+                        boolean sendAll = subscribedTypes.isEmpty();
+
+                        // Single-pass pipeline with selective subscription:
+                        // - Subscribed events: send to Go, wait for translation, write.
+                        // - Non-subscribed events: write directly (no gRPC round-trip).
+                        //
+                        // Batching: accumulate events until BATCH_SIZE subscribed units,
+                        // then flush. ZIP filters use per-event write (no batching).
+                        boolean useInlineWrite = !writeEnabled
+                                || (writer instanceof net.sf.okapi.common.filterwriter.ZipFilterWriter);
+                        final int BATCH_SIZE = 100;
+                        int count = 0;
+                        int pendingSubscribed = 0;
+                        List<Event> batch = (writeEnabled && !useInlineWrite) ? new ArrayList<>() : null;
+
+                        while (filter.hasNext()) {
+                            Event event = filter.next();
+
+                            // Convert event to part and check subscription.
+                            PartDTO partDTO = EventConverter.convert(event);
+                            boolean subscribed = false;
+                            if (partDTO != null) {
+                                subscribed = sendAll || subscribedTypes.contains(partDTO.getPartType());
+                                if (subscribed) {
+                                    PartMessage protoMsg = ProtoAdapter.toProto(partDTO);
+                                    respObserver.onNext(ProcessResponse.newBuilder()
+                                            .setPart(protoMsg)
+                                            .build());
+                                    count++;
+                                }
+                            }
+
+                            if (useInlineWrite && writer != null) {
+                                if (subscribed) {
+                                    Event modified = applier.applyTranslations(event);
+                                    writer.handleEvent(modified);
+                                } else {
+                                    writer.handleEvent(event);
+                                }
+                            } else if (batch != null) {
+                                batch.add(event);
+                                if (subscribed) {
+                                    pendingSubscribed++;
+                                }
+                                if (pendingSubscribed >= BATCH_SIZE) {
+                                    for (Event be : batch) {
+                                        Event modified = applier.applyTranslations(be);
+                                        writer.handleEvent(modified);
+                                    }
+                                    batch.clear();
+                                    pendingSubscribed = 0;
+                                }
+                            }
+                        }
+
+                        // Flush remaining batched events.
+                        if (batch != null && !batch.isEmpty()) {
+                            for (Event be : batch) {
+                                Event modified = applier.applyTranslations(be);
+                                writer.handleEvent(modified);
+                            }
+                        }
+
+                        // Close writer first (flushes), then filter.
+                        if (writer != null) {
+                            writer.close();
+                            writer = null;
+                        }
+                        filter.close();
+                        filter = null;
+
+                        System.err.println("[bridge] Process: " + count + " parts"
+                                + (writeEnabled ? " (single-pass)" : " (read-only)"));
+
+                        respObserver.onNext(ProcessResponse.newBuilder()
+                                .setReadDone(ProcessReadDone.newBuilder().build())
+                                .build());
+
+                        ProcessComplete.Builder complete = ProcessComplete.newBuilder();
+                        if (writeEnabled && outputPath != null) {
+                            complete.setOutputPath(outputPath);
+                        } else if (writeEnabled && outputStream != null) {
+                            complete.setOutput(ByteString.copyFrom(outputStream.toByteArray()));
+                        }
+
+                        if (writeEnabled) {
+                            clientDone.await();
+                        }
+                        sendCompleteMessage(respObserver, complete.build());
+
                     } catch (Exception e) {
-                        writeQueue.clear();
-                        writeQueue.offer(TranslationEntry.END);
-                        throw e;
+                        String errMsg = e.getMessage();
+                        if (errMsg == null || errMsg.isEmpty()) {
+                            errMsg = e.getClass().getSimpleName();
+                        }
+                        System.err.println("[bridge] Process error: " + errMsg);
+                        e.printStackTrace(System.err);
+                        if (writer != null) {
+                            try { writer.close(); } catch (Exception ignored) {}
+                        }
+                        if (filter != null) {
+                            try { filter.close(); } catch (Exception ignored) {}
+                        }
+                        sendComplete(respObserver, errMsg);
                     }
                 });
             }
-
-            /**
-             * Handle a processed part from the client — extract target translations
-             * and enqueue them for the write phase.
-             */
-            private void handleProcessedPart(RoundTripProcessed processed) {
-                PartMessage msg = processed.getPart();
-                if (msg.getPartType() == PartDTO.TYPE_BLOCK && msg.hasBlock()) {
-                    BlockMessage blockMsg = msg.getBlock();
-                    String locale = header.getOutputLocale().isEmpty()
-                            ? header.getTargetLocale() : header.getOutputLocale();
-                    List<FragmentDTO> fragments = extractTargetFragments(blockMsg, locale);
-                    if (fragments != null) {
-                        try {
-                            if (!writeQueue.offer(new TranslationEntry(blockMsg.getId(), fragments),
-                                    5, TimeUnit.SECONDS)) {
-                                System.err.println("[bridge] RoundTrip write queue full, dropping part");
-                            }
-                        } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
-                        }
-                    }
-                }
-            }
-
-            /**
-             * Handle flush — signal end of processed parts, wait for write to complete,
-             * and send RoundTripComplete.
-             */
-            private void handleFlush() {
-                try {
-                    writeQueue.put(TranslationEntry.END);
-                    WriteResult result = writeFuture.get();
-
-                    RoundTripComplete.Builder complete = RoundTripComplete.newBuilder();
-                    if (result.isReferenced()) {
-                        complete.setOutputPath(result.getOutputPath());
-                    } else {
-                        complete.setOutput(ByteString.copyFrom(result.getBytes()));
-                    }
-
-                    responseObserver.onNext(RoundTripResponse.newBuilder()
-                            .setComplete(complete.build())
-                            .build());
-
-                    System.err.println("[bridge] RoundTrip complete");
-                } catch (Exception e) {
-                    Throwable cause = e instanceof ExecutionException ? e.getCause() : e;
-                    System.err.println("[bridge] RoundTrip write error: " + cause.getMessage());
-                    cause.printStackTrace(System.err);
-                    sendError(cause.getMessage());
-                }
-            }
-
-            private void sendError(String message) {
-                responseObserver.onNext(RoundTripResponse.newBuilder()
-                        .setComplete(RoundTripComplete.newBuilder()
-                                .setError(message)
-                                .build())
-                        .build());
-            }
         };
     }
+
+    /**
+     * Write phase: opens its own filter instance and re-reads the document
+     * concurrently with the read thread. Required because Okapi filters close
+     * internal resources (ZipFile handles, etc.) when iteration completes.
+     * Returns the ProcessComplete message (caller is responsible for sending it).
+     */
+    private ProcessComplete performWritePhase(ProcessHeader header,
+                                               BlockingQueue<TranslationEntry> translationQueue) throws Exception {
+        String outputLocale = header.getOutputLocale().isEmpty()
+                ? header.getTargetLocale() : header.getOutputLocale();
+        String sourceLocale = header.getSourceLocale();
+        String encoding = header.getEncoding().isEmpty() ? "UTF-8" : header.getEncoding();
+
+        File inputFile = resolveProcessContent(header);
+
+        IFilter writeFilter = FilterRegistry.createFilter(header.getFilterClass());
+        if (writeFilter == null) {
+            throw new IllegalStateException("cannot instantiate filter for write: " + header.getFilterClass());
+        }
+
+        Map<String, String> filterParams = header.getFilterParamsMap();
+        if (filterParams != null && !filterParams.isEmpty()) {
+            applyFilterParams(writeFilter, filterParams);
+        }
+        setupFilterConfigurationMapper(writeFilter);
+
+        IFilterWriter writer = writeFilter.createFilterWriter();
+        if (writer == null) {
+            throw new IllegalStateException("filter does not support writing: " + header.getFilterClass());
+        }
+
+        String outputPath = resolveProcessOutputPath(header);
+        ByteArrayOutputStream outputStream = null;
+        writer.setOptions(LocaleId.fromString(outputLocale), encoding);
+        if (outputPath != null) {
+            writer.setOutput(outputPath);
+        } else {
+            outputStream = new ByteArrayOutputStream();
+            writer.setOutput(outputStream);
+        }
+
+        LocaleId srcLocale = LocaleId.fromString(sourceLocale);
+        LocaleId tgtLocale = LocaleId.fromString(outputLocale);
+        RawDocument rawDoc = new RawDocument(inputFile.toURI(), encoding, srcLocale, tgtLocale);
+        writeFilter.open(rawDoc);
+
+        StreamingTranslationApplier applier =
+                new StreamingTranslationApplier(translationQueue, LocaleId.fromString(outputLocale));
+
+        while (writeFilter.hasNext()) {
+            Event event = writeFilter.next();
+            Event modified = applier.applyTranslations(event);
+            writer.handleEvent(modified);
+        }
+
+        writeFilter.close();
+        writer.close();
+
+        ProcessComplete.Builder complete = ProcessComplete.newBuilder();
+        if (outputPath != null) {
+            complete.setOutputPath(outputPath);
+        } else if (outputStream != null) {
+            complete.setOutput(ByteString.copyFrom(outputStream.toByteArray()));
+        }
+
+        System.err.println("[bridge] Process write complete");
+        return complete.build();
+    }
+
+    /**
+     * Send a ProcessComplete with an optional error and close the response stream.
+     */
+    private static void sendComplete(StreamObserver<ProcessResponse> respObserver, String error) {
+        ProcessComplete.Builder complete = ProcessComplete.newBuilder();
+        if (error != null) {
+            complete.setError(error);
+        }
+        sendCompleteMessage(respObserver, complete.build());
+    }
+
+    /**
+     * Send a ProcessComplete message and close the response stream.
+     * Synchronized on the respObserver to avoid concurrent onNext/onCompleted calls.
+     */
+    private static void sendCompleteMessage(StreamObserver<ProcessResponse> respObserver,
+                                             ProcessComplete complete) {
+        synchronized (respObserver) {
+            respObserver.onNext(ProcessResponse.newBuilder()
+                    .setComplete(complete)
+                    .build());
+            respObserver.onCompleted();
+        }
+    }
+
+    // ── Shutdown RPC ───────────────────────────────────────────────────────────
 
     @Override
     public void shutdown(ShutdownRequest request, StreamObserver<ShutdownResponse> responseObserver) {
@@ -562,252 +405,38 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         shutdownLatch.countDown();
     }
 
-    // ── Private helpers ─────────────────────────────────────────────────────
+    // ── Content resolution helpers ─────────────────────────────────────────────
 
     /**
-     * Perform the write (roundtrip) operation: re-read the original document
-     * through the filter, apply translations from parts, and write output.
+     * Resolve content for a Process request from the ContentRef in the header.
      */
-    private WriteResult performWrite(WriteHeader header, List<PartDTO> parts) throws Exception {
-        String filterClass = header.getFilterClass();
-        String locale = header.getLocale();
-        String encoding = header.getEncoding().isEmpty() ? "UTF-8" : header.getEncoding();
-
-        // Resolve input content via the content resolver.
-        File inputFile = resolveWriteContent(header);
-
-        // Create filter for reading the skeleton.
-        IFilter filter = FilterRegistry.createFilter(filterClass);
-        if (filter == null) {
-            throw new IllegalStateException("cannot instantiate filter: " + filterClass);
+    private File resolveProcessContent(ProcessHeader header) throws IOException {
+        if (!header.hasInput()) {
+            throw new IOException("Process requires input in header");
         }
 
-        // Apply filter parameters.
-        Map<String, String> filterParams = header.getFilterParamsMap();
-        if (filterParams != null && !filterParams.isEmpty()) {
-            applyFilterParams(filter, filterParams);
-        }
+        ContentRef ref = header.getInput();
+        String extensionHint = "";
 
-        // Set up FilterConfigurationMapper for sub-filtering support in the write phase.
-        // Without this, filters that use sub-filters (e.g., RegexFilter with useCodeFinder)
-        // fail with NullPointerException when writing because the mapper is null.
-        setupFilterConfigurationMapper(filter);
-
-        // Create filter writer.
-        IFilterWriter writer = filter.createFilterWriter();
-        if (writer == null) {
-            throw new IllegalStateException("filter does not support writing: " + filterClass);
-        }
-
-        // Resolve output destination before processing. When output_ref is set,
-        // Okapi writes directly to disk — no in-memory buffering needed.
-        String outputPath = resolveOutputPath(header);
-        ByteArrayOutputStream outputStream = null;
-        writer.setOptions(LocaleId.fromString(locale), encoding);
-        if (outputPath != null) {
-            writer.setOutput(outputPath);
-        } else {
-            outputStream = new ByteArrayOutputStream();
-            writer.setOutput(outputStream);
-        }
-
-        String srcLoc = header.getSourceLocale().isEmpty() ? currentSourceLocale : header.getSourceLocale();
-        LocaleId srcLocale = LocaleId.fromString(srcLoc);
-        LocaleId tgtLocale = LocaleId.fromString(locale);
-        RawDocument rawDoc = new RawDocument(inputFile.toURI(), encoding, srcLocale, tgtLocale);
-        filter.open(rawDoc);
-
-        // Feed events through the filter writer, replacing text units with translations.
-        PartDTOConverter converter = new PartDTOConverter(parts, LocaleId.fromString(locale));
-        while (filter.hasNext()) {
-            Event event = filter.next();
-            Event modified = converter.applyTranslations(event);
-            writer.handleEvent(modified);
-        }
-
-        filter.close();
-        writer.close();
-
-        if (outputPath != null) {
-            System.err.println("[bridge] Wrote output to " + outputPath);
-            return WriteResult.ofPath(outputPath);
-        } else {
-            byte[] output = outputStream.toByteArray();
-            System.err.println("[bridge] Wrote output (" + output.length + " bytes)");
-            return WriteResult.ofBytes(output);
+        switch (ref.getLocationCase()) {
+            case PATH:
+                return contentResolver.resolvePath(ref.getPath());
+            case URI:
+                return contentResolver.resolveUri(ref.getUri(), extensionHint);
+            case INLINE:
+                return contentResolver.resolveInline(ref.getInline().toByteArray(), extensionHint);
+            default:
+                throw new IOException("Process requires content_ref with path, uri, or inline data");
         }
     }
 
     /**
-     * Perform the streaming write (roundtrip) operation: re-read the original document
-     * through the filter, apply translations on-demand from the queue, and write output.
-     * The merge thread runs concurrently with part arrival from Go.
+     * Resolve the output file path from the Process header's output ref.
+     * Returns null if no output is set (output should be returned inline as bytes).
      */
-    private WriteResult performWriteStreaming(WriteHeader header,
-                                              BlockingQueue<TranslationEntry> queue) throws Exception {
-        String filterClass = header.getFilterClass();
-        String locale = header.getLocale();
-        String encoding = header.getEncoding().isEmpty() ? "UTF-8" : header.getEncoding();
-
-        // Resolve input content via the content resolver.
-        File inputFile = resolveWriteContent(header);
-
-        IFilter filter = FilterRegistry.createFilter(filterClass);
-        if (filter == null) {
-            throw new IllegalStateException("cannot instantiate filter: " + filterClass);
-        }
-
-        Map<String, String> filterParams = header.getFilterParamsMap();
-        if (filterParams != null && !filterParams.isEmpty()) {
-            applyFilterParams(filter, filterParams);
-        }
-
-        // Set up FilterConfigurationMapper for sub-filtering support in the write phase.
-        setupFilterConfigurationMapper(filter);
-
-        IFilterWriter writer = filter.createFilterWriter();
-        if (writer == null) {
-            throw new IllegalStateException("filter does not support writing: " + filterClass);
-        }
-
-        // Resolve output destination before processing. When output_ref is set,
-        // Okapi writes directly to disk — no in-memory buffering needed.
-        String outputPath = resolveOutputPath(header);
-        ByteArrayOutputStream outputStream = null;
-        writer.setOptions(LocaleId.fromString(locale), encoding);
-        if (outputPath != null) {
-            writer.setOutput(outputPath);
-        } else {
-            outputStream = new ByteArrayOutputStream();
-            writer.setOutput(outputStream);
-        }
-
-        String srcLoc = header.getSourceLocale().isEmpty() ? currentSourceLocale : header.getSourceLocale();
-        LocaleId srcLocale = LocaleId.fromString(srcLoc);
-        LocaleId tgtLocale = LocaleId.fromString(locale);
-        RawDocument rawDoc = new RawDocument(inputFile.toURI(), encoding, srcLocale, tgtLocale);
-        filter.open(rawDoc);
-
-        // Stream translations on-demand from the queue.
-        StreamingTranslationApplier applier =
-                new StreamingTranslationApplier(queue, LocaleId.fromString(locale));
-        while (filter.hasNext()) {
-            Event event = filter.next();
-            Event modified = applier.applyTranslations(event);
-            writer.handleEvent(modified);
-        }
-
-        filter.close();
-        writer.close();
-
-        if (outputPath != null) {
-            System.err.println("[bridge] Wrote output to " + outputPath + " (streaming)");
-            return WriteResult.ofPath(outputPath);
-        } else {
-            byte[] output = outputStream.toByteArray();
-            System.err.println("[bridge] Wrote output (" + output.length + " bytes, streaming)");
-            return WriteResult.ofBytes(output);
-        }
-    }
-
-    /**
-     * Perform the write phase of a RoundTrip: re-read the original document through the filter,
-     * apply translations from the queue, and write output. Reuses performWriteStreaming logic.
-     */
-    private WriteResult performRoundTripWrite(RoundTripHeader header,
-                                               BlockingQueue<TranslationEntry> queue) throws Exception {
-        String filterClass = header.getFilterClass();
-        String outputLocale = header.getOutputLocale().isEmpty()
-                ? header.getTargetLocale() : header.getOutputLocale();
-        String locale = outputLocale;
-        String encoding = header.getEncoding().isEmpty() ? "UTF-8" : header.getEncoding();
-
-        File inputFile = resolveRoundTripContent(header);
-
-        IFilter filter = FilterRegistry.createFilter(filterClass);
-        if (filter == null) {
-            throw new IllegalStateException("cannot instantiate filter: " + filterClass);
-        }
-
-        Map<String, String> filterParams = header.getFilterParamsMap();
-        if (filterParams != null && !filterParams.isEmpty()) {
-            applyFilterParams(filter, filterParams);
-        }
-
-        setupFilterConfigurationMapper(filter);
-
-        IFilterWriter writer = filter.createFilterWriter();
-        if (writer == null) {
-            throw new IllegalStateException("filter does not support writing: " + filterClass);
-        }
-
-        // Resolve output destination.
-        String outputPath = resolveRoundTripOutputPath(header);
-        ByteArrayOutputStream outputStream = null;
-        writer.setOptions(LocaleId.fromString(locale), encoding);
-        if (outputPath != null) {
-            writer.setOutput(outputPath);
-        } else {
-            outputStream = new ByteArrayOutputStream();
-            writer.setOutput(outputStream);
-        }
-
-        String sourceLocale = header.getSourceLocale();
-        LocaleId srcLocale = LocaleId.fromString(sourceLocale);
-        LocaleId tgtLocale = LocaleId.fromString(locale);
-        RawDocument rawDoc = new RawDocument(inputFile.toURI(), encoding, srcLocale, tgtLocale);
-        filter.open(rawDoc);
-
-        StreamingTranslationApplier applier =
-                new StreamingTranslationApplier(queue, LocaleId.fromString(locale));
-        while (filter.hasNext()) {
-            Event event = filter.next();
-            Event modified = applier.applyTranslations(event);
-            writer.handleEvent(modified);
-        }
-
-        filter.close();
-        writer.close();
-
-        if (outputPath != null) {
-            System.err.println("[bridge] RoundTrip wrote output to " + outputPath);
-            return WriteResult.ofPath(outputPath);
-        } else {
-            byte[] output = outputStream.toByteArray();
-            System.err.println("[bridge] RoundTrip wrote output (" + output.length + " bytes)");
-            return WriteResult.ofBytes(output);
-        }
-    }
-
-    /**
-     * Resolve content for a RoundTrip request using the content resolver.
-     */
-    private File resolveRoundTripContent(RoundTripHeader header) throws IOException {
-        String extensionHint = extensionFromUri(header.getUri());
-
-        if (header.hasContentRef()) {
-            ContentRef ref = header.getContentRef();
-            switch (ref.getLocationCase()) {
-                case PATH:
-                    return contentResolver.resolvePath(ref.getPath());
-                case URI:
-                    return contentResolver.resolveUri(ref.getUri(), extensionHint);
-                case INLINE:
-                    return contentResolver.resolveInline(ref.getInline().toByteArray(), extensionHint);
-                default:
-                    break;
-            }
-        }
-
-        throw new IOException("RoundTrip requires content_ref in header");
-    }
-
-    /**
-     * Resolve the output file path from the RoundTrip header's output_ref.
-     */
-    private String resolveRoundTripOutputPath(RoundTripHeader header) throws IOException {
-        if (!header.hasOutputRef()) return null;
-        OutputRef ref = header.getOutputRef();
+    private String resolveProcessOutputPath(ProcessHeader header) throws IOException {
+        if (!header.hasOutput()) return null;
+        OutputRef ref = header.getOutput();
         switch (ref.getDestinationCase()) {
             case PATH:
                 File parent = new File(ref.getPath()).getParentFile();
@@ -821,6 +450,8 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
                 return null;
         }
     }
+
+    // ── Target extraction ──────────────────────────────────────────────────────
 
     /**
      * Extract target fragments for the given locale directly from a proto BlockMessage.
@@ -841,105 +472,7 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         return null;
     }
 
-    /**
-     * Resolve content for an Open request using the content resolver.
-     * Checks content_ref first (new API), then falls back to legacy source_path/content fields.
-     */
-    private File resolveOpenContent(OpenRequest request) throws IOException {
-        String extensionHint = extensionFromUri(request.getUri());
-
-        // Prefer content_ref (new unified API).
-        if (request.hasContentRef()) {
-            ContentRef ref = request.getContentRef();
-            switch (ref.getLocationCase()) {
-                case PATH:
-                    return contentResolver.resolvePath(ref.getPath());
-                case URI:
-                    return contentResolver.resolveUri(ref.getUri(), extensionHint);
-                case INLINE:
-                    return contentResolver.resolveInline(ref.getInline().toByteArray(), extensionHint);
-                default:
-                    break;
-            }
-        }
-
-        // Legacy fallback: source_path takes precedence over content.
-        String sourcePath = request.getSourcePath();
-        if (sourcePath != null && !sourcePath.isEmpty()) {
-            File file = new File(sourcePath);
-            if (file.exists()) {
-                return file;
-            }
-            // source_path set but file doesn't exist — fall through to inline content.
-        }
-
-        return contentResolver.resolveInline(request.getContent().toByteArray(), extensionHint);
-    }
-
-    /**
-     * Resolve content for a Write request using the content resolver.
-     * Checks original_content_ref first (new API), then falls back to legacy fields.
-     */
-    private File resolveWriteContent(WriteHeader header) throws IOException {
-        // Prefer original_content_ref (new unified API).
-        if (header.hasOriginalContentRef()) {
-            ContentRef ref = header.getOriginalContentRef();
-            switch (ref.getLocationCase()) {
-                case PATH:
-                    return contentResolver.resolvePath(ref.getPath());
-                case URI:
-                    return contentResolver.resolveUri(ref.getUri(), "");
-                case INLINE:
-                    return contentResolver.resolveInline(ref.getInline().toByteArray(), "");
-                default:
-                    break;
-            }
-        }
-
-        // Legacy fallback.
-        String sourcePath = header.getSourcePath();
-        if (sourcePath != null && !sourcePath.isEmpty()) {
-            File file = new File(sourcePath);
-            if (file.exists()) {
-                return file;
-            }
-        }
-
-        return contentResolver.resolveInline(header.getOriginalContent().toByteArray(), "");
-    }
-
-    /**
-     * Resolve the output file path from the header's output_ref.
-     * Returns null if no output_ref is set (output should be returned inline).
-     * When a path is returned, Okapi's filter writer can write directly to it
-     * via setOutput(String), avoiding in-memory buffering entirely.
-     */
-    private String resolveOutputPath(WriteHeader header) throws IOException {
-        if (!header.hasOutputRef()) return null;
-        OutputRef ref = header.getOutputRef();
-        switch (ref.getDestinationCase()) {
-            case PATH:
-                // Ensure parent directories exist.
-                File parent = new File(ref.getPath()).getParentFile();
-                if (parent != null) {
-                    Files.createDirectories(parent.toPath());
-                }
-                return ref.getPath();
-            case URI:
-                return outputWriter.resolveUri(ref.getUri());
-            default:
-                return null;
-        }
-    }
-
-    /**
-     * Extract file extension from a URI string (e.g., "document.html" -> ".html").
-     */
-    private static String extensionFromUri(String uri) {
-        if (uri == null || uri.isEmpty()) return "";
-        int dotIdx = uri.lastIndexOf('.');
-        return (dotIdx >= 0) ? uri.substring(dotIdx) : "";
-    }
+    // ── Filter parameter helpers ───────────────────────────────────────────────
 
     /** Reserved param keys handled specially by the bridge. */
     private static final java.util.Set<String> RESERVED_PARAMS = new java.util.HashSet<>(
@@ -1098,6 +631,8 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         }
     }
 
+    // ── FilterConfigurationMapper ──────────────────────────────────────────────
+
     /**
      * Lazily-initialized FilterConfigurationMapper with all discovered filters
      * registered. Built once and reused across all filter instances so that
@@ -1140,6 +675,8 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             System.err.println("[bridge] Warning: Could not set up FilterConfigurationMapper: " + e.getMessage());
         }
     }
+
+    // ── Schema / Flattener caches ──────────────────────────────────────────────
 
     /**
      * Get or create a ParameterFlattener for the given filter class.
