@@ -8,7 +8,7 @@ import neokapi.bridge.util.FilterRegistry;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.grpc.Server;
-import io.grpc.ServerBuilder;
+import io.grpc.netty.shaded.io.grpc.netty.NettyServerBuilder;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -61,9 +61,11 @@ public class OkapiBridgeServer {
                     new LocalContentResolver(), new LocalOutputWriter(),
                     concurrency, idleTimeoutSeconds, stuckTimeoutSeconds);
 
-            Server server = ServerBuilder.forPort(0) // random available port
+            Server server = NettyServerBuilder.forPort(0) // random available port
                     .addService(service)
                     .maxInboundMessageSize(64 * 1024 * 1024)
+                    .flowControlWindow(4 * 1024 * 1024)            // 4MB (default 1MB)
+                    .initialFlowControlWindow(4 * 1024 * 1024)     // 4MB initial
                     .build()
                     .start();
 

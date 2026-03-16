@@ -219,20 +219,28 @@ message OutputRef {
   }
 }
 
+// PartBatch holds multiple parts in a single gRPC message to amortize
+// per-message overhead (proto marshal, HTTP/2 framing, flush syscalls).
+message PartBatch {
+  repeated PartMessage parts = 1;
+}
+
 // ProcessRequest is sent by the client (Go) to the server (Java).
 message ProcessRequest {
   oneof request {
     ProcessHeader header = 1;  // First message: input/output config
-    PartMessage part = 2;      // Processed part sent back after tool chain
+    PartMessage part = 2;      // Single processed part (legacy / small batches)
+    PartBatch part_batch = 3;  // Batched processed parts (preferred for throughput)
   }
 }
 
 // ProcessResponse is sent by the server (Java) to the client (Go).
 message ProcessResponse {
   oneof response {
-    PartMessage part = 1;          // Part read from the document
+    PartMessage part = 1;          // Single part (legacy / small batches)
     ProcessReadDone read_done = 2; // All parts have been read
     ProcessComplete complete = 3;  // Output written, cycle complete
+    PartBatch part_batch = 4;      // Batched parts (preferred for throughput)
   }
 }
 

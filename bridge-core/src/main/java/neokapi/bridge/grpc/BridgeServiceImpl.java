@@ -142,6 +142,12 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
                         handleProcessedPart(request.getPart());
                         break;
 
+                    case PART_BATCH:
+                        for (PartMessage pm : request.getPartBatch().getPartsList()) {
+                            handleProcessedPart(pm);
+                        }
+                        break;
+
                     default:
                         break;
                 }
@@ -179,6 +185,9 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
 
     /** Number of subscribed (Block) events to accumulate before flushing a batch to the writer. */
     private static final int BATCH_SIZE = 64;
+
+    /** Number of parts to accumulate before sending a PartBatch message to Go. */
+    private static final int SEND_BATCH_SIZE = 64;
 
     /**
      * Batched single-pass pipeline:
@@ -251,6 +260,7 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
 
             // Batched single-pass: accumulate events, flush when BATCH_SIZE subscribed events collected.
             List<Event> batch = new ArrayList<>();
+            List<PartMessage> sendBatch = new ArrayList<>(SEND_BATCH_SIZE);
             int subscribedInBatch = 0;
             int totalSent = 0;
 
@@ -263,26 +273,47 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
                 if (partDTO != null) {
                     subscribed = sendAll || subscribedTypes.contains(partDTO.getPartType());
                     if (subscribed) {
-                        // Send to Go immediately (don't wait for batch to fill).
                         PartMessage protoMsg = ProtoAdapter.toProto(partDTO);
-                        synchronized (respObserver) {
-                            respObserver.onNext(ProcessResponse.newBuilder()
-                                    .setPart(protoMsg).build());
-                        }
+                        sendBatch.add(protoMsg);
                         totalSent++;
                         subscribedInBatch++;
+                        if (sendBatch.size() >= SEND_BATCH_SIZE) {
+                            respObserver.onNext(ProcessResponse.newBuilder()
+                                    .setPartBatch(PartBatch.newBuilder()
+                                            .addAllParts(sendBatch).build())
+                                    .build());
+                            sendBatch.clear();
+                        }
                     }
                 }
 
-                // Flush batch when enough subscribed events accumulated.
+                // Flush write batch when enough subscribed events accumulated.
+                // Send batch MUST be flushed first so Go receives parts before
+                // the write phase blocks on the translation queue.
                 if (subscribedInBatch >= BATCH_SIZE) {
+                    if (!sendBatch.isEmpty()) {
+                        respObserver.onNext(ProcessResponse.newBuilder()
+                                .setPartBatch(PartBatch.newBuilder()
+                                        .addAllParts(sendBatch).build())
+                                .build());
+                        sendBatch.clear();
+                    }
                     flushBatch(batch, writer, applier, writeEnabled);
                     batch.clear();
                     subscribedInBatch = 0;
                 }
             }
 
-            // Flush remaining events.
+            // Flush remaining send batch.
+            if (!sendBatch.isEmpty()) {
+                respObserver.onNext(ProcessResponse.newBuilder()
+                        .setPartBatch(PartBatch.newBuilder()
+                                .addAllParts(sendBatch).build())
+                        .build());
+                sendBatch.clear();
+            }
+
+            // Flush remaining write batch.
             if (!batch.isEmpty()) {
                 flushBatch(batch, writer, applier, writeEnabled);
             }
@@ -292,10 +323,8 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             filter.close(); filter = null;
 
             // Signal read done.
-            synchronized (respObserver) {
-                respObserver.onNext(ProcessResponse.newBuilder()
-                        .setReadDone(ProcessReadDone.newBuilder().build()).build());
-            }
+            respObserver.onNext(ProcessResponse.newBuilder()
+                    .setReadDone(ProcessReadDone.newBuilder().build()).build());
 
             System.err.println("[bridge] Pipeline complete: " + totalSent + " parts (batched single-pass)");
 
