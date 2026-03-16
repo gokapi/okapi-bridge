@@ -7,7 +7,8 @@ SHELL := /bin/bash
         centralize regenerate-composites build-tools \
         download-filter-docs parse-filter-docs parse-filter-docs-force \
         bundle-filter-docs clean-filter-docs snapshot \
-        verify-schemas update-readme-matrix
+        verify-schemas update-readme-matrix \
+        release release-prepare release-perform
 
 # Configuration - derived from okapi-releases directory
 SUPPORTED_VERSIONS := $(shell ls -1 okapi-releases 2>/dev/null | sort -V)
@@ -45,6 +46,9 @@ help:
 	@echo "Dependencies:"
 	@echo "  make generate-pom V=1.47.0  Generate version-specific pom.xml"
 	@echo "  make generate-all-poms      Generate pom.xml for all versions"
+	@echo ""
+	@echo "Release:"
+	@echo "  make release              Release current version (bump, tag, push, snapshot)"
 	@echo ""
 	@echo "Supported versions: $(SUPPORTED_VERSIONS)"
 	@echo "Latest version: $(LATEST_VERSION)"
@@ -286,3 +290,45 @@ endif
 	@echo "Filters in $(V2) but not in $(V1):"
 	@comm -13 <(ls okapi-releases/$(V1)/schemas/*.schema.json 2>/dev/null | xargs -n1 basename | sort) \
 	          <(ls okapi-releases/$(V2)/schemas/*.schema.json 2>/dev/null | xargs -n1 basename | sort) || true
+
+# ============================================================================
+# Release
+# ============================================================================
+
+# Current version from pom.xml (strips -SNAPSHOT if present)
+CURRENT_VERSION := $(shell mvn help:evaluate -Dexpression=project.version -q -DforceStdout 2>/dev/null | sed 's/-SNAPSHOT//')
+
+# Release: bump to release version, commit, tag, push, then bump to next snapshot.
+# Usage: make release
+#   Reads the current version from pom.xml, strips -SNAPSHOT, creates a release
+#   commit + tag, pushes, then bumps to next minor-SNAPSHOT and pushes again.
+release:
+	@if [ -z "$(CURRENT_VERSION)" ]; then echo "Error: could not read version from pom.xml"; exit 1; fi
+	@echo "Releasing v$(CURRENT_VERSION)..."
+	@# Ensure clean working tree
+	@if [ -n "$$(git status --porcelain -- pom.xml bridge-core/pom.xml)" ]; then \
+		echo "Error: pom.xml has uncommitted changes"; exit 1; \
+	fi
+	@# Set release version (strip -SNAPSHOT)
+	mvn versions:set -DnewVersion=$(CURRENT_VERSION) -DgenerateBackupFiles=false -q
+	@# Commit and tag
+	git add pom.xml bridge-core/pom.xml
+	git commit -m "release: v$(CURRENT_VERSION)"
+	git tag -a "v$(CURRENT_VERSION)" -m "Release v$(CURRENT_VERSION)"
+	@# Push commit + tag
+	git push origin main
+	git push origin "v$(CURRENT_VERSION)"
+	@echo "Tagged and pushed v$(CURRENT_VERSION)"
+	@# Bump to next snapshot
+	mvn versions:set -DnewVersion=$(CURRENT_VERSION) -DgenerateBackupFiles=false -q
+	@# Increment minor version for next development cycle
+	$(eval NEXT := $(shell echo $(CURRENT_VERSION) | awk -F. '{print $$1"."$$2+1".0"}'))
+	mvn versions:set -DnewVersion=$(NEXT)-SNAPSHOT -DgenerateBackupFiles=false -q
+	git add pom.xml bridge-core/pom.xml
+	git commit -m "chore: bump to $(NEXT)-SNAPSHOT for next development cycle"
+	git push origin main
+	@echo "Bumped to $(NEXT)-SNAPSHOT"
+	@echo ""
+	@echo "Release complete: v$(CURRENT_VERSION)"
+	@echo "  Tag: v$(CURRENT_VERSION)"
+	@echo "  Next dev: $(NEXT)-SNAPSHOT"
