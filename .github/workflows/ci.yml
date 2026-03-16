@@ -74,6 +74,9 @@ jobs:
             echo "Removed $CORRUPT corrupt JAR(s) from Maven cache — will re-resolve"
           fi
 
+      - name: Install parent POM
+        run: mvn -B install -N -q
+
       - name: Resolve dependencies
         if: steps.maven-cache.outputs.cache-hit != 'true' || steps.validate-cache.outputs.corrupt != '0'
         run: |

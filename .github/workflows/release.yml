@@ -77,6 +77,9 @@ jobs:
             ./scripts/generate-version-pom.sh ${{ matrix.okapi-version }}
           fi
 
+      - name: Install parent POM
+        run: mvn -B install -N -q
+
       - name: Resolve dependencies
         if: steps.maven-cache.outputs.cache-hit != 'true'
         run: mvn -B dependency:go-offline -f okapi-releases/${{ matrix.okapi-version }}/pom.xml
@@ -133,6 +136,9 @@ jobs:
           if [ ! -f "okapi-releases/${{ matrix.okapi-version }}/pom.xml" ]; then
             ./scripts/generate-version-pom.sh ${{ matrix.okapi-version }}
           fi
+
+      - name: Install parent POM
+        run: mvn -B install -N -q
 
       - name: Resolve dependencies (cache miss)
         if: steps.maven-cache.outputs.cache-hit != 'true'

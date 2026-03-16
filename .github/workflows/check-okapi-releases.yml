@@ -69,6 +69,9 @@ jobs:
           mkdir -p okapi-releases/$NEW_VERSION
           ./scripts/generate-version-pom.sh $NEW_VERSION
           
+          # Install parent POM so per-version pom can resolve it
+          mvn -B install -N -q
+
           # Generate base schemas using Java
           mvn -B -q compile -f okapi-releases/$NEW_VERSION/pom.xml
           mkdir -p okapi-releases/$NEW_VERSION/schemas
