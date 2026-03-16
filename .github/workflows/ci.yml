@@ -39,6 +39,13 @@ jobs:
           distribution: temurin
           java-version: '17'
 
+      - name: Sync per-version POM parent version
+        run: |
+          PARENT_VERSION=$(sed -n '/<artifactId>okapi-bridge-parent<\/artifactId>/{n;s/.*<version>\(.*\)<\/version>.*/\1/p;}' pom.xml)
+          for pom in okapi-releases/*/pom.xml; do
+            sed -i "/<parent>/,/<\/parent>/s|<version>[^<]*</version>|<version>${PARENT_VERSION}</version>|" "$pom"
+          done
+
       - name: Delete Maven cache for rebuild
         if: inputs.rebuild-cache == true
         env:
@@ -73,9 +80,6 @@ jobs:
           if [ "$CORRUPT" -gt 0 ]; then
             echo "Removed $CORRUPT corrupt JAR(s) from Maven cache — will re-resolve"
           fi
-
-      - name: Install parent POM
-        run: mvn -B install -N -q
 
       - name: Resolve dependencies
         if: steps.maven-cache.outputs.cache-hit != 'true' || steps.validate-cache.outputs.corrupt != '0'
