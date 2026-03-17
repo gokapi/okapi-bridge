@@ -8,10 +8,10 @@ import neokapi.bridge.util.FilterRegistry;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.grpc.Server;
-import io.grpc.netty.shaded.io.grpc.netty.NettyServerBuilder;
-import io.grpc.netty.shaded.io.netty.channel.EventLoopGroup;
-import io.grpc.netty.shaded.io.netty.channel.ServerChannel;
-import io.grpc.netty.shaded.io.netty.channel.unix.DomainSocketAddress;
+import io.grpc.netty.NettyServerBuilder;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.ServerChannel;
+import io.netty.channel.unix.DomainSocketAddress;
 
 import java.net.SocketAddress;
 import java.util.List;
@@ -165,18 +165,22 @@ public class OkapiBridgeServer {
         EventLoopGroup workerGroup;
         Class<? extends ServerChannel> channelType;
 
-        // grpc-netty-shaded includes epoll (Linux only). No kqueue for macOS.
-        // The Go side only generates socket paths on Linux to match.
         if (os.contains("linux")) {
             bossGroup = createEventLoopGroup(
-                    "io.grpc.netty.shaded.io.netty.channel.epoll.EpollEventLoopGroup", 1);
+                    "io.netty.channel.epoll.EpollEventLoopGroup", 1);
             workerGroup = createEventLoopGroup(
-                    "io.grpc.netty.shaded.io.netty.channel.epoll.EpollEventLoopGroup", 0);
+                    "io.netty.channel.epoll.EpollEventLoopGroup", 0);
             channelType = loadChannelClass(
-                    "io.grpc.netty.shaded.io.netty.channel.epoll.EpollServerDomainSocketChannel");
+                    "io.netty.channel.epoll.EpollServerDomainSocketChannel");
+        } else if (os.contains("mac")) {
+            bossGroup = createEventLoopGroup(
+                    "io.netty.channel.kqueue.KQueueEventLoopGroup", 1);
+            workerGroup = createEventLoopGroup(
+                    "io.netty.channel.kqueue.KQueueEventLoopGroup", 0);
+            channelType = loadChannelClass(
+                    "io.netty.channel.kqueue.KQueueServerDomainSocketChannel");
         } else {
-            throw new UnsupportedOperationException("Unix sockets not supported on " + os
-                    + " (shaded epoll is Linux-only)");
+            throw new UnsupportedOperationException("Unix sockets not supported on " + os);
         }
 
         System.err.println("[bridge] Using Unix domain socket: " + socketPath);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     Okapi Bridge - Build for Okapi 1.42.0
-    Generated: 2026-03-16T22:00:15Z
+    Generated: 2026-03-17T07:23:24Z
     Filters: 41
 
     Inherits infrastructure deps (gRPC, Gson, etc.) and plugin config from parent.
@@ -318,10 +318,10 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Shade: fat JAR (config inherited from parent) -->
+            <!-- Assembly: fat JAR (config inherited from parent) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
+                <artifactId>maven-assembly-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
