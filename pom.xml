@@ -44,29 +44,38 @@
             <version>${okapi.version}</version>
         </dependency>
 
-        <!-- gRPC with non-shaded Netty.
-             Netty 4.1.110+ provides NioServerDomainSocketChannel for UDS
-             via Java 16+ NIO — no native kqueue/epoll transport needed. -->
+        <!-- gRPC with non-shaded Netty + native transports for UDS.
+             Uses shade plugin with ServicesResourceTransformer (no relocation)
+             to properly merge META-INF/services files in fat JARs. -->
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-netty</artifactId>
             <version>${grpc.version}</version>
         </dependency>
-        <!-- Override Netty to 4.1.110+ for NIO domain socket support -->
+        <!-- Native kqueue (macOS) and epoll (Linux) for fast UDS -->
         <dependency>
             <groupId>io.netty</groupId>
-            <artifactId>netty-transport</artifactId>
+            <artifactId>netty-transport-native-kqueue</artifactId>
             <version>${netty.version}</version>
+            <classifier>osx-x86_64</classifier>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
-            <artifactId>netty-handler</artifactId>
+            <artifactId>netty-transport-native-kqueue</artifactId>
             <version>${netty.version}</version>
+            <classifier>osx-aarch_64</classifier>
         </dependency>
         <dependency>
             <groupId>io.netty</groupId>
-            <artifactId>netty-codec-http2</artifactId>
+            <artifactId>netty-transport-native-epoll</artifactId>
             <version>${netty.version}</version>
+            <classifier>linux-x86_64</classifier>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-transport-native-epoll</artifactId>
+            <version>${netty.version}</version>
+            <classifier>linux-aarch_64</classifier>
         </dependency>
         <dependency>
             <groupId>io.grpc</groupId>

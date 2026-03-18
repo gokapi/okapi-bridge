@@ -11,6 +11,7 @@ import io.grpc.Server;
 import io.grpc.netty.NettyServerBuilder;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.ServerChannel;
+import io.netty.channel.unix.DomainSocketAddress;
 
 import java.net.SocketAddress;
 import java.util.List;
@@ -159,19 +160,28 @@ public class OkapiBridgeServer {
      */
     @SuppressWarnings("unchecked")
     private static Server createUnixSocketServer(BridgeServiceImpl service, String socketPath) throws Exception {
-        // Use Java 16+ UnixDomainSocketAddress (not Netty's DomainSocketAddress
-        // which is for native kqueue/epoll transports only).
-        SocketAddress address = java.net.UnixDomainSocketAddress.of(socketPath);
+        SocketAddress address = new DomainSocketAddress(socketPath);
+        String os = System.getProperty("os.name", "").toLowerCase();
 
-        // NioServerDomainSocketChannel (Netty 4.1.110+) uses Java 16+ NIO.
-        // No native transport libraries needed — works on all platforms.
-        EventLoopGroup bossGroup = new io.netty.channel.nio.NioEventLoopGroup(1);
-        EventLoopGroup workerGroup = new io.netty.channel.nio.NioEventLoopGroup();
-        Class<? extends ServerChannel> channelType =
-                (Class<? extends ServerChannel>) Class.forName(
-                        "io.netty.channel.socket.nio.NioServerDomainSocketChannel");
+        EventLoopGroup bossGroup;
+        EventLoopGroup workerGroup;
+        Class<? extends ServerChannel> channelType;
 
-        System.err.println("[bridge] Using Unix domain socket (NIO): " + socketPath);
+        // Use native kqueue (macOS) or epoll (Linux) for optimized UDS.
+        // Native transports use kernel-level zero-copy and bypass JDK NIO overhead.
+        if (os.contains("mac")) {
+            bossGroup = createEventLoopGroup("io.netty.channel.kqueue.KQueueEventLoopGroup", 1);
+            workerGroup = createEventLoopGroup("io.netty.channel.kqueue.KQueueEventLoopGroup", 0);
+            channelType = loadChannelClass("io.netty.channel.kqueue.KQueueServerDomainSocketChannel");
+        } else if (os.contains("linux")) {
+            bossGroup = createEventLoopGroup("io.netty.channel.epoll.EpollEventLoopGroup", 1);
+            workerGroup = createEventLoopGroup("io.netty.channel.epoll.EpollEventLoopGroup", 0);
+            channelType = loadChannelClass("io.netty.channel.epoll.EpollServerDomainSocketChannel");
+        } else {
+            throw new UnsupportedOperationException("Unix sockets not supported on " + os);
+        }
+
+        System.err.println("[bridge] Using Unix domain socket (" + channelType.getSimpleName() + "): " + socketPath);
         return NettyServerBuilder.forAddress(address)
                 .channelType(channelType)
                 .bossEventLoopGroup(bossGroup)
@@ -195,6 +205,16 @@ public class OkapiBridgeServer {
                 .initialFlowControlWindow(4 * 1024 * 1024)
                 .build()
                 .start();
+    }
+
+    @SuppressWarnings("unchecked")
+    private static EventLoopGroup createEventLoopGroup(String className, int nThreads) throws Exception {
+        return (EventLoopGroup) Class.forName(className).getConstructor(int.class).newInstance(nThreads);
+    }
+
+    @SuppressWarnings("unchecked")
+    private static Class<? extends ServerChannel> loadChannelClass(String className) throws Exception {
+        return (Class<? extends ServerChannel>) Class.forName(className);
     }
 
     /**
