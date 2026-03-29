@@ -1,0 +1,24 @@
+{
+  "$id": "okapi:t-m-import",
+  "title": "TM Import",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:t-m-import",
+    "type": "step",
+    "displayName": "TM Import",
+    "description": "Import text into a new or existing Pensieve TM. Expects: filter events. Sends back: filter events."
+  },
+  "properties": {
+    "tmDirectory": {
+      "type": "string",
+      "default": "",
+      "description": "Full path of directory of the TM where to import",
+      "title": "Directory of the TM where to import"
+    },
+    "overwriteSameSource": {
+      "type": "boolean",
+      "default": false,
+      "title": "Overwrite if source is the same"
+    }
+  }
+}

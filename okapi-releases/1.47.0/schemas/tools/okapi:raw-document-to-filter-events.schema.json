@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:raw-document-to-filter-events",
+  "title": "Raw Document to Filter Events",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:raw-document-to-filter-events",
+    "type": "step",
+    "displayName": "Raw Document to Filter Events",
+    "description": "Convert a raw document into filter events. Expects: raw document. Sends back: filter events."
+  }
+}

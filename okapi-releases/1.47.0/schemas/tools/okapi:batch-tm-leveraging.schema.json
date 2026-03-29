@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:batch-tm-leveraging",
+  "title": "Simple Batch Leveraging Step",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:batch-tm-leveraging",
+    "type": "step",
+    "displayName": "Simple Batch Leveraging Step",
+    "description": "Simple and fast batch leveraging step that delegates to connectors"
+  }
+}

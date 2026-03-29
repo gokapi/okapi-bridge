@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:concordance-character-count",
+  "title": "Concordance Character Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:concordance-character-count",
+    "type": "step",
+    "displayName": "Concordance Character Count",
+    "description": "TM concordance or phrase match (usually a word or term only) Expects: filter events. Sends back: filter events."
+  }
+}

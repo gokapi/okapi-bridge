@@ -171,9 +171,10 @@ jobs:
           fi
           cp "$JAR_FILE" staging/neokapi-bridge-jar-with-dependencies.jar
 
-          # Generate unified manifest.json with capabilities and runtime config
-          CAPABILITIES=$(java -jar "$JAR_FILE" --list-filters 2>/dev/null \
-            | jq '[.filters[] | {
+          # Generate unified manifest.json with filter + step capabilities
+          CAP_JSON=$(java -jar "$JAR_FILE" --list-capabilities 2>/dev/null)
+
+          FILTER_CAPS=$(echo "$CAP_JSON" | jq '[.filters[] | {
                 type: "format",
                 id: .id,
                 name: .name,
@@ -182,6 +183,16 @@ jobs:
                 mime_types: (if (.mime_types | length) > 0 then .mime_types else null end),
                 extensions: (if (.extensions | length) > 0 then .extensions else null end)
               } | with_entries(select(.value != null))]')
+
+          STEP_CAPS=$(echo "$CAP_JSON" | jq '[(.steps // [])[] | {
+                type: "tool",
+                id: ("okapi:" + .stepId),
+                name: .name,
+                display_name: .name,
+                description: .description
+              } | with_entries(select(.value != null))]')
+
+          CAPABILITIES=$(jq -n --argjson f "$FILTER_CAPS" --argjson s "$STEP_CAPS" '$f + $s')
 
           jq -n --arg name "okapi" \
                 --arg version "$VERSION" \
@@ -209,6 +220,13 @@ jobs:
           ' schemas/versions.json | while read filter version; do
             cp "schemas/composite/${filter}.v${version}.schema.json" staging/schemas/
           done
+
+          # Include step schemas (generated during build by SchemaGenerator)
+          if [ -d "okapi-releases/${OKAPI_VERSION}/schemas/tools" ]; then
+            mkdir -p staging/schemas/tools
+            cp okapi-releases/${OKAPI_VERSION}/schemas/tools/*.schema.json staging/schemas/tools/ 2>/dev/null || true
+            echo "Bundled $(ls staging/schemas/tools/*.schema.json 2>/dev/null | wc -l | tr -d ' ') step schemas"
+          fi
 
           cd staging
           tar czf "../${ARCHIVE_NAME}.tar.gz" .

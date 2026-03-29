@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:exact-text-only-character-count",
+  "title": "Exact Text Only Match Character Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:exact-text-only-character-count",
+    "type": "step",
+    "displayName": "Exact Text Only Match Character Count",
+    "description": "Matches text exactly, but there is a difference in one or more codes. Expects: filter events. Sends back: filter events."
+  }
+}

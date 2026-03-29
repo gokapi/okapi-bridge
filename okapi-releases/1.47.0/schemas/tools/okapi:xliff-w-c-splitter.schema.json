@@ -1,0 +1,18 @@
+{
+  "$id": "okapi:xliff-w-c-splitter",
+  "title": "XLIFF Word-Count Splitter",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:xliff-w-c-splitter",
+    "type": "step",
+    "displayName": "XLIFF Word-Count Splitter",
+    "description": "Split an XLIFF document into separate documents based on word count.Expects: raw document. Sends back: raw document."
+  },
+  "properties": {
+    "threshold": {
+      "type": "integer",
+      "default": 200000,
+      "title": "Maximum word-count per part:"
+    }
+  }
+}

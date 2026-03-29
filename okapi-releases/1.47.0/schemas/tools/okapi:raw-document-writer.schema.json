@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:raw-document-writer",
+  "title": "RawDocument Writer",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:raw-document-writer",
+    "type": "step",
+    "displayName": "RawDocument Writer",
+    "description": "Write a RawDocument to an output file."
+  }
+}

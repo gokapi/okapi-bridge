@@ -1,0 +1,10 @@
+{
+  "$id": "okapi:copy-source-on-empty-target",
+  "title": "copy-source-on-empty-target",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:copy-source-on-empty-target",
+    "type": "step",
+    "displayName": "copy-source-on-empty-target"
+  }
+}

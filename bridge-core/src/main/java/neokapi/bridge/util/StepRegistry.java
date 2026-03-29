@@ -31,12 +31,12 @@ public class StepRegistry {
 
         Set<String> stepClasses = new TreeSet<>();
 
-        // Scan okapi-step-* JARs from the classloader.
+        // Scan okapi-step-* and okapi-lib JARs from the classloader.
         ClassLoader cl = StepRegistry.class.getClassLoader();
         if (cl instanceof URLClassLoader) {
             for (URL url : ((URLClassLoader) cl).getURLs()) {
                 String path = url.getPath();
-                if (path.contains("okapi-step-") && path.endsWith(".jar")) {
+                if ((path.contains("okapi-step-") || path.contains("okapi-lib")) && path.endsWith(".jar")) {
                     scanJarForSteps(path, stepClasses);
                 }
             }
@@ -46,7 +46,7 @@ public class StepRegistry {
         String classpath = System.getProperty("java.class.path");
         if (classpath != null) {
             for (String path : classpath.split(File.pathSeparator)) {
-                if (path.contains("okapi-step-") && path.endsWith(".jar")) {
+                if ((path.contains("okapi-step-") || path.contains("okapi-lib")) && path.endsWith(".jar")) {
                     scanJarForSteps(path, stepClasses);
                 }
             }

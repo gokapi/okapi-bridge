@@ -1,0 +1,23 @@
+{
+  "$id": "okapi:id-based-copy",
+  "title": "Id-Based Copy",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:id-based-copy",
+    "type": "step",
+    "displayName": "Id-Based Copy",
+    "description": "Copies the source text of the second input into the target of the first input based on matching id.\nExpects: filter events. Sends back: filter events."
+  },
+  "properties": {
+    "markAsTranslateNo": {
+      "type": "boolean",
+      "default": false,
+      "title": "Set the text unit as non-translatable"
+    },
+    "markAsApproved": {
+      "type": "boolean",
+      "default": true,
+      "title": "Set the target property 'approved' to 'yes'"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "$id": "okapi:character-count",
+  "title": "Character Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:character-count",
+    "type": "step",
+    "displayName": "Character Count",
+    "description": "Count the number of characters in the text units of a set of documents or/and in its parts. Expects: filter events. Sends back: filter events."
+  },
+  "properties": {
+    "countInBatch": {
+      "type": "boolean",
+      "default": true,
+      "title": "Batches"
+    },
+    "countInBatchItems": {
+      "type": "boolean",
+      "default": true,
+      "title": "Batch items"
+    },
+    "countInDocuments": {
+      "type": "boolean",
+      "default": false,
+      "title": "Documents"
+    },
+    "countInSubDocuments": {
+      "type": "boolean",
+      "default": false,
+      "title": "Sub-documents"
+    },
+    "countInGroups": {
+      "type": "boolean",
+      "default": false,
+      "title": "Groups"
+    },
+    "bufferSize": {
+      "type": "integer",
+      "default": 0,
+      "title": "Size of text buffer:"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:concordance-word-count",
+  "title": "Concordance Word Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:concordance-word-count",
+    "type": "step",
+    "displayName": "Concordance Word Count",
+    "description": "TM concordance or phrase match (usually a word or term only) Expects: filter events. Sends back: filter events."
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "$id": "okapi:xliff-joiner",
+  "title": "XLIFF Joiner",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:xliff-joiner",
+    "type": "step",
+    "displayName": "XLIFF Joiner",
+    "description": "Join multiple XLIFF documents into one. Expects: raw document. Sends back: raw document."
+  },
+  "properties": {
+    "inputFileMarker": {
+      "type": "string",
+      "default": "_PART",
+      "title": "Input file marker"
+    },
+    "outputFileMarker": {
+      "type": "string",
+      "default": "_CONCAT",
+      "title": "Output file marker"
+    }
+  }
+}

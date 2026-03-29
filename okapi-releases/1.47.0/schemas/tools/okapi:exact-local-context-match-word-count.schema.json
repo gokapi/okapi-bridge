@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:exact-local-context-match-word-count",
+  "title": "Exact Local Context Match Word Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:exact-local-context-match-word-count",
+    "type": "step",
+    "displayName": "Exact Local Context Match Word Count",
+    "description": "Matches EXACT and a small number of segments before and/or after. Expects: filter events. Sends back: filter events."
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:fuzzy-repaired-word-count",
+  "title": "Fuzzy Repaired Match Word Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:fuzzy-repaired-word-count",
+    "type": "step",
+    "displayName": "Fuzzy Repaired Match Word Count",
+    "description": "Matches both text and/or codes partially and some automated repair (e.g. number replacement, code repair, capitalization, punctuation etc..) was applied to the target. Expects: filter events. Sends back: filter events."
+  }
+}

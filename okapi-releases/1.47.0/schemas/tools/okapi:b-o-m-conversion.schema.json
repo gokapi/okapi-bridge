@@ -1,0 +1,21 @@
+{
+  "$id": "okapi:b-o-m-conversion",
+  "title": "BOM Conversion",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:b-o-m-conversion",
+    "type": "step",
+    "displayName": "BOM Conversion",
+    "description": "Add or remove Unicode Byte-Order-Mark (BOM) in a text-based file. Expects: raw document. Sends back: raw document."
+  },
+  "properties": {
+    "removeBOM": {
+      "type": "boolean",
+      "default": false
+    },
+    "alsoNonUTF8": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

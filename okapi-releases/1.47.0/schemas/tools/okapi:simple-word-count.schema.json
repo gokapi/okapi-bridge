@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:simple-word-count",
+  "title": "Simple Word Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:simple-word-count",
+    "type": "step",
+    "displayName": "Simple Word Count",
+    "description": "Annotates each text unit source with a total word count and gives total source word counts for batches Expects: filter events. Sends back: filter events."
+  }
+}

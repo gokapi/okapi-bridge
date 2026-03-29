@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:m-t-word-count",
+  "title": "MT Word Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:m-t-word-count",
+    "type": "step",
+    "displayName": "MT Word Count",
+    "description": "Indicates a translation coming from an MT engine. Expects: filter events. Sends back: filter events."
+  }
+}

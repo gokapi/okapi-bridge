@@ -1,0 +1,25 @@
+{
+  "$id": "okapi:paragraph-aligner",
+  "title": "Paragraph Alignment",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:paragraph-aligner",
+    "type": "step",
+    "displayName": "Paragraph Alignment",
+    "description": "Align paragraphs (text units) between a source and a target document. Only TextUnit events are passed along - all other events are lost"
+  },
+  "properties": {
+    "outputOneToOneMatchesOnly": {
+      "type": "boolean",
+      "default": true,
+      "description": "Ouput only 1-1 aligned paragraphs?",
+      "title": "Output 1-1 Matches Only?"
+    },
+    "useSkeletonAlignment": {
+      "type": "boolean",
+      "default": false,
+      "description": "Use Skeleton alignment? (Experimental)",
+      "title": "Use Skeleton Alignment? (Experimental)"
+    }
+  }
+}

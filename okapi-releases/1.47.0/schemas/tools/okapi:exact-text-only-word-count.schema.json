@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:exact-text-only-word-count",
+  "title": "Exact Text Only Match Word Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:exact-text-only-word-count",
+    "type": "step",
+    "displayName": "Exact Text Only Match Word Count",
+    "description": "Matches text exactly, but there is a difference in one or more codes. Expects: filter events. Sends back: filter events."
+  }
+}

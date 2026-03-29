@@ -1,0 +1,18 @@
+{
+  "$id": "okapi:t-t-x-splitter",
+  "title": "TTX Splitter",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:t-t-x-splitter",
+    "type": "step",
+    "displayName": "TTX Splitter",
+    "description": "Splits a TTX document into several ones of roughly equal word count. Expects: raw document. Sends back: raw document."
+  },
+  "properties": {
+    "partCount": {
+      "type": "integer",
+      "default": 2,
+      "title": "Number of output files"
+    }
+  }
+}

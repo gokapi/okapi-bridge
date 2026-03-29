@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:exact-repaired-character-count",
+  "title": "Exact Repaired Match Character Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:exact-repaired-character-count",
+    "type": "step",
+    "displayName": "Exact Repaired Match Character Count",
+    "description": "Matches text and codes exactly, but only after the result of some automated repair (e.g. number replacement, code repair, capitalization, punctuation etc.) Expects: filter events. Sends back: filter events."
+  }
+}

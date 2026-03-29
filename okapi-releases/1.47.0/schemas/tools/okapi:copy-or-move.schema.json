@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:copy-or-move",
+  "title": "Copy Or Move",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:copy-or-move",
+    "type": "step",
+    "displayName": "Copy Or Move",
+    "description": "Copies or moves the listed files to the specified location. Expects: raw documents. Sends back: raw documents."
+  }
+}

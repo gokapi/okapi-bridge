@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:g-m-x-protected-word-count",
+  "title": "GMX Protected Word Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:g-m-x-protected-word-count",
+    "type": "step",
+    "displayName": "GMX Protected Word Count",
+    "description": "An accumulation of the word count for text that has been marked as 'protected', or otherwise not translatable (XLIFF text enclosed in <mrk mtype=\"protected\"> elements). Expects: filter events. Sends back: filter events."
+  }
+}

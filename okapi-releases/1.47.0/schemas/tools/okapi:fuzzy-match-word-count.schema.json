@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:fuzzy-match-word-count",
+  "title": "Fuzzy Match Word Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:fuzzy-match-word-count",
+    "type": "step",
+    "displayName": "Fuzzy Match Word Count",
+    "description": "Matches both text and/or codes partially. Expects: filter events. Sends back: filter events."
+  }
+}

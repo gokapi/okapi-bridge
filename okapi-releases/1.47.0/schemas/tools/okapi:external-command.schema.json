@@ -1,0 +1,25 @@
+{
+  "$id": "okapi:external-command",
+  "title": "External Command",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:external-command",
+    "type": "step",
+    "displayName": "External Command",
+    "description": "Execute an external command line."
+  },
+  "properties": {
+    "command": {
+      "type": "string",
+      "default": "",
+      "description": "Command path to execute",
+      "title": "Command line"
+    },
+    "timeout": {
+      "type": "integer",
+      "default": -1,
+      "description": "Timeout in seconds after which the command is cancelled (use -1 for no timeout)",
+      "title": "Timeout"
+    }
+  }
+}
