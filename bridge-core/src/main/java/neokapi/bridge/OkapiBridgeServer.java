@@ -5,6 +5,8 @@ import neokapi.bridge.io.LocalContentResolver;
 import neokapi.bridge.io.LocalOutputWriter;
 import neokapi.bridge.model.FilterInfo;
 import neokapi.bridge.util.FilterRegistry;
+import neokapi.bridge.util.StepInfo;
+import neokapi.bridge.util.StepRegistry;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.grpc.Server;
@@ -27,6 +29,8 @@ import java.util.concurrent.TimeUnit;
  * <p>Flags:
  * <ul>
  *   <li>{@code --list-filters} — Print filter metadata as JSON to stdout and exit.</li>
+ *   <li>{@code --list-steps} — Print step metadata as JSON to stdout and exit.</li>
+ *   <li>{@code --list-capabilities} — Print both filters and steps as JSON to stdout and exit.</li>
  *   <li>{@code --idle-timeout <seconds>} — Shut down after N seconds with no active streams.
  *       Default: 0 (no timeout, subprocess mode).</li>
  *   <li>{@code --concurrency <N>} — Number of filter threads. Default: available processors.</li>
@@ -44,6 +48,14 @@ public class OkapiBridgeServer {
         for (int i = 0; i < args.length; i++) {
             if ("--list-filters".equals(args[i])) {
                 listFiltersAndExit();
+                return;
+            }
+            if ("--list-steps".equals(args[i])) {
+                listStepsAndExit();
+                return;
+            }
+            if ("--list-capabilities".equals(args[i])) {
+                listCapabilitiesAndExit();
                 return;
             }
             if ("--idle-timeout".equals(args[i]) && i + 1 < args.length) {
@@ -215,6 +227,35 @@ public class OkapiBridgeServer {
     @SuppressWarnings("unchecked")
     private static Class<? extends ServerChannel> loadChannelClass(String className) throws Exception {
         return (Class<? extends ServerChannel>) Class.forName(className);
+    }
+
+    /**
+     * Print all discovered steps as a JSON object to stdout, then exit.
+     */
+    private static void listStepsAndExit() {
+        try {
+            List<StepInfo> steps = StepRegistry.listSteps();
+            Gson gson = new GsonBuilder().create();
+            System.out.println("{\"steps\":" + gson.toJson(steps) + "}");
+        } catch (Exception e) {
+            System.err.println("[bridge] Error listing steps: " + e.getMessage());
+            System.exit(1);
+        }
+    }
+
+    /**
+     * Print both filters and steps as a JSON object to stdout, then exit.
+     */
+    private static void listCapabilitiesAndExit() {
+        try {
+            Gson gson = new GsonBuilder().create();
+            List<FilterInfo> filters = FilterRegistry.listFilters();
+            List<StepInfo> steps = StepRegistry.listSteps();
+            System.out.println("{\"filters\":" + gson.toJson(filters) + ",\"steps\":" + gson.toJson(steps) + "}");
+        } catch (Exception e) {
+            System.err.println("[bridge] Error listing capabilities: " + e.getMessage());
+            System.exit(1);
+        }
     }
 
     /**

@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:g-m-x-protected-character-count",
+  "title": "GMX Protected Character Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:g-m-x-protected-character-count",
+    "type": "step",
+    "displayName": "GMX Protected Character Count",
+    "description": "An accumulation of the character count for text that has been marked as 'protected', or otherwise not translatable (XLIFF text enclosed in <mrk mtype=\"protected\"> elements). Expects: filter events. Sends back: filter events."
+  }
+}

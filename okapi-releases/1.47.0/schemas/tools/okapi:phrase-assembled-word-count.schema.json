@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:phrase-assembled-word-count",
+  "title": "Phrase Assembled Word Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:phrase-assembled-word-count",
+    "type": "step",
+    "displayName": "Phrase Assembled Word Count",
+    "description": "Matches assembled from phrases in the TM or other resources (different algorithms could be used). Expects: filter events. Sends back: filter events."
+  }
+}

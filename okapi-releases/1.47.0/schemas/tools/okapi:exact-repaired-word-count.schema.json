@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:exact-repaired-word-count",
+  "title": "Exact Repaired Match Word Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:exact-repaired-word-count",
+    "type": "step",
+    "displayName": "Exact Repaired Match Word Count",
+    "description": "Matches text and codes exactly, but only after the result of some automated repair (e.g. number replacement, code repair, capitalization, punctuation etc.) Expects: filter events. Sends back: filter events."
+  }
+}

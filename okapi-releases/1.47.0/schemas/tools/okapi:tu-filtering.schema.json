@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:tu-filtering",
+  "title": "Text Unit Filtering",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:tu-filtering",
+    "type": "step",
+    "displayName": "Text Unit Filtering",
+    "description": "Set the non-translatable flag to the text units accepted by the text unit filter specified in step's parameters. Expects: filter events. Sends back: filter events."
+  }
+}

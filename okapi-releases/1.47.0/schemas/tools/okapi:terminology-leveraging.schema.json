@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:terminology-leveraging",
+  "title": "Terminology Leveraging",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:terminology-leveraging",
+    "type": "step",
+    "displayName": "Terminology Leveraging",
+    "description": "Leverage terminology into the text units content of a document. Expects: filter events. Sends back: filter events."
+  }
+}

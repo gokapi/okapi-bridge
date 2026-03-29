@@ -1,20 +1,23 @@
 #!/bin/bash
-# Generate pom.xml for a specific Okapi version by discovering available filters.
+# Generate pom.xml for a specific Okapi version.
 #
 # The generated pom inherits from the parent (okapi-bridge-parent) which provides:
 #   - All infrastructure dependencies (gRPC, Gson, SnakeYAML, etc.)
 #   - Plugin configuration (protobuf, shade, exec, build-helper)
 #
-# The generated pom only declares:
+# The generated pom declares:
 #   - Parent reference
 #   - Okapi version + Java version properties
-#   - Version-specific Okapi filter dependencies
+#   - okapi-lib dependency (Okapi's SDK uber-JAR with all filters + steps)
 #   - Build section with source paths and plugin references
+#
+# Using okapi-lib instead of individual filter/step artifacts means we
+# automatically get all Okapi components without maintaining artifact lists.
 #
 # Usage: ./scripts/generate-version-pom.sh [--local] [--output-dir DIR] <version>
 #
 # Options:
-#   --local         Discover filters from local Maven repo (~/.m2) instead of Maven Central
+#   --local         Use local Maven repo (~/.m2) to verify okapi-lib exists
 #   --output-dir    Write pom.xml to a custom directory (uses absolute path references)
 
 set -e
@@ -70,56 +73,6 @@ if [ -f "$META_FILE" ]; then
 fi
 echo "Java version for Okapi $VERSION: $JAVA_VERSION"
 
-# Known filter artifact IDs to check
-KNOWN_FILTERS=(
-    okapi-filter-abstractmarkup
-    okapi-filter-archive
-    okapi-filter-autoxliff
-    okapi-filter-cascadingfilter
-    okapi-filter-doxygen
-    okapi-filter-dtd
-    okapi-filter-epub
-    okapi-filter-html
-    okapi-filter-icml
-    okapi-filter-idml
-    okapi-filter-its
-    okapi-filter-json
-    okapi-filter-markdown
-    okapi-filter-messageformat
-    okapi-filter-mif
-    okapi-filter-mosestext
-    okapi-filter-multiparsers
-    okapi-filter-openoffice
-    okapi-filter-openxml
-    okapi-filter-pdf
-    okapi-filter-pensieve
-    okapi-filter-php
-    okapi-filter-plaintext
-    okapi-filter-po
-    okapi-filter-properties
-    okapi-filter-rainbowkit
-    okapi-filter-regex
-    okapi-filter-rtf
-    okapi-filter-sdlpackage
-    okapi-filter-subtitles
-    okapi-filter-table
-    okapi-filter-tex
-    okapi-filter-tmx
-    okapi-filter-transifex
-    okapi-filter-transtable
-    okapi-filter-ts
-    okapi-filter-ttx
-    okapi-filter-txml
-    okapi-filter-vignette
-    okapi-filter-wiki
-    okapi-filter-wsxzpackage
-    okapi-filter-xini
-    okapi-filter-xliff
-    okapi-filter-xliff2
-    okapi-filter-xmlstream
-    okapi-filter-yaml
-)
-
 # Read bridge version from root pom.xml
 BRIDGE_VERSION=$(sed -n '/<artifactId>okapi-bridge-parent<\/artifactId>/{n;s/.*<version>\(.*\)<\/version>.*/\1/p;}' "$(dirname "$0")/../pom.xml")
 if [ -z "$BRIDGE_VERSION" ]; then
@@ -128,75 +81,36 @@ if [ -z "$BRIDGE_VERSION" ]; then
 fi
 echo "Bridge version: $BRIDGE_VERSION"
 
-echo "Discovering available filters for Okapi $VERSION..."
-
-# Create a temp file for results
-TEMP_RESULTS=$(mktemp)
-
-# Function to check a single filter via Maven Central
-check_filter() {
-    local filter=$1
-    local version=$2
-    local url="https://repo1.maven.org/maven2/net/sf/okapi/filters/$filter/$version/$filter-$version.pom"
-    if curl --output /dev/null --silent --head --fail --max-time 5 "$url" 2>/dev/null; then
-        echo "$filter"
-    fi
-}
-
-# Function to check a single filter in local Maven repo (~/.m2)
-check_filter_local() {
-    local filter=$1
-    local version=$2
-    if [ -f "$HOME/.m2/repository/net/sf/okapi/filters/$filter/$version/$filter-$version.jar" ]; then
-        echo "$filter"
-    fi
-}
-
+# Verify okapi-lib is available for this version
+echo "Checking okapi-lib availability for Okapi $VERSION..."
 if [ "$LOCAL_MODE" = true ]; then
-    export -f check_filter_local
-    # Check filters in parallel (up to 10 at a time)
-    for filter in "${KNOWN_FILTERS[@]}"; do
-        echo "$filter"
-    done | xargs -I {} -P 10 bash -c "check_filter_local {} $VERSION" > "$TEMP_RESULTS"
-else
-    export -f check_filter
-    # Check filters in parallel (up to 10 at a time)
-    for filter in "${KNOWN_FILTERS[@]}"; do
-        echo "$filter"
-    done | xargs -I {} -P 10 bash -c "check_filter {} $VERSION" > "$TEMP_RESULTS"
-fi
-
-# Read results into array
-AVAILABLE_FILTERS=()
-while IFS= read -r filter; do
-    if [ -n "$filter" ]; then
-        AVAILABLE_FILTERS+=("$filter")
-        echo "  ✓ $filter"
+    if [ -f "$HOME/.m2/repository/net/sf/okapi/okapi-lib/$VERSION/okapi-lib-$VERSION.jar" ]; then
+        echo "  ✓ okapi-lib $VERSION (local)"
+    else
+        echo "  ⚠ okapi-lib $VERSION not found locally"
     fi
-done < "$TEMP_RESULTS"
-
-# Clean up
-rm -f "$TEMP_RESULTS"
-
-echo ""
-echo "Found ${#AVAILABLE_FILTERS[@]} filters for Okapi $VERSION"
-
-# Sort filters for consistent output
-IFS=$'\n' SORTED_FILTERS=($(sort <<<"${AVAILABLE_FILTERS[*]}")); unset IFS
+else
+    URL="https://repo1.maven.org/maven2/net/sf/okapi/okapi-lib/$VERSION/okapi-lib-$VERSION.pom"
+    if curl --output /dev/null --silent --head --fail --max-time 5 "$URL" 2>/dev/null; then
+        echo "  ✓ okapi-lib $VERSION (Maven Central)"
+    else
+        echo "  ⚠ okapi-lib $VERSION not found on Maven Central"
+        echo "    Falling back to okapi-core only (filters/steps may be limited)"
+    fi
+fi
 
 # Ensure output directory exists
 mkdir -p "$OUTPUT_DIR"
 
-# Generate pom.xml — inherits from parent, only declares filters + build paths
+# Generate pom.xml — uses okapi-lib for all Okapi components (filters + steps)
 cat > "$OUTPUT_FILE" << EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
     Okapi Bridge - Build for Okapi $VERSION
     Generated: $(date -u +%Y-%m-%dT%H:%M:%SZ)
-    Filters: ${#SORTED_FILTERS[@]}
 
+    Uses okapi-lib (Okapi SDK) which bundles all filters and steps.
     Inherits infrastructure deps (gRPC, Gson, etc.) and plugin config from parent.
-    Only version-specific Okapi filter dependencies are declared here.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -224,20 +138,12 @@ cat > "$OUTPUT_FILE" << EOF
         <!-- Infrastructure deps (okapi-core, gRPC, Gson, etc.) inherited from parent.
              okapi-core version resolves via \${okapi.version} override above. -->
 
-        <!-- Okapi Filters for $VERSION -->
-EOF
-
-for filter in "${SORTED_FILTERS[@]}"; do
-    cat >> "$OUTPUT_FILE" << EOF
+        <!-- Okapi SDK: bundles all filters + steps for this version -->
         <dependency>
-            <groupId>net.sf.okapi.filters</groupId>
-            <artifactId>$filter</artifactId>
+            <groupId>net.sf.okapi</groupId>
+            <artifactId>okapi-lib</artifactId>
             <version>\${okapi.version}</version>
         </dependency>
-EOF
-done
-
-cat >> "$OUTPUT_FILE" << EOF
     </dependencies>
 
     <build>

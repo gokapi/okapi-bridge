@@ -33,6 +33,14 @@ public class StepInfo {
     }
 
     /**
+     * Get the fully qualified step ID with "okapi:" prefix.
+     * E.g., "net.sf.okapi.steps.searchandreplace.SearchAndReplaceStep" -> "okapi:search-and-replace"
+     */
+    public String getStepId() {
+        return "okapi:" + deriveStepId();
+    }
+
+    /**
      * Derive a step ID from the class name.
      * E.g., "SearchAndReplaceStep" -> "search-and-replace"
      */

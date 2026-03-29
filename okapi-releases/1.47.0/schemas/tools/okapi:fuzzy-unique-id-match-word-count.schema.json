@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:fuzzy-unique-id-match-word-count",
+  "title": "Fuzzy Unique Id Match Word Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:fuzzy-unique-id-match-word-count",
+    "type": "step",
+    "displayName": "Fuzzy Unique Id Match Word Count",
+    "description": "Matches FUZZY and matches a unique id. Expects: filter events. Sends back: filter events."
+  }
+}

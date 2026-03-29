@@ -1,0 +1,37 @@
+{
+  "$id": "okapi:x-s-l-transform",
+  "title": "XSL Transformation",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:x-s-l-transform",
+    "type": "step",
+    "displayName": "XSL Transformation",
+    "description": "Apply an XSLT template to an XML document. Expects: raw XML document. Sends back: raw document."
+  },
+  "properties": {
+    "xsltPath": {
+      "type": "string",
+      "default": ""
+    },
+    "paramList": {
+      "type": "string",
+      "default": ""
+    },
+    "useCustomTransformer": {
+      "type": "boolean",
+      "default": false
+    },
+    "factoryClass": {
+      "type": "string",
+      "default": ""
+    },
+    "xpathClass": {
+      "type": "string",
+      "default": ""
+    },
+    "passOnOutput": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

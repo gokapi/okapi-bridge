@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:exact-structural-match-character-count",
+  "title": "Exact Structural Match Character Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:exact-structural-match-character-count",
+    "type": "step",
+    "displayName": "Exact Structural Match Character Count",
+    "description": "Matches EXACT and the structural type of the segment (title, paragraph, list element etc.) Expects: filter events. Sends back: filter events."
+  }
+}

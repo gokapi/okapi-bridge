@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:resource-simplifier",
+  "title": "Resource Simplifier",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:resource-simplifier",
+    "type": "step",
+    "displayName": "Resource Simplifier",
+    "description": "Simplify resources. Simplification algorythm is format-specific. Expects: filter events. Sends back: filter events."
+  }
+}

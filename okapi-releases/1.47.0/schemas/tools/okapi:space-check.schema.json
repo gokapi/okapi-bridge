@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:space-check",
+  "title": "Space Quality Check",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:space-check",
+    "type": "step",
+    "displayName": "Space Quality Check",
+    "description": "Compare and fix spaces around inline codes in target based on the source. Expects: filter events. Sends back: filter events."
+  }
+}

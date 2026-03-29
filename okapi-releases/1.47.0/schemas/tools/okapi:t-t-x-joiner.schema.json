@@ -1,0 +1,18 @@
+{
+  "$id": "okapi:t-t-x-joiner",
+  "title": "TTX Joiner",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:t-t-x-joiner",
+    "type": "step",
+    "displayName": "TTX Joiner",
+    "description": "Rebuilds previously split TTX documents into their original documents. Expects: raw document. Sends back: raw document."
+  },
+  "properties": {
+    "suffix": {
+      "type": "string",
+      "default": "_joined",
+      "title": "Optional suffix to place at the end of the result files"
+    }
+  }
+}

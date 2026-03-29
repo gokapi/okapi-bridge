@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:raw-document-to-output-stream",
+  "title": "RawDocument To OutputStream",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:raw-document-to-output-stream",
+    "type": "step",
+    "displayName": "RawDocument To OutputStream",
+    "description": "Write a RawDocument to an output stream."
+  }
+}

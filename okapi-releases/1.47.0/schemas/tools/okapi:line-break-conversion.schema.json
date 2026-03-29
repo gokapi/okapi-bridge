@@ -1,0 +1,19 @@
+{
+  "$id": "okapi:line-break-conversion",
+  "title": "Line-Break Conversion",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:line-break-conversion",
+    "type": "step",
+    "displayName": "Line-Break Conversion",
+    "description": "Convert the type of line-breaks in a text-based file. Expects: raw document. Sends back: raw document."
+  },
+  "properties": {
+    "lineBreak": {
+      "type": "string",
+      "default": "$0a$",
+      "description": "Select the new type of line-break for the output.",
+      "title": "Convert line-breaks to the following type"
+    }
+  }
+}

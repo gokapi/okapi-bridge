@@ -1,0 +1,45 @@
+{
+  "$id": "okapi:extraction",
+  "title": "Rainbow Translation Kit Creation",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:extraction",
+    "type": "step",
+    "displayName": "Rainbow Translation Kit Creation",
+    "description": "Generates a Rainbow translation kit for a batch of input documents. Expects: filter events. Sends back: filter events or raw document"
+  },
+  "properties": {
+    "writerClass": {
+      "type": "string",
+      "default": "net.sf.okapi.steps.rainbowkit.xliff.XLIFFPackageWriter"
+    },
+    "packageName": {
+      "type": "string",
+      "default": "pack1"
+    },
+    "packageDirectory": {
+      "type": "string",
+      "default": "${inputRootDir}"
+    },
+    "supportFiles": {
+      "type": "string",
+      "default": ""
+    },
+    "message": {
+      "type": "string",
+      "default": ""
+    },
+    "outputManifest": {
+      "type": "boolean",
+      "default": true
+    },
+    "createZip": {
+      "type": "boolean",
+      "default": false
+    },
+    "sendOutput": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

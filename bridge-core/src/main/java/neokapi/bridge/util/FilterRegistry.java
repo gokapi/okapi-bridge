@@ -45,13 +45,13 @@ public class FilterRegistry {
 
         Set<String> filterClasses = new TreeSet<>();
 
-        // Scan okapi-filter-* JARs from the classloader
+        // Scan okapi-filter-* and okapi-lib JARs from the classloader
         // Maven exec:java uses URLClassLoader, not system classpath
         ClassLoader cl = FilterRegistry.class.getClassLoader();
         if (cl instanceof URLClassLoader) {
             for (URL url : ((URLClassLoader) cl).getURLs()) {
                 String path = url.getPath();
-                if (path.contains("okapi-filter-") && path.endsWith(".jar")) {
+                if ((path.contains("okapi-filter-") || path.contains("okapi-lib")) && path.endsWith(".jar")) {
                     scanJarForFilters(path, filterClasses);
                 }
             }
@@ -61,7 +61,7 @@ public class FilterRegistry {
         String classpath = System.getProperty("java.class.path");
         if (classpath != null) {
             for (String path : classpath.split(File.pathSeparator)) {
-                if (path.contains("okapi-filter-") && path.endsWith(".jar")) {
+                if ((path.contains("okapi-filter-") || path.contains("okapi-lib")) && path.endsWith(".jar")) {
                     scanJarForFilters(path, filterClasses);
                 }
             }

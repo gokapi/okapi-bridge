@@ -2,6 +2,9 @@ package neokapi.bridge.tools;
 
 import neokapi.bridge.model.FilterInfo;
 import neokapi.bridge.util.FilterRegistry;
+import neokapi.bridge.util.StepInfo;
+import neokapi.bridge.util.StepRegistry;
+import neokapi.bridge.util.StepSchemaGenerator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -114,6 +117,51 @@ public class SchemaGenerator {
 
         System.out.println("\nGeneration complete: " + successCount + " schemas, " + failCount + " failures");
         generateMetaFile(dir, filters);
+
+        // Generate step schemas
+        generateStepSchemas(outputDir);
+    }
+
+    /**
+     * Generate JSON Schema files for all discovered Okapi pipeline steps.
+     */
+    private void generateStepSchemas(String outputDir) throws IOException {
+        File toolsDir = new File(outputDir, "tools");
+        if (!toolsDir.exists() && !toolsDir.mkdirs()) {
+            throw new IOException("Failed to create step schemas directory: " + toolsDir);
+        }
+
+        List<StepInfo> steps = StepRegistry.listSteps();
+        int successCount = 0;
+        int failCount = 0;
+
+        System.out.println("\nGenerating step schemas for " + steps.size() + " steps...\n");
+
+        for (StepInfo step : steps) {
+            try {
+                JsonObject schema = StepSchemaGenerator.generateSchema(step);
+                if (schema == null) {
+                    System.err.println("\u2717 " + step.getName() + " \u2192 null schema");
+                    failCount++;
+                    continue;
+                }
+                String filename = step.getStepId() + ".schema.json";
+                File outputFile = new File(toolsDir, filename);
+
+                try (FileWriter writer = new FileWriter(outputFile, StandardCharsets.UTF_8)) {
+                    GSON.toJson(schema, writer);
+                }
+
+                int paramCount = schema.has("properties") ? schema.getAsJsonObject("properties").size() : 0;
+                System.out.println("\u2713 " + step.getStepId() + " (" + paramCount + " params)");
+                successCount++;
+            } catch (Exception e) {
+                System.err.println("\u2717 " + step.getName() + " \u2192 " + e.getMessage());
+                failCount++;
+            }
+        }
+
+        System.out.println("\nStep generation complete: " + successCount + " schemas, " + failCount + " failures");
     }
 
     /**

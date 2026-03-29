@@ -1,0 +1,11 @@
+{
+  "$id": "okapi:g-m-x-repetition-matched-word-count",
+  "title": "GMX Repetition Matched Word Count",
+  "type": "object",
+  "x-component": {
+    "id": "okapi:g-m-x-repetition-matched-word-count",
+    "type": "step",
+    "displayName": "GMX Repetition Matched Word Count",
+    "description": "An accumulation of the word count for repeating text units that have not been matched in any other form. Repetition matching is deemed to take precedence over fuzzy matching. Expects: filter events. Sends back: filter events."
+  }
+}
