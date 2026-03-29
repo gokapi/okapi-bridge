@@ -19,6 +19,7 @@ import net.sf.okapi.common.IParameters;
 import net.sf.okapi.common.LocaleId;
 import net.sf.okapi.common.filters.IFilter;
 import net.sf.okapi.common.filterwriter.IFilterWriter;
+import net.sf.okapi.common.resource.ITextUnit;
 import net.sf.okapi.common.resource.RawDocument;
 
 import java.io.*;
@@ -515,6 +516,326 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
         }
         streamEnded();
         pipelineSemaphore.release();
+    }
+
+    // ── ProcessStep RPC ─────────────────────────────────────────────────────────
+
+    @Override
+    public StreamObserver<StepRequest> processStep(StreamObserver<StepResponse> responseObserver) {
+        streamStarted();
+
+        return new StreamObserver<StepRequest>() {
+            private StepHeader header;
+            private net.sf.okapi.common.pipeline.BasePipelineStep step;
+            private final java.util.concurrent.atomic.AtomicInteger partsProcessed =
+                    new java.util.concurrent.atomic.AtomicInteger(0);
+
+            @Override
+            public void onNext(StepRequest request) {
+                switch (request.getRequestCase()) {
+                    case HEADER:
+                        header = request.getHeader();
+                        try {
+                            step = initializeStep(header);
+                            // Send START_BATCH and START_BATCH_ITEM events.
+                            // Batch events use null resources in Okapi.
+                            step.handleEvent(new Event(net.sf.okapi.common.EventType.START_BATCH));
+                            step.handleEvent(new Event(net.sf.okapi.common.EventType.START_BATCH_ITEM));
+                        } catch (Exception e) {
+                            System.err.println("[bridge] ProcessStep init error: " + e.getMessage());
+                            sendStepError(responseObserver, e.getMessage());
+                        }
+                        break;
+
+                    case PART:
+                        if (step == null) {
+                            break;
+                        }
+                        try {
+                            processStepPart(request.getPart(), responseObserver);
+                        } catch (Exception e) {
+                            System.err.println("[bridge] ProcessStep part error: " + e.getMessage());
+                            sendStepError(responseObserver, e.getMessage());
+                        }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            @Override
+            public void onCompleted() {
+                try {
+                    if (step != null) {
+                        // Send END_BATCH_ITEM and END_BATCH events.
+                        step.handleEvent(new Event(net.sf.okapi.common.EventType.END_BATCH_ITEM));
+                        step.handleEvent(new Event(net.sf.okapi.common.EventType.END_BATCH));
+                        step.destroy();
+                    }
+                } catch (Exception e) {
+                    System.err.println("[bridge] ProcessStep cleanup error: " + e.getMessage());
+                }
+
+                synchronized (responseObserver) {
+                    responseObserver.onNext(StepResponse.newBuilder()
+                            .setComplete(StepComplete.newBuilder()
+                                    .setPartsProcessed(partsProcessed.get())
+                                    .build())
+                            .build());
+                    responseObserver.onCompleted();
+                }
+                streamEnded();
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                System.err.println("[bridge] ProcessStep stream error: " + t.getMessage());
+                if (step != null) {
+                    try { step.destroy(); } catch (Exception ignored) {}
+                }
+                streamEnded();
+            }
+
+            private void processStepPart(PartMessage pm, StreamObserver<StepResponse> respObserver) {
+                // Convert PartMessage to Okapi Event.
+                Event event = partMessageToEvent(pm);
+                if (event == null) {
+                    // Pass through unmodified for unsupported part types.
+                    synchronized (respObserver) {
+                        respObserver.onNext(StepResponse.newBuilder()
+                                .setPart(pm)
+                                .build());
+                    }
+                    partsProcessed.incrementAndGet();
+                    return;
+                }
+
+                // Feed through the step.
+                Event result = step.handleEvent(event);
+
+                // Convert back to PartMessage.
+                PartMessage outputPm;
+                if (result != null) {
+                    PartDTO outputDTO = EventConverter.convert(result);
+                    if (outputDTO != null) {
+                        outputPm = ProtoAdapter.toProto(outputDTO);
+                    } else {
+                        outputPm = pm; // fallback: pass through
+                    }
+                } else {
+                    outputPm = pm; // step returned null: pass through
+                }
+
+                synchronized (respObserver) {
+                    respObserver.onNext(StepResponse.newBuilder()
+                            .setPart(outputPm)
+                            .build());
+                }
+                partsProcessed.incrementAndGet();
+            }
+        };
+    }
+
+    /**
+     * Initialize an Okapi step from the StepHeader.
+     */
+    private net.sf.okapi.common.pipeline.BasePipelineStep initializeStep(StepHeader header) throws Exception {
+        String stepClass = header.getStepClass();
+        net.sf.okapi.common.pipeline.BasePipelineStep step =
+                neokapi.bridge.util.StepRegistry.createStep(stepClass);
+        if (step == null) {
+            throw new IllegalStateException("cannot instantiate step: " + stepClass);
+        }
+
+        // Apply step parameters.
+        Map<String, String> stepParams = header.getStepParamsMap();
+        if (stepParams != null && !stepParams.isEmpty()) {
+            net.sf.okapi.common.IParameters params = step.getParameters();
+            if (params != null) {
+                com.google.gson.JsonObject jsonParams = new com.google.gson.JsonObject();
+                for (Map.Entry<String, String> entry : stepParams.entrySet()) {
+                    String value = entry.getValue();
+                    try {
+                        com.google.gson.JsonElement parsed = com.google.gson.JsonParser.parseString(value);
+                        jsonParams.add(entry.getKey(), parsed);
+                    } catch (Exception e) {
+                        jsonParams.addProperty(entry.getKey(), value);
+                    }
+                }
+                ParameterApplier.applyParameters(params, jsonParams);
+            }
+        }
+
+        // Inject runtime parameters for source/target locale via @StepParameterMapping.
+        injectStepRuntimeParams(step, header);
+
+        System.err.println("[bridge] Initialized step " + step.getName() + " (" + stepClass + ")");
+        return step;
+    }
+
+    /**
+     * Inject runtime parameters (@StepParameterMapping) for source/target locale.
+     * Okapi steps use annotated setter methods for runtime parameters like locales.
+     */
+    private void injectStepRuntimeParams(net.sf.okapi.common.pipeline.BasePipelineStep step, StepHeader header) {
+        try {
+            Class<?> spmAnnotation = Class.forName("net.sf.okapi.common.pipeline.annotations.StepParameterMapping");
+            Class<?> spmType = Class.forName("net.sf.okapi.common.pipeline.annotations.StepParameterType");
+
+            // Get StepParameterType enum constants.
+            Object sourceLocaleType = null;
+            Object targetLocaleType = null;
+            for (Object constant : spmType.getEnumConstants()) {
+                String name = ((Enum<?>) constant).name();
+                if ("SOURCE_LOCALE".equals(name)) {
+                    sourceLocaleType = constant;
+                } else if ("TARGET_LOCALE".equals(name)) {
+                    targetLocaleType = constant;
+                }
+            }
+
+            for (java.lang.reflect.Method method : step.getClass().getMethods()) {
+                java.lang.annotation.Annotation ann = method.getAnnotation((Class<? extends java.lang.annotation.Annotation>) spmAnnotation);
+                if (ann == null) {
+                    continue;
+                }
+
+                // Get the parameterType value from the annotation.
+                java.lang.reflect.Method ptMethod = spmAnnotation.getMethod("parameterType");
+                Object paramType = ptMethod.invoke(ann);
+
+                if (paramType.equals(sourceLocaleType) && !header.getSourceLocale().isEmpty()) {
+                    method.invoke(step, net.sf.okapi.common.LocaleId.fromString(header.getSourceLocale()));
+                } else if (paramType.equals(targetLocaleType) && !header.getTargetLocale().isEmpty()) {
+                    method.invoke(step, net.sf.okapi.common.LocaleId.fromString(header.getTargetLocale()));
+                }
+            }
+        } catch (ClassNotFoundException e) {
+            // StepParameterMapping annotations not available in this Okapi version.
+        } catch (Exception e) {
+            System.err.println("[bridge] Could not inject step runtime params: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Convert a PartMessage to an Okapi Event for step processing.
+     * Maps:
+     *   Block (4) → TEXT_UNIT event
+     *   Data (5) → DOCUMENT_PART event
+     *   LayerStart (0) → START_DOCUMENT / START_SUBDOCUMENT
+     *   LayerEnd (1) → END_DOCUMENT / END_SUBDOCUMENT
+     *   GroupStart (2) → START_GROUP
+     *   GroupEnd (3) → END_GROUP
+     */
+    private Event partMessageToEvent(PartMessage pm) {
+        switch (pm.getPartType()) {
+            case PartDTO.TYPE_BLOCK: {
+                if (!pm.hasBlock()) return null;
+                BlockMessage bm = pm.getBlock();
+                // Build a TextUnit from the block message.
+                ITextUnit tu = new net.sf.okapi.common.resource.TextUnit(
+                        bm.getId().isEmpty() ? "tu1" : bm.getId());
+                tu.setName(bm.getName());
+                tu.setMimeType(bm.getMimeType());
+                tu.setIsTranslatable(bm.getTranslatable());
+                tu.setPreserveWhitespaces(bm.getPreserveWhitespace());
+                // Set source content from segments.
+                if (bm.getSourceCount() > 0) {
+                    // Use the first segment's content as source text.
+                    SegmentMessage firstSeg = bm.getSource(0);
+                    if (firstSeg.hasContent()) {
+                        String codedText = firstSeg.getContent().getCodedText();
+                        tu.setSourceContent(new net.sf.okapi.common.resource.TextFragment(codedText));
+                    }
+                }
+                // Set target content for each locale.
+                for (TargetEntry te : bm.getTargetsList()) {
+                    LocaleId tgtLocale = LocaleId.fromString(te.getLocale());
+                    net.sf.okapi.common.resource.TextContainer target = tu.createTarget(tgtLocale, false,
+                            net.sf.okapi.common.IResource.CREATE_EMPTY);
+                    if (te.getSegmentsCount() > 0) {
+                        SegmentMessage tgtSeg = te.getSegments(0);
+                        if (tgtSeg.hasContent()) {
+                            target.setContent(new net.sf.okapi.common.resource.TextFragment(
+                                    tgtSeg.getContent().getCodedText()));
+                        }
+                    }
+                }
+                // Copy properties.
+                for (Map.Entry<String, String> entry : bm.getPropertiesMap().entrySet()) {
+                    tu.setProperty(new net.sf.okapi.common.resource.Property(
+                            entry.getKey(), entry.getValue(), true));
+                }
+                return new Event(net.sf.okapi.common.EventType.TEXT_UNIT, tu);
+            }
+            case PartDTO.TYPE_DATA: {
+                if (!pm.hasData()) return null;
+                DataMessage dm = pm.getData();
+                net.sf.okapi.common.resource.DocumentPart dp =
+                        new net.sf.okapi.common.resource.DocumentPart(
+                                dm.getId().isEmpty() ? "dp1" : dm.getId(), false);
+                dp.setName(dm.getName());
+                return new Event(net.sf.okapi.common.EventType.DOCUMENT_PART, dp);
+            }
+            case PartDTO.TYPE_LAYER_START: {
+                if (!pm.hasLayer()) return null;
+                LayerMessage lm = pm.getLayer();
+                net.sf.okapi.common.resource.StartDocument sd = new net.sf.okapi.common.resource.StartDocument(
+                        lm.getId().isEmpty() ? "sd1" : lm.getId());
+                sd.setName(lm.getName());
+                if (!lm.getLocale().isEmpty()) {
+                    sd.setLocale(LocaleId.fromString(lm.getLocale()));
+                }
+                sd.setMultilingual(lm.getIsMultilingual());
+                if (!lm.getMimeType().isEmpty()) {
+                    sd.setMimeType(lm.getMimeType());
+                }
+                if (!lm.getEncoding().isEmpty()) {
+                    sd.setEncoding(lm.getEncoding(), lm.getHasBom());
+                }
+                if (!lm.getLineBreak().isEmpty()) {
+                    sd.setLineBreak(lm.getLineBreak());
+                }
+                return new Event(net.sf.okapi.common.EventType.START_DOCUMENT, sd);
+            }
+            case PartDTO.TYPE_LAYER_END: {
+                net.sf.okapi.common.resource.Ending ending =
+                        new net.sf.okapi.common.resource.Ending("ed1");
+                return new Event(net.sf.okapi.common.EventType.END_DOCUMENT, ending);
+            }
+            case PartDTO.TYPE_GROUP_START: {
+                if (!pm.hasGroupStart()) return null;
+                GroupStartMessage gsm = pm.getGroupStart();
+                net.sf.okapi.common.resource.StartGroup sg = new net.sf.okapi.common.resource.StartGroup(
+                        null, gsm.getId().isEmpty() ? "sg1" : gsm.getId());
+                sg.setName(gsm.getName());
+                sg.setType(gsm.getType());
+                return new Event(net.sf.okapi.common.EventType.START_GROUP, sg);
+            }
+            case PartDTO.TYPE_GROUP_END: {
+                net.sf.okapi.common.resource.Ending ending =
+                        new net.sf.okapi.common.resource.Ending("eg1");
+                return new Event(net.sf.okapi.common.EventType.END_GROUP, ending);
+            }
+            default:
+                return null;
+        }
+    }
+
+    /**
+     * Send a StepComplete with an error message.
+     */
+    private void sendStepError(StreamObserver<StepResponse> respObserver, String error) {
+        synchronized (respObserver) {
+            respObserver.onNext(StepResponse.newBuilder()
+                    .setComplete(StepComplete.newBuilder()
+                            .setPartsProcessed(0)
+                            .build())
+                    .build());
+            respObserver.onCompleted();
+        }
+        streamEnded();
     }
 
     // ── Shutdown RPC ───────────────────────────────────────────────────────────
