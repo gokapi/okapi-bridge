@@ -315,7 +315,7 @@ release:
 	@# Set release version (strip -SNAPSHOT)
 	mvn versions:set -DnewVersion=$(CURRENT_VERSION) -DgenerateBackupFiles=false -q
 	@# Commit and tag
-	git add pom.xml bridge-core/pom.xml
+	git add pom.xml bridge-core/pom.xml tools/schema-generator/pom.xml
 	git commit -m "release: v$(CURRENT_VERSION)"
 	git tag -a "v$(CURRENT_VERSION)" -m "Release v$(CURRENT_VERSION)"
 	@# Push commit + tag
@@ -327,7 +327,7 @@ release:
 	@# Increment minor version for next development cycle
 	$(eval NEXT := $(shell echo $(CURRENT_VERSION) | awk -F. '{print $$1"."$$2+1".0"}'))
 	mvn versions:set -DnewVersion=$(NEXT)-SNAPSHOT -DgenerateBackupFiles=false -q
-	git add pom.xml bridge-core/pom.xml
+	git add pom.xml bridge-core/pom.xml tools/schema-generator/pom.xml
 	git commit -m "chore: bump to $(NEXT)-SNAPSHOT for next development cycle"
 	git push origin main
 	@echo "Bumped to $(NEXT)-SNAPSHOT"

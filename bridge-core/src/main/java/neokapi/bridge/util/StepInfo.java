@@ -7,13 +7,15 @@ public class StepInfo {
     private final String className;
     private final String name;
     private final String description;
-    private final Class<?> parametersClass; // from @UsingParameters
+    private final transient Class<?> parametersClass; // from @UsingParameters, excluded from Gson
+    private final String parametersClassName;
 
     public StepInfo(String className, String name, String description, Class<?> parametersClass) {
         this.className = className;
         this.name = name;
         this.description = description;
         this.parametersClass = parametersClass;
+        this.parametersClassName = parametersClass != null ? parametersClass.getName() : null;
     }
 
     public String getClassName() {
@@ -30,6 +32,10 @@ public class StepInfo {
 
     public Class<?> getParametersClass() {
         return parametersClass;
+    }
+
+    public String getParametersClassName() {
+        return parametersClassName;
     }
 
     /**
