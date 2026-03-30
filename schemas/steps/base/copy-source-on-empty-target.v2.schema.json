@@ -1,0 +1,31 @@
+{
+  "$id": "copy-source-on-empty-target",
+  "title": "copy-source-on-empty-target",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.common.copysource.CopySourceOnEmptyTargetStep",
+    "parameterMappings": [
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "copy-source-on-empty-target",
+    "type": "step",
+    "displayName": "copy-source-on-empty-target",
+    "category": "pipeline",
+    "inputs": [
+      "block"
+    ],
+    "requires": [
+      "target-language",
+      "source-language"
+    ]
+  }
+}

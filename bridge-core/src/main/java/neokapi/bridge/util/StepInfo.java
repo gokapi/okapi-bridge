@@ -1,7 +1,10 @@
 package neokapi.bridge.util;
 
+import java.util.List;
+
 /**
  * Metadata about a discovered Okapi pipeline step.
+ * Serialized to JSON via Gson for --list-capabilities output.
  */
 public class StepInfo {
     private final String className;
@@ -10,12 +13,21 @@ public class StepInfo {
     private final transient Class<?> parametersClass; // from @UsingParameters, excluded from Gson
     private final String parametersClassName;
 
+    // Enriched metadata for neokapi integration (set after construction)
+    private String stepId;
+    private String category;
+    private List<String> inputs;
+    private List<String> outputs;
+    private List<String> tags;
+    private List<String> requires;
+
     public StepInfo(String className, String name, String description, Class<?> parametersClass) {
         this.className = className;
         this.name = name;
         this.description = description;
         this.parametersClass = parametersClass;
         this.parametersClassName = parametersClass != null ? parametersClass.getName() : null;
+        this.stepId = deriveStepId();
     }
 
     public String getClassName() {
@@ -43,7 +55,47 @@ public class StepInfo {
      * E.g., "net.sf.okapi.steps.searchandreplace.SearchAndReplaceStep" -> "search-and-replace"
      */
     public String getStepId() {
-        return deriveStepId();
+        return stepId;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<String> getInputs() {
+        return inputs;
+    }
+
+    public void setInputs(List<String> inputs) {
+        this.inputs = inputs;
+    }
+
+    public List<String> getOutputs() {
+        return outputs;
+    }
+
+    public void setOutputs(List<String> outputs) {
+        this.outputs = outputs;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public List<String> getRequires() {
+        return requires;
+    }
+
+    public void setRequires(List<String> requires) {
+        this.requires = requires;
     }
 
     /**

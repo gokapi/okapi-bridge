@@ -59,8 +59,13 @@ STEP_CAPS=$(echo "$CAP_JSON" | jq '[(.steps // [])[] | {
     id: ("okapi:" + .stepId),
     name: .name,
     display_name: .name,
-    description: .description
-  } | with_entries(select(.value != null))]')
+    description: .description,
+    category: .category,
+    inputs: .inputs,
+    outputs: .outputs,
+    tags: .tags,
+    requires: .requires
+  } | with_entries(select(.value != null and .value != []))]')
 
 CAPABILITIES=$(jq -n --argjson f "$FILTER_CAPS" --argjson s "$STEP_CAPS" '$f + $s')
 

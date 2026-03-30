@@ -1,0 +1,34 @@
+{
+  "$id": "exact-text-only-character-count",
+  "title": "Exact Text Only Match Character Count",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.wordcount.categorized.okapi.ExactTextOnlyCharacterCountStep",
+    "parameterMappings": [
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "exact-text-only-character-count",
+    "type": "step",
+    "displayName": "Exact Text Only Match Character Count",
+    "description": "Matches text exactly, but there is a difference in one or more codes. Expects: filter events. Sends back: filter events.",
+    "category": "validate",
+    "inputs": [
+      "block"
+    ],
+    "tags": [
+      "analysis",
+      "text-processing"
+    ],
+    "requires": [
+      "target-language",
+      "source-language"
+    ]
+  }
+}

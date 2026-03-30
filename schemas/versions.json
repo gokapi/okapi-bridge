@@ -2523,6 +2523,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "15d4f67af2f5",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2534,6 +2542,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "070639b53d71",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2547,6 +2563,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "1d9857be4d62",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2558,6 +2582,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "bcd7859c5bb9",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2571,6 +2603,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "b86f6ca69723",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2582,6 +2622,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "a5437a8f4d59",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2595,6 +2643,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "288951228efa",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2606,6 +2662,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "09407a35eb8e",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2619,6 +2683,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "248f4065a074",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2630,6 +2702,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "74ac673d3439",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2643,6 +2723,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "dc00adb6ae0a",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2654,6 +2742,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "4ad9e67b053f",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2667,6 +2763,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "717693f6da29",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2678,6 +2782,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "f74d45f47ec3",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2691,6 +2803,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "3e4906dc3fda",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2702,6 +2822,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "74ea2889e43c",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2715,6 +2843,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "7cbaf7a4071d",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2726,6 +2862,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "c34e9becbd3b",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2739,6 +2883,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "9c678bb28236",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2750,6 +2902,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "bcba1b6da3b1",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2763,6 +2923,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "6ada30d50b51",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2774,6 +2942,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "6aac561a905e",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2787,6 +2963,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "d3eae6a4c679",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2798,6 +2982,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "b2da97118534",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2811,6 +3003,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "40bb186dc9a6",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2822,6 +3022,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "5158c9b4603d",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2835,6 +3043,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "8481ebae9e95",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2846,6 +3062,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "a79301845ca0",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2859,6 +3083,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "01a1b2107413",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2870,6 +3102,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "10204c002e37",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2883,6 +3123,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "d3567094b4b4",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2894,6 +3142,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "370a0109a5cc",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2907,6 +3163,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "101cc6479c8b",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2918,6 +3182,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "a51f444b18f6",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2931,6 +3203,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "8e6c511f70be",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2942,6 +3222,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "c7e9a055a5dc",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2955,6 +3243,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "7637378f8246",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2966,6 +3262,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "70eedce3c85a",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -2979,6 +3283,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "881f4cecc62d",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -2990,6 +3302,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "83ed5247360d",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3003,6 +3323,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "76b43541dec2",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3014,6 +3342,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "7b6f554d321f",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3027,6 +3363,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "86d76ab551ed",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3038,6 +3382,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "d1c1391d220e",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3051,6 +3403,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "96e1732cc350",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3062,6 +3422,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "ed674e9a2ed2",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3075,6 +3443,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "8971aff94995",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3086,6 +3462,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "4b095acd1fd2",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3099,6 +3483,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "a41237597f03",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3110,6 +3502,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "3130677ba875",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3123,6 +3523,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "c2bd01367bbd",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3134,6 +3542,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "7ea205ad003c",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3147,6 +3563,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "615fc01fb3ab",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3158,6 +3582,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "dc3c9c7b3571",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3171,6 +3603,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "f4f90ebc6f46",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3182,6 +3622,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "c18a9f2e3067",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3195,6 +3643,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "a903e4c5775a",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3206,6 +3662,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "da41e7a0743d",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3219,6 +3683,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "707c39c63fad",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3230,6 +3702,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "ad0d74ff35e4",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3243,6 +3723,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "ad5f4422e636",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3254,6 +3742,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "47221b08d7c1",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3267,6 +3763,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "61c57ee4976f",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3278,6 +3782,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "3ea5d4d25205",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3291,6 +3803,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "50615cf29ba0",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3302,6 +3822,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "a584beb6ab5e",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3315,6 +3843,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "32ad62bc2996",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3326,6 +3862,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "d25b6365d1cb",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3339,6 +3883,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "784766d1ae5b",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3350,6 +3902,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "c13297febf25",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3363,6 +3923,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "4ff4a6d3d396",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3374,6 +3942,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "e376caa80455",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3387,6 +3963,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "7e273a3d68d8",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3398,6 +3982,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "375e8a4f5954",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3411,6 +4003,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "cc0b15d968d4",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3422,6 +4022,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "0be3c083a9c1",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3435,6 +4043,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "8dbc03262684",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3446,6 +4062,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "8b68698db099",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3459,6 +4083,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "9eb0cd8c0f57",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3470,6 +4102,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "5738c91bbc99",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3483,6 +4123,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "b8c2812e1273",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3494,6 +4142,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "633b9b6aecbf",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3507,6 +4163,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "27d07b09c732",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3518,6 +4182,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "de3f77ba90c5",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3531,6 +4203,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "665b7c3b793c",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3542,6 +4222,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "fcf379e826d4",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3555,6 +4243,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "2f18b3f7f4c4",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3566,6 +4262,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "2ef921cbf1f0",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3579,6 +4283,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "01ec6ad9ca3a",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3590,6 +4302,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "d2e8314ee798",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3603,6 +4323,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "74258811b1c8",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3614,6 +4342,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "c04a1d4290d1",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3627,6 +4363,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "b1530626708d",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3638,6 +4382,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "320dd15e888f",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3651,6 +4403,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "c58d24da9447",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3662,6 +4422,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "556c42f091fa",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3675,6 +4443,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "f82ff916d920",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3686,6 +4462,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "b4069e2dafa1",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3699,6 +4483,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "08ae2beec913",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3710,6 +4502,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "c0c501cad15d",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3723,6 +4523,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "efcac05aceae",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3734,6 +4542,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "c3663a4ac779",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3747,6 +4563,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "9253e08f85cc",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3758,6 +4582,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "3dac85d68313",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3771,6 +4603,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "ca5ffdbc3795",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3782,6 +4622,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "777fd180f8b7",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3795,6 +4643,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "3bfd80b31ba0",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3806,6 +4662,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "5efc870490c8",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3819,6 +4683,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "d65cd44decf4",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3830,6 +4702,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "3e8229a8e304",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3843,6 +4723,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "e6c6c279ce59",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3854,6 +4742,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "60a65a90aec8",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3867,6 +4763,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "6308875c8de1",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3878,6 +4782,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "dc988bf928b5",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3891,6 +4803,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "20a02ff9624e",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3902,6 +4822,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "bf202cb54776",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3915,6 +4843,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "b16b25872045",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3926,6 +4862,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "237d44e6269f",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3939,6 +4883,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "a86f15308064",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3950,6 +4902,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "80536b18f91b",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]
@@ -3963,6 +4923,14 @@
           "okapiVersions": [
             "1.47.0"
           ]
+        },
+        {
+          "version": 2,
+          "hash": "5ba7c0c33537",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
+          ]
         }
       ]
     },
@@ -3974,6 +4942,14 @@
           "introducedInOkapi": "1.47.0",
           "okapiVersions": [
             "1.47.0"
+          ]
+        },
+        {
+          "version": 2,
+          "hash": "d0b214d6100e",
+          "introducedInOkapi": "1.48.0",
+          "okapiVersions": [
+            "1.48.0"
           ]
         }
       ]

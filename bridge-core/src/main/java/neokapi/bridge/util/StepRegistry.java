@@ -1,5 +1,7 @@
 package neokapi.bridge.util;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import net.sf.okapi.common.pipeline.BasePipelineStep;
 
 import java.io.*;
@@ -137,11 +139,41 @@ public class StepRegistry {
                 System.err.println("[bridge] Could not read @UsingParameters for " + stepClass + ": " + e.getMessage());
             }
 
-            return new StepInfo(stepClass, name, description, parametersClass);
+            StepInfo info = new StepInfo(stepClass, name, description, parametersClass);
+
+            // Enrich with derived metadata from step schema generator
+            try {
+                JsonObject schema = StepSchemaGenerator.generateSchema(info);
+                if (schema != null && schema.has("x-component")) {
+                    JsonObject xc = schema.getAsJsonObject("x-component");
+                    if (xc.has("category")) {
+                        info.setCategory(xc.get("category").getAsString());
+                    }
+                    info.setInputs(jsonArrayToList(xc.getAsJsonArray("inputs")));
+                    info.setOutputs(jsonArrayToList(xc.getAsJsonArray("outputs")));
+                    info.setTags(jsonArrayToList(xc.getAsJsonArray("tags")));
+                    info.setRequires(jsonArrayToList(xc.getAsJsonArray("requires")));
+                }
+            } catch (Exception e) {
+                // Non-fatal: metadata enrichment is best-effort
+            }
+
+            return info;
         } catch (Exception e) {
             System.err.println("[bridge] Could not create StepInfo for " + stepClass + ": " + e.getMessage());
             return null;
         }
+    }
+
+    private static List<String> jsonArrayToList(JsonArray arr) {
+        if (arr == null || arr.size() == 0) {
+            return null;
+        }
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < arr.size(); i++) {
+            list.add(arr.get(i).getAsString());
+        }
+        return list;
     }
 
     /**

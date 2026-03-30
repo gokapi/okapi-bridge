@@ -59,13 +59,38 @@ public class StepSchemaGenerator {
         if (info.getDescription() != null && !info.getDescription().isEmpty()) {
             xComponent.addProperty("description", info.getDescription());
         }
-        schema.add("x-component", xComponent);
 
         // x-step metadata (parameter mappings, event handlers, interfaces, I/O classification)
         JsonObject xStep = generateStepMetadata(info);
         if (xStep != null) {
             schema.add("x-step", xStep);
+
+            // Derive category, tags, inputs, outputs from step metadata
+            String category = classifyCategory(stepId, displayName, info.getDescription());
+            xComponent.addProperty("category", category);
+
+            JsonArray inputs = deriveInputs(xStep);
+            if (inputs.size() > 0) {
+                xComponent.add("inputs", inputs);
+            }
+
+            JsonArray outputs = deriveOutputs(xStep);
+            if (outputs.size() > 0) {
+                xComponent.add("outputs", outputs);
+            }
+
+            JsonArray tags = deriveTags(stepId, displayName, info.getDescription(), xStep);
+            if (tags.size() > 0) {
+                xComponent.add("tags", tags);
+            }
+
+            JsonArray requires = deriveRequires(xStep);
+            if (requires.size() > 0) {
+                xComponent.add("requires", requires);
+            }
         }
+
+        schema.add("x-component", xComponent);
 
         // Generate properties from the Parameters class.
         JsonObject properties = generateProperties(info);
@@ -268,6 +293,136 @@ public class StepSchemaGenerator {
             // Not all parameters provide descriptions
         }
         return null;
+    }
+
+    /**
+     * Classify a step into a neokapi tool category based on its ID and description.
+     */
+    private static String classifyCategory(String stepId, String displayName, String description) {
+        String lower = (stepId + " " + (displayName != null ? displayName : "") + " " + (description != null ? description : "")).toLowerCase();
+
+        if (lower.contains("translat") || lower.contains("leverag") || lower.contains("tm ") || lower.contains("translation memory")) {
+            return "translate";
+        }
+        if (lower.contains("quality") || lower.contains("qa ") || lower.contains("check") || lower.contains("verif") || lower.contains("count") || lower.contains("listing")) {
+            return "validate";
+        }
+        if (lower.contains("search") || lower.contains("replace") || lower.contains("segment") || lower.contains("cleanup") || lower.contains("simplif")
+            || lower.contains("remove") || lower.contains("protect") || lower.contains("markup")) {
+            return "transform";
+        }
+        if (lower.contains("encod") || lower.contains("convert") || lower.contains("bom") || lower.contains("linebreak") || lower.contains("fullwidth") || lower.contains("format")) {
+            return "convert";
+        }
+        if (lower.contains("enrich") || lower.contains("terminolog") || lower.contains("glossar")) {
+            return "enrich";
+        }
+        return "pipeline";
+    }
+
+    /**
+     * Derive neokapi input part types from step metadata.
+     * Maps Okapi event handlers to neokapi part types.
+     */
+    private static JsonArray deriveInputs(JsonObject xStep) {
+        JsonArray inputs = new JsonArray();
+        if (!xStep.has("eventHandlers")) {
+            inputs.add("block");
+            return inputs;
+        }
+
+        JsonArray handlers = xStep.getAsJsonArray("eventHandlers");
+        boolean hasBlock = false, hasData = false, hasMedia = false;
+
+        for (int i = 0; i < handlers.size(); i++) {
+            String h = handlers.get(i).getAsString();
+            if (h.equals("handleTextUnit")) hasBlock = true;
+            if (h.equals("handleDocumentPart")) hasData = true;
+            if (h.equals("handleRawDocument")) hasMedia = true;
+        }
+
+        // Default to block if step handles text units or has no specific handlers
+        if (hasBlock || (!hasData && !hasMedia)) {
+            inputs.add("block");
+        }
+        if (hasData) {
+            inputs.add("data");
+        }
+
+        return inputs;
+    }
+
+    /**
+     * Derive neokapi output part types from step metadata.
+     */
+    private static JsonArray deriveOutputs(JsonObject xStep) {
+        // Most Okapi steps pass through the same part types they receive.
+        // Only steps with outputType="file" produce raw documents.
+        JsonArray outputs = new JsonArray();
+        if (xStep.has("outputType") && "file".equals(xStep.get("outputType").getAsString())) {
+            outputs.add("data");
+        }
+        return outputs;
+    }
+
+    /**
+     * Derive freeform tags from step metadata.
+     */
+    private static JsonArray deriveTags(String stepId, String displayName, String description, JsonObject xStep) {
+        JsonArray tags = new JsonArray();
+        String lower = (stepId + " " + (displayName != null ? displayName : "") + " " + (description != null ? description : "")).toLowerCase();
+
+        if (lower.contains("regex") || lower.contains("regular expression") || lower.contains("pattern")) {
+            tags.add("regex");
+        }
+        if (lower.contains("batch")) {
+            tags.add("batch");
+        }
+        if (lower.contains("translat") || lower.contains("tm ") || lower.contains("leverag")) {
+            tags.add("translation");
+        }
+        if (lower.contains("count") || lower.contains("listing") || lower.contains("report") || lower.contains("statistic")) {
+            tags.add("analysis");
+        }
+        if (lower.contains("quality") || lower.contains("qa ") || lower.contains("check") || lower.contains("verif")) {
+            tags.add("quality");
+        }
+        if (lower.contains("text") || lower.contains("segment") || lower.contains("whitespace") || lower.contains("case")) {
+            tags.add("text-processing");
+        }
+        if (lower.contains("configurable") || lower.contains("custom") || lower.contains("script")) {
+            tags.add("configurable");
+        }
+
+        return tags;
+    }
+
+    /**
+     * Derive runtime requirements from step metadata.
+     */
+    private static JsonArray deriveRequires(JsonObject xStep) {
+        JsonArray requires = new JsonArray();
+        if (!xStep.has("parameterMappings")) {
+            return requires;
+        }
+
+        JsonArray mappings = xStep.getAsJsonArray("parameterMappings");
+        boolean hasTargetLocale = false, hasSourceLocale = false;
+
+        for (int i = 0; i < mappings.size(); i++) {
+            String m = mappings.get(i).getAsString();
+            if (m.equals("TARGET_LOCALE")) hasTargetLocale = true;
+            if (m.equals("SOURCE_LOCALE")) hasSourceLocale = true;
+        }
+
+        if (hasTargetLocale) {
+            requires.add("target-language");
+        }
+        if (hasSourceLocale) {
+            requires.add("source-language");
+        }
+
+        return requires;
     }
 
     /**

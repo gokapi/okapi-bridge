@@ -1,0 +1,35 @@
+{
+  "$id": "g-m-x-leveraged-matched-word-count",
+  "title": "GMX Leveraged Word Count",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.wordcount.categorized.gmx.GMXLeveragedMatchedWordCountStep",
+    "parameterMappings": [
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "g-m-x-leveraged-matched-word-count",
+    "type": "step",
+    "displayName": "GMX Leveraged Word Count",
+    "description": "An accumulation of the word count for text units that have been matched against a leveraged translation memory database. Expects: filter events. Sends back: filter events.",
+    "category": "translate",
+    "inputs": [
+      "block"
+    ],
+    "tags": [
+      "translation",
+      "analysis",
+      "text-processing"
+    ],
+    "requires": [
+      "target-language",
+      "source-language"
+    ]
+  }
+}

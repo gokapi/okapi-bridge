@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-03-07T00:15:20.408996Z",
-  "filterCount": 57,
+  "generatedAt": "2026-03-30T10:22:41.267107Z",
+  "filterCount": 54,
   "filters": {
     "okf_archive": {
       "class": "net.sf.okapi.filters.archive.ArchiveFilter",
@@ -1639,27 +1639,6 @@
         }
       ]
     },
-    "okf_epub": {
-      "class": "net.sf.okapi.filters.epub.EpubFilter",
-      "displayName": "EPUB Filter",
-      "extensions": [
-        ".epub"
-      ],
-      "mimeTypes": [
-        "application/epub+zip"
-      ],
-      "configurations": [
-        {
-          "configId": "okf_epub",
-          "name": "EPUB Files",
-          "description": "Electronic Publication Files (EPUB)",
-          "mimeType": "application/epub+zip",
-          "extensions": ".epub;",
-          "isDefault": true,
-          "filterClass": "net.sf.okapi.filters.epub.EpubFilter"
-        }
-      ]
-    },
     "okf_html": {
       "class": "net.sf.okapi.filters.html.HtmlFilter",
       "displayName": "HTML/XHTML Filter",
@@ -3246,62 +3225,6 @@
           "extensions": ".md;.markdown;",
           "isDefault": true,
           "filterClass": "net.sf.okapi.filters.markdown.MarkdownFilter"
-        }
-      ]
-    },
-    "okf_messageformat": {
-      "class": "net.sf.okapi.filters.messageformat.MessageFormatFilter",
-      "displayName": "Message Format Filter",
-      "extensions": [],
-      "mimeTypes": [
-        "text/x-messageformat"
-      ],
-      "configurations": [
-        {
-          "configId": "okf_messageformat",
-          "name": "ICU Message Format",
-          "description": "ICU Message Format Text",
-          "mimeType": "text/x-messageformat",
-          "isDefault": true,
-          "filterClass": "net.sf.okapi.filters.messageformat.MessageFormatFilter"
-        },
-        {
-          "configId": "okf_messageformat-json",
-          "name": "ICU Message Format",
-          "description": "ICU Message Format From JSON",
-          "mimeType": "text/x-messageformat",
-          "parametersLocation": "okf_messageformat@json.fprm",
-          "parametersRaw": "#v1\naddPluralForms.b=true\nnormalize.b=true\nprettyPrint.b=false\n",
-          "parameters": {
-            "addPluralForms": true,
-            "normalize": true,
-            "prettyPrint": false,
-            "useCodeFinder": false,
-            "codeFinderRules.count": 0,
-            "codeFinderRules.sample": "",
-            "codeFinderRules.useAllRulesWhenTesting": false
-          },
-          "isDefault": false,
-          "filterClass": "net.sf.okapi.filters.messageformat.MessageFormatFilter"
-        },
-        {
-          "configId": "okf_messageformat-yaml",
-          "name": "ICU Message Format",
-          "description": "ICU Message Format From YAML",
-          "mimeType": "text/x-messageformat",
-          "parametersLocation": "okf_messageformat@yaml.fprm",
-          "parametersRaw": "#v1\naddPluralForms.b=true\nnormalize.b=true\nprettyPrint.b=true\n",
-          "parameters": {
-            "addPluralForms": true,
-            "normalize": true,
-            "prettyPrint": true,
-            "useCodeFinder": false,
-            "codeFinderRules.count": 0,
-            "codeFinderRules.sample": "",
-            "codeFinderRules.useAllRulesWhenTesting": false
-          },
-          "isDefault": false,
-          "filterClass": "net.sf.okapi.filters.messageformat.MessageFormatFilter"
         }
       ]
     },
@@ -5392,27 +5315,6 @@
           },
           "isDefault": true,
           "filterClass": "net.sf.okapi.filters.wiki.WikiFilter"
-        }
-      ]
-    },
-    "okf_wsxzpackage": {
-      "class": "net.sf.okapi.filters.wsxzpackage.WsxzPackageFilter",
-      "displayName": "WSXZ Filter",
-      "extensions": [
-        ".wsxz"
-      ],
-      "mimeTypes": [
-        "application/x-wsxzpackage"
-      ],
-      "configurations": [
-        {
-          "configId": "okf_wsxzpackage",
-          "name": "WSXZ Package Files",
-          "description": "WorldServer WSXZ Files",
-          "mimeType": "application/x-wsxzpackage",
-          "extensions": ".wsxz;",
-          "isDefault": true,
-          "filterClass": "net.sf.okapi.filters.wsxzpackage.WsxzPackageFilter"
         }
       ]
     },
