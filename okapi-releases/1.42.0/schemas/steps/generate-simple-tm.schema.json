@@ -42,8 +42,8 @@
     "tmPath": {
       "type": "string",
       "default": "",
-      "description": "Full path of the TM to generate.",
-      "title": "Path of the TM"
+      "title": "Path of the TM",
+      "description": "Full path of the TM to generate."
     }
   }
 }

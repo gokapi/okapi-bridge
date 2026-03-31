@@ -35,12 +35,66 @@
   },
   "properties": {
     "punctuation": {
-      "type": "string",
+      "type": "array",
       "default": "FULL_STOP,COMMA,EXCLAMATION_MARK,QUESTION_MARK"
     },
     "whitespace": {
-      "type": "string",
+      "type": "array",
       "default": "LINE_FEED,LINE_TABULATION,FORM_FEED,CARRIAGE_RETURN,NEXT_LINE,LINE_SEPARATOR,PARAGRAPH_SEPARATOR,CHARACTER_TABULATION,SPACE,NO_BREAK_SPACE,EN_QUAD,EM_QUAD,EN_SPACE,EM_SPACE,THREE_PER_EM_SPACE,FOUR_PER_EM_SPACER,SIX_PER_EM_SPACE,FIGURE_SPACE,PUNCUATION_SPACE,THIS_SPACE,HAIR_SPACE,NAORROW_NO_BREAK_SPACE,MEDIUM_MATHEMATICAL_SPACE,IDEOGRAPHIC_SPACE,ZERO_WIDTH_SPACE,ZERO_WIDTH_NON_BREAKING_SPACE"
+    },
+    "fullStop": {
+      "type": "boolean",
+      "default": true,
+      "title": "Full Stop",
+      "x-widget": "checkbox"
+    },
+    "comma": {
+      "type": "boolean",
+      "default": true,
+      "title": "Comma",
+      "x-widget": "checkbox"
+    },
+    "exclamationPoint": {
+      "type": "boolean",
+      "default": true,
+      "title": "Exclamation Point",
+      "x-widget": "checkbox"
+    },
+    "questionMark": {
+      "type": "boolean",
+      "default": true,
+      "title": "Question Mark",
+      "x-widget": "checkbox"
+    },
+    "verticalWhitespace": {
+      "type": "boolean",
+      "default": true,
+      "title": "Vertical White Space",
+      "x-widget": "checkbox"
+    },
+    "nonbreakingWhitespace": {
+      "type": "boolean",
+      "default": true,
+      "title": "Nonbreaking Whitespace",
+      "x-widget": "checkbox"
+    },
+    "horizontalTabs": {
+      "type": "boolean",
+      "default": true,
+      "title": "Horizontal Tabs",
+      "x-widget": "checkbox"
+    },
+    "space": {
+      "type": "boolean",
+      "default": true,
+      "title": "Standard White Space",
+      "x-widget": "checkbox"
+    },
+    "other": {
+      "type": "boolean",
+      "default": true,
+      "title": "All Other Whitespace",
+      "x-widget": "checkbox"
     }
   }
 }

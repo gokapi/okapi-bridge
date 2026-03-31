@@ -49,6 +49,10 @@
       "type": "string",
       "default": "net.sf.okapi.steps.rainbowkit.xliff.XLIFFPackageWriter"
     },
+    "writerOptions": {
+      "type": "string",
+      "default": ""
+    },
     "packageName": {
       "type": "string",
       "default": "pack1"
@@ -56,10 +60,6 @@
     "packageDirectory": {
       "type": "string",
       "default": "${inputRootDir}"
-    },
-    "supportFiles": {
-      "type": "string",
-      "default": ""
     },
     "message": {
       "type": "string",
@@ -76,6 +76,10 @@
     "sendOutput": {
       "type": "boolean",
       "default": false
+    },
+    "supportFiles": {
+      "type": "string",
+      "default": ""
     }
   }
 }

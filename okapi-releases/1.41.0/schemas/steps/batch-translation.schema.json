@@ -35,70 +35,104 @@
     "command": {
       "type": "string",
       "default": "",
+      "title": "Command line",
       "description": "Command line to execute the batch translation",
-      "title": "Command line"
+      "x-widget": "text"
     },
     "origin": {
       "type": "string",
       "default": "",
+      "title": "Origin identifier",
       "description": "String that identifies the origin of the translation",
-      "title": "Origin identifier"
+      "x-widget": "text"
     },
     "markAsMT": {
       "type": "boolean",
       "default": true,
-      "title": "Mark the generated translation as machine translation results"
+      "title": "Mark the generated translation as machine translation results",
+      "x-widget": "checkbox"
     },
     "makeTM": {
       "type": "boolean",
       "default": false,
-      "title": "Import into the following Pensieve TM:"
+      "title": "Import into the following Pensieve TM:",
+      "x-widget": "checkbox"
     },
     "tmDirectory": {
       "type": "string",
       "default": "",
-      "description": "Location of the TM to create or use"
+      "description": "Location of the TM to create or use",
+      "x-widget": "folder",
+      "x-enabledBy": {
+        "parameter": "makeTM",
+        "enabledWhenSelected": true
+      }
     },
     "makeTMX": {
       "type": "boolean",
       "default": false,
-      "title": "Create the following TMX document:"
+      "title": "Create the following TMX document:",
+      "x-widget": "checkbox"
     },
     "tmxPath": {
       "type": "string",
       "default": "",
-      "description": "Full path of the new TMX document to create"
+      "description": "Full path of the new TMX document to create",
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "makeTMX",
+        "enabledWhenSelected": true
+      }
     },
     "sendTMX": {
       "type": "boolean",
       "default": false,
-      "title": "Send the TMX document to the next step"
+      "title": "Send the TMX document to the next step",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "makeTMX",
+        "enabledWhenSelected": true
+      }
     },
     "blockSize": {
       "type": "integer",
       "default": 1000,
+      "title": "Block size",
       "description": "Maximum number of text units to process together",
-      "title": "Block size"
+      "minimum": 1,
+      "x-widget": "spin"
     },
     "checkExistingTm": {
       "type": "boolean",
       "default": false,
-      "title": "Check for existing entries in an existing Pensieve TM:"
+      "title": "Check for existing entries in an existing Pensieve TM:",
+      "x-widget": "checkbox"
     },
     "existingTm": {
       "type": "string",
       "default": "",
-      "description": "Location of the TM to lookup"
+      "description": "Location of the TM to lookup",
+      "x-widget": "folder",
+      "x-enabledBy": {
+        "parameter": "checkExistingTm",
+        "enabledWhenSelected": true
+      }
     },
     "segment": {
       "type": "boolean",
       "default": false,
-      "title": "Segment the text units, using the following SRX rules:"
+      "title": "Segment the text units, using the following SRX rules:",
+      "x-widget": "checkbox"
     },
     "srxPath": {
       "type": "string",
       "default": "",
-      "description": "Full path of the segmentation rules file to use"
+      "description": "Full path of the segmentation rules file to use",
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "segment",
+        "enabledWhenSelected": true
+      }
     }
   }
 }

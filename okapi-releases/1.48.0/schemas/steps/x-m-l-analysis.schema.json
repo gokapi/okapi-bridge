@@ -35,13 +35,15 @@
     "outputPath": {
       "type": "string",
       "default": "analysis.html",
+      "title": "Path of the result file",
       "description": "Full path of the result file.",
-      "title": "Path of the result file"
+      "x-widget": "path"
     },
     "autoOpen": {
       "type": "boolean",
       "default": true,
-      "title": "Open the result file after completion"
+      "title": "Open the result file after completion",
+      "x-widget": "checkbox"
     }
   }
 }

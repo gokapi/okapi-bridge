@@ -36,14 +36,20 @@
     "removeLeadingTrailingCodes": {
       "type": "boolean",
       "default": true,
+      "title": "Remove leading and trailing codes",
       "description": "Removes leading and trailing codes from the source and place them in the skeleton.",
-      "title": "Remove leading and trailing codes"
+      "x-widget": "checkbox"
     },
     "mergeCodes": {
       "type": "boolean",
       "default": true,
+      "title": "Merge codes",
       "description": "Merges adjacent codes (leading/trailing codes are removed first (if option is enabled)).",
-      "title": "Merge codes"
+      "x-widget": "checkbox"
+    },
+    "rules": {
+      "type": "string",
+      "default": ""
     }
   }
 }

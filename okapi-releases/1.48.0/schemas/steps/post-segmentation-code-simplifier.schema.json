@@ -37,14 +37,31 @@
     "removeLeadingTrailingCodes": {
       "type": "boolean",
       "default": true,
+      "title": "Move leading and trailing codes to skeleton",
       "description": "Moves leading and trailing codes from the source and place them in the skeleton.",
-      "title": "Move leading and trailing codes to skeleton"
+      "x-widget": "checkbox"
     },
     "mergeCodes": {
       "type": "boolean",
       "default": true,
+      "title": "Merge adjacent codes",
       "description": "Merges adjacent codes.",
-      "title": "Merge adjacent codes"
+      "x-widget": "checkbox"
+    },
+    "rules": {
+      "type": "string",
+      "default": ""
+    },
+    "moveLeadingAndTrailingCodesToSkeleton": {
+      "type": "boolean"
+    },
+    "mergeAdjacentCodes": {
+      "type": "boolean"
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   }
 }

@@ -36,5 +36,42 @@
       "target-language",
       "source-language"
     ]
+  },
+  "properties": {
+    "leverage": {
+      "type": "boolean",
+      "default": false,
+      "title": "Leverage status:",
+      "description": "Indication that leveraging should be done",
+      "x-widget": "checkbox"
+    },
+    "annotateSource": {
+      "type": "boolean",
+      "default": false,
+      "title": "Annotate source:",
+      "description": "Indication that source segment annotation should be done",
+      "x-widget": "checkbox"
+    },
+    "annotateTarget": {
+      "type": "boolean",
+      "default": false,
+      "title": "Annotate target",
+      "description": "Indication that target segment annotation should be done",
+      "x-widget": "checkbox"
+    },
+    "connectorClassName": {
+      "type": "string",
+      "default": "",
+      "title": "Connector class",
+      "description": "Full class name of the terminology connector",
+      "x-widget": "text"
+    },
+    "connectorParameters": {
+      "type": "string",
+      "default": "",
+      "title": "Connector parameters",
+      "description": "String representation of parameters specific to terminology connector",
+      "x-widget": "text"
+    }
   }
 }

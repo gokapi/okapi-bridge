@@ -47,96 +47,153 @@
     "generateTMX": {
       "type": "boolean",
       "default": false,
+      "title": "Generate a TMX output document",
       "description": "Generates an output document in TMX",
-      "title": "Generate a TMX output document"
+      "x-widget": "checkbox"
     },
     "tmxPath": {
       "type": "string",
       "default": "comparison.tmx",
+      "title": "TMX output path",
       "description": "Full path of the output TMX file",
-      "title": "TMX output path"
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "generateTMX",
+        "enabledWhenSelected": true
+      }
     },
     "generateHTML": {
       "type": "boolean",
       "default": true,
+      "title": "Generate output tables in HTML",
       "description": "Generates output tables in HTML",
-      "title": "Generate output tables in HTML"
-    },
-    "autoOpen": {
-      "type": "boolean",
-      "default": true,
-      "title": "Opens the first HTML output after completion"
+      "x-widget": "checkbox"
     },
     "genericCodes": {
       "type": "boolean",
       "default": true,
-      "title": "Use generic representation (e.g. <1>...</1>) for the inline codes"
+      "title": "Use generic representation (e.g. <1>...</1>) for the inline codes",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "generateHTML",
+        "enabledWhenSelected": true
+      }
     },
-    "caseSensitive": {
+    "autoOpen": {
       "type": "boolean",
       "default": true,
-      "description": "Takes into account case differences",
-      "title": "Take into account case differences"
-    },
-    "whitespaceSensitive": {
-      "type": "boolean",
-      "default": true,
-      "description": "Takes into account whitespace differences",
-      "title": "Take into account whitespace differences"
-    },
-    "punctuationSensitive": {
-      "type": "boolean",
-      "default": true,
-      "description": "Takes into account punctuation differences",
-      "title": "Take into account punctuation differences"
+      "title": "Opens the first HTML output after completion",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "generateHTML",
+        "enabledWhenSelected": true
+      }
     },
     "target2Suffix": {
       "type": "string",
       "default": "-t2",
-      "title": "Suffix for target language code of document 2"
+      "title": "Suffix for target language code of document 2",
+      "x-widget": "text",
+      "x-enabledBy": {
+        "parameter": "generateTMX",
+        "enabledWhenSelected": true
+      }
     },
     "target3Suffix": {
       "type": "string",
       "default": "-t3",
-      "title": "Suffix for target language code of document 3"
+      "title": "Suffix for target language code of document 3",
+      "x-widget": "text",
+      "x-enabledBy": {
+        "parameter": "generateTMX",
+        "enabledWhenSelected": true
+      }
     },
     "document1Label": {
       "type": "string",
       "default": "Trans1",
-      "title": "Label for the document 1"
+      "title": "Label for the document 1",
+      "x-widget": "text",
+      "x-enabledBy": {
+        "parameter": "generateHTML",
+        "enabledWhenSelected": true
+      }
     },
     "document2Label": {
       "type": "string",
       "default": "Trans2",
-      "title": "Label for the document 2"
+      "title": "Label for the document 2",
+      "x-widget": "text",
+      "x-enabledBy": {
+        "parameter": "generateHTML",
+        "enabledWhenSelected": true
+      }
     },
     "document3Label": {
       "type": "string",
       "default": "Trans3",
-      "title": "Label for the document 3"
+      "title": "Label for the document 3",
+      "x-widget": "text",
+      "x-enabledBy": {
+        "parameter": "generateHTML",
+        "enabledWhenSelected": true
+      }
+    },
+    "caseSensitive": {
+      "type": "boolean",
+      "default": true,
+      "title": "Take into account case differences",
+      "description": "Takes into account case differences",
+      "x-widget": "checkbox"
+    },
+    "whitespaceSensitive": {
+      "type": "boolean",
+      "default": true,
+      "title": "Take into account whitespace differences",
+      "description": "Takes into account whitespace differences",
+      "x-widget": "checkbox"
+    },
+    "punctuationSensitive": {
+      "type": "boolean",
+      "default": true,
+      "title": "Take into account punctuation differences",
+      "description": "Takes into account punctuation differences",
+      "x-widget": "checkbox"
     },
     "useDataLog": {
       "type": "boolean",
       "default": false,
-      "title": "Append the average results to a log"
+      "title": "Append the average results to a log",
+      "x-widget": "checkbox"
     },
     "dataLogPath": {
       "type": "string",
       "default": "",
+      "title": "Log file",
       "description": "Full path for the log file",
-      "title": "Log file"
-    },
-    "useAltTrans": {
-      "type": "boolean",
-      "default": false,
-      "description": "Use the XLIFF alt-trans of the trans-unit",
-      "title": "Use alt-trans for document 1"
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "useDataLog",
+        "enabledWhenSelected": true
+      }
     },
     "altTransOrigin": {
       "type": "string",
       "default": "BING",
+      "title": "Value in origin attribute",
       "description": "Value of the origin attribute of the alt-trans to use",
-      "title": "Value in origin attribute"
+      "x-widget": "text",
+      "x-enabledBy": {
+        "parameter": "useAltTrans",
+        "enabledWhenSelected": true
+      }
+    },
+    "useAltTrans": {
+      "type": "boolean",
+      "default": false,
+      "title": "Use alt-trans for document 1",
+      "description": "Use the XLIFF alt-trans of the trans-unit",
+      "x-widget": "checkbox"
     }
   }
 }

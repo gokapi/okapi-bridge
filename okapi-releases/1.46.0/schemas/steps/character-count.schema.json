@@ -44,35 +44,52 @@
     ]
   },
   "properties": {
+    "countInTextUnits": {
+      "type": "boolean",
+      "default": true,
+      "title": "Text units",
+      "x-widget": "checkbox"
+    },
     "countInBatch": {
       "type": "boolean",
       "default": true,
-      "title": "Batches"
+      "title": "Batches",
+      "x-widget": "checkbox"
     },
     "countInBatchItems": {
       "type": "boolean",
       "default": true,
-      "title": "Batch items"
+      "title": "Batch items",
+      "x-widget": "checkbox"
     },
     "countInDocuments": {
       "type": "boolean",
       "default": false,
-      "title": "Documents"
+      "title": "Documents",
+      "x-widget": "checkbox"
     },
     "countInSubDocuments": {
       "type": "boolean",
       "default": false,
-      "title": "Sub-documents"
+      "title": "Sub-documents",
+      "x-widget": "checkbox"
     },
     "countInGroups": {
       "type": "boolean",
       "default": false,
-      "title": "Groups"
+      "title": "Groups",
+      "x-widget": "checkbox"
     },
     "bufferSize": {
       "type": "integer",
       "default": 0,
-      "title": "Size of text buffer:"
+      "title": "Size of text buffer:",
+      "x-widget": "spin"
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
     }
   }
 }

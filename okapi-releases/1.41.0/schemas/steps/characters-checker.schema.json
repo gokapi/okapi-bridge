@@ -36,17 +36,13 @@
     ]
   },
   "properties": {
-    "corruptedCharacters": {
+    "checkCharacters": {
       "type": "boolean",
-      "default": true
+      "default": false
     },
     "checkAllowedCharacters": {
       "type": "boolean",
       "default": true
-    },
-    "checkCharacters": {
-      "type": "boolean",
-      "default": false
     },
     "charset": {
       "type": "string",
@@ -55,6 +51,10 @@
     "extraCharsAllowed": {
       "type": "string",
       "default": ""
+    },
+    "corruptedCharacters": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

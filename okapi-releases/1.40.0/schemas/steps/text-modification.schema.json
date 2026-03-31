@@ -31,6 +31,18 @@
     ]
   },
   "properties": {
+    "applyToBlankEntries": {
+      "type": "boolean",
+      "default": true
+    },
+    "expand": {
+      "type": "boolean",
+      "default": false
+    },
+    "script": {
+      "type": "integer",
+      "default": 0
+    },
     "type": {
       "type": "integer",
       "default": 0
@@ -66,18 +78,6 @@
     "markSegments": {
       "type": "boolean",
       "default": false
-    },
-    "applyToBlankEntries": {
-      "type": "boolean",
-      "default": true
-    },
-    "expand": {
-      "type": "boolean",
-      "default": false
-    },
-    "script": {
-      "type": "integer",
-      "default": 0
     }
   }
 }

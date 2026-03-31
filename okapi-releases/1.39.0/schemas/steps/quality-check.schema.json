@@ -41,11 +41,7 @@
     ]
   },
   "properties": {
-    "includeTextContainers": {
-      "type": "boolean",
-      "default": false
-    },
-    "useGenericCodes": {
+    ".qccfg": {
       "type": "boolean",
       "default": false
     },
@@ -113,6 +109,42 @@
       "type": "boolean",
       "default": true
     },
+    "patternCount": {
+      "type": "boolean",
+      "default": false
+    },
+    "usePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "fromSourcePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "singlePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "severityPattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "sourcePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "targetPattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "descPattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "showOnlyPatternDescription": {
+      "type": "boolean",
+      "default": false
+    },
     "checkWithLT": {
       "type": "boolean",
       "default": false
@@ -141,13 +173,9 @@
       "type": "string",
       "default": "sie;vous;nous"
     },
-    "corruptedCharacters": {
+    "checkStorageSize": {
       "type": "boolean",
       "default": true
-    },
-    "scope": {
-      "type": "integer",
-      "default": 0
     },
     "checkMaxCharLength": {
       "type": "boolean",
@@ -181,10 +209,6 @@
       "type": "integer",
       "default": 30
     },
-    "checkStorageSize": {
-      "type": "boolean",
-      "default": true
-    },
     "checkAbsoluteMaxCharLength": {
       "type": "boolean",
       "default": false
@@ -193,13 +217,13 @@
       "type": "integer",
       "default": 255
     },
-    "checkAllowedCharacters": {
-      "type": "boolean",
-      "default": true
-    },
     "checkCharacters": {
       "type": "boolean",
       "default": false
+    },
+    "checkAllowedCharacters": {
+      "type": "boolean",
+      "default": true
     },
     "charset": {
       "type": "string",
@@ -209,6 +233,22 @@
       "type": "string",
       "default": ""
     },
+    "corruptedCharacters": {
+      "type": "boolean",
+      "default": true
+    },
+    "scope": {
+      "type": "integer",
+      "default": 0
+    },
+    "extraCodesAllowed": {
+      "type": "array",
+      "default": 0
+    },
+    "missingCodesAllowed": {
+      "type": "array",
+      "default": 0
+    },
     "checkTerms": {
       "type": "boolean",
       "default": false
@@ -216,18 +256,6 @@
     "termsPath": {
       "type": "string",
       "default": ""
-    },
-    "stringMode": {
-      "type": "boolean",
-      "default": false
-    },
-    "betweenCodes": {
-      "type": "boolean",
-      "default": false
-    },
-    "showFullPath": {
-      "type": "boolean",
-      "default": true
     },
     "checkBlacklist": {
       "type": "boolean",
@@ -245,7 +273,11 @@
       "type": "string",
       "default": ""
     },
-    "showOnlyPatternDescription": {
+    "stringMode": {
+      "type": "boolean",
+      "default": false
+    },
+    "betweenCodes": {
       "type": "boolean",
       "default": false
     },
@@ -253,9 +285,17 @@
       "type": "string",
       "default": "mrk;x-df-s;"
     },
-    "patternCount": {
-      "type": "integer",
-      "default": 8
+    "showFullPath": {
+      "type": "boolean",
+      "default": true
+    },
+    "includeTextContainers": {
+      "type": "boolean",
+      "default": false
+    },
+    "useGenericCodes": {
+      "type": "boolean",
+      "default": false
     },
     "usePattern0": {
       "type": "boolean",
@@ -480,14 +520,6 @@
     "descPattern7": {
       "type": "string",
       "default": "Tripled letter"
-    },
-    "extraCodesAllowed": {
-      "type": "integer",
-      "default": 0
-    },
-    "missingCodesAllowed": {
-      "type": "integer",
-      "default": 0
     }
   }
 }

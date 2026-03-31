@@ -25,7 +25,8 @@
     "suffix": {
       "type": "string",
       "default": "_joined",
-      "title": "Optional suffix to place at the end of the result files"
+      "title": "Optional suffix to place at the end of the result files",
+      "x-widget": "text"
     }
   }
 }

@@ -37,28 +37,43 @@
     "stripSource": {
       "type": "boolean",
       "default": true,
-      "title": "Strip codes in the source text"
+      "title": "Strip codes in the source text",
+      "x-widget": "checkbox"
     },
     "stripTarget": {
       "type": "boolean",
       "default": true,
-      "title": "Strip codes in the target text"
+      "title": "Strip codes in the target text",
+      "x-widget": "checkbox"
     },
     "mode": {
       "type": "integer",
       "default": 2,
+      "title": "What to remove",
       "description": "Select what parts of the inline codes to remove",
-      "title": "What to remove"
+      "enum": [
+        "0",
+        "1",
+        "2"
+      ],
+      "x-enumLabels": [
+        "Remove code marker, but keep code content  (\"<ph x='1'>[X]</ph>\" ==> \"[X]\")",
+        "Remove code content, but keep code marker  (\"<ph x='1'>[X]</ph>\" ==> \"<ph x='1'/>\")",
+        "Remove code marker and code content  (\"<ph x='1'>[X]</ph>\" ==> \"\")"
+      ],
+      "x-widget": "select"
     },
     "includeNonTranslatable": {
       "type": "boolean",
       "default": true,
-      "title": "Apply to non-translatable text units"
+      "title": "Apply to non-translatable text units",
+      "x-widget": "checkbox"
     },
     "replaceWithSpace": {
       "type": "boolean",
       "default": false,
-      "title": "Replace line break codes with spaces (When removing content AND marker)"
+      "title": "Replace line break codes with spaces (When removing content AND marker)",
+      "x-widget": "checkbox"
     }
   }
 }

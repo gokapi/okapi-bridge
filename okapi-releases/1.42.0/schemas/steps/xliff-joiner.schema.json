@@ -36,12 +36,14 @@
     "inputFileMarker": {
       "type": "string",
       "default": "_PART",
-      "title": "Input file marker"
+      "title": "Input file marker",
+      "x-widget": "text"
     },
     "outputFileMarker": {
       "type": "string",
       "default": "_CONCAT",
-      "title": "Output file marker"
+      "title": "Output file marker",
+      "x-widget": "text"
     }
   }
 }

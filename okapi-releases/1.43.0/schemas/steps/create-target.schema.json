@@ -33,25 +33,29 @@
     ]
   },
   "properties": {
-    "copyProperties": {
-      "type": "boolean",
-      "default": true,
-      "title": "Copy the source properties to the target"
-    },
     "copyContent": {
       "type": "boolean",
       "default": true,
-      "title": "Copy the source content to the target"
+      "title": "Copy the source content to the target",
+      "x-widget": "checkbox"
+    },
+    "copyProperties": {
+      "type": "boolean",
+      "default": true,
+      "title": "Copy the source properties to the target",
+      "x-widget": "checkbox"
     },
     "overwriteExisting": {
       "type": "boolean",
       "default": false,
-      "title": "Overwrite the current target content"
+      "title": "Overwrite the current target content",
+      "x-widget": "checkbox"
     },
     "createOnNonTranslatable": {
       "type": "boolean",
       "default": true,
-      "title": "Creates target for non-translatable text units"
+      "title": "Creates target for non-translatable text units",
+      "x-widget": "checkbox"
     }
   }
 }

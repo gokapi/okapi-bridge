@@ -29,27 +29,52 @@
     "compareSkeleton": {
       "type": "boolean",
       "default": true,
-      "title": "Compare skeleton"
+      "title": "Compare skeleton",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "stepEnabled",
+        "enabledWhenSelected": true
+      }
     },
     "stepEnabled": {
       "type": "boolean",
       "default": true,
-      "title": "Perform the extraction verification"
+      "title": "Perform the extraction verification",
+      "x-widget": "checkbox"
     },
     "allEvents": {
       "type": "boolean",
       "default": true,
-      "title": "Verify all events (otherwise only text units are verified)"
+      "title": "Verify all events (otherwise only text units are verified)",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "stepEnabled",
+        "enabledWhenSelected": true
+      }
     },
     "limit": {
       "type": "integer",
       "default": 10,
-      "title": "Maximum number of warnings per document"
+      "title": "Maximum number of warnings per document",
+      "x-widget": "text",
+      "x-enabledBy": {
+        "parameter": "stepEnabled",
+        "enabledWhenSelected": true
+      }
     },
     "interrupt": {
       "type": "boolean",
       "default": false,
-      "title": "Interrupt after reaching the maximum number of warnings"
+      "title": "Interrupt after reaching the maximum number of warnings",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "stepEnabled",
+        "enabledWhenSelected": true
+      }
+    },
+    "monolingual": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

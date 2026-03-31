@@ -36,8 +36,9 @@
     "replacement": {
       "type": "string",
       "default": "_#x%X;",
+      "title": "Replacement string",
       "description": "Enter a Java-formatted replacement string.",
-      "title": "Replacement string"
+      "x-widget": "text"
     }
   }
 }

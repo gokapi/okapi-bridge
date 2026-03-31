@@ -26,7 +26,8 @@
     "threshold": {
       "type": "integer",
       "default": 200000,
-      "title": "Maximum word-count per part:"
+      "title": "Maximum word-count per part:",
+      "x-widget": "text"
     }
   }
 }

@@ -36,9 +36,20 @@
   "properties": {
     "lineBreak": {
       "type": "string",
-      "default": "$0a$",
+      "default": "\n",
+      "title": "Convert line-breaks to the following type",
       "description": "Select the new type of line-break for the output.",
-      "title": "Convert line-breaks to the following type"
+      "enum": [
+        "\r\n",
+        "\n",
+        "\r"
+      ],
+      "x-enumLabels": [
+        "DOS/Windows (Carriage-Return + Line-Feed, \\r\\n, 0x0D+0x0A)",
+        "Unix/Linux (Line-Feed, \\n, 0x0A)",
+        "Macintosh (Carriage-Return, \\r, 0x0D)"
+      ],
+      "x-widget": "select"
     }
   }
 }

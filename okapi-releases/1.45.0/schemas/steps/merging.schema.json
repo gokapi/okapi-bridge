@@ -37,22 +37,26 @@
     "preserveSegmentation": {
       "type": "boolean",
       "default": false,
-      "title": "Preserve the segmentation for the next steps"
+      "title": "Preserve the segmentation for the next steps",
+      "x-widget": "checkbox"
     },
     "returnRawDocument": {
       "type": "boolean",
       "default": false,
-      "title": "Return raw documents instead of filter events"
+      "title": "Return raw documents instead of filter events",
+      "x-widget": "checkbox"
     },
     "forceTargetLocale": {
       "type": "boolean",
       "default": false,
-      "title": "Specify the target locale from the tool instead of the manifest"
+      "title": "Specify the target locale from the tool instead of the manifest",
+      "x-widget": "checkbox"
     },
     "overrideOutputPath": {
       "type": "string",
       "default": "",
-      "title": "Override the output path (leave empty to use the path from the manifest)"
+      "title": "Override the output path (leave empty to use the path from the manifest)",
+      "x-widget": "text"
     }
   }
 }

@@ -86,51 +86,24 @@ public class ParameterIntrospector {
 
     /**
      * Introspect a filter class to extract its parameter metadata.
-     * 
+     *
      * @param filterClass Fully-qualified filter class name
      * @return Map of parameter name to ParamInfo, or null if introspection fails
      */
     public Map<String, ParamInfo> introspect(String filterClass) {
         try {
             Class<?> clazz = Class.forName(filterClass);
-            
+
             // Get the filter instance to access its parameters
             IFilter filter = (IFilter) clazz.getDeclaredConstructor().newInstance();
             IParameters params = filter.getParameters();
-            
+
             if (params == null) {
                 return null;
             }
-            
-            Map<String, ParamInfo> result = new LinkedHashMap<>();
-            
-            // Introspect based on parameter class type
-            Class<?> paramsClass = params.getClass();
-            
-            if (params instanceof StringParameters) {
-                introspectStringParameters(paramsClass, (StringParameters) params, result);
-            } else {
-                // For other types, use getter/setter introspection
-                introspectByAccessors(paramsClass, params, result);
-                // For YAML-based configs (AbstractMarkupParameters), also introspect the YAML blob
-                introspectYamlConfig(params, result);
-            }
-            
-            // Extract descriptions from ParametersDescription if available
-            enrichWithParametersDescription(paramsClass, params, result);
-            
-            // Extract UI metadata from EditorDescription if available
-            if (params instanceof IEditorDescriptionProvider) {
-                enrichWithEditorDescription(paramsClass, (IEditorDescriptionProvider) params, result);
-            }
-            
-            // Add parameters from ISimplifierRulesParameters if implemented
-            if (params instanceof ISimplifierRulesParameters) {
-                addSimplifierRulesParams((ISimplifierRulesParameters) params, result);
-            }
-            
-            return result;
-            
+
+            return introspectParameters(params);
+
         } catch (ClassNotFoundException e) {
             System.err.println("Filter class not found: " + filterClass);
             return null;
@@ -138,6 +111,52 @@ public class ParameterIntrospector {
             System.err.println("Failed to introspect " + filterClass + ": " + e.getMessage());
             return null;
         }
+    }
+
+    /**
+     * Introspect a Parameters class directly (for steps, which don't have an IFilter).
+     *
+     * @param paramsClass The Parameters class to introspect
+     * @return Map of parameter name to ParamInfo, or null if introspection fails
+     */
+    public Map<String, ParamInfo> introspectParamsClass(Class<?> paramsClass) {
+        try {
+            Object obj = paramsClass.getDeclaredConstructor().newInstance();
+            if (!(obj instanceof IParameters)) {
+                return null;
+            }
+            return introspectParameters((IParameters) obj);
+        } catch (Exception e) {
+            System.err.println("Failed to introspect " + paramsClass.getName() + ": " + e.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Core introspection logic shared by filter and step paths.
+     */
+    private Map<String, ParamInfo> introspectParameters(IParameters params) {
+        Map<String, ParamInfo> result = new LinkedHashMap<>();
+        Class<?> paramsClass = params.getClass();
+
+        if (params instanceof StringParameters) {
+            introspectStringParameters(paramsClass, (StringParameters) params, result);
+        } else {
+            introspectByAccessors(paramsClass, params, result);
+            introspectYamlConfig(params, result);
+        }
+
+        enrichWithParametersDescription(paramsClass, params, result);
+
+        if (params instanceof IEditorDescriptionProvider) {
+            enrichWithEditorDescription(paramsClass, (IEditorDescriptionProvider) params, result);
+        }
+
+        if (params instanceof ISimplifierRulesParameters) {
+            addSimplifierRulesParams((ISimplifierRulesParameters) params, result);
+        }
+
+        return result;
     }
     
     /**

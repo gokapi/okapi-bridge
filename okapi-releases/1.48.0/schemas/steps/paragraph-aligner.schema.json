@@ -48,14 +48,16 @@
     "outputOneToOneMatchesOnly": {
       "type": "boolean",
       "default": true,
+      "title": "Output 1-1 Matches Only?",
       "description": "Ouput only 1-1 aligned paragraphs?",
-      "title": "Output 1-1 Matches Only?"
+      "x-widget": "checkbox"
     },
     "useSkeletonAlignment": {
       "type": "boolean",
       "default": false,
+      "title": "Use Skeleton Alignment? (Experimental)",
       "description": "Use Skeleton alignment? (Experimental)",
-      "title": "Use Skeleton Alignment? (Experimental)"
+      "x-widget": "checkbox"
     }
   }
 }

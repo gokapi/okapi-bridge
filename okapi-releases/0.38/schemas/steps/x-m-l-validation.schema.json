@@ -21,27 +21,49 @@
     "category": "pipeline"
   },
   "properties": {
-    "schemaPath": {
-      "type": "string",
-      "default": "",
-      "description": "Full path of the XML Schema.",
-      "title": "Path of the XML Schema"
-    },
-    "validate": {
-      "type": "boolean",
-      "default": false,
-      "title": "Validate the documents structure [Well-formedness is always checked]"
-    },
     "validationType": {
       "type": "integer",
       "default": 0,
+      "title": "Type of validation",
       "description": "Indicates which validation to use",
-      "title": "Type of validation"
+      "enum": [
+        "0",
+        "1",
+        "2"
+      ],
+      "x-enumLabels": [
+        "DTD",
+        "XML Schema",
+        "RelaxNG Schema"
+      ],
+      "x-widget": "select",
+      "x-enabledBy": {
+        "parameter": "validate",
+        "enabledWhenSelected": true
+      }
     },
     "useFoundDTD": {
       "type": "boolean",
       "default": true,
-      "title": "Use DTD declarations found in the input documents"
+      "title": "Use DTD declarations found in the input documents",
+      "x-widget": "checkbox"
+    },
+    "validate": {
+      "type": "boolean",
+      "default": false,
+      "title": "Validate the documents structure [Well-formedness is always checked]",
+      "x-widget": "checkbox"
+    },
+    "schemaPath": {
+      "type": "string",
+      "default": "",
+      "title": "Path of the XML Schema",
+      "description": "Full path of the XML Schema.",
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "validate",
+        "enabledWhenSelected": true
+      }
     }
   }
 }

@@ -44,17 +44,17 @@
       "type": "boolean",
       "default": true
     },
+    "extraCodesAllowed": {
+      "type": "boolean",
+      "default": false
+    },
+    "missingCodesAllowed": {
+      "type": "boolean",
+      "default": false
+    },
     "typesToIgnore": {
       "type": "string",
       "default": "mrk;x-df-s;"
-    },
-    "extraCodesAllowed": {
-      "type": "integer",
-      "default": 0
-    },
-    "missingCodesAllowed": {
-      "type": "integer",
-      "default": 0
     }
   }
 }

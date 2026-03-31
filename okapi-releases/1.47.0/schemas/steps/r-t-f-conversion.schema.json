@@ -36,21 +36,34 @@
     ]
   },
   "properties": {
+    "lineBreak": {
+      "type": "string",
+      "default": "\n",
+      "title": "Type of line-break to use",
+      "description": "Select the type of line-break to use in the output.",
+      "enum": [
+        "\r\n",
+        "\n",
+        "\r"
+      ],
+      "x-enumLabels": [
+        "DOS/Windows (Carriage-Return + Line-Feed, \\r\\n, 0x0D+0x0A)",
+        "Unix/Linux (Line-Feed, \\n, 0x0A)",
+        "Macintosh (Carriage-Return, \\r, 0x0D)"
+      ],
+      "x-widget": "select"
+    },
     "bomOnUTF8": {
       "type": "boolean",
       "default": true,
-      "title": "Use Byte-Order-Mark for UTF-8 output"
-    },
-    "lineBreak": {
-      "type": "string",
-      "default": "$0a$",
-      "description": "Select the type of line-break to use in the output.",
-      "title": "Type of line-break to use"
+      "title": "Use Byte-Order-Mark for UTF-8 output",
+      "x-widget": "checkbox"
     },
     "updateEncoding": {
       "type": "boolean",
       "default": true,
-      "title": "Try to update the encoding declarations (when detected)"
+      "title": "Try to update the encoding declarations (when detected)",
+      "x-widget": "checkbox"
     }
   }
 }

@@ -33,37 +33,50 @@
     "normalizeQuotes": {
       "type": "boolean",
       "default": true,
-      "title": "Normalize quotation marks"
+      "title": "Normalize quotation marks",
+      "x-widget": "checkbox"
     },
     "checkCharacters": {
       "type": "boolean",
       "default": true,
-      "title": "Check for corrupt or unexpected characters"
+      "title": "Check for corrupt or unexpected characters",
+      "x-widget": "checkbox"
     },
     "matchRegexExpressions": {
       "type": "boolean",
       "default": true,
-      "title": "Mark segments matching default regular expressions for removal"
+      "title": "Mark segments matching default regular expressions for removal",
+      "x-widget": "checkbox"
     },
     "matchUserRegex": {
       "type": "boolean",
       "default": true,
-      "title": "Mark segments matching user defined regular expressions for removal"
+      "title": "Mark segments matching user defined regular expressions for removal",
+      "x-widget": "checkbox"
+    },
+    "userRegex": {
+      "type": "string",
+      "default": "",
+      "title": "User defined regex string",
+      "x-widget": "text"
     },
     "pruneTextUnit": {
       "type": "boolean",
       "default": true,
-      "title": "Remove unnecessary segments from text unit"
+      "title": "Remove unnecessary segments from text unit",
+      "x-widget": "checkbox"
     },
     "normalizePunctuations": {
       "type": "boolean",
       "default": false,
-      "title": "Standardize spaces before and after certain punctuation marks to English writing style."
+      "title": "Standardize spaces before and after certain punctuation marks to English writing style.",
+      "x-widget": "checkbox"
     },
     "keepCrNlIntact": {
       "type": "boolean",
       "default": false,
-      "title": "Keep CR and NL characters intact. They are not normalized to an ASCII space with spaces and tabs."
+      "title": "Keep CR and NL characters intact. They are not normalized to an ASCII space with spaces and tabs.",
+      "x-widget": "checkbox"
     }
   }
 }

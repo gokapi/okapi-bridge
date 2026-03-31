@@ -40,67 +40,98 @@
     ]
   },
   "properties": {
-    "tmxOutputPath": {
-      "type": "string",
-      "default": "aligned.tmx",
-      "description": "Full path of the output TMX file",
-      "title": "TMX output path"
-    },
     "generateTMX": {
       "type": "boolean",
       "default": true,
+      "title": "Generate the following TMX document:",
       "description": "If generateTMX is false generate bilingual TextUnits, otherwise (true) output a TMX file",
-      "title": "Generate the following TMX document:"
+      "x-widget": "checkbox"
     },
-    "segmentSource": {
-      "type": "boolean",
-      "default": true,
-      "title": "Segment the source content (overriding possible existing segmentation)"
-    },
-    "useCustomSourceRules": {
-      "type": "boolean",
-      "default": false,
-      "title": "Use custom source segmentation rules (instead of the default ones)"
-    },
-    "customSourceRulesPath": {
+    "tmxOutputPath": {
       "type": "string",
-      "default": "",
-      "description": "Full path of the SRX document to use for the source",
-      "title": "SRX path for the source"
-    },
-    "segmentTarget": {
-      "type": "boolean",
-      "default": true,
-      "title": "Segment the target content (overriding possible existing segmentation)"
-    },
-    "useCustomTargetRules": {
-      "type": "boolean",
-      "default": false,
-      "title": "Use custom target segmentation rules (instead of the default ones)"
-    },
-    "customTargetRulesPath": {
-      "type": "string",
-      "default": "",
-      "description": "Full path of the SRX document to use for the target",
-      "title": "SRX path for the target"
+      "default": "aligned.tmx",
+      "title": "TMX output path",
+      "description": "Full path of the output TMX file",
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "generateTMX",
+        "enabledWhenSelected": true
+      }
     },
     "collapseWhitespace": {
       "type": "boolean",
       "default": false,
+      "title": "Collapse whitspace",
       "description": "Collapse whitespace (space, newline etc.) to a single space before segmentation and alignment",
-      "title": "Collapse whitspace"
+      "x-widget": "checkbox"
     },
     "outputOneTOneMatchesOnly": {
       "type": "boolean",
       "default": false,
+      "title": "Output 1-1 matches only",
       "description": "Ouput only 1-1 sentence aligned matches",
-      "title": "Output 1-1 matches only"
+      "x-widget": "checkbox"
+    },
+    "segmentSource": {
+      "type": "boolean",
+      "default": true,
+      "title": "Segment the source content (overriding possible existing segmentation)",
+      "x-widget": "checkbox"
+    },
+    "useCustomSourceRules": {
+      "type": "boolean",
+      "default": false,
+      "title": "Use custom source segmentation rules (instead of the default ones)",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "segmentSource",
+        "enabledWhenSelected": true
+      }
+    },
+    "customSourceRulesPath": {
+      "type": "string",
+      "default": "",
+      "title": "SRX path for the source",
+      "description": "Full path of the SRX document to use for the source",
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "useCustomSourceRules",
+        "enabledWhenSelected": true
+      }
+    },
+    "segmentTarget": {
+      "type": "boolean",
+      "default": true,
+      "title": "Segment the target content (overriding possible existing segmentation)",
+      "x-widget": "checkbox"
+    },
+    "useCustomTargetRules": {
+      "type": "boolean",
+      "default": false,
+      "title": "Use custom target segmentation rules (instead of the default ones)",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "segmentTarget",
+        "enabledWhenSelected": true
+      }
+    },
+    "customTargetRulesPath": {
+      "type": "string",
+      "default": "",
+      "title": "SRX path for the target",
+      "description": "Full path of the SRX document to use for the target",
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "useCustomTargetRules",
+        "enabledWhenSelected": true
+      }
     },
     "forceSimpleOneToOneAlignment": {
       "type": "boolean",
       "default": false,
+      "title": "Force Simple One to One Alignment",
       "description": "If the number of sentences are the same then align one to one. Otherwise collapse the sentences and align",
-      "title": "Force Simple One to One Alignment"
+      "x-widget": "checkbox"
     }
   }
 }

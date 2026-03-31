@@ -33,53 +33,114 @@
     ]
   },
   "properties": {
+    "tmx": {
+      "type": "boolean",
+      "default": false
+    },
+    "po": {
+      "type": "boolean",
+      "default": false
+    },
+    "table": {
+      "type": "boolean",
+      "default": false
+    },
+    "pensieve": {
+      "type": "boolean",
+      "default": false
+    },
+    "corpus": {
+      "type": "boolean",
+      "default": false
+    },
+    "wordtable": {
+      "type": "boolean",
+      "default": false
+    },
     "singleOutput": {
       "type": "boolean",
       "default": true,
-      "title": "Create a single output document"
+      "title": "Create a single output document",
+      "x-widget": "checkbox"
     },
     "autoExtensions": {
       "type": "boolean",
       "default": false,
-      "title": "Output paths are the input paths plus the new format extension"
-    },
-    "targetStyle": {
-      "type": "integer",
-      "default": 0,
-      "description": "Type of content to put in the target",
-      "title": "Target content"
+      "title": "Output paths are the input paths plus the new format extension",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "singleOutput",
+        "enabledWhenSelected": false
+      }
     },
     "outputPath": {
       "type": "string",
       "default": "",
+      "title": "Output path",
       "description": "Full path of the single output document to generate",
-      "title": "Output path"
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "singleOutput",
+        "enabledWhenSelected": true
+      }
+    },
+    "targetStyle": {
+      "type": "integer",
+      "default": 0,
+      "title": "Target content",
+      "description": "Type of content to put in the target"
     },
     "outputFormat": {
       "type": "string",
       "default": "tmx",
+      "title": "Output format",
       "description": "Format to generate in output",
-      "title": "Output format"
+      "enum": [
+        "po",
+        "tmx",
+        "table",
+        "pensieve",
+        "corpus",
+        "wordtable"
+      ],
+      "x-enumLabels": [
+        "PO File",
+        "TMX Document",
+        "Tab-Delimited Table",
+        "Pensieve TM",
+        "Parallel Corpus Files",
+        "Word Table"
+      ],
+      "x-widget": "select"
+    },
+    "formatOptions": {
+      "type": "string",
+      "default": "",
+      "title": "Format options"
     },
     "useGenericCodes": {
       "type": "boolean",
       "default": false,
-      "title": "Output generic inline codes"
+      "title": "Output generic inline codes",
+      "x-widget": "checkbox"
     },
     "skipEntriesWithoutText": {
       "type": "boolean",
       "default": true,
-      "title": "Do not output entries without text"
+      "title": "Do not output entries without text",
+      "x-widget": "checkbox"
     },
     "approvedEntriesOnly": {
       "type": "boolean",
       "default": false,
-      "title": "Output only approved entries"
+      "title": "Output only approved entries",
+      "x-widget": "checkbox"
     },
     "overwriteSameSource": {
       "type": "boolean",
       "default": false,
-      "title": "Overwrite if source is the same (for Pensieve TM)"
+      "title": "Overwrite if source is the same (for Pensieve TM)",
+      "x-widget": "checkbox"
     }
   }
 }

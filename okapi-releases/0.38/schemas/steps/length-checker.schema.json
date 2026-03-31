@@ -36,6 +36,10 @@
     ]
   },
   "properties": {
+    "checkStorageSize": {
+      "type": "boolean",
+      "default": true
+    },
     "checkMaxCharLength": {
       "type": "boolean",
       "default": true
@@ -67,10 +71,6 @@
     "minCharLengthBelow": {
       "type": "integer",
       "default": 30
-    },
-    "checkStorageSize": {
-      "type": "boolean",
-      "default": true
     },
     "checkAbsoluteMaxCharLength": {
       "type": "boolean",

@@ -42,27 +42,70 @@
     "checkInconststencies": {
       "type": "boolean",
       "default": true,
-      "title": "Check inconsistencies"
+      "title": "Check inconsistencies",
+      "x-widget": "checkbox"
     },
     "checkPerFile": {
       "type": "boolean",
       "default": false,
-      "title": "Check for inconsistencies on a file-by-file basis"
+      "title": "Check for inconsistencies on a file-by-file basis",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "checkInconststencies",
+        "enabledWhenSelected": true
+      }
     },
     "outputPath": {
       "type": "string",
       "default": "${rootDir}/inconsistency-report.xml",
-      "title": "Path of the report file:"
+      "title": "Path of the report file:",
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "checkInconststencies",
+        "enabledWhenSelected": true
+      }
     },
     "displayOption": {
       "type": "string",
       "default": "generic",
-      "title": "Representation of the inline codes in the report"
+      "title": "Representation of the inline codes in the report",
+      "enum": [
+        "original",
+        "generic",
+        "plain"
+      ],
+      "x-enumLabels": [
+        "Original codes",
+        "Generic markers",
+        "Plain text"
+      ],
+      "x-widget": "dropdown",
+      "x-enabledBy": {
+        "parameter": "checkInconststencies",
+        "enabledWhenSelected": true
+      }
     },
     "autoOpen": {
       "type": "boolean",
       "default": true,
-      "title": "Open the report file after completion"
+      "title": "Open the report file after completion",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "checkInconststencies",
+        "enabledWhenSelected": true
+      }
+    },
+    "original": {
+      "type": "boolean",
+      "default": false
+    },
+    "generic": {
+      "type": "boolean",
+      "default": false
+    },
+    "plain": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

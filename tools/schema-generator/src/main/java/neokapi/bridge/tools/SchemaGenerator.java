@@ -124,6 +124,12 @@ public class SchemaGenerator {
 
     /**
      * Generate JSON Schema files for all discovered Okapi pipeline steps.
+     *
+     * Uses StepSchemaGenerator for step metadata (x-step, x-component, I/O
+     * classification), then enriches the properties with ParameterIntrospector
+     * which extracts richer metadata from ParametersDescription and
+     * IEditorDescriptionProvider (widgets, enum dropdowns, min/max constraints,
+     * master/slave relationships).
      */
     private void generateStepSchemas(String outputDir) throws IOException {
         File stepsDir = new File(outputDir, "steps");
@@ -145,6 +151,13 @@ public class SchemaGenerator {
                     failCount++;
                     continue;
                 }
+
+                // Enrich properties via ParameterIntrospector if the step has a
+                // Parameters class. This extracts descriptions, widgets, enums,
+                // min/max, and master/slave relationships that the basic #v1 parser
+                // in StepSchemaGenerator does not capture.
+                enrichStepProperties(schema, step);
+
                 String filename = step.getStepId() + ".schema.json";
                 File outputFile = new File(stepsDir, filename);
 
@@ -162,6 +175,67 @@ public class SchemaGenerator {
         }
 
         System.out.println("\nStep generation complete: " + successCount + " schemas, " + failCount + " failures");
+    }
+
+    /**
+     * Enrich a step schema's properties using ParameterIntrospector.
+     *
+     * The introspector extracts richer metadata than the #v1 string parser:
+     * - Descriptions and display names from ParametersDescription
+     * - Widget types from IEditorDescriptionProvider (checkbox, spin, dropdown, path, folder, codeFinder)
+     * - Enum values and labels from ListSelectionPart
+     * - Min/max constraints from SpinInputPart
+     * - Master/slave (x-enabledBy) relationships from AbstractPart.getMasterPart()
+     */
+    private void enrichStepProperties(JsonObject schema, StepInfo step) {
+        if (step.getParametersClass() == null) {
+            return;
+        }
+
+        Map<String, ParameterIntrospector.ParamInfo> params = introspector.introspectParamsClass(step.getParametersClass());
+        if (params == null || params.isEmpty()) {
+            return;
+        }
+
+        // Get existing properties from the basic #v1 parse (has defaults and basic types).
+        JsonObject existingProps = schema.has("properties")
+                ? schema.getAsJsonObject("properties") : new JsonObject();
+
+        // Build enriched properties using the transformer.
+        JsonObject enrichedProps = new JsonObject();
+        for (Map.Entry<String, ParameterIntrospector.ParamInfo> entry : params.entrySet()) {
+            String paramName = entry.getKey();
+            ParameterIntrospector.ParamInfo paramInfo = entry.getValue();
+
+            JsonObject propSchema = transformer.transformParameter(paramName, paramInfo);
+            if (propSchema == null) {
+                continue;
+            }
+
+            // Preserve the default value from the existing #v1 parse if the
+            // introspector didn't find one (the #v1 defaults are authoritative
+            // since they come from params.reset() + toString()).
+            if (!propSchema.has("default") && existingProps.has(paramName)) {
+                JsonObject existing = existingProps.getAsJsonObject(paramName);
+                if (existing.has("default")) {
+                    propSchema.add("default", existing.get("default"));
+                }
+            }
+
+            enrichedProps.add(paramName, propSchema);
+        }
+
+        // Include any params from #v1 that introspection missed (e.g. nested
+        // keys like "codeFinderRules.rule0" that the introspector doesn't see).
+        for (Map.Entry<String, com.google.gson.JsonElement> entry : existingProps.entrySet()) {
+            if (!enrichedProps.has(entry.getKey())) {
+                enrichedProps.add(entry.getKey(), entry.getValue());
+            }
+        }
+
+        if (enrichedProps.size() > 0) {
+            schema.add("properties", enrichedProps);
+        }
     }
 
     /**

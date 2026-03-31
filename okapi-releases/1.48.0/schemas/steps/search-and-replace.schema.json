@@ -70,6 +70,10 @@
       "type": "boolean",
       "default": true
     },
+    "count": {
+      "type": "boolean",
+      "default": false
+    },
     "replacementsPath": {
       "type": "string",
       "default": ""
@@ -81,10 +85,6 @@
     "saveLog": {
       "type": "boolean",
       "default": false
-    },
-    "count": {
-      "type": "integer",
-      "default": 0
     }
   }
 }

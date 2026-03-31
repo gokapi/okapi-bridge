@@ -51,26 +51,32 @@
     "fuzzyThreshold": {
       "type": "integer",
       "default": 100,
+      "title": "Leverage only if the match is equal or above this score",
       "description": "Fuzzy Thresholds are between 1 and 100. A score of 100 emans exact match (codes and text) only",
-      "title": "Leverage only if the match is equal or above this score"
+      "minimum": 1,
+      "maximum": 100,
+      "x-widget": "spin"
     },
     "codesensitive": {
       "type": "boolean",
       "default": true,
+      "title": "Include inline codes in the comparison",
       "description": "Use codes to compare contents",
-      "title": "Include inline codes in the comparison"
+      "x-widget": "checkbox"
     },
     "diffOnly": {
       "type": "boolean",
       "default": false,
+      "title": "Diff only and mark the TextUnit as matched",
       "description": "Diff only and do not copy the match or create a leverage annotation",
-      "title": "Diff only and mark the TextUnit as matched"
+      "x-widget": "checkbox"
     },
     "copyToTarget": {
       "type": "boolean",
       "default": false,
+      "title": "Copy to/over the target? (WARNING: Copied target will not be segmented!)",
       "description": "Copy to/over the target (a leverage annotation will still be created). WARNING: Copied target will not be segmented and any exisiting target will be lost.",
-      "title": "Copy to/over the target? (WARNING: Copied target will not be segmented!)"
+      "x-widget": "checkbox"
     }
   }
 }

@@ -35,7 +35,10 @@
     "partCount": {
       "type": "integer",
       "default": 2,
-      "title": "Number of output files"
+      "title": "Number of output files",
+      "minimum": 2,
+      "maximum": 999,
+      "x-widget": "spin"
     }
   }
 }

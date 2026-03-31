@@ -37,116 +37,128 @@
     "tokenizeSource": {
       "type": "boolean",
       "default": true,
+      "title": "Tokenize Source",
       "description": "Create selected tokens for source locale",
-      "title": "Tokenize Source"
+      "x-widget": "checkbox"
     },
     "tokenizeTargets": {
       "type": "boolean",
       "default": false,
+      "title": "Tokenize Targets",
       "description": "Create selected tokens for target locales",
-      "title": "Tokenize Targets"
+      "x-widget": "checkbox"
+    },
+    "filteredLocales": {
+      "type": "string",
+      "default": "",
+      "title": "Locales to Filter",
+      "description": "Locale names or patterns used that are excluded from tokenization",
+      "x-widget": "text"
+    },
+    "filterLocales": {
+      "type": "string"
     },
     "WORD": {
       "type": "boolean",
       "default": false,
-      "description": "A run of characters constituting a word of the given language.",
-      "title": "WORD"
+      "title": "WORD",
+      "description": "A run of characters constituting a word of the given language."
     },
     "HYPHENATED_WORD": {
       "type": "boolean",
       "default": false,
-      "description": "A word including hyphens of various types",
-      "title": "HYPHENATED_WORD"
+      "title": "HYPHENATED_WORD",
+      "description": "A word including hyphens of various types"
     },
     "NUMBER": {
       "type": "boolean",
       "default": false,
-      "description": "Numbers, including any commas or points symbols.",
-      "title": "NUMBER"
-    },
-    "PUNCTUATION": {
-      "type": "boolean",
-      "default": false,
-      "description": "Punctuation characters as defined by the Unicode Consortium standards.",
-      "title": "PUNCTUATION"
+      "title": "NUMBER",
+      "description": "Numbers, including any commas or points symbols."
     },
     "WHITESPACE": {
       "type": "boolean",
       "default": false,
-      "description": "Whitespace characters as defined by the Unicode Consortium standards.",
-      "title": "WHITESPACE"
+      "title": "WHITESPACE",
+      "description": "Whitespace characters as defined by the Unicode Consortium standards."
     },
-    "ABBREVIATION": {
+    "PUNCTUATION": {
       "type": "boolean",
       "default": false,
-      "description": "Limited types of English abbreviations like pct in 3.3pct, U.S., USD.",
-      "title": "ABBREVIATION"
-    },
-    "INTERNET": {
-      "type": "boolean",
-      "default": false,
-      "description": "An Internet address (URI or IP): http://www.somesite.org/foo/index.html, 192.168.0.5.",
-      "title": "INTERNET"
-    },
-    "EMAIL": {
-      "type": "boolean",
-      "default": false,
-      "description": "E-mail addresses.",
-      "title": "EMAIL"
-    },
-    "EMOTICON": {
-      "type": "boolean",
-      "default": false,
-      "description": "Emoticon sequences like \":-)\".",
-      "title": "EMOTICON"
-    },
-    "EMOJI": {
-      "type": "boolean",
-      "default": false,
-      "description": "All emoji characters defined in Unicode",
-      "title": "EMOJI"
+      "title": "PUNCTUATION",
+      "description": "Punctuation characters as defined by the Unicode Consortium standards."
     },
     "DATE": {
       "type": "boolean",
       "default": false,
-      "description": "Dates in the format MM/DD/YYYY.",
-      "title": "DATE"
-    },
-    "CURRENCY": {
-      "type": "boolean",
-      "default": false,
-      "description": "Sums in various currencies",
-      "title": "CURRENCY"
+      "title": "DATE",
+      "description": "Dates in the format MM/DD/YYYY."
     },
     "TIME": {
       "type": "boolean",
       "default": false,
-      "description": "Time separated by either \":\" or \".\" (24 hour, 12 hour with AM or PM).",
-      "title": "TIME"
+      "title": "TIME",
+      "description": "Time separated by either \":\" or \".\" (24 hour, 12 hour with AM or PM)."
+    },
+    "CURRENCY": {
+      "type": "boolean",
+      "default": false,
+      "title": "CURRENCY",
+      "description": "Sums in various currencies"
+    },
+    "ABBREVIATION": {
+      "type": "boolean",
+      "default": false,
+      "title": "ABBREVIATION",
+      "description": "Limited types of English abbreviations like pct in 3.3pct, U.S., USD."
     },
     "MARKUP": {
       "type": "boolean",
       "default": false,
-      "description": "A run that begins with \"<\" and ends with \">\" like in HTML and XML.",
-      "title": "MARKUP"
+      "title": "MARKUP",
+      "description": "A run that begins with \"<\" and ends with \">\" like in HTML and XML."
+    },
+    "EMAIL": {
+      "type": "boolean",
+      "default": false,
+      "title": "EMAIL",
+      "description": "E-mail addresses."
+    },
+    "INTERNET": {
+      "type": "boolean",
+      "default": false,
+      "title": "INTERNET",
+      "description": "An Internet address (URI or IP): http://www.somesite.org/foo/index.html, 192.168.0.5."
+    },
+    "EMOTICON": {
+      "type": "boolean",
+      "default": false,
+      "title": "EMOTICON",
+      "description": "Emoticon sequences like \":-)\"."
+    },
+    "EMOJI": {
+      "type": "boolean",
+      "default": false,
+      "title": "EMOJI",
+      "description": "All emoji characters defined in Unicode"
     },
     "OTHER_SYMBOL": {
       "type": "boolean",
       "default": false,
-      "description": "VVarious Unicode symbols (mathematical etc.)",
-      "title": "OTHER_SYMBOL"
+      "title": "OTHER_SYMBOL",
+      "description": "VVarious Unicode symbols (mathematical etc.)"
     },
     "KANA": {
       "type": "boolean",
       "default": false,
-      "description": "Hiragana, Katakana (Japanese).",
-      "title": "KANA"
+      "title": "KANA",
+      "description": "Hiragana, Katakana (Japanese)."
     },
     "IDEOGRAM": {
       "type": "boolean",
       "default": false,
-      "description": "Ideograms as defined by the Unicode Consortium standards.",
-      "title": "IDEOGRAM"
+      "title": "IDEOGRAM",
+      "description": "Ideograms as defined by the Unicode Consortium standards."
     }
   }
 }

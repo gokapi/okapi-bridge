@@ -30,14 +30,16 @@
     "command": {
       "type": "string",
       "default": "",
+      "title": "Command line",
       "description": "Command path to execute",
-      "title": "Command line"
+      "x-widget": "text"
     },
     "timeout": {
       "type": "integer",
       "default": -1,
+      "title": "Timeout",
       "description": "Timeout in seconds after which the command is cancelled (use -1 for no timeout)",
-      "title": "Timeout"
+      "x-widget": "text"
     }
   }
 }

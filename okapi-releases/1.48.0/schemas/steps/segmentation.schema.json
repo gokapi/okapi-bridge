@@ -40,15 +40,43 @@
     ]
   },
   "properties": {
+    "forceSegmentedOutput": {
+      "type": "boolean",
+      "default": true
+    },
+    "overwriteSegmentation": {
+      "type": "boolean",
+      "default": false
+    },
+    "deepenSegmentation": {
+      "type": "boolean",
+      "default": false
+    },
+    "sourceSrxPath": {
+      "type": "string",
+      "default": ""
+    },
+    "targetSrxPath": {
+      "type": "string",
+      "default": ""
+    },
+    "sourceSrx": {
+      "type": "string",
+      "default": ""
+    },
+    "targetSrx": {
+      "type": "string",
+      "default": ""
+    },
+    "renumberCodes": {
+      "type": "boolean",
+      "default": false
+    },
     "segmentSource": {
       "type": "boolean",
       "default": true
     },
     "segmentTarget": {
-      "type": "boolean",
-      "default": false
-    },
-    "renumberCodes": {
       "type": "boolean",
       "default": false
     },
@@ -71,18 +99,6 @@
     "trimTrgTrailingWS": {
       "type": "integer",
       "default": -1
-    },
-    "forceSegmentedOutput": {
-      "type": "boolean",
-      "default": true
-    },
-    "overwriteSegmentation": {
-      "type": "boolean",
-      "default": false
-    },
-    "deepenSegmentation": {
-      "type": "boolean",
-      "default": false
     },
     "treatIsolatedCodesAsWhitespace": {
       "type": "boolean",

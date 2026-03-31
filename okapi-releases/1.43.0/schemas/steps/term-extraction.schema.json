@@ -37,79 +37,131 @@
     "outputPath": {
       "type": "string",
       "default": "${rootDir}/terms.txt",
+      "title": "Output path",
       "description": "Full path of the output file",
-      "title": "Output path"
+      "x-widget": "path"
     },
     "autoOpen": {
       "type": "boolean",
       "default": false,
-      "title": "Open the result file after completion"
+      "title": "Open the result file after completion",
+      "x-widget": "checkbox"
     },
     "minWordsPerTerm": {
       "type": "integer",
       "default": 1,
+      "title": "Minimum number of words per term",
       "description": "A term will be made up at least of that many words",
-      "title": "Minimum number of words per term"
+      "minimum": 1,
+      "maximum": 999,
+      "x-widget": "spin",
+      "x-enabledBy": {
+        "parameter": "useStatistics",
+        "enabledWhenSelected": true
+      }
     },
     "maxWordsPerTerm": {
       "type": "integer",
       "default": 3,
+      "title": "Maximum number of words per term",
       "description": "A term will be made up at the most of that many words",
-      "title": "Maximum number of words per term"
+      "minimum": 1,
+      "maximum": 999,
+      "x-widget": "spin",
+      "x-enabledBy": {
+        "parameter": "useStatistics",
+        "enabledWhenSelected": true
+      }
     },
     "minOccurrences": {
       "type": "integer",
       "default": 2,
+      "title": "Minimum number of occurrences per term",
       "description": "A term will have at least that many occurrences",
-      "title": "Minimum number of occurrences per term"
+      "minimum": 1,
+      "maximum": 999,
+      "x-widget": "spin",
+      "x-enabledBy": {
+        "parameter": "useStatistics",
+        "enabledWhenSelected": true
+      }
     },
     "stopWordsPath": {
       "type": "string",
       "default": "",
+      "title": "Path of the file with stop words (leave empty for default)",
       "description": "Full path of the file containing stop words",
-      "title": "Path of the file with stop words (leave empty for default)"
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "useStatistics",
+        "enabledWhenSelected": true
+      }
     },
     "notStartWordsPath": {
       "type": "string",
       "default": "",
+      "title": "Path of the file with not-start words (leave empty for default)",
       "description": "Full path of the file containing not-start words",
-      "title": "Path of the file with not-start words (leave empty for default)"
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "useStatistics",
+        "enabledWhenSelected": true
+      }
     },
     "notEndWordsPath": {
       "type": "string",
       "default": "",
+      "title": "Path of the file with not-end words (leave empty for default)",
       "description": "Full path of the file containing not-end words",
-      "title": "Path of the file with not-end words (leave empty for default)"
+      "x-widget": "path",
+      "x-enabledBy": {
+        "parameter": "useStatistics",
+        "enabledWhenSelected": true
+      }
     },
     "keepCase": {
       "type": "boolean",
       "default": false,
-      "title": "Preserve case differences"
+      "title": "Preserve case differences",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "useStatistics",
+        "enabledWhenSelected": true
+      }
     },
     "removeSubTerms": {
       "type": "boolean",
       "default": false,
-      "title": "Remove entries that seem to be sub-strings of longer entries"
+      "title": "Remove entries that seem to be sub-strings of longer entries",
+      "x-widget": "checkbox",
+      "x-enabledBy": {
+        "parameter": "useStatistics",
+        "enabledWhenSelected": true
+      }
     },
     "sortByOccurrence": {
       "type": "boolean",
       "default": false,
-      "title": "Sort the results by the number of occurrences"
+      "title": "Sort the results by the number of occurrences",
+      "x-widget": "checkbox"
     },
     "useTerminologyAnnotations": {
       "type": "boolean",
       "default": true,
-      "title": "Use Terminology annotations"
+      "title": "Use Terminology annotations",
+      "x-widget": "checkbox"
     },
     "useTextAnalysisAnnotations": {
       "type": "boolean",
       "default": true,
-      "title": "Use Text Analysis annotations"
+      "title": "Use Text Analysis annotations",
+      "x-widget": "checkbox"
     },
     "useStatistics": {
       "type": "boolean",
       "default": true,
-      "title": "Use tokens-grouping statistics"
+      "title": "Use tokens-grouping statistics",
+      "x-widget": "checkbox"
     }
   }
 }

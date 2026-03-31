@@ -42,8 +42,32 @@
       "default": true
     },
     "patternCount": {
-      "type": "integer",
-      "default": 8
+      "type": "boolean",
+      "default": false
+    },
+    "usePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "fromSourcePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "severityPattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "sourcePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "targetPattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "descPattern": {
+      "type": "boolean",
+      "default": false
     },
     "usePattern0": {
       "type": "boolean",

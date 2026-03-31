@@ -44,34 +44,39 @@
     "email": {
       "type": "string",
       "default": "",
+      "title": "Email address",
       "description": "Email address of the Google Translator Toolkit account",
-      "title": "Email address"
+      "x-widget": "text"
     },
     "password": {
       "type": "string",
       "default": "",
+      "title": "Password",
       "description": "Password of the account",
-      "title": "Password"
+      "x-widget": "text"
     },
     "tmxPath": {
       "type": "string",
       "default": "${rootDir}/tmFromGTT.tmx",
+      "title": "TMX document to create",
       "description": "Full path of the new TMX document to create",
-      "title": "TMX document to create"
-    },
-    "markAsMT": {
-      "type": "boolean",
-      "default": true,
-      "title": "Mark the generated translation as machine translation results"
-    },
-    "openGttPages": {
-      "type": "boolean",
-      "default": true,
-      "title": "Open the GTT edit pages automatically after upload"
+      "x-widget": "path"
     },
     "waitClass": {
       "type": "string",
       "default": "net.sf.okapi.common.ui.WaitDialog"
+    },
+    "markAsMT": {
+      "type": "boolean",
+      "default": true,
+      "title": "Mark the generated translation as machine translation results",
+      "x-widget": "checkbox"
+    },
+    "openGttPages": {
+      "type": "boolean",
+      "default": true,
+      "title": "Open the GTT edit pages automatically after upload",
+      "x-widget": "checkbox"
     }
   }
 }

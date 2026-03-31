@@ -46,10 +46,6 @@
       "type": "boolean",
       "default": true
     },
-    "resourceClassName": {
-      "type": "string",
-      "default": "net.sf.okapi.connectors.pensieve.PensieveTMConnector"
-    },
     "noQueryThreshold": {
       "type": "integer",
       "default": 101
@@ -105,6 +101,14 @@
     "copySourceOnNoText": {
       "type": "boolean",
       "default": false
+    },
+    "resourceClassName": {
+      "type": "string",
+      "default": "net.sf.okapi.connectors.pensieve.PensieveTMConnector"
+    },
+    "resourceParameters": {
+      "type": "string",
+      "default": ""
     }
   }
 }
