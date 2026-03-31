@@ -114,7 +114,6 @@
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
           "x-flattenPath": "codeFinderRules",
-          "x-widget": "codeFinderRules",
           "x-presets": {
             "rubyI18n": {
               "rules": [
@@ -132,6 +131,9 @@
               ],
               "sample": "Click <b>here</b>"
             }
+          },
+          "x-editor": {
+            "widget": "codeFinderRules"
           }
         },
         "mergeAdjacent": {
@@ -194,5 +196,5 @@
   "x-baseVersion": 2,
   "x-introducedInOkapi": "1.46.0",
   "x-baseHash": "343d918dcd8f",
-  "x-compositeHash": "6d4f5dc1e36e"
+  "x-compositeHash": "3c0c43f04c39"
 }

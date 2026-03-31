@@ -426,7 +426,6 @@
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
           "x-flattenPath": "codeFinderRules",
-          "x-widget": "codeFinderRules",
           "x-presets": {
             "mergeFields": {
               "rules": [
@@ -444,6 +443,9 @@
               ],
               "sample": "Hello {name}"
             }
+          },
+          "x-editor": {
+            "widget": "codeFinderRules"
           }
         },
         "mergeAdjacent": {
@@ -506,5 +508,5 @@
   "x-baseVersion": 7,
   "x-introducedInOkapi": "1.48.0",
   "x-baseHash": "7f92b39ab673",
-  "x-compositeHash": "c7177395abd1"
+  "x-compositeHash": "0ab960648871"
 }

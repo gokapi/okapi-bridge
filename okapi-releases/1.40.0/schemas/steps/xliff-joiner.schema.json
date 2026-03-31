@@ -31,14 +31,20 @@
       "type": "string",
       "default": "_PART",
       "title": "Input file marker",
-      "x-widget": "text"
+      "x-editor": {
+        "widget": "text"
+      }
     },
     "outputFileMarker": {
       "type": "string",
       "default": "_CONCAT",
       "title": "Output file marker",
-      "x-widget": "text",
-      "x-allowEmpty": true
+      "x-editor": {
+        "widget": "text",
+        "text": {
+          "allowEmpty": true
+        }
+      }
     }
   }
 }

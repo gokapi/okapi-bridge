@@ -46,8 +46,10 @@
           "default": "",
           "x-flattenPath": "extractionRules",
           "description": "Regex pattern for JSON paths to extract. Overrides extractAllPairs when specified.",
-          "x-widget": "regexBuilder",
-          "x-placeholder": "/messages/.*|/labels/.*"
+          "x-placeholder": "/messages/.*|/labels/.*",
+          "x-editor": {
+            "widget": "regexBuilder"
+          }
         },
         "includeIsolatedStrings": {
           "type": "boolean",
@@ -60,8 +62,10 @@
           "default": "",
           "x-flattenPath": "exceptions",
           "description": "Comma-separated list of keys to exclude from extraction.",
-          "x-widget": "tagList",
-          "x-placeholder": "key1,key2,key3"
+          "x-placeholder": "key1,key2,key3",
+          "x-editor": {
+            "widget": "tagList"
+          }
         }
       }
     },
@@ -92,8 +96,10 @@
           "default": "",
           "x-flattenPath": "idRules",
           "description": "Regex for keys whose values become Block IDs (overrides useKeyAsName).",
-          "x-widget": "regexBuilder",
-          "x-placeholder": "/id|/key"
+          "x-placeholder": "/id|/key",
+          "x-editor": {
+            "widget": "regexBuilder"
+          }
         }
       }
     },
@@ -106,15 +112,19 @@
           "default": "",
           "x-flattenPath": "noteRules",
           "description": "Regex for keys whose values become translator notes.",
-          "x-widget": "regexBuilder",
-          "x-placeholder": "/description|/comment"
+          "x-placeholder": "/description|/comment",
+          "x-editor": {
+            "widget": "regexBuilder"
+          }
         },
         "metaRules": {
           "type": "string",
           "default": "",
           "x-flattenPath": "genericMetaRules",
           "description": "Regex for keys whose values become generic metadata.",
-          "x-widget": "regexBuilder"
+          "x-editor": {
+            "widget": "regexBuilder"
+          }
         }
       }
     },
@@ -146,7 +156,6 @@
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
           "x-flattenPath": "codeFinderRules",
-          "x-widget": "codeFinderRules",
           "x-presets": {
             "html": {
               "rules": [
@@ -172,6 +181,9 @@
               ],
               "sample": "Hello {name}, you have {count} messages"
             }
+          },
+          "x-editor": {
+            "widget": "codeFinderRules"
           }
         },
         "mergeAdjacent": {
@@ -234,5 +246,5 @@
   "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
   "x-baseHash": "1d5f67b7e11f",
-  "x-compositeHash": "fa6f6e97d280"
+  "x-compositeHash": "6e911cf88976"
 }

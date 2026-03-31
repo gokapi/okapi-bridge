@@ -30,52 +30,72 @@
       "type": "boolean",
       "default": true,
       "title": "Compare skeleton",
-      "x-widget": "checkbox",
-      "x-enabledBy": {
-        "parameter": "stepEnabled",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "stepEnabled",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "stepEnabled": {
       "type": "boolean",
       "default": true,
       "title": "Perform the extraction verification",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "allEvents": {
       "type": "boolean",
       "default": true,
       "title": "Verify all events (otherwise only text units are verified)",
-      "x-widget": "checkbox",
-      "x-enabledBy": {
-        "parameter": "stepEnabled",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "stepEnabled",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "limit": {
       "type": "integer",
       "default": 10,
       "title": "Maximum number of warnings per document",
-      "x-widget": "text",
-      "x-enabledBy": {
-        "parameter": "stepEnabled",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "stepEnabled",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "interrupt": {
       "type": "boolean",
       "default": false,
       "title": "Interrupt after reaching the maximum number of warnings",
-      "x-widget": "checkbox",
-      "x-enabledBy": {
-        "parameter": "stepEnabled",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "stepEnabled",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "monolingual": {
       "type": "boolean",

@@ -46,8 +46,12 @@
           "type": "boolean",
           "default": false,
           "title": "Ensure tag IDs are unique within units",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "forceUniqueIds",
           "description": "Force unique text unit IDs"
         },
@@ -61,8 +65,12 @@
           "type": "boolean",
           "default": false,
           "title": "Ignore tag type mismatch between source and target",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "ignoreTagTypeMatch",
           "description": "Ignore tag type matching"
         }
@@ -76,8 +84,12 @@
           "type": "boolean",
           "default": true,
           "title": "Perform maximum validation when parsing",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "maxValidation",
           "description": "Maximum validation level"
         }

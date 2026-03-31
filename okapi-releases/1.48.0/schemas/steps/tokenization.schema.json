@@ -39,24 +39,36 @@
       "default": true,
       "title": "Tokenize Source",
       "description": "Create selected tokens for source locale",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "tokenizeTargets": {
       "type": "boolean",
       "default": false,
       "title": "Tokenize Targets",
       "description": "Create selected tokens for target locales",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "filteredLocales": {
       "type": "string",
       "default": "",
       "title": "Locales to Filter",
       "description": "Locale names or patterns used that are excluded from tokenization",
-      "x-widget": "text",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "text",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "filterLocales": {
       "type": "string"

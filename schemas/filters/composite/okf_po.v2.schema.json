@@ -134,8 +134,10 @@
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
           "x-flattenPath": "codeFinderRules",
-          "x-widget": "codeFinderRules",
-          "description": "Regex patterns to identify inline codes in translatable text"
+          "description": "Regex patterns to identify inline codes in translatable text",
+          "x-editor": {
+            "widget": "codeFinderRules"
+          }
         },
         "mergeAdjacent": {
           "type": "boolean",
@@ -197,5 +199,5 @@
   "x-baseVersion": 2,
   "x-introducedInOkapi": "1.41.0",
   "x-baseHash": "a71af86b3fd4",
-  "x-compositeHash": "1593f8e5f617"
+  "x-compositeHash": "7b43d68593f6"
 }

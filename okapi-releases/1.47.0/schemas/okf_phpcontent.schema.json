@@ -37,8 +37,12 @@
           "type": "boolean",
           "default": true,
           "title": "Use localization directives",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "useDirectives",
           "description": "Use extraction directives"
         },
@@ -46,12 +50,16 @@
           "type": "boolean",
           "default": true,
           "title": "Extract outside the scope of the directives",
-          "x-widget": "checkbox",
-          "x-enabledBy": {
-            "parameter": "useDirectives",
-            "enabledWhenSelected": true
+          "x-editor": {
+            "widget": "checkbox",
+            "enabledBy": {
+              "parameter": "useDirectives",
+              "enabledWhenSelected": true
+            },
+            "layout": {
+              "vertical": true
+            }
           },
-          "x-vertical": true,
           "x-flattenPath": "extractOutsideDirectives",
           "description": "Extract outside directive blocks"
         }

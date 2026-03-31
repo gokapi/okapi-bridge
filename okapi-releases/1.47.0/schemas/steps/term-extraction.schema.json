@@ -39,19 +39,37 @@
       "default": "${rootDir}/terms.txt",
       "title": "Output path",
       "description": "Full path of the output file",
-      "x-widget": "path",
-      "x-forSaveAs": true,
-      "x-browseTitle": "Output File to Generate",
-      "x-fileFilterNames": "Text Files (*.txt)\tAll Files (*.*)",
-      "x-fileFilterExtensions": "*.txt\t*.*",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Output File to Generate",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "Text Files (*.txt)",
+              "extensions": "*.txt"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     },
     "autoOpen": {
       "type": "boolean",
       "default": false,
       "title": "Open the result file after completion",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "minWordsPerTerm": {
       "type": "integer",
@@ -60,10 +78,12 @@
       "description": "A term will be made up at least of that many words",
       "minimum": 1,
       "maximum": 999,
-      "x-widget": "spin",
-      "x-enabledBy": {
-        "parameter": "useStatistics",
-        "enabledWhenSelected": true
+      "x-editor": {
+        "widget": "spin",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        }
       }
     },
     "maxWordsPerTerm": {
@@ -73,10 +93,12 @@
       "description": "A term will be made up at the most of that many words",
       "minimum": 1,
       "maximum": 999,
-      "x-widget": "spin",
-      "x-enabledBy": {
-        "parameter": "useStatistics",
-        "enabledWhenSelected": true
+      "x-editor": {
+        "widget": "spin",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        }
       }
     },
     "minOccurrences": {
@@ -86,10 +108,12 @@
       "description": "A term will have at least that many occurrences",
       "minimum": 1,
       "maximum": 999,
-      "x-widget": "spin",
-      "x-enabledBy": {
-        "parameter": "useStatistics",
-        "enabledWhenSelected": true
+      "x-editor": {
+        "widget": "spin",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        }
       }
     },
     "stopWordsPath": {
@@ -97,98 +121,164 @@
       "default": "",
       "title": "Path of the file with stop words (leave empty for default)",
       "description": "Full path of the file containing stop words",
-      "x-widget": "path",
-      "x-enabledBy": {
-        "parameter": "useStatistics",
-        "enabledWhenSelected": true
-      },
-      "x-browseTitle": "Stop Words File",
-      "x-fileFilterNames": "Text Files (*.txt)\tAll Files (*.*)",
-      "x-fileFilterExtensions": "*.txt\t*.*",
-      "x-allowEmpty": true,
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Stop Words File",
+          "allowEmpty": true,
+          "filters": [
+            {
+              "name": "Text Files (*.txt)",
+              "extensions": "*.txt"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     },
     "notStartWordsPath": {
       "type": "string",
       "default": "",
       "title": "Path of the file with not-start words (leave empty for default)",
       "description": "Full path of the file containing not-start words",
-      "x-widget": "path",
-      "x-enabledBy": {
-        "parameter": "useStatistics",
-        "enabledWhenSelected": true
-      },
-      "x-browseTitle": "Not-Start Words File",
-      "x-fileFilterNames": "Text Files (*.txt)\tAll Files (*.*)",
-      "x-fileFilterExtensions": "*.txt\t*.*",
-      "x-allowEmpty": true,
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Not-Start Words File",
+          "allowEmpty": true,
+          "filters": [
+            {
+              "name": "Text Files (*.txt)",
+              "extensions": "*.txt"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     },
     "notEndWordsPath": {
       "type": "string",
       "default": "",
       "title": "Path of the file with not-end words (leave empty for default)",
       "description": "Full path of the file containing not-end words",
-      "x-widget": "path",
-      "x-enabledBy": {
-        "parameter": "useStatistics",
-        "enabledWhenSelected": true
-      },
-      "x-browseTitle": "Not-End Words File",
-      "x-fileFilterNames": "Text Files (*.txt)\tAll Files (*.*)",
-      "x-fileFilterExtensions": "*.txt\t*.*",
-      "x-allowEmpty": true,
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Not-End Words File",
+          "allowEmpty": true,
+          "filters": [
+            {
+              "name": "Text Files (*.txt)",
+              "extensions": "*.txt"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     },
     "keepCase": {
       "type": "boolean",
       "default": false,
       "title": "Preserve case differences",
-      "x-widget": "checkbox",
-      "x-enabledBy": {
-        "parameter": "useStatistics",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "removeSubTerms": {
       "type": "boolean",
       "default": false,
       "title": "Remove entries that seem to be sub-strings of longer entries",
-      "x-widget": "checkbox",
-      "x-enabledBy": {
-        "parameter": "useStatistics",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "sortByOccurrence": {
       "type": "boolean",
       "default": false,
       "title": "Sort the results by the number of occurrences",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "useTerminologyAnnotations": {
       "type": "boolean",
       "default": true,
       "title": "Use Terminology annotations",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "useTextAnalysisAnnotations": {
       "type": "boolean",
       "default": true,
       "title": "Use Text Analysis annotations",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "useStatistics": {
       "type": "boolean",
       "default": true,
       "title": "Use tokens-grouping statistics",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     }
   }
 }

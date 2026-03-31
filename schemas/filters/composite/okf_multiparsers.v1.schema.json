@@ -36,8 +36,12 @@
           "type": "boolean",
           "default": false,
           "title": "Use auto-detection (a special row in each input file)",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "csvAutoDetectColumnTypes",
           "description": "Auto-detect column types"
         },
@@ -47,12 +51,16 @@
           "title": "Row at which the special configuration information is (first=1)",
           "minimum": 1,
           "maximum": 9999999,
-          "x-widget": "spin",
-          "x-enabledBy": {
-            "parameter": "csvAutoDetectColumnTypes",
-            "enabledWhenSelected": true
+          "x-editor": {
+            "widget": "spin",
+            "enabledBy": {
+              "parameter": "csvAutoDetectColumnTypes",
+              "enabledWhenSelected": true
+            },
+            "layout": {
+              "vertical": true
+            }
           },
-          "x-vertical": true,
           "x-flattenPath": "csvAutoDetectColumnTypesRow",
           "description": "Row for type detection"
         },
@@ -60,13 +68,19 @@
           "type": "string",
           "default": "",
           "title": "Comma-separated list of the colums with non-plain-text content (e.g. '3:okf_markdown', first=0)",
-          "x-widget": "text",
-          "x-enabledBy": {
-            "parameter": "csvAutoDetectColumnTypes",
-            "enabledWhenSelected": false
+          "x-editor": {
+            "widget": "text",
+            "enabledBy": {
+              "parameter": "csvAutoDetectColumnTypes",
+              "enabledWhenSelected": false
+            },
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "allowEmpty": true
+            }
           },
-          "x-allowEmpty": true,
-          "x-vertical": true,
           "x-flattenPath": "csvFormatCols",
           "description": "Format column specifications"
         },
@@ -74,13 +88,19 @@
           "type": "string",
           "default": "",
           "title": "Comma-separated list of the colums not to extract (first=0)",
-          "x-widget": "text",
-          "x-enabledBy": {
-            "parameter": "csvAutoDetectColumnTypes",
-            "enabledWhenSelected": false
+          "x-editor": {
+            "widget": "text",
+            "enabledBy": {
+              "parameter": "csvAutoDetectColumnTypes",
+              "enabledWhenSelected": false
+            },
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "allowEmpty": true
+            }
           },
-          "x-allowEmpty": true,
-          "x-vertical": true,
           "x-flattenPath": "csvNoExtractCols",
           "description": "Columns to skip"
         },
@@ -90,12 +110,16 @@
           "title": "Row at which the extraction starts (first=1)",
           "minimum": 1,
           "maximum": 9999999,
-          "x-widget": "spin",
-          "x-enabledBy": {
-            "parameter": "csvAutoDetectColumnTypes",
-            "enabledWhenSelected": false
+          "x-editor": {
+            "widget": "spin",
+            "enabledBy": {
+              "parameter": "csvAutoDetectColumnTypes",
+              "enabledWhenSelected": false
+            },
+            "layout": {
+              "vertical": true
+            }
           },
-          "x-vertical": true,
           "x-flattenPath": "csvStartingRow",
           "description": "Starting data row"
         }
@@ -105,8 +129,8 @@
   "additionalProperties": false,
   "x-kind": "OkfMultiparsersFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 2,
+  "x-baseVersion": 3,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "3cbe7e4e06fd",
-  "x-compositeHash": "3cbe7e4e06fd"
+  "x-baseHash": "73e027bbc3d6",
+  "x-compositeHash": "73e027bbc3d6"
 }

@@ -39,35 +39,47 @@
       "type": "boolean",
       "default": false,
       "title": "Process big file",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "fileMarker": {
       "type": "string",
       "default": "_PART",
       "title": "File marker",
-      "x-widget": "text",
-      "x-enabledBy": {
-        "parameter": "bigFile",
-        "enabledWhenSelected": true
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "bigFile",
+          "enabledWhenSelected": true
+        }
       }
     },
     "updateSDLTranslationStatus": {
       "type": "boolean",
       "default": false,
       "title": "Update the <iws:status> translation status (WorldServer-specific)",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "translationTypeValue": {
       "type": "string",
       "default": "manual_translation",
       "title": "Value for 'translation_type'",
       "description": "Value to set for the translation_type attribute.",
-      "x-widget": "text",
-      "x-enabledBy": {
-        "parameter": "updateSDLTranslationStatus",
-        "enabledWhenSelected": true
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "updateSDLTranslationStatus",
+          "enabledWhenSelected": true
+        }
       }
     },
     "translationStatusValue": {
@@ -75,18 +87,24 @@
       "default": "finished",
       "title": "Value for 'translation_status'",
       "description": "Value to set for the translation_status attribute.",
-      "x-widget": "text",
-      "x-enabledBy": {
-        "parameter": "updateSDLTranslationStatus",
-        "enabledWhenSelected": true
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "updateSDLTranslationStatus",
+          "enabledWhenSelected": true
+        }
       }
     },
     "restoreOriginalNames": {
       "type": "boolean",
       "default": false,
       "title": "Restore original file names",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     }
   }
 }

@@ -39,13 +39,17 @@
       "type": "boolean",
       "default": false,
       "title": "Set the text unit as non-translatable",
-      "x-widget": "checkbox"
+      "x-editor": {
+        "widget": "checkbox"
+      }
     },
     "markAsApproved": {
       "type": "boolean",
       "default": true,
       "title": "Set the target property 'approved' to 'yes'",
-      "x-widget": "checkbox"
+      "x-editor": {
+        "widget": "checkbox"
+      }
     }
   }
 }

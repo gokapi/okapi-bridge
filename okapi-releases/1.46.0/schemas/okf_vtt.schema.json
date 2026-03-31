@@ -43,8 +43,12 @@
           "type": "boolean",
           "default": false,
           "title": "Discard existing cue settings",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "discardCues",
           "description": "Discard cue settings"
         },
@@ -52,13 +56,19 @@
           "type": "string",
           "default": "",
           "title": "Replace existing cue settings with text",
-          "x-widget": "text",
-          "x-enabledBy": {
-            "parameter": "discardCues",
-            "enabledWhenSelected": false
+          "x-editor": {
+            "widget": "text",
+            "enabledBy": {
+              "parameter": "discardCues",
+              "enabledWhenSelected": false
+            },
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "allowEmpty": true
+            }
           },
-          "x-allowEmpty": true,
-          "x-vertical": true,
           "x-flattenPath": "cueSettings",
           "description": "Cue settings configuration"
         }
@@ -72,8 +82,12 @@
           "type": "boolean",
           "default": false,
           "title": "Keep timecodes",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "keepTimecodes",
           "description": "Preserve timing information"
         },
@@ -81,8 +95,12 @@
           "type": "string",
           "default": "",
           "title": "Time format",
-          "x-widget": "text",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "timeFormat",
           "description": "Time code format"
         },
@@ -92,8 +110,12 @@
           "title": "Max characters per line",
           "minimum": 1,
           "maximum": 9999999,
-          "x-widget": "spin",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "spin",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "maxCharsPerLine",
           "description": "Maximum characters per line"
         },
@@ -103,8 +125,12 @@
           "title": "Max lines per caption",
           "minimum": 1,
           "maximum": 9999999,
-          "x-widget": "spin",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "spin",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "maxLinesPerCaption",
           "description": "Maximum lines per caption"
         },
@@ -114,8 +140,12 @@
           "title": "Max characters per line for CJK",
           "minimum": 1,
           "maximum": 9999999,
-          "x-widget": "spin",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "spin",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "cjkCharsPerLine",
           "description": "CJK characters per line"
         },
@@ -123,8 +153,12 @@
           "type": "boolean",
           "default": false,
           "title": "Split words so that they don't go over the char limit",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "splitWords",
           "description": "Split words at line boundaries"
         }

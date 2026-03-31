@@ -145,8 +145,10 @@
     "codeFinderRules": {
       "type": "string",
       "default": "#v1\ncount.i=2\nrule0=%(([-0+#]?)[-0+#]?)((\\d\\$)?)(([\\d\\*]*)(\\.[\\d\\*]*)?)[dioxXucsfeEgGpn]\nrule1=(\\\\r\\\\n)|\\\\a|\\\\b|\\\\f|\\\\n|\\\\r|\\\\t|\\\\v\nsample=\nuseAllRulesWhenTesting.b=false",
-      "x-widget": "codeFinderRules",
-      "description": "Regex patterns to identify inline codes in translatable text"
+      "description": "Regex patterns to identify inline codes in translatable text",
+      "x-editor": {
+        "widget": "codeFinderRules"
+      }
     },
     "wrapMode": {
       "type": "string",
@@ -169,5 +171,5 @@
   "x-baseVersion": 2,
   "x-introducedInOkapi": "1.46.0",
   "x-baseHash": "6540b77a3ed9",
-  "x-compositeHash": "3b73459cf82a"
+  "x-compositeHash": "8b73fed6fe31"
 }

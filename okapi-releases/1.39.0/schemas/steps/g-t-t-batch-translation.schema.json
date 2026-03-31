@@ -46,27 +46,47 @@
       "default": "",
       "title": "Email address",
       "description": "Email address of the Google Translator Toolkit account",
-      "x-widget": "text"
+      "x-editor": {
+        "widget": "text"
+      }
     },
     "password": {
       "type": "string",
       "default": "",
       "title": "Password",
       "description": "Password of the account",
-      "x-widget": "text",
-      "x-password": true
+      "x-editor": {
+        "widget": "text",
+        "text": {
+          "password": true
+        }
+      }
     },
     "tmxPath": {
       "type": "string",
       "default": "${rootDir}/tmFromGTT.tmx",
       "title": "TMX document to create",
       "description": "Full path of the new TMX document to create",
-      "x-widget": "path",
-      "x-forSaveAs": true,
-      "x-browseTitle": "TMX Path",
-      "x-fileFilterNames": "TMX Documents (*.tmx)\tAll Files (*.*)",
-      "x-fileFilterExtensions": "*.tmx\t*.*",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "TMX Path",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "TMX Documents (*.tmx)",
+              "extensions": "*.tmx"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     },
     "waitClass": {
       "type": "string",
@@ -76,15 +96,23 @@
       "type": "boolean",
       "default": true,
       "title": "Mark the generated translation as machine translation results",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "openGttPages": {
       "type": "boolean",
       "default": true,
       "title": "Open the GTT edit pages automatically after upload",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     }
   }
 }

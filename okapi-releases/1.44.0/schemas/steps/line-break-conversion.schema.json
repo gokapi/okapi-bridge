@@ -49,8 +49,12 @@
         "Unix/Linux (Line-Feed, \\n, 0x0A)",
         "Macintosh (Carriage-Return, \\r, 0x0D)"
       ],
-      "x-widget": "select",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "select",
+        "layout": {
+          "vertical": true
+        }
+      }
     }
   }
 }

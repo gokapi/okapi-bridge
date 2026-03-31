@@ -39,8 +39,12 @@
           "type": "boolean",
           "default": true,
           "title": "Use localization directives",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "useDirectives",
           "description": "Use extraction directives"
         },
@@ -48,12 +52,16 @@
           "type": "boolean",
           "default": true,
           "title": "Extract outside the scope of the directives",
-          "x-widget": "checkbox",
-          "x-enabledBy": {
-            "parameter": "useDirectives",
-            "enabledWhenSelected": true
+          "x-editor": {
+            "widget": "checkbox",
+            "enabledBy": {
+              "parameter": "useDirectives",
+              "enabledWhenSelected": true
+            },
+            "layout": {
+              "vertical": true
+            }
           },
-          "x-vertical": true,
           "x-flattenPath": "extractOutsideDirectives",
           "description": "Extract outside directive blocks"
         }
@@ -75,8 +83,10 @@
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
           "x-flattenPath": "codeFinderRules",
-          "x-widget": "codeFinderRules",
-          "description": "Regex patterns to identify inline codes in translatable text"
+          "description": "Regex patterns to identify inline codes in translatable text",
+          "x-editor": {
+            "widget": "codeFinderRules"
+          }
         },
         "mergeAdjacent": {
           "type": "boolean",
@@ -135,8 +145,8 @@
   },
   "x-kind": "OkfPhpcontentFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 2,
+  "x-baseVersion": 3,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "0f4038ca4189",
-  "x-compositeHash": "187568ca07a7"
+  "x-baseHash": "4722a8621cd8",
+  "x-compositeHash": "04c9542ea6d2"
 }

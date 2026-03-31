@@ -58,8 +58,12 @@
           "type": "boolean",
           "default": true,
           "title": "Perform maximum validation when parsing",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "maxValidation",
           "description": "Maximum validation level"
         }

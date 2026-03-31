@@ -52,8 +52,12 @@
           "type": "boolean",
           "default": true,
           "title": "Open the project file before processing",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "openProject",
           "description": "Transifex project to open"
         }
@@ -75,8 +79,10 @@
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
           "x-flattenPath": "codeFinderRules",
-          "x-widget": "codeFinderRules",
-          "description": "Regex patterns to identify inline codes in translatable text"
+          "description": "Regex patterns to identify inline codes in translatable text",
+          "x-editor": {
+            "widget": "codeFinderRules"
+          }
         },
         "mergeAdjacent": {
           "type": "boolean",
@@ -135,8 +141,8 @@
   },
   "x-kind": "OkfTransifexFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 2,
+  "x-baseVersion": 3,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "a6b33c56d623",
-  "x-compositeHash": "0324d5f8629e"
+  "x-baseHash": "631de3093b7c",
+  "x-compositeHash": "cee694efc8b5"
 }

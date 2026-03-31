@@ -53,8 +53,12 @@
           "type": "boolean",
           "default": true,
           "title": "Allow empty target segments in output",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "allowEmptyOutputTarget",
           "description": "Allow empty target in output when no translation."
         }
@@ -76,8 +80,10 @@
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
           "x-flattenPath": "codeFinderRules",
-          "x-widget": "codeFinderRules",
-          "description": "Regex patterns to identify inline codes in translatable text"
+          "description": "Regex patterns to identify inline codes in translatable text",
+          "x-editor": {
+            "widget": "codeFinderRules"
+          }
         },
         "mergeAdjacent": {
           "type": "boolean",
@@ -136,8 +142,8 @@
   },
   "x-kind": "OkfTxmlFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 2,
+  "x-baseVersion": 3,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "bfa8d90dd6c0",
-  "x-compositeHash": "697adf4c9e0f"
+  "x-baseHash": "b3e1d138ad9e",
+  "x-compositeHash": "83e7cf14fc97"
 }

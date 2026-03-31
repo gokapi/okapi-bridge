@@ -59,8 +59,12 @@
           "type": "boolean",
           "default": true,
           "title": "Open the manifest file before processing",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "openManifest",
           "description": "Open manifest file"
         }

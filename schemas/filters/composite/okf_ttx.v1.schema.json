@@ -49,8 +49,12 @@
             "Extract only existing segments",
             "Extract all (existing segments and un-segmented text parts)"
           ],
-          "x-widget": "select",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "select",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "segmentMode",
           "description": "Segmentation mode"
         }
@@ -64,8 +68,12 @@
           "type": "boolean",
           "default": false,
           "title": "Escape the greater-than characters in output",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "escapeGT",
           "description": "Escape greater-than in output"
         }
@@ -87,8 +95,10 @@
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
           "x-flattenPath": "codeFinderRules",
-          "x-widget": "codeFinderRules",
-          "description": "Regex patterns to identify inline codes in translatable text"
+          "description": "Regex patterns to identify inline codes in translatable text",
+          "x-editor": {
+            "widget": "codeFinderRules"
+          }
         },
         "mergeAdjacent": {
           "type": "boolean",
@@ -147,8 +157,8 @@
   },
   "x-kind": "OkfTtxFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 2,
+  "x-baseVersion": 3,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "498bce48272a",
-  "x-compositeHash": "4ff0c96f34c3"
+  "x-baseHash": "3fe158e15571",
+  "x-compositeHash": "58f9ac2dd56d"
 }

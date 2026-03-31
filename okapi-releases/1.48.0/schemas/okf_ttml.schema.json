@@ -54,8 +54,12 @@
           "type": "boolean",
           "default": false,
           "title": "Keep timecodes",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "keepTimecodes",
           "description": "Preserve timing information"
         },
@@ -63,8 +67,12 @@
           "type": "string",
           "default": "HH:mm:ss.SSS",
           "title": "Time format",
-          "x-widget": "text",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "timeFormat",
           "description": "Time code format"
         },
@@ -74,8 +82,12 @@
           "title": "Max characters per line",
           "minimum": 1,
           "maximum": 9999999,
-          "x-widget": "spin",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "spin",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "maxCharsPerLine",
           "description": "Maximum characters per line"
         },
@@ -85,8 +97,12 @@
           "title": "Max lines per caption",
           "minimum": 1,
           "maximum": 9999999,
-          "x-widget": "spin",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "spin",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "maxLinesPerCaption",
           "description": "Maximum lines per caption"
         },
@@ -96,8 +112,12 @@
           "title": "Max characters per line for CJK",
           "minimum": 1,
           "maximum": 9999999,
-          "x-widget": "spin",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "spin",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "cjkCharsPerLine",
           "description": "CJK characters per line"
         },
@@ -105,8 +125,12 @@
           "type": "boolean",
           "default": true,
           "title": "Split words so that they don't go over the char limit",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "splitWords",
           "description": "Split words at line boundaries"
         }
@@ -116,15 +140,23 @@
       "type": "boolean",
       "default": false,
       "title": "Write character limit info as annotations to xliff",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "mergeCaptions": {
       "type": "boolean",
       "default": true,
       "title": "Merge captions by sentence",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "ESCAPEBRMODE": {
       "type": "string",
@@ -134,8 +166,12 @@
       "type": "boolean",
       "default": true,
       "title": "Automatically remove line breaks and re-add them later",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     }
   },
   "additionalProperties": false,

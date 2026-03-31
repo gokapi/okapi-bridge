@@ -37,19 +37,37 @@
       "default": "analysis.html",
       "title": "Path of the result file",
       "description": "Full path of the result file.",
-      "x-widget": "path",
-      "x-forSaveAs": true,
-      "x-browseTitle": "Result File",
-      "x-fileFilterNames": "Text Files (*.txt)\tAll Files (*.*)",
-      "x-fileFilterExtensions": "*.txt\t*.*",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Result File",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "Text Files (*.txt)",
+              "extensions": "*.txt"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     },
     "autoOpen": {
       "type": "boolean",
       "default": true,
       "title": "Open the result file after completion",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     }
   }
 }

@@ -39,16 +39,24 @@
       "default": true,
       "title": "Move leading and trailing codes to skeleton",
       "description": "Moves leading and trailing codes from the source and place them in the skeleton.",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "mergeCodes": {
       "type": "boolean",
       "default": true,
       "title": "Merge adjacent codes",
       "description": "Merges adjacent codes.",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "rules": {
       "type": "string",

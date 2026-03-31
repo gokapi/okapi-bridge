@@ -36,42 +36,68 @@
         "XML Schema",
         "RelaxNG Schema"
       ],
-      "x-widget": "select",
-      "x-enabledBy": {
-        "parameter": "validate",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "select",
+        "enabledBy": {
+          "parameter": "validate",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "useFoundDTD": {
       "type": "boolean",
       "default": true,
       "title": "Use DTD declarations found in the input documents",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "validate": {
       "type": "boolean",
       "default": false,
       "title": "Validate the documents structure [Well-formedness is always checked]",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "schemaPath": {
       "type": "string",
       "default": "",
       "title": "Path of the XML Schema",
       "description": "Full path of the XML Schema.",
-      "x-widget": "path",
-      "x-enabledBy": {
-        "parameter": "validate",
-        "enabledWhenSelected": true
-      },
-      "x-browseTitle": "Schema",
-      "x-fileFilterNames": "Schema Files (*.xsd)\tAll Files (*.*)",
-      "x-fileFilterExtensions": "*.xsd\t*.*",
-      "x-allowEmpty": true,
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "validate",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Schema",
+          "allowEmpty": true,
+          "filters": [
+            {
+              "name": "Schema Files (*.xsd)",
+              "extensions": "*.xsd"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     }
   }
 }

@@ -46,8 +46,12 @@
           "type": "boolean",
           "default": false,
           "title": "Ensure tag IDs are unique within units",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "forceUniqueIds",
           "description": "Force unique text unit IDs"
         },
@@ -61,8 +65,12 @@
           "type": "boolean",
           "default": false,
           "title": "Ignore tag type mismatch between source and target",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "ignoreTagTypeMatch",
           "description": "Ignore tag type matching"
         }
@@ -76,8 +84,12 @@
           "type": "boolean",
           "default": false,
           "title": "Discard invalid targets rather than rejecting the file",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "discardInvalidTargets",
           "description": "Discard invalid target elements"
         },
@@ -86,8 +98,12 @@
           "default": false,
           "title": "Subfilter: Always Overwrite Target?",
           "description": "Sub-filter overwrites target",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "subfilterOverwriteTarget"
         }
       }
@@ -100,8 +116,12 @@
           "type": "boolean",
           "default": true,
           "title": "Output includes original data when available",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "writeOriginalData",
           "description": "Write original data to output"
         },
@@ -109,8 +129,12 @@
           "type": "boolean",
           "default": true,
           "title": "Perform maximum validation when parsing",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "maxValidation",
           "description": "Maximum validation level"
         }

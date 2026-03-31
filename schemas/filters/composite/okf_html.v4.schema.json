@@ -2328,8 +2328,10 @@
           "items": {
             "type": "string"
           },
-          "x-widget": "tagList",
-          "x-placeholder": "id,name"
+          "x-placeholder": "id,name",
+          "x-editor": {
+            "widget": "tagList"
+          }
         },
         "conditions": {
           "$ref": "#/$defs/conditionTuple"
@@ -2467,7 +2469,6 @@
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
           "x-flattenPath": "codeFinderRules",
-          "x-widget": "codeFinderRules",
           "x-presets": {
             "entities": {
               "rules": [
@@ -2485,6 +2486,9 @@
               ],
               "sample": "Hello {{name}}"
             }
+          },
+          "x-editor": {
+            "widget": "codeFinderRules"
           }
         },
         "mergeAdjacent": {
@@ -2547,5 +2551,5 @@
   "x-baseVersion": 10,
   "x-introducedInOkapi": "1.43.0",
   "x-baseHash": "54e195725d55",
-  "x-compositeHash": "d521ca79faf9"
+  "x-compositeHash": "695089ab00f8"
 }

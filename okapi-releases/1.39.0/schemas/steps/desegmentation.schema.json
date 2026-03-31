@@ -32,22 +32,34 @@
       "type": "boolean",
       "default": true,
       "title": "Join all segments of the source text",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "desegmentTarget": {
       "type": "boolean",
       "default": true,
       "title": "Join all segments of the target text",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "renumberCodes": {
       "type": "boolean",
       "default": false,
       "title": "Restore original IDs to renumbered codes",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     }
   }
 }

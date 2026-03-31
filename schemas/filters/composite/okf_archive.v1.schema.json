@@ -2,14 +2,15 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://neokapi.github.io/schemas/filters/okf_archive.v1.schema.json",
   "version": 1,
-  "title": "Archive Filter (BETA) Filter",
-  "description": "Configuration for the Okapi Archive Filter (BETA) Filter",
+  "title": "Archive Filter Filter",
+  "description": "Configuration for the Okapi Archive Filter Filter",
   "type": "object",
   "x-filter": {
     "id": "okf_archive",
     "class": "net.sf.okapi.filters.archive.ArchiveFilter",
     "extensions": [
-      ".archive"
+      ".archive",
+      ".zip"
     ],
     "mimeTypes": [
       "application/x-archive"
@@ -20,7 +21,7 @@
         "name": "Archive Files",
         "description": "Configuration for archive files",
         "mimeType": "application/x-archive",
-        "extensions": ".archive;",
+        "extensions": ".archive;.zip;",
         "isDefault": true,
         "filterClass": "net.sf.okapi.filters.archive.ArchiveFilter"
       }
@@ -40,16 +41,24 @@
           "default": "*.tmx,*.xlf,*.xlff",
           "title": "File names",
           "description": "File name patterns",
-          "x-widget": "text",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "fileNames"
         },
         "mimeType": {
           "type": "string",
           "default": "application/x-archive",
           "title": "MIME type of the filter's container format",
-          "x-widget": "text",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "mimeType",
           "description": "MIME type for content"
         },
@@ -58,8 +67,12 @@
           "default": "okf_tmx,okf_xliff,okf_xliff",
           "title": "Filter configuration ids",
           "description": "Filter configuration IDs",
-          "x-widget": "text",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "configIds"
         }
       }
@@ -80,8 +93,10 @@
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
           "x-flattenPath": "codeFinderRules",
-          "x-widget": "codeFinderRules",
-          "description": "Regex patterns to identify inline codes in translatable text"
+          "description": "Regex patterns to identify inline codes in translatable text",
+          "x-editor": {
+            "widget": "codeFinderRules"
+          }
         },
         "mergeAdjacent": {
           "type": "boolean",
@@ -140,8 +155,8 @@
   },
   "x-kind": "OkfArchiveFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 3,
-  "x-introducedInOkapi": "0.38",
-  "x-baseHash": "927842881330",
-  "x-compositeHash": "964d7cd25800"
+  "x-baseVersion": 5,
+  "x-introducedInOkapi": "1.46.0",
+  "x-baseHash": "ba6e10e2a200",
+  "x-compositeHash": "a804a40cafa2"
 }

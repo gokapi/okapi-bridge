@@ -47,8 +47,12 @@
             "Extract only existing segments",
             "Extract all (existing segments and un-segmented text parts)"
           ],
-          "x-widget": "select",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "select",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "segmentMode",
           "description": "Segmentation mode"
         }
@@ -62,8 +66,12 @@
           "type": "boolean",
           "default": false,
           "title": "Escape the greater-than characters in output",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "escapeGT",
           "description": "Escape greater-than in output"
         }

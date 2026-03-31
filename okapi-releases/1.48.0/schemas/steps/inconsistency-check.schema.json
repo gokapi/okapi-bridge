@@ -45,34 +45,52 @@
       "type": "boolean",
       "default": true,
       "title": "Check inconsistencies",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "checkPerFile": {
       "type": "boolean",
       "default": false,
       "title": "Check for inconsistencies on a file-by-file basis",
-      "x-widget": "checkbox",
-      "x-enabledBy": {
-        "parameter": "checkInconststencies",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "checkInconststencies",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "outputPath": {
       "type": "string",
       "default": "${rootDir}/inconsistency-report.xml",
       "title": "Path of the report file:",
-      "x-widget": "path",
-      "x-enabledBy": {
-        "parameter": "checkInconststencies",
-        "enabledWhenSelected": true
-      },
-      "x-forSaveAs": true,
-      "x-browseTitle": "Inconsistency Report File",
-      "x-fileFilterNames": "All Files (*.*)",
-      "x-fileFilterExtensions": "*.*",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "checkInconststencies",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Inconsistency Report File",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     },
     "displayOption": {
       "type": "string",
@@ -88,23 +106,31 @@
         "Generic markers",
         "Plain text"
       ],
-      "x-widget": "dropdown",
-      "x-enabledBy": {
-        "parameter": "checkInconststencies",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "dropdown",
+        "enabledBy": {
+          "parameter": "checkInconststencies",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "autoOpen": {
       "type": "boolean",
       "default": true,
       "title": "Open the report file after completion",
-      "x-widget": "checkbox",
-      "x-enabledBy": {
-        "parameter": "checkInconststencies",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "checkInconststencies",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "original": {
       "type": "boolean",

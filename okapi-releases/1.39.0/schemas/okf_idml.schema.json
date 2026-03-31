@@ -34,8 +34,12 @@
           "type": "boolean",
           "default": false,
           "title": "Extract notes",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "extractNotes",
           "description": "Extract editorial notes"
         },
@@ -43,8 +47,12 @@
           "type": "boolean",
           "default": true,
           "title": "Extract master spreads",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "extractMasterSpreads",
           "description": "Extract master spreads"
         },
@@ -52,8 +60,12 @@
           "type": "boolean",
           "default": false,
           "title": "Extract hidden layers",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "extractHiddenLayers",
           "description": "Extract hidden layers"
         },
@@ -61,8 +73,12 @@
           "type": "boolean",
           "default": false,
           "title": "Extract breaks inline",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "extractBreaksInline",
           "description": "Extract breaks inline"
         },
@@ -70,8 +86,12 @@
           "type": "boolean",
           "default": true,
           "title": "Untag XML structures",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "untagXmlStructures",
           "description": "Untag XML structures"
         },
@@ -79,8 +99,12 @@
           "type": "boolean",
           "default": false,
           "title": "Skip discretionary hyphens",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "skipDiscretionaryHyphens",
           "description": "Skip discretionary hyphens"
         },
@@ -100,8 +124,12 @@
           "type": "boolean",
           "default": false,
           "title": "Ignore character kerning",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "ignoreCharacterKerning",
           "description": "Ignore kerning differences"
         },
@@ -109,9 +137,15 @@
           "type": "string",
           "default": "",
           "title": "Character kerning minimum ignorance threshold",
-          "x-widget": "text",
-          "x-allowEmpty": true,
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "allowEmpty": true
+            }
+          },
           "x-flattenPath": "characterKerningMinIgnoranceThreshold",
           "description": "Kerning min threshold"
         },
@@ -119,9 +153,15 @@
           "type": "string",
           "default": "",
           "title": "Character kerning maximum ignorance threshold",
-          "x-widget": "text",
-          "x-allowEmpty": true,
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "allowEmpty": true
+            }
+          },
           "x-flattenPath": "characterKerningMaxIgnoranceThreshold",
           "description": "Kerning max threshold"
         },
@@ -129,8 +169,12 @@
           "type": "boolean",
           "default": false,
           "title": "Ignore character tracking",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "ignoreCharacterTracking",
           "description": "Ignore tracking differences"
         },
@@ -138,9 +182,15 @@
           "type": "string",
           "default": "",
           "title": "Character tracking minimum ignorance threshold",
-          "x-widget": "text",
-          "x-allowEmpty": true,
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "allowEmpty": true
+            }
+          },
           "x-flattenPath": "characterTrackingMinIgnoranceThreshold",
           "description": "Tracking min threshold"
         },
@@ -148,9 +198,15 @@
           "type": "string",
           "default": "",
           "title": "Character tracking maximum ignorance threshold",
-          "x-widget": "text",
-          "x-allowEmpty": true,
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "allowEmpty": true
+            }
+          },
           "x-flattenPath": "characterTrackingMaxIgnoranceThreshold",
           "description": "Tracking max threshold"
         },
@@ -158,8 +214,12 @@
           "type": "boolean",
           "default": false,
           "title": "Ignore character leading",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "ignoreCharacterLeading",
           "description": "Ignore leading differences"
         },
@@ -167,9 +227,15 @@
           "type": "string",
           "default": "",
           "title": "Character leading minimum ignorance threshold",
-          "x-widget": "text",
-          "x-allowEmpty": true,
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "allowEmpty": true
+            }
+          },
           "x-flattenPath": "characterLeadingMinIgnoranceThreshold",
           "description": "Leading min threshold"
         },
@@ -177,9 +243,15 @@
           "type": "string",
           "default": "",
           "title": "Character leading maximum ignorance threshold",
-          "x-widget": "text",
-          "x-allowEmpty": true,
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "allowEmpty": true
+            }
+          },
           "x-flattenPath": "characterLeadingMaxIgnoranceThreshold",
           "description": "Leading max threshold"
         },
@@ -187,8 +259,12 @@
           "type": "boolean",
           "default": false,
           "title": "Ignore character baseline shift",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "ignoreCharacterBaselineShift",
           "description": "Ignore baseline shift"
         },
@@ -196,9 +272,15 @@
           "type": "string",
           "default": "",
           "title": "Character baseline shift minimum ignorance threshold",
-          "x-widget": "text",
-          "x-allowEmpty": true,
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "allowEmpty": true
+            }
+          },
           "x-flattenPath": "characterBaselineShiftMinIgnoranceThreshold",
           "description": "Baseline shift min"
         },
@@ -206,9 +288,15 @@
           "type": "string",
           "default": "",
           "title": "Character baseline shift maximum ignorance threshold",
-          "x-widget": "text",
-          "x-allowEmpty": true,
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "allowEmpty": true
+            }
+          },
           "x-flattenPath": "characterBaselineShiftMaxIgnoranceThreshold",
           "description": "Baseline shift max"
         }

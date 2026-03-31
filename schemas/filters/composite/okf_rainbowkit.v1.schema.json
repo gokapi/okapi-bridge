@@ -61,8 +61,12 @@
           "type": "boolean",
           "default": true,
           "title": "Open the manifest file before processing",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "openManifest",
           "description": "Open manifest file"
         }
@@ -72,8 +76,8 @@
   "additionalProperties": false,
   "x-kind": "OkfRainbowkitFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 2,
+  "x-baseVersion": 3,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "cbc3587da46d",
-  "x-compositeHash": "cbc3587da46d"
+  "x-baseHash": "52e4d85609be",
+  "x-compositeHash": "52e4d85609be"
 }

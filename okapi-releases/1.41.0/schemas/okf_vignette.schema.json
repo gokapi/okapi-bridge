@@ -54,8 +54,12 @@
           "type": "boolean",
           "default": false,
           "title": "Monolingual mode",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "monolingual",
           "description": "Monolingual mode"
         },
@@ -76,8 +80,12 @@
           "default": true,
           "title": "Use CDATA",
           "description": "Use CDATA sections",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "useCDATA"
         }
       }
@@ -91,10 +99,12 @@
           "default": "LOCALE_ID",
           "title": "Name for locale ID element",
           "description": "Locale identifier",
-          "x-widget": "text",
-          "x-enabledBy": {
-            "parameter": "monolingual",
-            "enabledWhenSelected": false
+          "x-editor": {
+            "widget": "text",
+            "enabledBy": {
+              "parameter": "monolingual",
+              "enabledWhenSelected": false
+            }
           },
           "x-flattenPath": "localeId"
         },
@@ -103,10 +113,12 @@
           "default": "SOURCE_ID",
           "title": "Name for source ID element",
           "description": "Source content identifier",
-          "x-widget": "text",
-          "x-enabledBy": {
-            "parameter": "monolingual",
-            "enabledWhenSelected": false
+          "x-editor": {
+            "widget": "text",
+            "enabledBy": {
+              "parameter": "monolingual",
+              "enabledWhenSelected": false
+            }
           },
           "x-flattenPath": "sourceId"
         },
@@ -115,9 +127,15 @@
           "default": "SMCCONTENT-TITLE, SMCCONTENT-ABSTRACT, SMCCONTENT-BODY, SMCCONTENT-ALT, SMCCHANNELDESCRIPTOR-TITLE, SMCCHANNELDESCRIPTOR-ABSTRACT, SMCCHANNELDESCRIPTOR-ALT, SMCLINKCOLLECTIONS-LINKCOLLECTION-TITLE, SMCLINKCOLLECTIONS-LINKCOLLECTION-DESCRIPTION, SMCLINKS-TITLE, SMCLINKS-ABSTRACT, SMCLINKS-BODY, SMCLINKS-ALT",
           "title": "Names of the <attribute> elements to extract",
           "description": "Part names",
-          "x-widget": "text",
-          "x-textHeight": 60,
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "height": 60
+            }
+          },
           "x-flattenPath": "partsNames"
         },
         "partsConfigurations": {
@@ -125,9 +143,15 @@
           "default": "default, okf_html, okf_html, default, default, okf_html, default, default, okf_html, default, okf_html, okf_html, default",
           "title": "Corresponding filter configurations (or 'default')",
           "description": "Part configurations",
-          "x-widget": "text",
-          "x-textHeight": 60,
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            },
+            "text": {
+              "height": 60
+            }
+          },
           "x-flattenPath": "partsConfigurations"
         }
       }

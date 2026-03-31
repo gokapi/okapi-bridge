@@ -38,16 +38,24 @@
       "default": true,
       "title": "Remove leading and trailing codes",
       "description": "Removes leading and trailing codes from the source and place them in the skeleton.",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "mergeCodes": {
       "type": "boolean",
       "default": true,
       "title": "Merge codes",
       "description": "Merges adjacent codes (leading/trailing codes are removed first (if option is enabled)).",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "rules": {
       "type": "string",

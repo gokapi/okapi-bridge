@@ -32,15 +32,21 @@
       "default": "",
       "title": "Command line",
       "description": "Command path to execute",
-      "x-widget": "text",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "text",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "timeout": {
       "type": "integer",
       "default": -1,
       "title": "Timeout",
       "description": "Timeout in seconds after which the command is cancelled (use -1 for no timeout)",
-      "x-widget": "text"
+      "x-editor": {
+        "widget": "text"
+      }
     }
   }
 }

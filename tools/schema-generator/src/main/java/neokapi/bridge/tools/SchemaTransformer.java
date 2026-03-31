@@ -114,49 +114,112 @@ public class SchemaTransformer {
             prop.addProperty("deprecated", true);
         }
         
-        // Add widget hint from EditorDescription
+        // Build structured x-editor object (conforms to x-editor.schema.json).
+        // Groups widget-specific properties under their widget type key,
+        // mirroring Okapi's EditorDescription / AbstractPart type hierarchy.
+        JsonObject editor = buildEditorMetadata(paramInfo);
+        if (editor != null) {
+            prop.add("x-editor", editor);
+        }
+
+        return prop;
+    }
+
+    /**
+     * Build the structured x-editor metadata object for a parameter.
+     * Conforms to x-editor.schema.json. Widget-specific properties are grouped
+     * under their widget type key (text, path, folder, checkList), mirroring
+     * Okapi EditorDescription AbstractPart subclass hierarchy.
+     *
+     * Returns null if the parameter has no editor metadata.
+     */
+    private JsonObject buildEditorMetadata(ParameterIntrospector.ParamInfo paramInfo) {
+        if (paramInfo.widget == null && paramInfo.masterParam == null) {
+            return null;
+        }
+
+        JsonObject editor = new JsonObject();
+
+        // Widget type (discriminator)
         if (paramInfo.widget != null) {
-            prop.addProperty("x-widget", paramInfo.widget);
+            editor.addProperty("widget", paramInfo.widget);
         }
 
-        // Add master/slave relationship
+        // Master/slave dependency (from AbstractPart.getMasterPart())
         if (paramInfo.masterParam != null) {
-            JsonObject dependency = new JsonObject();
-            dependency.addProperty("parameter", paramInfo.masterParam);
-            dependency.addProperty("enabledWhenSelected", paramInfo.enabledOnMasterSelected);
-            prop.add("x-enabledBy", dependency);
+            JsonObject enabledBy = new JsonObject();
+            enabledBy.addProperty("parameter", paramInfo.masterParam);
+            enabledBy.addProperty("enabledWhenSelected", paramInfo.enabledOnMasterSelected);
+            editor.add("enabledBy", enabledBy);
         }
 
-        // TextInputPart metadata
-        if (paramInfo.password) {
-            prop.addProperty("x-password", true);
-        }
-        if (paramInfo.allowEmpty) {
-            prop.addProperty("x-allowEmpty", true);
-        }
-        if (paramInfo.textHeight != null) {
-            prop.addProperty("x-textHeight", paramInfo.textHeight);
-        }
-
-        // PathInputPart / FolderInputPart metadata
-        if (paramInfo.forSaveAs) {
-            prop.addProperty("x-forSaveAs", true);
-        }
-        if (paramInfo.browseTitle != null) {
-            prop.addProperty("x-browseTitle", paramInfo.browseTitle);
-        }
-        if (paramInfo.filterNames != null) {
-            prop.addProperty("x-fileFilterNames", paramInfo.filterNames);
-        }
-        if (paramInfo.filterExtensions != null) {
-            prop.addProperty("x-fileFilterExtensions", paramInfo.filterExtensions);
-        }
-        if (paramInfo.pathAllowEmpty) {
-            prop.addProperty("x-allowEmpty", true);
+        // Layout hints from AbstractPart (only emit non-defaults)
+        boolean hasLayout = (paramInfo.withLabel != null && !paramInfo.withLabel)
+                || (paramInfo.vertical != null && paramInfo.vertical);
+        if (hasLayout) {
+            JsonObject layout = new JsonObject();
+            if (paramInfo.withLabel != null && !paramInfo.withLabel) {
+                layout.addProperty("withLabel", false);
+            }
+            if (paramInfo.vertical != null && paramInfo.vertical) {
+                layout.addProperty("vertical", true);
+            }
+            editor.add("layout", layout);
         }
 
-        // CheckListPart entries
-        if (paramInfo.checkListEntries != null && !paramInfo.checkListEntries.isEmpty()) {
+        // Widget-specific properties grouped under their type key
+        // (mirrors Okapi AbstractPart subclass hierarchy)
+        if ("text".equals(paramInfo.widget)) {
+            JsonObject text = new JsonObject();
+            boolean hasProps = false;
+            if (paramInfo.password) {
+                text.addProperty("password", true);
+                hasProps = true;
+            }
+            if (paramInfo.allowEmpty) {
+                text.addProperty("allowEmpty", true);
+                hasProps = true;
+            }
+            if (paramInfo.textHeight != null) {
+                text.addProperty("height", paramInfo.textHeight);
+                hasProps = true;
+            }
+            if (hasProps) {
+                editor.add("text", text);
+            }
+        } else if ("path".equals(paramInfo.widget)) {
+            JsonObject path = new JsonObject();
+            boolean hasProps = false;
+            if (paramInfo.browseTitle != null) {
+                path.addProperty("browseTitle", paramInfo.browseTitle);
+                hasProps = true;
+            }
+            if (paramInfo.forSaveAs) {
+                path.addProperty("forSaveAs", true);
+                hasProps = true;
+            }
+            if (paramInfo.pathAllowEmpty) {
+                path.addProperty("allowEmpty", true);
+                hasProps = true;
+            }
+            if (paramInfo.filterNames != null && paramInfo.filterExtensions != null) {
+                JsonArray filters = buildFileFilters(paramInfo.filterNames, paramInfo.filterExtensions);
+                if (filters.size() > 0) {
+                    path.add("filters", filters);
+                    hasProps = true;
+                }
+            }
+            if (hasProps) {
+                editor.add("path", path);
+            }
+        } else if ("folder".equals(paramInfo.widget)) {
+            if (paramInfo.browseTitle != null) {
+                JsonObject folder = new JsonObject();
+                folder.addProperty("browseTitle", paramInfo.browseTitle);
+                editor.add("folder", folder);
+            }
+        } else if ("checkList".equals(paramInfo.widget) && paramInfo.checkListEntries != null) {
+            JsonObject checkListObj = new JsonObject();
             JsonArray entries = new JsonArray();
             for (ParameterIntrospector.ParamInfo entry : paramInfo.checkListEntries) {
                 JsonObject entryObj = new JsonObject();
@@ -169,23 +232,37 @@ public class SchemaTransformer {
                 }
                 entries.add(entryObj);
             }
-            prop.add("x-checkListEntries", entries);
+            checkListObj.add("entries", entries);
+            editor.add("checkList", checkListObj);
         }
 
-        // Layout flags (only emit non-defaults)
-        if (paramInfo.withLabel != null && !paramInfo.withLabel) {
-            prop.addProperty("x-withLabel", false);
-        }
-        if (paramInfo.vertical != null && paramInfo.vertical) {
-            prop.addProperty("x-vertical", true);
-        }
+        return editor;
+    }
 
-        return prop;
+    /**
+     * Parse Okapi tab-separated filter name/extension strings into structured objects.
+     * Input: "SRX Documents (*.srx)\tAll Files (*.*)" / "*.srx\t*.*"
+     * Output: [{name: "SRX Documents (*.srx)", extensions: "*.srx"}, ...]
+     */
+    private JsonArray buildFileFilters(String filterNames, String filterExtensions) {
+        JsonArray filters = new JsonArray();
+        String[] names = filterNames.split("\t");
+        String[] exts = filterExtensions.split("\t");
+        int count = Math.min(names.length, exts.length);
+        for (int i = 0; i < count; i++) {
+            if (!names[i].isEmpty() && !exts[i].isEmpty()) {
+                JsonObject filter = new JsonObject();
+                filter.addProperty("name", names[i]);
+                filter.addProperty("extensions", exts[i]);
+                filters.add(filter);
+            }
+        }
+        return filters;
     }
 
     /**
      * Transform InlineCodeFinder to clean object schema.
-     * 
+     *
      * Okapi internal format: "#v1\ncount.i=2\nrule0=<[^>]+>\nrule1=\\{\\d+\\}\nsample=..."
      * Clean neokapi format: { "rules": [{ "pattern": "..." }], "sample": "...", "useAllRulesWhenTesting": true }
      */

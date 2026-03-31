@@ -79,11 +79,12 @@ resolve_override "$OVERRIDE" "$OVERRIDE_DIR" > "$RESOLVED_OVERRIDE"
 # 2. No x-groups emission — hierarchy IS the grouping
 # 3. $defs from base are preserved as-is
 jq -s '
-  # Transform override field hints to x- prefixed keys
+  # Transform override field hints to schema-level keys.
+  # "widget" is excluded here and handled by merge_editor below.
   def map_hints:
     to_entries |
     map(
-      if .key == "widget" then {"key": "x-widget", "value": .value}
+      if .key == "widget" then empty
       elif .key == "placeholder" then {"key": "x-placeholder", "value": .value}
       elif .key == "presets" then {"key": "x-presets", "value": .value}
       elif .key == "order" then {"key": "x-order", "value": .value}
@@ -93,6 +94,13 @@ jq -s '
       end
     ) |
     from_entries;
+
+  # Merge override widget into x-editor (deep-merge with introspected data).
+  def merge_editor($hints):
+    if ($hints | has("widget")) then
+      .["x-editor"] = ((.["x-editor"] // {}) + {"widget": $hints.widget})
+    else .
+    end;
 
   # Apply field hints to properties, walking into nested objects
   # $fields: the override fields object
@@ -113,7 +121,7 @@ jq -s '
         if ($parts | length) == 2 then
           ($parts[0]) as $group | ($parts[1]) as $field |
           if .[$group].properties[$field] then
-            .[$group].properties[$field] |= . + ($dp.value | map_hints)
+            .[$group].properties[$field] |= (. + ($dp.value | map_hints) | merge_editor($dp.value))
           else .
           end
         else .
@@ -124,7 +132,7 @@ jq -s '
       (reduce ($simple | to_entries[]) as $sf (.;
         if .[$sf.key] and (.[$sf.key] | type == "object") and (.[$sf.key] | has("type") or has("$ref")) then
           # Direct match at root level
-          .[$sf.key] |= . + ($sf.value | map_hints)
+          .[$sf.key] |= (. + ($sf.value | map_hints) | merge_editor($sf.value))
         else
           # Search by x-flattenPath at root level
           (to_entries | map(
@@ -133,7 +141,7 @@ jq -s '
             .key
           ) | first // null) as $flatMatch |
           if $flatMatch then
-            .[$flatMatch] |= . + ($sf.value | map_hints)
+            .[$flatMatch] |= (. + ($sf.value | map_hints) | merge_editor($sf.value))
           else
             # Search nested group properties (by key or x-flattenPath)
             (to_entries | map(
@@ -146,7 +154,7 @@ jq -s '
               {group: $gk, field: .[0].key}
             ) | first // null) as $nested |
             if $nested then
-              .[$nested.group].properties[$nested.field] |= . + ($sf.value | map_hints)
+              .[$nested.group].properties[$nested.field] |= (. + ($sf.value | map_hints) | merge_editor($sf.value))
             else .
             end
           end

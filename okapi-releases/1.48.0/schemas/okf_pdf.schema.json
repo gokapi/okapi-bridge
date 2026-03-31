@@ -40,8 +40,12 @@
           "type": "boolean",
           "default": false,
           "title": "Preserve whitespace",
-          "x-widget": "checkbox",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "checkbox",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "preserveWhitespace",
           "description": "Preserve whitespace"
         },
@@ -49,8 +53,12 @@
           "type": "string",
           "default": "2.0",
           "title": "Amount of indent needed to define a new paragraph (Default=2.0)",
-          "x-widget": "text",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "indentThreshold",
           "description": "Indent detection threshold"
         },
@@ -58,8 +66,12 @@
           "type": "string",
           "default": "0.5",
           "title": "Amount of spacing needed to define a white space character (Default=0.5)",
-          "x-widget": "text",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "spacingTolerance",
           "description": "Spacing tolerance"
         }
@@ -73,8 +85,12 @@
           "type": "string",
           "default": "\n",
           "title": "Character to use as line separator",
-          "x-widget": "text",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "lineSeparator",
           "description": "Line separator character"
         },
@@ -82,8 +98,12 @@
           "type": "string",
           "default": "\n",
           "title": "Character to use as paragraph separator",
-          "x-widget": "text",
-          "x-vertical": true,
+          "x-editor": {
+            "widget": "text",
+            "layout": {
+              "vertical": true
+            }
+          },
           "x-flattenPath": "paragraphSeparator",
           "description": "Paragraph separator"
         }
@@ -93,8 +113,12 @@
       "type": "boolean",
       "default": false,
       "title": "Sort the text by position within the document",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     }
   },
   "additionalProperties": false,

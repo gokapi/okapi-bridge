@@ -61,35 +61,53 @@
       "type": "boolean",
       "default": true,
       "title": "Create a single output document",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "autoExtensions": {
       "type": "boolean",
       "default": false,
       "title": "Output paths are the input paths plus the new format extension",
-      "x-widget": "checkbox",
-      "x-enabledBy": {
-        "parameter": "singleOutput",
-        "enabledWhenSelected": false
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "singleOutput",
+          "enabledWhenSelected": false
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "outputPath": {
       "type": "string",
       "default": "",
       "title": "Output path",
       "description": "Full path of the single output document to generate",
-      "x-widget": "path",
-      "x-enabledBy": {
-        "parameter": "singleOutput",
-        "enabledWhenSelected": true
-      },
-      "x-forSaveAs": true,
-      "x-browseTitle": "Output File",
-      "x-fileFilterNames": "All Files (*.*)",
-      "x-fileFilterExtensions": "*.*",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "singleOutput",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Output File",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     },
     "targetStyle": {
       "type": "integer",
@@ -118,8 +136,12 @@
         "Parallel Corpus Files",
         "Word Table"
       ],
-      "x-widget": "select",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "select",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "formatOptions": {
       "type": "string",
@@ -130,29 +152,45 @@
       "type": "boolean",
       "default": false,
       "title": "Output generic inline codes",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "skipEntriesWithoutText": {
       "type": "boolean",
       "default": true,
       "title": "Do not output entries without text",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "approvedEntriesOnly": {
       "type": "boolean",
       "default": false,
       "title": "Output only approved entries",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "overwriteSameSource": {
       "type": "boolean",
       "default": false,
       "title": "Overwrite if source is the same (for Pensieve TM)",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     }
   }
 }

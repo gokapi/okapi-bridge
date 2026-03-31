@@ -43,40 +43,60 @@
       "default": false,
       "title": "Leverage status:",
       "description": "Indication that leveraging should be done",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "annotateSource": {
       "type": "boolean",
       "default": false,
       "title": "Annotate source:",
       "description": "Indication that source segment annotation should be done",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "annotateTarget": {
       "type": "boolean",
       "default": false,
       "title": "Annotate target",
       "description": "Indication that target segment annotation should be done",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "connectorClassName": {
       "type": "string",
       "default": "",
       "title": "Connector class",
       "description": "Full class name of the terminology connector",
-      "x-widget": "text",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "text",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "connectorParameters": {
       "type": "string",
       "default": "",
       "title": "Connector parameters",
       "description": "String representation of parameters specific to terminology connector",
-      "x-widget": "text",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "text",
+        "layout": {
+          "vertical": true
+        }
+      }
     }
   }
 }

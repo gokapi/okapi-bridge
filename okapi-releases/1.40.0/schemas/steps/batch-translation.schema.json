@@ -37,77 +37,121 @@
       "default": "",
       "title": "Command line",
       "description": "Command line to execute the batch translation",
-      "x-widget": "text",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "text",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "origin": {
       "type": "string",
       "default": "",
       "title": "Origin identifier",
       "description": "String that identifies the origin of the translation",
-      "x-widget": "text",
-      "x-allowEmpty": true
+      "x-editor": {
+        "widget": "text",
+        "text": {
+          "allowEmpty": true
+        }
+      }
     },
     "markAsMT": {
       "type": "boolean",
       "default": true,
       "title": "Mark the generated translation as machine translation results",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "makeTM": {
       "type": "boolean",
       "default": false,
       "title": "Import into the following Pensieve TM:",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "tmDirectory": {
       "type": "string",
       "default": "",
       "description": "Location of the TM to create or use",
-      "x-widget": "folder",
-      "x-enabledBy": {
-        "parameter": "makeTM",
-        "enabledWhenSelected": true
-      },
-      "x-browseTitle": "TM Directory",
-      "x-withLabel": false,
-      "x-vertical": true
+      "x-editor": {
+        "widget": "folder",
+        "enabledBy": {
+          "parameter": "makeTM",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "folder": {
+          "browseTitle": "TM Directory"
+        }
+      }
     },
     "makeTMX": {
       "type": "boolean",
       "default": false,
       "title": "Create the following TMX document:",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "tmxPath": {
       "type": "string",
       "default": "",
       "description": "Full path of the new TMX document to create",
-      "x-widget": "path",
-      "x-enabledBy": {
-        "parameter": "makeTMX",
-        "enabledWhenSelected": true
-      },
-      "x-forSaveAs": true,
-      "x-browseTitle": "TMX Path",
-      "x-fileFilterNames": "TMX Documents (*.tmx)\tAll Files (*.*)",
-      "x-fileFilterExtensions": "*.tmx\t*.*",
-      "x-withLabel": false,
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "makeTMX",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "TMX Path",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "TMX Documents (*.tmx)",
+              "extensions": "*.tmx"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     },
     "sendTMX": {
       "type": "boolean",
       "default": false,
       "title": "Send the TMX document to the next step",
-      "x-widget": "checkbox",
-      "x-enabledBy": {
-        "parameter": "makeTMX",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "makeTMX",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "blockSize": {
       "type": "integer",
@@ -115,49 +159,79 @@
       "title": "Block size",
       "description": "Maximum number of text units to process together",
       "minimum": 1,
-      "x-widget": "spin"
+      "x-editor": {
+        "widget": "spin"
+      }
     },
     "checkExistingTm": {
       "type": "boolean",
       "default": false,
       "title": "Check for existing entries in an existing Pensieve TM:",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "existingTm": {
       "type": "string",
       "default": "",
       "description": "Location of the TM to lookup",
-      "x-widget": "folder",
-      "x-enabledBy": {
-        "parameter": "checkExistingTm",
-        "enabledWhenSelected": true
-      },
-      "x-browseTitle": "TM Directory",
-      "x-withLabel": false,
-      "x-vertical": true
+      "x-editor": {
+        "widget": "folder",
+        "enabledBy": {
+          "parameter": "checkExistingTm",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "folder": {
+          "browseTitle": "TM Directory"
+        }
+      }
     },
     "segment": {
       "type": "boolean",
       "default": false,
       "title": "Segment the text units, using the following SRX rules:",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "srxPath": {
       "type": "string",
       "default": "",
       "description": "Full path of the segmentation rules file to use",
-      "x-widget": "path",
-      "x-enabledBy": {
-        "parameter": "segment",
-        "enabledWhenSelected": true
-      },
-      "x-browseTitle": "SRX Path",
-      "x-fileFilterNames": "SRX Documents (*.srx)\tAll Files (*.*)",
-      "x-fileFilterExtensions": "*.srx\t*.*",
-      "x-withLabel": false,
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "segment",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "SRX Path",
+          "filters": [
+            {
+              "name": "SRX Documents (*.srx)",
+              "extensions": "*.srx"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     }
   }
 }

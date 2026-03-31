@@ -36,50 +36,78 @@
       "type": "boolean",
       "default": true,
       "title": "Text units",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "countInBatch": {
       "type": "boolean",
       "default": true,
       "title": "Batches",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "countInBatchItems": {
       "type": "boolean",
       "default": true,
       "title": "Batch items",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "countInDocuments": {
       "type": "boolean",
       "default": false,
       "title": "Documents",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "countInSubDocuments": {
       "type": "boolean",
       "default": false,
       "title": "Sub-documents",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "countInGroups": {
       "type": "boolean",
       "default": false,
       "title": "Groups",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "bufferSize": {
       "type": "integer",
       "default": 0,
       "title": "Size of text buffer:",
-      "x-widget": "spin",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "spin",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "simplifierRules": {
       "type": "string",

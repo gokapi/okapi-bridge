@@ -49,106 +49,150 @@
       "default": false,
       "title": "Generate a TMX output document",
       "description": "Generates an output document in TMX",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "tmxPath": {
       "type": "string",
       "default": "comparison.tmx",
       "title": "TMX output path",
       "description": "Full path of the output TMX file",
-      "x-widget": "path",
-      "x-enabledBy": {
-        "parameter": "generateTMX",
-        "enabledWhenSelected": true
-      },
-      "x-forSaveAs": true,
-      "x-browseTitle": "TMX Document",
-      "x-fileFilterNames": "TMX Documents (*.tmx)\tAll Files (*.*)",
-      "x-fileFilterExtensions": "*.tmx\t*.*",
-      "x-withLabel": false,
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "generateTMX",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "TMX Document",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "TMX Documents (*.tmx)",
+              "extensions": "*.tmx"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     },
     "generateHTML": {
       "type": "boolean",
       "default": true,
       "title": "Generate output tables in HTML",
       "description": "Generates output tables in HTML",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "genericCodes": {
       "type": "boolean",
       "default": true,
       "title": "Use generic representation (e.g. <1>...</1>) for the inline codes",
-      "x-widget": "checkbox",
-      "x-enabledBy": {
-        "parameter": "generateHTML",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "generateHTML",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "autoOpen": {
       "type": "boolean",
       "default": true,
       "title": "Opens the first HTML output after completion",
-      "x-widget": "checkbox",
-      "x-enabledBy": {
-        "parameter": "generateHTML",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "generateHTML",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "target2Suffix": {
       "type": "string",
       "default": "-t2",
       "title": "Suffix for target language code of document 2",
-      "x-widget": "text",
-      "x-enabledBy": {
-        "parameter": "generateTMX",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "generateTMX",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "target3Suffix": {
       "type": "string",
       "default": "-t3",
       "title": "Suffix for target language code of document 3",
-      "x-widget": "text",
-      "x-enabledBy": {
-        "parameter": "generateTMX",
-        "enabledWhenSelected": true
-      },
-      "x-vertical": true
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "generateTMX",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "document1Label": {
       "type": "string",
       "default": "Trans1",
       "title": "Label for the document 1",
-      "x-widget": "text",
-      "x-enabledBy": {
-        "parameter": "generateHTML",
-        "enabledWhenSelected": true
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "generateHTML",
+          "enabledWhenSelected": true
+        }
       }
     },
     "document2Label": {
       "type": "string",
       "default": "Trans2",
       "title": "Label for the document 2",
-      "x-widget": "text",
-      "x-enabledBy": {
-        "parameter": "generateHTML",
-        "enabledWhenSelected": true
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "generateHTML",
+          "enabledWhenSelected": true
+        }
       }
     },
     "document3Label": {
       "type": "string",
       "default": "Trans3",
       "title": "Label for the document 3",
-      "x-widget": "text",
-      "x-enabledBy": {
-        "parameter": "generateHTML",
-        "enabledWhenSelected": true
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "generateHTML",
+          "enabledWhenSelected": true
+        }
       }
     },
     "caseSensitive": {
@@ -156,58 +200,90 @@
       "default": true,
       "title": "Take into account case differences",
       "description": "Takes into account case differences",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "whitespaceSensitive": {
       "type": "boolean",
       "default": true,
       "title": "Take into account whitespace differences",
       "description": "Takes into account whitespace differences",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "punctuationSensitive": {
       "type": "boolean",
       "default": true,
       "title": "Take into account punctuation differences",
       "description": "Takes into account punctuation differences",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "useDataLog": {
       "type": "boolean",
       "default": false,
       "title": "Append the average results to a log",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     },
     "dataLogPath": {
       "type": "string",
       "default": "",
       "title": "Log file",
       "description": "Full path for the log file",
-      "x-widget": "path",
-      "x-enabledBy": {
-        "parameter": "useDataLog",
-        "enabledWhenSelected": true
-      },
-      "x-forSaveAs": true,
-      "x-browseTitle": "Data Log File",
-      "x-fileFilterNames": "Tab-Delimited Files (*.txt;*.log)\tAll Files (*.*)",
-      "x-fileFilterExtensions": "*.txt|*.log\t*.*",
-      "x-withLabel": false,
-      "x-vertical": true
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "useDataLog",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Data Log File",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "Tab-Delimited Files (*.txt;*.log)",
+              "extensions": "*.txt|*.log"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
     },
     "altTransOrigin": {
       "type": "string",
       "default": "BING",
       "title": "Value in origin attribute",
       "description": "Value of the origin attribute of the alt-trans to use",
-      "x-widget": "text",
-      "x-enabledBy": {
-        "parameter": "useAltTrans",
-        "enabledWhenSelected": true
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "useAltTrans",
+          "enabledWhenSelected": true
+        }
       }
     },
     "useAltTrans": {
@@ -215,8 +291,12 @@
       "default": false,
       "title": "Use alt-trans for document 1",
       "description": "Use the XLIFF alt-trans of the trans-unit",
-      "x-widget": "checkbox",
-      "x-vertical": true
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
     }
   }
 }
