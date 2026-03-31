@@ -1,0 +1,77 @@
+{
+  "$id": "g-t-t-batch-translation",
+  "title": "GTT Batch Translation",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.gttbatchtranslation.GTTBatchTranslationStep",
+    "parameterMappings": [
+      "ROOT_DIRECTORY",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleEndBatch",
+      "handleEndDocument",
+      "handleEndSubDocument",
+      "handleStartBatch",
+      "handleStartDocument",
+      "handleStartSubDocument",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "g-t-t-batch-translation",
+    "type": "step",
+    "displayName": "GTT Batch Translation",
+    "description": "Creates a TM from the input documents using the Google Translator Toolkit. Expects: filter events. Sends back: filter events.",
+    "category": "translate",
+    "inputs": [
+      "block"
+    ],
+    "tags": [
+      "batch",
+      "translation"
+    ],
+    "requires": [
+      "target-language",
+      "source-language"
+    ]
+  },
+  "properties": {
+    "email": {
+      "type": "string",
+      "default": "",
+      "description": "Email address of the Google Translator Toolkit account",
+      "title": "Email address"
+    },
+    "password": {
+      "type": "string",
+      "default": "",
+      "description": "Password of the account",
+      "title": "Password"
+    },
+    "tmxPath": {
+      "type": "string",
+      "default": "${rootDir}/tmFromGTT.tmx",
+      "description": "Full path of the new TMX document to create",
+      "title": "TMX document to create"
+    },
+    "markAsMT": {
+      "type": "boolean",
+      "default": true,
+      "title": "Mark the generated translation as machine translation results"
+    },
+    "openGttPages": {
+      "type": "boolean",
+      "default": true,
+      "title": "Open the GTT edit pages automatically after upload"
+    },
+    "waitClass": {
+      "type": "string",
+      "default": "net.sf.okapi.common.ui.WaitDialog"
+    }
+  }
+}

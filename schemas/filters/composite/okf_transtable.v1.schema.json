@@ -22,14 +22,14 @@
         "filterClass": "net.sf.okapi.filters.transtable.TransTableFilter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "stringParameters"
   },
   "properties": {},
   "additionalProperties": false,
   "x-kind": "OkfTranstableFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 1,
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "9acee845e849",
-  "x-compositeHash": "9acee845e849"
+  "x-baseHash": "0de5875337f3",
+  "x-compositeHash": "0de5875337f3"
 }

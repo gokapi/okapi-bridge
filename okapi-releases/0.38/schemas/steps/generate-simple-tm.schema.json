@@ -1,0 +1,47 @@
+{
+  "$id": "generate-simple-tm",
+  "title": "Generate SimpleTM",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.generatesimpletm.GenerateSimpleTmStep",
+    "parameterMappings": [
+      "ROOT_DIRECTORY",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleEndBatch",
+      "handleEndBatchItem",
+      "handleStartBatch",
+      "handleStartBatchItem",
+      "handleStartDocument",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "generate-simple-tm",
+    "type": "step",
+    "displayName": "Generate SimpleTM",
+    "description": "Generates a SimpleTM translation memory from multilingual input files. Expects filter events. Sends back: filter events.",
+    "category": "translate",
+    "inputs": [
+      "block"
+    ],
+    "tags": [
+      "translation"
+    ],
+    "requires": [
+      "target-language"
+    ]
+  },
+  "properties": {
+    "tmPath": {
+      "type": "string",
+      "default": "",
+      "description": "Full path of the TM to generate.",
+      "title": "Path of the TM"
+    }
+  }
+}

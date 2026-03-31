@@ -23,7 +23,7 @@
         "filterClass": "net.sf.okapi.filters.rtf.RTFFilter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "stringParameters"
   },
   "properties": {},
   "additionalProperties": false

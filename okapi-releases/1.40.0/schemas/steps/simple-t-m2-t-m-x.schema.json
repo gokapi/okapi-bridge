@@ -1,0 +1,26 @@
+{
+  "$id": "simple-t-m2-t-m-x",
+  "title": "SimpleTM to TMX",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.simpletm2tmx.SimpleTM2TMXStep",
+    "parameterMappings": [],
+    "eventHandlers": [
+      "handleRawDocument",
+      "handleStartBatchItem"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "simple-t-m2-t-m-x",
+    "type": "step",
+    "displayName": "SimpleTM to TMX",
+    "description": "Generates a TMX document from a SimpleTM database. Expects: raw document. Sends back: raw document.",
+    "category": "translate",
+    "tags": [
+      "translation"
+    ]
+  }
+}

@@ -22,14 +22,14 @@
         "filterClass": "net.sf.okapi.filters.xini.rainbowkit.XINIRainbowkitFilter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "stringParameters"
   },
   "properties": {},
   "additionalProperties": false,
   "x-kind": "OkfXinirainbowkitFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 1,
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "35d9e95909d1",
-  "x-compositeHash": "35d9e95909d1"
+  "x-baseHash": "289ff3df5397",
+  "x-compositeHash": "289ff3df5397"
 }

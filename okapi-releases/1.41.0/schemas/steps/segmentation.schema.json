@@ -1,0 +1,102 @@
+{
+  "$id": "segmentation",
+  "title": "Segmentation",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.segmentation.SegmentationStep",
+    "parameterMappings": [
+      "INPUT_ROOT_DIRECTORY",
+      "ROOT_DIRECTORY",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALES"
+    ],
+    "eventHandlers": [
+      "handleCustom",
+      "handleStartBatch",
+      "handleStartBatchItem",
+      "handleStartDocument",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "segmentation",
+    "type": "step",
+    "displayName": "Segmentation",
+    "description": "Apply SRX segmentation to the text units content of a document. Expects: filter events. Sends back: filter events.",
+    "category": "transform",
+    "inputs": [
+      "block"
+    ],
+    "tags": [
+      "text-processing"
+    ],
+    "requires": [
+      "source-language"
+    ]
+  },
+  "properties": {
+    "segmentSource": {
+      "type": "boolean",
+      "default": true
+    },
+    "segmentTarget": {
+      "type": "boolean",
+      "default": false
+    },
+    "renumberCodes": {
+      "type": "boolean",
+      "default": false
+    },
+    "sourceSrxPath": {
+      "type": "string",
+      "default": ""
+    },
+    "targetSrxPath": {
+      "type": "string",
+      "default": ""
+    },
+    "copySource": {
+      "type": "boolean",
+      "default": true
+    },
+    "checkSegments": {
+      "type": "boolean",
+      "default": false
+    },
+    "trimSrcLeadingWS": {
+      "type": "integer",
+      "default": -1
+    },
+    "trimSrcTrailingWS": {
+      "type": "integer",
+      "default": -1
+    },
+    "trimTrgLeadingWS": {
+      "type": "integer",
+      "default": -1
+    },
+    "trimTrgTrailingWS": {
+      "type": "integer",
+      "default": -1
+    },
+    "forceSegmentedOutput": {
+      "type": "boolean",
+      "default": true
+    },
+    "overwriteSegmentation": {
+      "type": "boolean",
+      "default": false
+    },
+    "deepenSegmentation": {
+      "type": "boolean",
+      "default": false
+    },
+    "treatIsolatedCodesAsWhitespace": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

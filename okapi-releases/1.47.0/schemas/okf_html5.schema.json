@@ -26,16 +26,16 @@
         "filterClass": "net.sf.okapi.filters.its.html5.HTML5Filter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "xml-its"
   },
   "properties": {
-    "path": {
-      "type": "string"
-    },
     "simplifierRules": {
       "type": "string",
       "description": "Simplifier rules for code type normalization",
       "x-widget": "simplifierRulesEditor"
+    },
+    "path": {
+      "type": "string"
     }
   },
   "additionalProperties": false

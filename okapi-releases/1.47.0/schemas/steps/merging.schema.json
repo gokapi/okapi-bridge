@@ -2,12 +2,6 @@
   "$id": "merging",
   "title": "Rainbow Translation Kit Merging",
   "type": "object",
-  "x-component": {
-    "id": "merging",
-    "type": "step",
-    "displayName": "Rainbow Translation Kit Merging",
-    "description": "Post-process a Rainbow translation kit. Expects: filter events. Sends back: filter events or raw documents."
-  },
   "x-step": {
     "class": "net.sf.okapi.steps.rainbowkit.postprocess.MergingStep",
     "parameterMappings": [
@@ -21,6 +15,23 @@
     "interfaces": [],
     "inputType": "filter-events",
     "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "merging",
+    "type": "step",
+    "displayName": "Rainbow Translation Kit Merging",
+    "description": "Post-process a Rainbow translation kit. Expects: filter events. Sends back: filter events or raw documents.",
+    "category": "translate",
+    "inputs": [
+      "block"
+    ],
+    "tags": [
+      "translation"
+    ],
+    "requires": [
+      "target-language",
+      "source-language"
+    ]
   },
   "properties": {
     "preserveSegmentation": {

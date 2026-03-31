@@ -103,7 +103,7 @@
         "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "xml-its"
   },
   "properties": {
     "simplifierRules": {
@@ -118,8 +118,8 @@
   "additionalProperties": false,
   "x-kind": "OkfXmlFilterConfig",
   "x-apiVersion": "v2",
-  "x-baseVersion": 2,
+  "x-baseVersion": 5,
   "x-introducedInOkapi": "1.42.0",
-  "x-baseHash": "5313af1de9fe",
-  "x-compositeHash": "9ca366caee2d"
+  "x-baseHash": "86b0a0059fe0",
+  "x-compositeHash": "73de0e2c1889"
 }

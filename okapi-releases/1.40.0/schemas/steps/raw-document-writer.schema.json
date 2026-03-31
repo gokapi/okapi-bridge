@@ -1,0 +1,27 @@
+{
+  "$id": "raw-document-writer",
+  "title": "RawDocument Writer",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.common.RawDocumentWriterStep",
+    "parameterMappings": [
+      "OUTPUT_URI"
+    ],
+    "eventHandlers": [
+      "handleRawDocument"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "file"
+  },
+  "x-component": {
+    "id": "raw-document-writer",
+    "type": "step",
+    "displayName": "RawDocument Writer",
+    "description": "Write a RawDocument to an output file.",
+    "category": "pipeline",
+    "outputs": [
+      "data"
+    ]
+  }
+}

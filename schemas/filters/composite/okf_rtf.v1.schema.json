@@ -25,14 +25,14 @@
         "filterClass": "net.sf.okapi.filters.rtf.RTFFilter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "stringParameters"
   },
   "properties": {},
   "additionalProperties": false,
   "x-kind": "OkfRtfFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 1,
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "b2d24dafcd2a",
-  "x-compositeHash": "b2d24dafcd2a"
+  "x-baseHash": "ca579d2cf755",
+  "x-compositeHash": "ca579d2cf755"
 }

@@ -25,14 +25,14 @@
         "filterClass": "net.sf.okapi.filters.mosestext.MosesTextFilter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "stringParameters"
   },
   "properties": {},
   "additionalProperties": false,
   "x-kind": "OkfMosestextFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 1,
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "543e0108ce90",
-  "x-compositeHash": "543e0108ce90"
+  "x-baseHash": "69ba4b0cf0ef",
+  "x-compositeHash": "69ba4b0cf0ef"
 }

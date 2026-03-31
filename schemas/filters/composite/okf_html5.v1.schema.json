@@ -28,7 +28,7 @@
         "filterClass": "net.sf.okapi.filters.its.html5.HTML5Filter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "xml-its"
   },
   "properties": {
     "simplifierRules": {
@@ -43,8 +43,8 @@
   "additionalProperties": false,
   "x-kind": "OkfHtml5FilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 1,
-  "x-introducedInOkapi": "0.38",
-  "x-baseHash": "dfb5be68210c",
-  "x-compositeHash": "454f08a2492c"
+  "x-baseVersion": 2,
+  "x-introducedInOkapi": "1.44.0",
+  "x-baseHash": "0020051a3727",
+  "x-compositeHash": "59cc21a8de3e"
 }

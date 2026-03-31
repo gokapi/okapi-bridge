@@ -1,0 +1,31 @@
+{
+  "$id": "t-t-x-joiner",
+  "title": "TTX Joiner",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.ttxsplitter.TTXJoinerStep",
+    "parameterMappings": [],
+    "eventHandlers": [
+      "handleEndBatch",
+      "handleRawDocument",
+      "handleStartBatch"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "t-t-x-joiner",
+    "type": "step",
+    "displayName": "TTX Joiner",
+    "description": "Rebuilds previously split TTX documents into their original documents. Expects: raw document. Sends back: raw document.",
+    "category": "pipeline"
+  },
+  "properties": {
+    "suffix": {
+      "type": "string",
+      "default": "_joined",
+      "title": "Optional suffix to place at the end of the result files"
+    }
+  }
+}

@@ -20,7 +20,7 @@
         "filterClass": "net.sf.okapi.filters.xini.rainbowkit.XINIRainbowkitFilter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "stringParameters"
   },
   "properties": {},
   "additionalProperties": false

@@ -1,0 +1,32 @@
+{
+  "$id": "skeleton-conversion",
+  "title": "Resource Simplifier",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.common.skeletonconversion.SkeletonConversionStep",
+    "parameterMappings": [
+      "OUTPUT_ENCODING",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE",
+      "TARGET_LOCALES"
+    ],
+    "eventHandlers": [],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "skeleton-conversion",
+    "type": "step",
+    "displayName": "Resource Simplifier",
+    "description": "Simplify resources. Simplification algorythm is format-specific. Expects: filter events. Sends back: filter events.",
+    "category": "transform",
+    "inputs": [
+      "block"
+    ],
+    "requires": [
+      "target-language",
+      "source-language"
+    ]
+  }
+}

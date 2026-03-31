@@ -61,7 +61,8 @@ public class ParameterIntrospector {
 
     /**
      * Determine the serialization format used by a filter's parameters.
-     * Returns "stringParameters" for #v1 key=value format, "yaml" for YAML-based.
+     * Returns "stringParameters" for #v1 key=value format, "xml-its" for XML ITS
+     * rules (used by okf_xml and okf_html5), or "yaml" for YAML-based.
      */
     public String getSerializationFormat(String filterClass) {
         try {
@@ -70,6 +71,12 @@ public class ParameterIntrospector {
             IParameters params = filter.getParameters();
             if (params instanceof StringParameters) {
                 return "stringParameters";
+            }
+            // Check if toString() produces XML (ITS parameters use DOM serialization)
+            String serialized = params.toString();
+            if (serialized != null &&
+                    (serialized.startsWith("<?xml") || serialized.contains("<its:rules"))) {
+                return "xml-its";
             }
             return "yaml";
         } catch (Exception e) {

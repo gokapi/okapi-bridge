@@ -25,14 +25,14 @@
         "filterClass": "net.sf.okapi.filters.pensieve.PensieveFilter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "stringParameters"
   },
   "properties": {},
   "additionalProperties": false,
   "x-kind": "OkfPensieveFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 1,
+  "x-baseVersion": 2,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "58eade2cf56f",
-  "x-compositeHash": "58eade2cf56f"
+  "x-baseHash": "0b86f2b48e1b",
+  "x-compositeHash": "0b86f2b48e1b"
 }

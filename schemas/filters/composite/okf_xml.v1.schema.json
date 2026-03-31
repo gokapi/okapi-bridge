@@ -93,23 +93,23 @@
         "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "xml-its"
   },
   "properties": {
+    "path": {
+      "type": "string"
+    },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
-    },
-    "path": {
-      "type": "string"
     }
   },
   "additionalProperties": false,
   "x-kind": "OkfXmlFilterConfig",
   "x-apiVersion": "v1",
-  "x-baseVersion": 1,
+  "x-baseVersion": 4,
   "x-introducedInOkapi": "0.38",
-  "x-baseHash": "7946be244406",
-  "x-compositeHash": "a03a467661b6"
+  "x-baseHash": "96fbe6f2bbfa",
+  "x-compositeHash": "cb0b85f6eddb"
 }

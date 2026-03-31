@@ -23,7 +23,7 @@
         "filterClass": "net.sf.okapi.filters.pensieve.PensieveFilter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "stringParameters"
   },
   "properties": {},
   "additionalProperties": false

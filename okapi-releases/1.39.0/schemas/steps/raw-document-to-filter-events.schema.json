@@ -1,0 +1,26 @@
+{
+  "$id": "raw-document-to-filter-events",
+  "title": "Raw Document to Filter Events",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.common.RawDocumentToFilterEventsStep",
+    "parameterMappings": [
+      "FILTER_CONFIGURATION_ID",
+      "FILTER_CONFIGURATION_MAPPER"
+    ],
+    "eventHandlers": [],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "raw-document-to-filter-events",
+    "type": "step",
+    "displayName": "Raw Document to Filter Events",
+    "description": "Convert a raw document into filter events. Expects: raw document. Sends back: filter events.",
+    "category": "convert",
+    "inputs": [
+      "block"
+    ]
+  }
+}

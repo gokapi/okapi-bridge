@@ -1,0 +1,44 @@
+{
+  "$id": "uri-conversion",
+  "title": "URI Conversion",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.uriconversion.UriConversionStep",
+    "parameterMappings": [
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "uri-conversion",
+    "type": "step",
+    "displayName": "URI Conversion",
+    "description": "Encodes or Decodes URI escape sequences. Expects: filter events. Sends back: filter events.",
+    "category": "convert",
+    "inputs": [
+      "block"
+    ],
+    "requires": [
+      "target-language"
+    ]
+  },
+  "properties": {
+    "conversionType": {
+      "type": "integer",
+      "default": 0
+    },
+    "updateAll": {
+      "type": "boolean",
+      "default": false
+    },
+    "escapeList": {
+      "type": "string",
+      "default": "%{}[]()&"
+    }
+  }
+}

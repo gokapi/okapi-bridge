@@ -101,7 +101,7 @@
         "filterClass": "net.sf.okapi.filters.xml.XMLFilter"
       }
     ],
-    "serializationFormat": "yaml"
+    "serializationFormat": "xml-its"
   },
   "properties": {
     "simplifierRules": {
