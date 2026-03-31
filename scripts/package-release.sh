@@ -119,8 +119,8 @@ done
 echo "  Step schemas: $(ls staging/schemas/steps/*.schema.json 2>/dev/null | wc -l | tr -d ' ')"
 
 # Bundle documentation if available
-if [ -f "filter-docs/docs.json" ]; then
-    cp "filter-docs/docs.json" staging/docs.json
+if [ -f "docs.json" ]; then
+    cp "docs.json" staging/docs.json
     echo "  Docs bundle: $(du -h staging/docs.json | cut -f1)"
 else
     echo "  Docs bundle: not found (run 'make bundle-docs' to generate)"
