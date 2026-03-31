@@ -257,8 +257,8 @@ for wiki_file in "$RAW_DIR"/*.wiki; do
     basename_pattern=$(echo "$basename" | sed 's/-/_/g')
     wiki_page=$(grep -oi "wiki/index\.php/${basename_pattern}[^\"]*" "$index_file" 2>/dev/null | head -1 | sed 's|wiki/index.php/||')
     if [ -z "$wiki_page" ]; then
-        # Fallback: title-case with underscores
-        wiki_page=$(echo "$basename" | sed 's/-/_/g' | sed 's/\b\(.\)/\u\1/g')
+        # Fallback: underscores only (title-casing via sed \u is not portable)
+        wiki_page=$(echo "$basename" | sed 's/-/_/g')
     fi
     wiki_url="https://okapiframework.org/wiki/index.php/${wiki_page}"
 
@@ -390,8 +390,14 @@ else
         # Read wiki content
         wiki_content=$(cat "$wiki_file")
 
-        # Construct wiki URL
-        wiki_page=$(echo "$basename" | sed 's/-/_/g' | sed 's/\b\(.\)/\u\1/g')
+        # Construct the wiki URL by looking up the actual page name from index.html
+        index_file="$RAW_DIR/index.html"
+        basename_pattern=$(echo "$basename" | sed 's/-/_/g')
+        wiki_page=$(grep -oi "wiki/index\.php/${basename_pattern}[^\"]*" "$index_file" 2>/dev/null | head -1 | sed 's|wiki/index.php/||')
+        if [ -z "$wiki_page" ]; then
+            # Fallback: underscores only (title-casing via sed \u is not portable)
+            wiki_page=$(echo "$basename" | sed 's/-/_/g')
+        fi
         wiki_url="https://okapiframework.org/wiki/index.php/${wiki_page}"
 
         # Resolve the step schema for context
