@@ -1,0 +1,171 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://neokapi.dev/schemas/defs/x-editor.schema.json",
+  "title": "x-editor",
+  "description": "UI editor metadata for filter and step parameter properties. Describes how a parameter should be rendered, validated, and laid out in a configuration UI. Used as the value of the x-editor extension property on JSON Schema property definitions.",
+
+  "type": "object",
+  "properties": {
+    "widget": {
+      "type": "string",
+      "description": "Widget type that determines the UI control for this parameter.",
+      "enum": [
+        "checkbox",
+        "text",
+        "spin",
+        "dropdown",
+        "select",
+        "path",
+        "folder",
+        "codeFinder",
+        "checkList"
+      ],
+      "x-enumDescriptions": {
+        "checkbox": "Boolean toggle checkbox",
+        "text": "Single-line or multi-line text input",
+        "spin": "Numeric spinner with increment/decrement buttons",
+        "dropdown": "Dropdown menu for selecting from a list of values",
+        "select": "Scrollable list for selecting from a list of values",
+        "path": "File path input with browse button",
+        "folder": "Folder path input with browse button",
+        "codeFinder": "Inline code finder rule editor (regex patterns with sample text)",
+        "checkList": "List of checkboxes with per-entry labels"
+      }
+    },
+
+    "enabledBy": {
+      "type": "object",
+      "description": "Master/slave dependency — this parameter is only enabled when the master parameter has a specific state.",
+      "properties": {
+        "parameter": {
+          "type": "string",
+          "description": "Name of the master parameter that controls this one"
+        },
+        "enabledWhenSelected": {
+          "type": "boolean",
+          "description": "If true, this parameter is enabled when the master is selected/true. If false, enabled when master is deselected/false."
+        }
+      },
+      "required": ["parameter", "enabledWhenSelected"]
+    },
+
+    "layout": {
+      "type": "object",
+      "description": "Layout hints for the parameter's UI rendering.",
+      "properties": {
+        "withLabel": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether to display a label for this parameter. False for parameters whose label is implicit (e.g. a path field under a master checkbox)."
+        },
+        "vertical": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, render label above the input (vertical layout). If false, render label beside the input (horizontal)."
+        }
+      }
+    },
+
+    "text": {
+      "type": "object",
+      "description": "Properties specific to text input widgets.",
+      "properties": {
+        "password": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, mask the input as a password field."
+        },
+        "allowEmpty": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, the text field accepts empty/blank values."
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Height in rows for multiline text area. Omit or 1 for single-line input."
+        }
+      }
+    },
+
+    "path": {
+      "type": "object",
+      "description": "Properties specific to file path input widgets.",
+      "properties": {
+        "browseTitle": {
+          "type": "string",
+          "description": "Title for the file browse dialog."
+        },
+        "forSaveAs": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, show a Save-As dialog. If false, show an Open dialog."
+        },
+        "allowEmpty": {
+          "type": "boolean",
+          "default": false,
+          "description": "If true, the path field accepts empty values."
+        },
+        "filters": {
+          "type": "array",
+          "description": "File type filters for the browse dialog.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Display name for the filter (e.g. 'SRX Documents')"
+              },
+              "extensions": {
+                "type": "string",
+                "description": "File extension pattern (e.g. '*.srx')"
+              }
+            },
+            "required": ["name", "extensions"]
+          }
+        }
+      }
+    },
+
+    "folder": {
+      "type": "object",
+      "description": "Properties specific to folder path input widgets.",
+      "properties": {
+        "browseTitle": {
+          "type": "string",
+          "description": "Title for the folder browse dialog."
+        }
+      }
+    },
+
+    "checkList": {
+      "type": "object",
+      "description": "Properties specific to check list widgets.",
+      "properties": {
+        "entries": {
+          "type": "array",
+          "description": "Checkbox entries in the list.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Parameter name for this entry"
+              },
+              "title": {
+                "type": "string",
+                "description": "Display label for this checkbox"
+              },
+              "description": {
+                "type": "string",
+                "description": "Tooltip or help text for this entry"
+              }
+            },
+            "required": ["name"]
+          }
+        }
+      }
+    }
+  },
+  "required": ["widget"]
+}
