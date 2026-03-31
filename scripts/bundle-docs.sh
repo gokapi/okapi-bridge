@@ -1,14 +1,20 @@
 #!/bin/bash
-# Bundle parsed filter and step documentation into a single docs.json
+# Bundle parsed filter and step documentation for plugin distribution.
 # Usage: ./scripts/bundle-docs.sh [filter-docs-dir]
 #
-# Produces docs.json for inclusion in the plugin release archive.
+# Produces:
+#   docs/filters/<id>.json   — one file per filter
+#   docs/steps/<id>.json     — one file per step
+#   docs/metadata.json       — aliases, generation timestamp, wiki URL
+#   docs/concepts.json       — shared documentation concepts
+#   docs.json                — legacy monolithic bundle (for backwards compat)
 
 set -e
 
 DOCS_DIR="${1:-filter-docs}"
 PARSED_DIR="$DOCS_DIR/parsed"
 OUTPUT_FILE="$DOCS_DIR/docs.json"
+OUTPUT_DIR="$DOCS_DIR/docs"
 WIKI_BASE_URL="https://okapiframework.org/wiki/index.php/"
 
 if [ ! -d "$PARSED_DIR" ]; then
@@ -18,8 +24,11 @@ fi
 
 echo "Bundling documentation..."
 
-# Build the filters object from parsed filter docs
-FILTERS="{}"
+# --- Per-file output (docs/ directory) ---
+
+rm -rf "$OUTPUT_DIR"
+mkdir -p "$OUTPUT_DIR/filters" "$OUTPUT_DIR/steps"
+
 ALIASES="{}"
 filter_count=0
 
@@ -35,19 +44,17 @@ for json_file in "$PARSED_DIR"/okf_*.json; do
     fi
 
     filter_id=$(basename "$json_file" .json)
-    FILTERS=$(jq -s --arg id "$filter_id" '.[0] + {($id): .[1]}' <(echo "$FILTERS") "$json_file")
+    cp "$json_file" "$OUTPUT_DIR/filters/${filter_id}.json"
     ((filter_count++))
 done
 
-# Build the steps object from parsed step docs
-STEPS="{}"
 step_count=0
 
 if [ -d "$PARSED_DIR/steps" ]; then
     for json_file in "$PARSED_DIR/steps"/*.json; do
         [ ! -f "$json_file" ] && continue
         step_id=$(basename "$json_file" .json)
-        STEPS=$(jq -s --arg id "$step_id" '.[0] + {($id): .[1]}' <(echo "$STEPS") "$json_file")
+        cp "$json_file" "$OUTPUT_DIR/steps/${step_id}.json"
         ((step_count++))
     done
 fi
@@ -109,9 +116,44 @@ CONCEPTS=$(cat <<'CONCEPTS_EOF'
 CONCEPTS_EOF
 )
 
-# Assemble the final docs.json
+# Write concepts.json
+echo "$CONCEPTS" | jq '.' > "$OUTPUT_DIR/concepts.json"
+
+# Write metadata.json (aliases, generation info, wiki URL)
+GENERATED_AT="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 jq -n \
-    --arg generatedAt "$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+    --arg generatedAt "$GENERATED_AT" \
+    --arg wikiBaseUrl "$WIKI_BASE_URL" \
+    --argjson aliases "$ALIASES" \
+    '{
+        generatedAt: $generatedAt,
+        wikiBaseUrl: $wikiBaseUrl,
+        aliases: $aliases
+    }' > "$OUTPUT_DIR/metadata.json"
+
+echo "Created $OUTPUT_DIR/"
+echo "  Filters: $filter_count (docs/filters/)"
+echo "  Steps:   $step_count (docs/steps/)"
+echo "  Aliases: $(echo "$ALIASES" | jq 'length')"
+
+# --- Legacy monolithic docs.json (backwards compat) ---
+
+FILTERS="{}"
+for json_file in "$OUTPUT_DIR/filters"/*.json; do
+    [ ! -f "$json_file" ] && continue
+    filter_id=$(basename "$json_file" .json)
+    FILTERS=$(jq -s --arg id "$filter_id" '.[0] + {($id): .[1]}' <(echo "$FILTERS") "$json_file")
+done
+
+STEPS="{}"
+for json_file in "$OUTPUT_DIR/steps"/*.json; do
+    [ ! -f "$json_file" ] && continue
+    step_id=$(basename "$json_file" .json)
+    STEPS=$(jq -s --arg id "$step_id" '.[0] + {($id): .[1]}' <(echo "$STEPS") "$json_file")
+done
+
+jq -n \
+    --arg generatedAt "$GENERATED_AT" \
     --arg wikiBaseUrl "$WIKI_BASE_URL" \
     --argjson filters "$FILTERS" \
     --argjson steps "$STEPS" \
@@ -126,8 +168,5 @@ jq -n \
         concepts: $concepts
     }' > "$OUTPUT_FILE"
 
-echo "Created $OUTPUT_FILE"
-echo "  Filters: $filter_count"
-echo "  Steps:   $step_count"
-echo "  Aliases: $(echo "$ALIASES" | jq 'length')"
+echo "Created $OUTPUT_FILE (legacy bundle)"
 echo "  Size:    $(du -h "$OUTPUT_FILE" | cut -f1)"
