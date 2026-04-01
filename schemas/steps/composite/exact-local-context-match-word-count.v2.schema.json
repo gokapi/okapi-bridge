@@ -1,0 +1,34 @@
+{
+  "$id": "exact-local-context-match-word-count",
+  "title": "Exact Local Context Match Word Count",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.wordcount.categorized.okapi.ExactLocalContextMatchWordCountStep",
+    "parameterMappings": [
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "exact-local-context-match-word-count",
+    "type": "step",
+    "displayName": "Exact Local Context Match Word Count",
+    "description": "Matches EXACT and a small number of segments before and/or after. Expects: filter events. Sends back: filter events.",
+    "category": "validate",
+    "inputs": [
+      "block"
+    ],
+    "tags": [
+      "analysis",
+      "text-processing"
+    ],
+    "requires": [
+      "target-language",
+      "source-language"
+    ]
+  }
+}

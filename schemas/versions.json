@@ -1,2182 +1,162 @@
 {
   "$schema": "https://neokapi.dev/schemas/schema-versions.json",
-  "generatedAt": "2026-03-31T20:18:11Z",
+  "generatedAt": "2026-04-01T20:58:29Z",
   "filters": {
     "okf_archive": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 5,
-          "baseHash": "ba6e10e2a200",
-          "overrideHash": "759879ed140c",
-          "compositeHash": "a804a40cafa2",
-          "kind": "OkfArchiveFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_autoxliff": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "43165298d2fd",
-          "overrideHash": "db63ed0fac14",
-          "compositeHash": "43165298d2fd",
-          "kind": "OkfAutoxliffFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "14950be680a1",
-          "overrideHash": "db63ed0fac14",
-          "compositeHash": "14950be680a1",
-          "kind": "OkfAutoxliffFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.45.0"
-        }
-      ]
+      "versions": []
     },
     "okf_baseplaintext": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "6561033f8c68",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "4603fbd86076",
-          "kind": "OkfBaseplaintextFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "f7d486f4efc0",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "013264363ba1",
-          "kind": "OkfBaseplaintextFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_basetable": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "ab2340d11b20",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "47287953b55a",
-          "kind": "OkfBasetableFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "937aeda9dc34",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "abb6c3b5501f",
-          "kind": "OkfBasetableFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.46.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "35a9a2c5347b",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "91f64a845369",
-          "kind": "OkfBasetableFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.47.0"
-        }
-      ]
+      "versions": []
     },
     "okf_commaseparatedvalues": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "024b178740e5",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "7d5b6fcdc039",
-          "kind": "OkfCommaseparatedvaluesFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "d80eb2c51a18",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "32b447754531",
-          "kind": "OkfCommaseparatedvaluesFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.46.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "087e27e7be51",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "825ea530b261",
-          "kind": "OkfCommaseparatedvaluesFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.47.0"
-        }
-      ]
+      "versions": []
     },
     "okf_doxygen": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "d3b7eb745223",
-          "overrideHash": "5f493a4313a1",
-          "compositeHash": "b8e1a83a5b19",
-          "kind": "OkfDoxygenFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "3cd3025cfc09",
-          "overrideHash": "5f493a4313a1",
-          "compositeHash": "549b8b445cc2",
-          "kind": "OkfDoxygenFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_dtd": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "c6cb6c5d3af9",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "3b09c1d1ee11",
-          "kind": "OkfDtdFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "62477613e4ba",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "4374bcef0633",
-          "kind": "OkfDtdFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "1d5414500cca",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "8e39ee4c5eb8",
-          "kind": "OkfDtdFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.48.0"
-        }
-      ]
+      "versions": []
     },
     "okf_fixedwidthcolumns": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "08353001cc9f",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "50b370ed79c0",
-          "kind": "OkfFixedwidthcolumnsFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "9fe8eef769d5",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "34b88c01cec2",
-          "kind": "OkfFixedwidthcolumnsFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.46.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "2386597d393c",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "a6ba054a21d7",
-          "kind": "OkfFixedwidthcolumnsFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.47.0"
-        }
-      ]
+      "versions": []
     },
     "okf_html": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 7,
-          "baseHash": "4d06b223a076",
-          "overrideHash": "d1bb101ed413",
-          "compositeHash": "3af115afcc53",
-          "kind": "OkfHtmlFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 8,
-          "baseHash": "6efdcdf0a1b8",
-          "overrideHash": "d1bb101ed413",
-          "compositeHash": "8aa7080eb6b0",
-          "kind": "OkfHtmlFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.40.0",
-            "1.41.0"
-          ],
-          "introducedInOkapi": "1.40.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 9,
-          "baseHash": "c6c64ae23921",
-          "overrideHash": "d1bb101ed413",
-          "compositeHash": "120b4372b21d",
-          "kind": "OkfHtmlFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.42.0"
-          ],
-          "introducedInOkapi": "1.42.0"
-        },
-        {
-          "version": 4,
-          "baseVersion": 10,
-          "baseHash": "54e195725d55",
-          "overrideHash": "d1bb101ed413",
-          "compositeHash": "695089ab00f8",
-          "kind": "OkfHtmlFilterConfig",
-          "apiVersion": "v4",
-          "okapiVersions": [
-            "1.43.0",
-            "1.44.0"
-          ],
-          "introducedInOkapi": "1.43.0"
-        },
-        {
-          "version": 5,
-          "baseVersion": 11,
-          "baseHash": "0156f8cab676",
-          "overrideHash": "d1bb101ed413",
-          "compositeHash": "35bb982a750e",
-          "kind": "OkfHtmlFilterConfig",
-          "apiVersion": "v5",
-          "okapiVersions": [
-            "1.45.0",
-            "1.46.0",
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.45.0"
-        },
-        {
-          "version": 6,
-          "baseVersion": 12,
-          "baseHash": "7065a4f671fc",
-          "overrideHash": "d1bb101ed413",
-          "compositeHash": "855b724d196e",
-          "kind": "OkfHtmlFilterConfig",
-          "apiVersion": "v6",
-          "okapiVersions": [
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.48.0"
-        }
-      ]
+      "versions": []
     },
     "okf_html5": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 2,
-          "baseHash": "0020051a3727",
-          "overrideHash": "5f493a4313a1",
-          "compositeHash": "59cc21a8de3e",
-          "kind": "OkfHtml5FilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.44.0"
-        },
-        {
-          "version": 2,
-          "baseVersion": 3,
-          "baseHash": "aecbab3f9b5f",
-          "overrideHash": "5f493a4313a1",
-          "compositeHash": "0a1b1e2cda6c",
-          "kind": "OkfHtml5FilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.48.0"
-        }
-      ]
+      "versions": []
     },
     "okf_icml": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 7,
-          "baseHash": "f9d80c068105",
-          "overrideHash": "c7afb80108e7",
-          "compositeHash": "13c82d806992",
-          "kind": "OkfIcmlFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_idml": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 4,
-          "baseHash": "56fc2d03f1b9",
-          "overrideHash": "0f350fbf94ae",
-          "compositeHash": "bf91ad347e1a",
-          "kind": "OkfIdmlFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "1.44.0"
-          ],
-          "introducedInOkapi": "1.44.0"
-        },
-        {
-          "version": 2,
-          "baseVersion": 5,
-          "baseHash": "a8b06f8eeba2",
-          "overrideHash": "0f350fbf94ae",
-          "compositeHash": "f8ac6d98a5c2",
-          "kind": "OkfIdmlFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.45.0"
-          ],
-          "introducedInOkapi": "1.45.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 6,
-          "baseHash": "e52b969cb7fb",
-          "overrideHash": "0f350fbf94ae",
-          "compositeHash": "d73febddc887",
-          "kind": "OkfIdmlFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        },
-        {
-          "version": 4,
-          "baseVersion": 7,
-          "baseHash": "6d54cbb0f6cb",
-          "overrideHash": "0f350fbf94ae",
-          "compositeHash": "3fe74ee4cd7a",
-          "kind": "OkfIdmlFilterConfig",
-          "apiVersion": "v4",
-          "okapiVersions": [
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.48.0"
-        }
-      ]
+      "versions": []
     },
     "okf_json": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "1d5f67b7e11f",
-          "overrideHash": "9d20f037fcb3",
-          "compositeHash": "6e911cf88976",
-          "kind": "OkfJsonFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "5e39dc2c6666",
-          "overrideHash": "9d20f037fcb3",
-          "compositeHash": "4a9bb6443a6c",
-          "kind": "OkfJsonFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "1.42.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "bd79c69540fe",
-          "overrideHash": "9d20f037fcb3",
-          "compositeHash": "db9fbfdb19da",
-          "kind": "OkfJsonFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        },
-        {
-          "version": 4,
-          "baseVersion": 4,
-          "baseHash": "b26df29d13ec",
-          "overrideHash": "9d20f037fcb3",
-          "compositeHash": "90428b55e45b",
-          "kind": "OkfJsonFilterConfig",
-          "apiVersion": "v4",
-          "okapiVersions": [
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.48.0"
-        }
-      ]
+      "versions": []
     },
     "okf_markdown": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "015a33568425",
-          "overrideHash": "f21117b02b44",
-          "compositeHash": "52b2edbf44d0",
-          "kind": "OkfMarkdownFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "f736cfcb5308",
-          "overrideHash": "f21117b02b44",
-          "compositeHash": "2251530b3920",
-          "kind": "OkfMarkdownFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.42.0"
-          ],
-          "introducedInOkapi": "1.42.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "7e6d906b9da7",
-          "overrideHash": "f21117b02b44",
-          "compositeHash": "a0e91f33d351",
-          "kind": "OkfMarkdownFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.43.0",
-            "1.44.0"
-          ],
-          "introducedInOkapi": "1.43.0"
-        },
-        {
-          "version": 4,
-          "baseVersion": 4,
-          "baseHash": "dc74d17370ff",
-          "overrideHash": "f21117b02b44",
-          "compositeHash": "a334f7dcbd9d",
-          "kind": "OkfMarkdownFilterConfig",
-          "apiVersion": "v4",
-          "okapiVersions": [
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.45.0"
-        }
-      ]
+      "versions": []
     },
     "okf_mif": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "19d11fc48f69",
-          "overrideHash": "83a8e7b45b47",
-          "compositeHash": "ff087864e756",
-          "kind": "OkfMifFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "f425cae92938",
-          "overrideHash": "83a8e7b45b47",
-          "compositeHash": "e36adbc3a323",
-          "kind": "OkfMifFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.39.0"
-          ],
-          "introducedInOkapi": "1.39.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "d0b1b632928c",
-          "overrideHash": "83a8e7b45b47",
-          "compositeHash": "a162e0f82399",
-          "kind": "OkfMifFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.40.0"
-          ],
-          "introducedInOkapi": "1.40.0"
-        },
-        {
-          "version": 4,
-          "baseVersion": 4,
-          "baseHash": "9dbf52c9abf7",
-          "overrideHash": "83a8e7b45b47",
-          "compositeHash": "3de71db825f4",
-          "kind": "OkfMifFilterConfig",
-          "apiVersion": "v4",
-          "okapiVersions": [
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "1.41.0"
-        },
-        {
-          "version": 5,
-          "baseVersion": 5,
-          "baseHash": "318e03eab0be",
-          "overrideHash": "83a8e7b45b47",
-          "compositeHash": "313e01e7a78b",
-          "kind": "OkfMifFilterConfig",
-          "apiVersion": "v5",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_mosestext": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 2,
-          "baseHash": "69ba4b0cf0ef",
-          "overrideHash": null,
-          "compositeHash": "69ba4b0cf0ef",
-          "kind": "OkfMosestextFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_multiparsers": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 3,
-          "baseHash": "73e027bbc3d6",
-          "overrideHash": "e4299accaf6a",
-          "compositeHash": "73e027bbc3d6",
-          "kind": "OkfMultiparsersFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_odf": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "a7798a04254b",
-          "overrideHash": "5acba5bf9d5a",
-          "compositeHash": "a22bd61993d1",
-          "kind": "OkfOdfFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "eb51aa822e56",
-          "overrideHash": "5acba5bf9d5a",
-          "compositeHash": "840cb8f76d03",
-          "kind": "OkfOdfFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_openoffice": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "8b0fdbff883e",
-          "overrideHash": "5acba5bf9d5a",
-          "compositeHash": "7034e694141a",
-          "kind": "OkfOpenofficeFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "f757bd171c27",
-          "overrideHash": "5acba5bf9d5a",
-          "compositeHash": "4e40929e4ebb",
-          "kind": "OkfOpenofficeFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_openxml": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "d70ddcdea077",
-          "overrideHash": "d3832bc06de1",
-          "compositeHash": "1dc7bf886ad7",
-          "kind": "OkfOpenxmlFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "5177dfbc95a1",
-          "overrideHash": "d3832bc06de1",
-          "compositeHash": "bdfca1a09c84",
-          "kind": "OkfOpenxmlFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.41.0",
-            "1.42.0"
-          ],
-          "introducedInOkapi": "1.41.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "dce31efbc1ac",
-          "overrideHash": "d3832bc06de1",
-          "compositeHash": "049fc0891b45",
-          "kind": "OkfOpenxmlFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.43.0",
-            "1.44.0"
-          ],
-          "introducedInOkapi": "1.43.0"
-        },
-        {
-          "version": 4,
-          "baseVersion": 4,
-          "baseHash": "8c50dea599f9",
-          "overrideHash": "d3832bc06de1",
-          "compositeHash": "b824301764ac",
-          "kind": "OkfOpenxmlFilterConfig",
-          "apiVersion": "v4",
-          "okapiVersions": [
-            "1.45.0"
-          ],
-          "introducedInOkapi": "1.45.0"
-        },
-        {
-          "version": 5,
-          "baseVersion": 5,
-          "baseHash": "7e9076e8efdc",
-          "overrideHash": "d3832bc06de1",
-          "compositeHash": "07633fc77958",
-          "kind": "OkfOpenxmlFilterConfig",
-          "apiVersion": "v5",
-          "okapiVersions": [
-            "1.46.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        },
-        {
-          "version": 6,
-          "baseVersion": 6,
-          "baseHash": "0cf608b236cb",
-          "overrideHash": "d3832bc06de1",
-          "compositeHash": "dc744c08e7d9",
-          "kind": "OkfOpenxmlFilterConfig",
-          "apiVersion": "v6",
-          "okapiVersions": [
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.47.0"
-        },
-        {
-          "version": 7,
-          "baseVersion": 7,
-          "baseHash": "7f92b39ab673",
-          "overrideHash": "d3832bc06de1",
-          "compositeHash": "0ab960648871",
-          "kind": "OkfOpenxmlFilterConfig",
-          "apiVersion": "v7",
-          "okapiVersions": [
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.48.0"
-        }
-      ]
+      "versions": []
     },
     "okf_paraplaintext": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "1dce233c77d3",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "3f93f3eaf46b",
-          "kind": "OkfParaplaintextFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "4024482837af",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "ad0da6d9f7bc",
-          "kind": "OkfParaplaintextFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_pdf": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 5,
-          "baseHash": "d147057fa7bf",
-          "overrideHash": "7c75c874a678",
-          "compositeHash": "c1d23a94cef8",
-          "kind": "OkfPdfFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_pensieve": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 2,
-          "baseHash": "0b86f2b48e1b",
-          "overrideHash": null,
-          "compositeHash": "0b86f2b48e1b",
-          "kind": "OkfPensieveFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_phpcontent": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 3,
-          "baseHash": "4722a8621cd8",
-          "overrideHash": "162ed13e1383",
-          "compositeHash": "04c9542ea6d2",
-          "kind": "OkfPhpcontentFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_plaintext": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "364286a96296",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "8be9d5359f6e",
-          "kind": "OkfPlaintextFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "a4df1f0afdd4",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "499bcdaa60e4",
-          "kind": "OkfPlaintextFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.42.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "aa8c0d28bdc2",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "8318f794d446",
-          "kind": "OkfPlaintextFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.48.0"
-        }
-      ]
+      "versions": []
     },
     "okf_po": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "8c750da0cbbd",
-          "overrideHash": "bfa9226f4c92",
-          "compositeHash": "b85aadd9f28e",
-          "kind": "OkfPoFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "a71af86b3fd4",
-          "overrideHash": "bfa9226f4c92",
-          "compositeHash": "7b43d68593f6",
-          "kind": "OkfPoFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.41.0"
-          ],
-          "introducedInOkapi": "1.41.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "6904f6db8040",
-          "overrideHash": "bfa9226f4c92",
-          "compositeHash": "fa135475b0c3",
-          "kind": "OkfPoFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.42.0"
-        }
-      ]
+      "versions": []
     },
     "okf_properties": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "32d022948358",
-          "overrideHash": "9c9109f69cdc",
-          "compositeHash": "18508bd1d847",
-          "kind": "OkfPropertiesFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "2772b36aee67",
-          "overrideHash": "9c9109f69cdc",
-          "compositeHash": "72ed47db225c",
-          "kind": "OkfPropertiesFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.40.0"
-        }
-      ]
+      "versions": []
     },
     "okf_rainbowkit": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 3,
-          "baseHash": "52e4d85609be",
-          "overrideHash": "afbd4896c7aa",
-          "compositeHash": "52e4d85609be",
-          "kind": "OkfRainbowkitFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_regex": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "25b036bec79a",
-          "overrideHash": "36f64101ddae",
-          "compositeHash": "88a6af81d31d",
-          "kind": "OkfRegexFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "6d0ab813cba8",
-          "overrideHash": "36f64101ddae",
-          "compositeHash": "0288c51f63fa",
-          "kind": "OkfRegexFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.39.0",
-            "1.40.0",
-            "1.41.0"
-          ],
-          "introducedInOkapi": "1.39.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "efc9d5ac05ea",
-          "overrideHash": "36f64101ddae",
-          "compositeHash": "27857f695831",
-          "kind": "OkfRegexFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.42.0"
-          ],
-          "introducedInOkapi": "1.42.0"
-        },
-        {
-          "version": 4,
-          "baseVersion": 4,
-          "baseHash": "a05e650bba75",
-          "overrideHash": "36f64101ddae",
-          "compositeHash": "6c1563519cc0",
-          "kind": "OkfRegexFilterConfig",
-          "apiVersion": "v4",
-          "okapiVersions": [
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "1.43.0"
-        },
-        {
-          "version": 5,
-          "baseVersion": 5,
-          "baseHash": "98638734a15b",
-          "overrideHash": "36f64101ddae",
-          "compositeHash": "73e209d765db",
-          "kind": "OkfRegexFilterConfig",
-          "apiVersion": "v5",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_regexplaintext": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "076335fad69c",
-          "overrideHash": "411abb81dde0",
-          "compositeHash": "e10f503aa6fc",
-          "kind": "OkfRegexplaintextFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_rtf": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 2,
-          "baseHash": "ca579d2cf755",
-          "overrideHash": null,
-          "compositeHash": "ca579d2cf755",
-          "kind": "OkfRtfFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_sdlpackage": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 5,
-          "baseHash": "8fc6a252ee57",
-          "overrideHash": "759879ed140c",
-          "compositeHash": "c99041e9dc65",
-          "kind": "OkfSdlpackageFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_splicedlines": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "4c5593ab2981",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "a82898658ded",
-          "kind": "OkfSplicedlinesFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "bc6909109c87",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "32635d34d5f8",
-          "kind": "OkfSplicedlinesFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_table": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "48a5615c75a1",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "1d655e42a32e",
-          "kind": "OkfTableFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "e128cca4d7ac",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "f2dc4c285194",
-          "kind": "OkfTableFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0"
-          ],
-          "introducedInOkapi": "1.42.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "ceaee7cce975",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "4e129a607988",
-          "kind": "OkfTableFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.47.0"
-        },
-        {
-          "version": 4,
-          "baseVersion": 4,
-          "baseHash": "700adbf25f24",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "27595040ef5d",
-          "kind": "OkfTableFilterConfig",
-          "apiVersion": "v4",
-          "okapiVersions": [
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.48.0"
-        }
-      ]
+      "versions": []
     },
     "okf_tabseparatedvalues": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "818e9d16d748",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "4fe479ebc6fa",
-          "kind": "OkfTabseparatedvaluesFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "6540b77a3ed9",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "8b73fed6fe31",
-          "kind": "OkfTabseparatedvaluesFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.46.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "2cf9faf7d7a4",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "c521808081ca",
-          "kind": "OkfTabseparatedvaluesFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.47.0"
-        },
-        {
-          "version": 4,
-          "baseVersion": 4,
-          "baseHash": "b5c537f354cc",
-          "overrideHash": "60390657ca83",
-          "compositeHash": "49a8ded92c3e",
-          "kind": "OkfTabseparatedvaluesFilterConfig",
-          "apiVersion": "v4",
-          "okapiVersions": [
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.48.0"
-        }
-      ]
+      "versions": []
     },
     "okf_tex": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 2,
-          "baseHash": "29107a8c4439",
-          "overrideHash": null,
-          "compositeHash": "29107a8c4439",
-          "kind": "OkfTexFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        },
-        {
-          "version": 2,
-          "baseVersion": 3,
-          "baseHash": "b3781e4c2e0a",
-          "overrideHash": null,
-          "compositeHash": "b3781e4c2e0a",
-          "kind": "OkfTexFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_tmx": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "1b58da42875f",
-          "overrideHash": "42e377a9f4b5",
-          "compositeHash": "a4db7a61f16b",
-          "kind": "OkfTmxFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_transifex": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 3,
-          "baseHash": "631de3093b7c",
-          "overrideHash": "e395b25d4bb0",
-          "compositeHash": "cee694efc8b5",
-          "kind": "OkfTransifexFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_transtable": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 2,
-          "baseHash": "0de5875337f3",
-          "overrideHash": null,
-          "compositeHash": "0de5875337f3",
-          "kind": "OkfTranstableFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_ts": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "32a3ddc7d7b4",
-          "overrideHash": "972ce5354b6c",
-          "compositeHash": "6ca074c0a273",
-          "kind": "OkfTsFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_ttx": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 3,
-          "baseHash": "3fe158e15571",
-          "overrideHash": "b635ccf5d0cb",
-          "compositeHash": "58f9ac2dd56d",
-          "kind": "OkfTtxFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_txml": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 3,
-          "baseHash": "b3e1d138ad9e",
-          "overrideHash": "1507276bccb5",
-          "compositeHash": "83e7cf14fc97",
-          "kind": "OkfTxmlFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_versifiedtext": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "ef2ec9b69685",
-          "overrideHash": null,
-          "compositeHash": "ef2ec9b69685",
-          "kind": "OkfVersifiedtextFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_vignette": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 3,
-          "baseHash": "ccbcf8195f0e",
-          "overrideHash": "d1d4073e0d40",
-          "compositeHash": "1caa3cd1b2be",
-          "kind": "OkfVignetteFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_wiki": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "c8178578e4af",
-          "overrideHash": "5f493a4313a1",
-          "compositeHash": "b82fea4ae423",
-          "kind": "OkfWikiFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "f10eaa206a34",
-          "overrideHash": "5f493a4313a1",
-          "compositeHash": "da5b7e7af860",
-          "kind": "OkfWikiFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.48.0"
-        }
-      ]
+      "versions": []
     },
     "okf_xini": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "517131e0f7be",
-          "overrideHash": "c47ac83111b7",
-          "compositeHash": "0322ece26eeb",
-          "kind": "OkfXiniFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_xinirainbowkit": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 2,
-          "baseHash": "289ff3df5397",
-          "overrideHash": null,
-          "compositeHash": "289ff3df5397",
-          "kind": "OkfXinirainbowkitFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "0.38"
-        }
-      ]
+      "versions": []
     },
     "okf_xliff": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "0a6756c815d2",
-          "overrideHash": "49f673d3395f",
-          "compositeHash": "d6a7f7549763",
-          "kind": "OkfXliffFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "9ae92df49182",
-          "overrideHash": "49f673d3395f",
-          "compositeHash": "e41b3872008d",
-          "kind": "OkfXliffFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.39.0",
-            "1.40.0"
-          ],
-          "introducedInOkapi": "1.39.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 3,
-          "baseHash": "5c743113113c",
-          "overrideHash": "49f673d3395f",
-          "compositeHash": "f7b722d094a1",
-          "kind": "OkfXliffFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.41.0"
-          ],
-          "introducedInOkapi": "1.41.0"
-        },
-        {
-          "version": 4,
-          "baseVersion": 4,
-          "baseHash": "307d9eda661f",
-          "overrideHash": "49f673d3395f",
-          "compositeHash": "d6b8b686741e",
-          "kind": "OkfXliffFilterConfig",
-          "apiVersion": "v4",
-          "okapiVersions": [
-            "1.42.0"
-          ],
-          "introducedInOkapi": "1.42.0"
-        },
-        {
-          "version": 5,
-          "baseVersion": 5,
-          "baseHash": "be3bb8070412",
-          "overrideHash": "49f673d3395f",
-          "compositeHash": "249177ab39d7",
-          "kind": "OkfXliffFilterConfig",
-          "apiVersion": "v5",
-          "okapiVersions": [
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "1.43.0"
-        },
-        {
-          "version": 6,
-          "baseVersion": 6,
-          "baseHash": "f7ba529454d5",
-          "overrideHash": "49f673d3395f",
-          "compositeHash": "cf14f9492880",
-          "kind": "OkfXliffFilterConfig",
-          "apiVersion": "v6",
-          "okapiVersions": [
-            "1.46.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        },
-        {
-          "version": 7,
-          "baseVersion": 7,
-          "baseHash": "e17145c712c5",
-          "overrideHash": "49f673d3395f",
-          "compositeHash": "07a63f6290d4",
-          "kind": "OkfXliffFilterConfig",
-          "apiVersion": "v7",
-          "okapiVersions": [
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.47.0"
-        },
-        {
-          "version": 8,
-          "baseVersion": 8,
-          "baseHash": "8e0afa293205",
-          "overrideHash": "49f673d3395f",
-          "compositeHash": "dce90a2718e3",
-          "kind": "OkfXliffFilterConfig",
-          "apiVersion": "v8",
-          "okapiVersions": [
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.48.0"
-        }
-      ]
+      "versions": []
     },
     "okf_xliff2": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 15,
-          "baseHash": "ab247d2d2171",
-          "overrideHash": "8622d670eac0",
-          "compositeHash": "ab247d2d2171",
-          "kind": "OkfXliff2FilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.47.0"
-        }
-      ]
+      "versions": []
     },
     "okf_xml": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 4,
-          "baseHash": "96fbe6f2bbfa",
-          "overrideHash": "5f493a4313a1",
-          "compositeHash": "cb0b85f6eddb",
-          "kind": "OkfXmlFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 5,
-          "baseHash": "86b0a0059fe0",
-          "overrideHash": "5f493a4313a1",
-          "compositeHash": "73de0e2c1889",
-          "kind": "OkfXmlFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0"
-          ],
-          "introducedInOkapi": "1.42.0"
-        },
-        {
-          "version": 3,
-          "baseVersion": 6,
-          "baseHash": "732943e5e562",
-          "overrideHash": "5f493a4313a1",
-          "compositeHash": "3bff8f1a50cd",
-          "kind": "OkfXmlFilterConfig",
-          "apiVersion": "v3",
-          "okapiVersions": [
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.47.0"
-        },
-        {
-          "version": 4,
-          "baseVersion": 7,
-          "baseHash": "e014ddace4c2",
-          "overrideHash": "5f493a4313a1",
-          "compositeHash": "e3d18003f985",
-          "kind": "OkfXmlFilterConfig",
-          "apiVersion": "v4",
-          "okapiVersions": [
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.48.0"
-        }
-      ]
+      "versions": []
     },
     "okf_xmlstream": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 3,
-          "baseHash": "1d37694c0eaa",
-          "overrideHash": "79383aec7683",
-          "compositeHash": "e7f2230b29fe",
-          "kind": "OkfXmlstreamFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 4,
-          "baseHash": "5ca0930b7c52",
-          "overrideHash": "79383aec7683",
-          "compositeHash": "7f48b3728e96",
-          "kind": "OkfXmlstreamFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.43.0",
-            "1.44.0",
-            "1.45.0",
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.43.0"
-        }
-      ]
+      "versions": []
     },
     "okf_yaml": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 1,
-          "baseHash": "cb7ab83fa220",
-          "overrideHash": "b434993d2a14",
-          "compositeHash": "7b59a20e3e4c",
-          "kind": "OkfYamlFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "0.38",
-            "1.39.0",
-            "1.40.0",
-            "1.41.0",
-            "1.42.0",
-            "1.43.0",
-            "1.44.0",
-            "1.45.0"
-          ],
-          "introducedInOkapi": "0.38"
-        },
-        {
-          "version": 2,
-          "baseVersion": 2,
-          "baseHash": "343d918dcd8f",
-          "overrideHash": "b434993d2a14",
-          "compositeHash": "3c0c43f04c39",
-          "kind": "OkfYamlFilterConfig",
-          "apiVersion": "v2",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0",
-            "1.48.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_wsxzpackage": {
       "versions": []
@@ -2188,40 +168,10 @@
       "versions": []
     },
     "okf_ttml": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 5,
-          "baseHash": "9740d1b29546",
-          "overrideHash": "7467859ab10c",
-          "compositeHash": "9740d1b29546",
-          "kind": "OkfTtmlFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     },
     "okf_vtt": {
-      "versions": [
-        {
-          "version": 1,
-          "baseVersion": 5,
-          "baseHash": "419567410b6e",
-          "overrideHash": "e8fb6d9597a6",
-          "compositeHash": "419567410b6e",
-          "kind": "OkfVttFilterConfig",
-          "apiVersion": "v1",
-          "okapiVersions": [
-            "1.46.0",
-            "1.47.0"
-          ],
-          "introducedInOkapi": "1.46.0"
-        }
-      ]
+      "versions": []
     }
   },
   "steps": {
@@ -2241,7 +191,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "15d4f67af2f5",
+          "compositeHash": "15d4f67af2f5",
+          "overrideHash": null
         }
       ]
     },
@@ -2261,7 +214,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "070639b53d71",
+          "compositeHash": "070639b53d71",
+          "overrideHash": null
         }
       ]
     },
@@ -2281,7 +237,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "be43b5213e0f",
+          "compositeHash": "be43b5213e0f",
+          "overrideHash": null
         }
       ]
     },
@@ -2301,7 +260,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "bcd7859c5bb9",
+          "compositeHash": "bcd7859c5bb9",
+          "overrideHash": null
         }
       ]
     },
@@ -2321,7 +283,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "b86f6ca69723",
+          "compositeHash": "b86f6ca69723",
+          "overrideHash": null
         }
       ]
     },
@@ -2341,7 +306,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "a5437a8f4d59",
+          "compositeHash": "a5437a8f4d59",
+          "overrideHash": null
         }
       ]
     },
@@ -2361,7 +329,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "288951228efa",
+          "compositeHash": "288951228efa",
+          "overrideHash": null
         }
       ]
     },
@@ -2381,7 +352,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "09407a35eb8e",
+          "compositeHash": "09407a35eb8e",
+          "overrideHash": null
         }
       ]
     },
@@ -2401,7 +375,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "248f4065a074",
+          "compositeHash": "248f4065a074",
+          "overrideHash": null
         }
       ]
     },
@@ -2421,7 +398,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "74ac673d3439",
+          "compositeHash": "74ac673d3439",
+          "overrideHash": null
         }
       ]
     },
@@ -2441,7 +421,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "dc00adb6ae0a",
+          "compositeHash": "dc00adb6ae0a",
+          "overrideHash": null
         }
       ]
     },
@@ -2461,7 +444,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "4ad9e67b053f",
+          "compositeHash": "4ad9e67b053f",
+          "overrideHash": null
         }
       ]
     },
@@ -2481,7 +467,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "717693f6da29",
+          "compositeHash": "717693f6da29",
+          "overrideHash": null
         }
       ]
     },
@@ -2501,7 +490,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "f74d45f47ec3",
+          "compositeHash": "f74d45f47ec3",
+          "overrideHash": null
         }
       ]
     },
@@ -2521,7 +513,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "3e4906dc3fda",
+          "compositeHash": "3e4906dc3fda",
+          "overrideHash": null
         }
       ]
     },
@@ -2541,7 +536,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "74ea2889e43c",
+          "compositeHash": "74ea2889e43c",
+          "overrideHash": null
         }
       ]
     },
@@ -2561,7 +559,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "7cbaf7a4071d",
+          "compositeHash": "7cbaf7a4071d",
+          "overrideHash": null
         }
       ]
     },
@@ -2581,7 +582,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "c34e9becbd3b",
+          "compositeHash": "c34e9becbd3b",
+          "overrideHash": null
         }
       ]
     },
@@ -2601,7 +605,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "9c678bb28236",
+          "compositeHash": "9c678bb28236",
+          "overrideHash": null
         }
       ]
     },
@@ -2621,7 +628,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "bcba1b6da3b1",
+          "compositeHash": "bcba1b6da3b1",
+          "overrideHash": null
         }
       ]
     },
@@ -2641,7 +651,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "6ada30d50b51",
+          "compositeHash": "6ada30d50b51",
+          "overrideHash": null
         }
       ]
     },
@@ -2661,7 +674,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "6aac561a905e",
+          "compositeHash": "6aac561a905e",
+          "overrideHash": null
         }
       ]
     },
@@ -2681,7 +697,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "d3eae6a4c679",
+          "compositeHash": "d3eae6a4c679",
+          "overrideHash": null
         }
       ]
     },
@@ -2701,7 +720,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "b2da97118534",
+          "compositeHash": "b2da97118534",
+          "overrideHash": null
         }
       ]
     },
@@ -2721,7 +743,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "40bb186dc9a6",
+          "compositeHash": "40bb186dc9a6",
+          "overrideHash": null
         }
       ]
     },
@@ -2741,7 +766,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "5158c9b4603d",
+          "compositeHash": "5158c9b4603d",
+          "overrideHash": null
         }
       ]
     },
@@ -2761,7 +789,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "8481ebae9e95",
+          "compositeHash": "8481ebae9e95",
+          "overrideHash": null
         }
       ]
     },
@@ -2781,7 +812,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "a79301845ca0",
+          "compositeHash": "a79301845ca0",
+          "overrideHash": null
         }
       ]
     },
@@ -2801,7 +835,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "01a1b2107413",
+          "compositeHash": "01a1b2107413",
+          "overrideHash": null
         }
       ]
     },
@@ -2821,7 +858,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "10204c002e37",
+          "compositeHash": "10204c002e37",
+          "overrideHash": null
         }
       ]
     },
@@ -2841,7 +881,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "d3567094b4b4",
+          "compositeHash": "d3567094b4b4",
+          "overrideHash": null
         }
       ]
     },
@@ -2861,7 +904,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "370a0109a5cc",
+          "compositeHash": "370a0109a5cc",
+          "overrideHash": null
         }
       ]
     },
@@ -2881,7 +927,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "101cc6479c8b",
+          "compositeHash": "101cc6479c8b",
+          "overrideHash": null
         }
       ]
     },
@@ -2901,7 +950,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "a51f444b18f6",
+          "compositeHash": "a51f444b18f6",
+          "overrideHash": null
         }
       ]
     },
@@ -2921,7 +973,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "8e6c511f70be",
+          "compositeHash": "8e6c511f70be",
+          "overrideHash": null
         }
       ]
     },
@@ -2941,7 +996,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "c7e9a055a5dc",
+          "compositeHash": "c7e9a055a5dc",
+          "overrideHash": null
         }
       ]
     },
@@ -2961,7 +1019,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "7637378f8246",
+          "compositeHash": "7637378f8246",
+          "overrideHash": null
         }
       ]
     },
@@ -2981,7 +1042,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "70eedce3c85a",
+          "compositeHash": "70eedce3c85a",
+          "overrideHash": null
         }
       ]
     },
@@ -3001,7 +1065,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "881f4cecc62d",
+          "compositeHash": "881f4cecc62d",
+          "overrideHash": null
         }
       ]
     },
@@ -3021,7 +1088,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "83ed5247360d",
+          "compositeHash": "83ed5247360d",
+          "overrideHash": null
         }
       ]
     },
@@ -3041,7 +1111,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "76b43541dec2",
+          "compositeHash": "76b43541dec2",
+          "overrideHash": null
         }
       ]
     },
@@ -3061,7 +1134,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "7b6f554d321f",
+          "compositeHash": "7b6f554d321f",
+          "overrideHash": null
         }
       ]
     },
@@ -3081,7 +1157,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "86d76ab551ed",
+          "compositeHash": "86d76ab551ed",
+          "overrideHash": null
         }
       ]
     },
@@ -3101,7 +1180,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "d1c1391d220e",
+          "compositeHash": "d1c1391d220e",
+          "overrideHash": null
         }
       ]
     },
@@ -3121,7 +1203,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "4c35fc1259e5",
+          "compositeHash": "4c35fc1259e5",
+          "overrideHash": null
         }
       ]
     },
@@ -3141,7 +1226,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "ed674e9a2ed2",
+          "compositeHash": "ed674e9a2ed2",
+          "overrideHash": null
         }
       ]
     },
@@ -3161,7 +1249,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "8971aff94995",
+          "compositeHash": "8971aff94995",
+          "overrideHash": null
         }
       ]
     },
@@ -3181,7 +1272,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "4b095acd1fd2",
+          "compositeHash": "4b095acd1fd2",
+          "overrideHash": null
         }
       ]
     },
@@ -3201,7 +1295,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "a41237597f03",
+          "compositeHash": "a41237597f03",
+          "overrideHash": null
         }
       ]
     },
@@ -3221,7 +1318,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "3130677ba875",
+          "compositeHash": "3130677ba875",
+          "overrideHash": null
         }
       ]
     },
@@ -3241,7 +1341,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "c2bd01367bbd",
+          "compositeHash": "c2bd01367bbd",
+          "overrideHash": null
         }
       ]
     },
@@ -3261,7 +1364,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "7ea205ad003c",
+          "compositeHash": "7ea205ad003c",
+          "overrideHash": null
         }
       ]
     },
@@ -3281,7 +1387,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "615fc01fb3ab",
+          "compositeHash": "615fc01fb3ab",
+          "overrideHash": null
         }
       ]
     },
@@ -3301,7 +1410,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "dc3c9c7b3571",
+          "compositeHash": "dc3c9c7b3571",
+          "overrideHash": null
         }
       ]
     },
@@ -3321,7 +1433,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "f4f90ebc6f46",
+          "compositeHash": "f4f90ebc6f46",
+          "overrideHash": null
         }
       ]
     },
@@ -3341,7 +1456,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "c18a9f2e3067",
+          "compositeHash": "c18a9f2e3067",
+          "overrideHash": null
         }
       ]
     },
@@ -3361,7 +1479,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "a903e4c5775a",
+          "compositeHash": "a903e4c5775a",
+          "overrideHash": null
         }
       ]
     },
@@ -3381,7 +1502,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "da41e7a0743d",
+          "compositeHash": "da41e7a0743d",
+          "overrideHash": null
         }
       ]
     },
@@ -3401,7 +1525,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "707c39c63fad",
+          "compositeHash": "707c39c63fad",
+          "overrideHash": null
         }
       ]
     },
@@ -3421,7 +1548,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "ad0d74ff35e4",
+          "compositeHash": "ad0d74ff35e4",
+          "overrideHash": null
         }
       ]
     },
@@ -3441,7 +1571,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "ad5f4422e636",
+          "compositeHash": "ad5f4422e636",
+          "overrideHash": null
         }
       ]
     },
@@ -3461,7 +1594,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "47221b08d7c1",
+          "compositeHash": "47221b08d7c1",
+          "overrideHash": null
         }
       ]
     },
@@ -3481,7 +1617,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "61c57ee4976f",
+          "compositeHash": "61c57ee4976f",
+          "overrideHash": null
         }
       ]
     },
@@ -3501,7 +1640,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "3ea5d4d25205",
+          "compositeHash": "3ea5d4d25205",
+          "overrideHash": null
         }
       ]
     },
@@ -3521,7 +1663,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "50615cf29ba0",
+          "compositeHash": "50615cf29ba0",
+          "overrideHash": null
         }
       ]
     },
@@ -3541,7 +1686,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "a584beb6ab5e",
+          "compositeHash": "a584beb6ab5e",
+          "overrideHash": null
         }
       ]
     },
@@ -3561,7 +1709,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "32ad62bc2996",
+          "compositeHash": "32ad62bc2996",
+          "overrideHash": null
         }
       ]
     },
@@ -3581,7 +1732,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "d25b6365d1cb",
+          "compositeHash": "d25b6365d1cb",
+          "overrideHash": null
         }
       ]
     },
@@ -3601,7 +1755,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "784766d1ae5b",
+          "compositeHash": "784766d1ae5b",
+          "overrideHash": null
         }
       ]
     },
@@ -3621,7 +1778,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "c13297febf25",
+          "compositeHash": "c13297febf25",
+          "overrideHash": null
         }
       ]
     },
@@ -3641,7 +1801,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "4ff4a6d3d396",
+          "compositeHash": "4ff4a6d3d396",
+          "overrideHash": null
         }
       ]
     },
@@ -3661,7 +1824,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "e376caa80455",
+          "compositeHash": "e376caa80455",
+          "overrideHash": null
         }
       ]
     },
@@ -3681,7 +1847,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "7e273a3d68d8",
+          "compositeHash": "7e273a3d68d8",
+          "overrideHash": null
         }
       ]
     },
@@ -3701,7 +1870,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "375e8a4f5954",
+          "compositeHash": "375e8a4f5954",
+          "overrideHash": null
         }
       ]
     },
@@ -3721,7 +1893,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "f895a2a9a033",
+          "compositeHash": "f895a2a9a033",
+          "overrideHash": null
         }
       ]
     },
@@ -3741,7 +1916,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "0be3c083a9c1",
+          "compositeHash": "0be3c083a9c1",
+          "overrideHash": null
         }
       ]
     },
@@ -3761,7 +1939,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "8dbc03262684",
+          "compositeHash": "8dbc03262684",
+          "overrideHash": null
         }
       ]
     },
@@ -3781,7 +1962,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "3558f8ea4364",
+          "compositeHash": "3558f8ea4364",
+          "overrideHash": null
         }
       ]
     },
@@ -3801,7 +1985,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "9eb0cd8c0f57",
+          "compositeHash": "9eb0cd8c0f57",
+          "overrideHash": null
         }
       ]
     },
@@ -3821,7 +2008,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "5738c91bbc99",
+          "compositeHash": "5738c91bbc99",
+          "overrideHash": null
         }
       ]
     },
@@ -3841,7 +2031,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "b8c2812e1273",
+          "compositeHash": "b8c2812e1273",
+          "overrideHash": null
         }
       ]
     },
@@ -3861,7 +2054,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "633b9b6aecbf",
+          "compositeHash": "633b9b6aecbf",
+          "overrideHash": null
         }
       ]
     },
@@ -3881,7 +2077,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "27d07b09c732",
+          "compositeHash": "27d07b09c732",
+          "overrideHash": null
         }
       ]
     },
@@ -3901,7 +2100,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "de3f77ba90c5",
+          "compositeHash": "de3f77ba90c5",
+          "overrideHash": null
         }
       ]
     },
@@ -3921,7 +2123,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "665b7c3b793c",
+          "compositeHash": "665b7c3b793c",
+          "overrideHash": null
         }
       ]
     },
@@ -3941,7 +2146,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "fcf379e826d4",
+          "compositeHash": "fcf379e826d4",
+          "overrideHash": null
         }
       ]
     },
@@ -3961,7 +2169,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "2f18b3f7f4c4",
+          "compositeHash": "2f18b3f7f4c4",
+          "overrideHash": null
         }
       ]
     },
@@ -3981,7 +2192,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "2ef921cbf1f0",
+          "compositeHash": "2ef921cbf1f0",
+          "overrideHash": null
         }
       ]
     },
@@ -4001,7 +2215,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "01ec6ad9ca3a",
+          "compositeHash": "01ec6ad9ca3a",
+          "overrideHash": null
         }
       ]
     },
@@ -4021,7 +2238,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "d2f538f385f3",
+          "compositeHash": "0c2451ae4bb7",
+          "overrideHash": "849f130715ec"
         }
       ]
     },
@@ -4041,7 +2261,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "74258811b1c8",
+          "compositeHash": "74258811b1c8",
+          "overrideHash": null
         }
       ]
     },
@@ -4061,7 +2284,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "c04a1d4290d1",
+          "compositeHash": "c04a1d4290d1",
+          "overrideHash": null
         }
       ]
     },
@@ -4081,7 +2307,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "b1530626708d",
+          "compositeHash": "b1530626708d",
+          "overrideHash": null
         }
       ]
     },
@@ -4101,7 +2330,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "320dd15e888f",
+          "compositeHash": "320dd15e888f",
+          "overrideHash": null
         }
       ]
     },
@@ -4121,7 +2353,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "c58d24da9447",
+          "compositeHash": "c58d24da9447",
+          "overrideHash": null
         }
       ]
     },
@@ -4141,7 +2376,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "556c42f091fa",
+          "compositeHash": "556c42f091fa",
+          "overrideHash": null
         }
       ]
     },
@@ -4161,7 +2399,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "f82ff916d920",
+          "compositeHash": "f82ff916d920",
+          "overrideHash": null
         }
       ]
     },
@@ -4181,7 +2422,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "5e515126def5",
+          "compositeHash": "5e515126def5",
+          "overrideHash": null
         }
       ]
     },
@@ -4201,7 +2445,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "003aabbd24c7",
+          "compositeHash": "003aabbd24c7",
+          "overrideHash": null
         }
       ]
     },
@@ -4221,7 +2468,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "c0c501cad15d",
+          "compositeHash": "c0c501cad15d",
+          "overrideHash": null
         }
       ]
     },
@@ -4241,7 +2491,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "8288b55883a4",
+          "compositeHash": "8288b55883a4",
+          "overrideHash": null
         }
       ]
     },
@@ -4261,7 +2514,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "c3663a4ac779",
+          "compositeHash": "c3663a4ac779",
+          "overrideHash": null
         }
       ]
     },
@@ -4281,7 +2537,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "9253e08f85cc",
+          "compositeHash": "9253e08f85cc",
+          "overrideHash": null
         }
       ]
     },
@@ -4301,7 +2560,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "fb260a24e8aa",
+          "compositeHash": "fb260a24e8aa",
+          "overrideHash": null
         }
       ]
     },
@@ -4321,7 +2583,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "ca5ffdbc3795",
+          "compositeHash": "ca5ffdbc3795",
+          "overrideHash": null
         }
       ]
     },
@@ -4341,7 +2606,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "777fd180f8b7",
+          "compositeHash": "777fd180f8b7",
+          "overrideHash": null
         }
       ]
     },
@@ -4361,7 +2629,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "4d8ab26829ec",
+          "compositeHash": "4d8ab26829ec",
+          "overrideHash": null
         }
       ]
     },
@@ -4381,7 +2652,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "5efc870490c8",
+          "compositeHash": "5efc870490c8",
+          "overrideHash": null
         }
       ]
     },
@@ -4401,7 +2675,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "d65cd44decf4",
+          "compositeHash": "d65cd44decf4",
+          "overrideHash": null
         }
       ]
     },
@@ -4421,7 +2698,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "3e8229a8e304",
+          "compositeHash": "3e8229a8e304",
+          "overrideHash": null
         }
       ]
     },
@@ -4441,7 +2721,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "e6c6c279ce59",
+          "compositeHash": "e6c6c279ce59",
+          "overrideHash": null
         }
       ]
     },
@@ -4461,7 +2744,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "60a65a90aec8",
+          "compositeHash": "60a65a90aec8",
+          "overrideHash": null
         }
       ]
     },
@@ -4481,7 +2767,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "6308875c8de1",
+          "compositeHash": "6308875c8de1",
+          "overrideHash": null
         }
       ]
     },
@@ -4501,7 +2790,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "dc988bf928b5",
+          "compositeHash": "dc988bf928b5",
+          "overrideHash": null
         }
       ]
     },
@@ -4521,7 +2813,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "20a02ff9624e",
+          "compositeHash": "20a02ff9624e",
+          "overrideHash": null
         }
       ]
     },
@@ -4541,7 +2836,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "bf202cb54776",
+          "compositeHash": "bf202cb54776",
+          "overrideHash": null
         }
       ]
     },
@@ -4561,7 +2859,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "b16b25872045",
+          "compositeHash": "b16b25872045",
+          "overrideHash": null
         }
       ]
     },
@@ -4581,7 +2882,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "7a19789eb5e5",
+          "compositeHash": "7a19789eb5e5",
+          "overrideHash": null
         }
       ]
     },
@@ -4601,7 +2905,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "359de3866371",
+          "compositeHash": "359de3866371",
+          "overrideHash": null
         }
       ]
     },
@@ -4621,7 +2928,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "80536b18f91b",
+          "compositeHash": "80536b18f91b",
+          "overrideHash": null
         }
       ]
     },
@@ -4641,7 +2951,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "5ba7c0c33537",
+          "compositeHash": "5ba7c0c33537",
+          "overrideHash": null
         }
       ]
     },
@@ -4661,7 +2974,10 @@
           "introducedInOkapi": "1.48.0",
           "okapiVersions": [
             "1.48.0"
-          ]
+          ],
+          "baseHash": "d0b214d6100e",
+          "compositeHash": "d0b214d6100e",
+          "overrideHash": null
         }
       ]
     }

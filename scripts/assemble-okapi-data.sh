@@ -97,7 +97,11 @@ jq -r --arg ov "${OKAPI_VERSION}" '
   "\($s) \(.version)"
 ' schemas/versions.json | {
   while read -r step_id version; do
-    src="schemas/steps/base/${step_id}.v${version}.schema.json"
+    # Prefer composite (merged with overrides), fall back to base
+    src="schemas/steps/composite/${step_id}.v${version}.schema.json"
+    if [ ! -f "$src" ]; then
+        src="schemas/steps/base/${step_id}.v${version}.schema.json"
+    fi
     if [ ! -f "$src" ]; then
         echo "  Warning: $src not found, skipping" >&2
         continue

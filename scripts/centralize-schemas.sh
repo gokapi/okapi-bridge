@@ -16,6 +16,9 @@ SCHEMAS_DIR="schemas"
 BASE_DIR="$SCHEMAS_DIR/filters/base"
 COMPOSITE_DIR="$SCHEMAS_DIR/filters/composite"
 OVERRIDES_DIR="schemagen/overrides"
+STEPS_BASE_DIR="$SCHEMAS_DIR/steps/base"
+STEPS_COMPOSITE_DIR="$SCHEMAS_DIR/steps/composite"
+STEPS_OVERRIDES_DIR="schemagen/overrides/steps"
 VERSIONS_FILE="schemas/versions.json"
 
 # Get all Okapi versions sorted
@@ -655,8 +658,6 @@ add_version() {
 # Step Schema Versioning
 # ============================================================================
 
-STEPS_BASE_DIR="$SCHEMAS_DIR/steps/base"
-
 # Get step version for a step/hash combination
 get_step_version() {
     local step_id="$1"
@@ -757,10 +758,94 @@ add_step_version() {
     echo "Step schemas for Okapi $version: $new_steps new, $updated unchanged"
 }
 
+# Regenerate step composites from existing bases + overrides.
+# Mirrors regenerate_composites() but for step schemas.
+regenerate_step_composites() {
+    echo ""
+    echo "Regenerating step composite schemas..."
+
+    if [[ ! -d "$STEPS_BASE_DIR" ]]; then
+        echo "No step base schemas found, skipping."
+        return
+    fi
+
+    mkdir -p "$STEPS_COMPOSITE_DIR"
+    mkdir -p "$STEPS_OVERRIDES_DIR"
+
+    # Clear existing step composites
+    rm -f "$STEPS_COMPOSITE_DIR"/*.schema.json
+
+    # Reset step composite tracking in versions.json
+    jq '.steps |= with_entries(.value.versions |= map(del(.compositeVersion, .compositeHash, .overrideHash)))' \
+        "$VERSIONS_FILE" > "$VERSIONS_FILE.tmp" && mv "$VERSIONS_FILE.tmp" "$VERSIONS_FILE"
+
+    # Get unique step IDs from base directory
+    local step_ids
+    step_ids=$(ls "$STEPS_BASE_DIR"/*.schema.json 2>/dev/null | sed 's/.*\///' | sed 's/\.v[0-9]*\.schema\.json//' | sort -u)
+
+    local composite_count=0
+    for step_id in $step_ids; do
+        # Find latest base version for this step
+        local latest_base
+        latest_base=$(ls "$STEPS_BASE_DIR/${step_id}".v*.schema.json 2>/dev/null | \
+            sed 's/.*\.v\([0-9]*\)\.schema\.json$/\1 &/' | sort -rn | head -1 | awk '{print $2}')
+
+        [[ -f "$latest_base" ]] || continue
+
+        local base_version
+        base_version=$(basename "$latest_base" | sed 's/.*\.v\([0-9]*\)\.schema\.json/\1/')
+
+        local base_hash
+        base_hash=$("$SCRIPT_DIR/compute-hash.sh" "$latest_base")
+
+        # Check for override file
+        local override_file="$STEPS_OVERRIDES_DIR/${step_id}.overrides.json"
+        local override_hash=""
+        if [[ -f "$override_file" ]]; then
+            override_hash=$("$SCRIPT_DIR/compute-hash.sh" "$override_file")
+        fi
+
+        # Generate composite (merge base + override)
+        local composite_file="$STEPS_COMPOSITE_DIR/${step_id}.v${base_version}.schema.json"
+        "$SCRIPT_DIR/merge-schema.sh" "$latest_base" "$override_file" "$composite_file" 2>/dev/null || \
+            cp "$latest_base" "$composite_file"
+
+        local composite_hash
+        composite_hash=$("$SCRIPT_DIR/compute-hash.sh" "$composite_file")
+
+        # Update versions.json: set compositeHash and overrideHash on the matching version entry
+        local oh_json="null"
+        [[ -n "$override_hash" ]] && oh_json="\"$override_hash\""
+
+        jq --arg s "$step_id" \
+           --argjson v "$base_version" \
+           --arg bh "$base_hash" \
+           --arg ch "$composite_hash" \
+           --argjson oh "$oh_json" '
+            .steps[$s].versions |= map(
+                if .version == $v then
+                    . + {baseHash: $bh, compositeHash: $ch, overrideHash: $oh}
+                else .
+                end
+            )
+        ' "$VERSIONS_FILE" > "$VERSIONS_FILE.tmp" && mv "$VERSIONS_FILE.tmp" "$VERSIONS_FILE"
+
+        if [[ -n "$override_hash" ]]; then
+            echo "  + $step_id v$base_version (base + override)"
+        else
+            echo "  = $step_id v$base_version (base only)"
+        fi
+        composite_count=$((composite_count + 1))
+    done
+
+    echo "Step composites: $composite_count"
+}
+
 # Parse command
 case "${1:-}" in
     regenerate-composites)
         regenerate_composites
+        regenerate_step_composites
         ;;
     add-version)
         if [[ -z "${2:-}" ]]; then

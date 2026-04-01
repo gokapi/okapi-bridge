@@ -1,0 +1,15 @@
+{
+  "$schema": "https://neokapi.dev/schemas/editorHints.schema.json",
+  "title": "Quality Check",
+  "fields": {
+    "leadingWS": {
+      "description": "Flag text units where leading whitespace differs between source and target."
+    },
+    "trailingWS": {
+      "description": "Flag text units where trailing whitespace differs between source and target."
+    },
+    "emptyTarget": {
+      "description": "Flag segments where the target translation is empty while the source is not."
+    }
+  }
+}

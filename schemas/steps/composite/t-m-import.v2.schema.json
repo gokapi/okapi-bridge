@@ -1,0 +1,49 @@
+{
+  "$id": "t-m-import",
+  "title": "TM Import",
+  "type": "object",
+  "x-step": {
+    "class": "net.sf.okapi.steps.tmimport.TMImportStep",
+    "parameterMappings": [
+      "ROOT_DIRECTORY",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "x-component": {
+    "id": "t-m-import",
+    "type": "step",
+    "displayName": "TM Import",
+    "description": "Import text into a new or existing Pensieve TM. Expects: filter events. Sends back: filter events.",
+    "category": "translate",
+    "inputs": [
+      "block"
+    ],
+    "tags": [
+      "translation",
+      "text-processing"
+    ],
+    "requires": [
+      "target-language",
+      "source-language"
+    ]
+  },
+  "properties": {
+    "tmDirectory": {
+      "type": "string",
+      "default": "",
+      "description": "Full path of directory of the TM where to import",
+      "title": "Directory of the TM where to import",
+      "x-path": { "type": "directory", "role": "input", "resourceKind": "tm" }
+    },
+    "overwriteSameSource": {
+      "type": "boolean",
+      "default": false,
+      "title": "Overwrite if source is the same"
+    }
+  }
+}
