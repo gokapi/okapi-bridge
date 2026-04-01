@@ -1,5 +1,6 @@
 {
   "$schema": "https://neokapi.dev/schemas/editorHints.schema.json",
+  "title": "TSV (Tab-Separated Values)",
   "$include": [
     "_fragments/inlineCodes.fragment.json"
   ]

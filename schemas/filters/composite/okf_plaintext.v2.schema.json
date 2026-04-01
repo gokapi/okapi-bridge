@@ -1,9 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://neokapi.github.io/schemas/filters/okf_plaintext.v2.schema.json",
-  "version": 2,
-  "title": "Plain Text Filter Filter",
-  "description": "Configuration for the Okapi Plain Text Filter Filter",
+  "title": "Plain Text",
   "type": "object",
   "x-filter": {
     "id": "okf_plaintext",
@@ -218,11 +215,5 @@
       "x-widget": "simplifierRulesEditor"
     }
   },
-  "additionalProperties": false,
-  "x-kind": "OkfPlaintextFilterConfig",
-  "x-apiVersion": "v2",
-  "x-baseVersion": 2,
-  "x-introducedInOkapi": "1.42.0",
-  "x-baseHash": "a4df1f0afdd4",
-  "x-compositeHash": "499bcdaa60e4"
+  "additionalProperties": false
 }

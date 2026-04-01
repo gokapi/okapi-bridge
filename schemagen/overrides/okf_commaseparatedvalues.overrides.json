@@ -1,5 +1,6 @@
 {
   "$schema": "https://neokapi.dev/schemas/editorHints.schema.json",
+  "title": "CSV (Comma-Separated Values)",
   "$include": [
     "_fragments/inlineCodes.fragment.json"
   ]

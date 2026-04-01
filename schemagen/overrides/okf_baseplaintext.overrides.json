@@ -1,5 +1,6 @@
 {
   "$schema": "https://neokapi.dev/schemas/editorHints.schema.json",
+  "title": "Plain Text (Line-Based)",
   "$include": [
     "_fragments/inlineCodes.fragment.json"
   ]

@@ -1,9 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://neokapi.github.io/schemas/filters/okf_splicedlines.v2.schema.json",
-  "version": 2,
-  "title": "Plain Text Filter Filter",
-  "description": "Configuration for the Okapi Plain Text Filter Filter",
+  "title": "Plain Text (Spliced Lines)",
   "type": "object",
   "x-filter": {
     "id": "okf_splicedlines",
@@ -226,11 +223,5 @@
       "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
-  },
-  "x-kind": "OkfSplicedlinesFilterConfig",
-  "x-apiVersion": "v2",
-  "x-baseVersion": 2,
-  "x-introducedInOkapi": "1.46.0",
-  "x-baseHash": "bc6909109c87",
-  "x-compositeHash": "32635d34d5f8"
+  }
 }

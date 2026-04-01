@@ -1,9 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://neokapi.github.io/schemas/filters/okf_commaseparatedvalues.v3.schema.json",
-  "version": 3,
-  "title": "Plain Text Filter Filter",
-  "description": "Configuration for the Okapi Plain Text Filter Filter",
+  "title": "CSV (Comma-Separated Values)",
   "type": "object",
   "x-filter": {
     "id": "okf_commaseparatedvalues",
@@ -357,11 +354,5 @@
       "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     }
-  },
-  "x-kind": "OkfCommaseparatedvaluesFilterConfig",
-  "x-apiVersion": "v3",
-  "x-baseVersion": 3,
-  "x-introducedInOkapi": "1.47.0",
-  "x-baseHash": "087e27e7be51",
-  "x-compositeHash": "825ea530b261"
+  }
 }

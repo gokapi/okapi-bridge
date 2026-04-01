@@ -165,6 +165,10 @@ jq -s '
   .[0] as $base | .[1] as $override |
   $base |
 
+  # Apply top-level metadata overrides (title, description)
+  if $override.title then .title = $override.title else . end |
+  if $override.description then .description = $override.description else . end |
+
   # Apply field hints into properties (walks nested hierarchy)
   if $override.fields and .properties then
     .properties |= apply_hints($override.fields)
