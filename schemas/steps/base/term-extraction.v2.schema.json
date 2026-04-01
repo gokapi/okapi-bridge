@@ -38,7 +38,8 @@
       "type": "string",
       "default": "${rootDir}/terms.txt",
       "description": "Full path of the output file",
-      "title": "Output path"
+      "title": "Output path",
+      "x-path": { "type": "file", "role": "output", "accepts": ["txt"] }
     },
     "autoOpen": {
       "type": "boolean",
@@ -67,19 +68,22 @@
       "type": "string",
       "default": "",
       "description": "Full path of the file containing stop words",
-      "title": "Path of the file with stop words (leave empty for default)"
+      "title": "Path of the file with stop words (leave empty for default)",
+      "x-path": { "type": "file", "role": "input" }
     },
     "notStartWordsPath": {
       "type": "string",
       "default": "",
       "description": "Full path of the file containing not-start words",
-      "title": "Path of the file with not-start words (leave empty for default)"
+      "title": "Path of the file with not-start words (leave empty for default)",
+      "x-path": { "type": "file", "role": "input" }
     },
     "notEndWordsPath": {
       "type": "string",
       "default": "",
       "description": "Full path of the file containing not-end words",
-      "title": "Path of the file with not-end words (leave empty for default)"
+      "title": "Path of the file with not-end words (leave empty for default)",
+      "x-path": { "type": "file", "role": "input" }
     },
     "keepCase": {
       "type": "boolean",

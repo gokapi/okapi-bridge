@@ -63,7 +63,8 @@
     "tmDirectory": {
       "type": "string",
       "default": "",
-      "description": "Location of the TM to create or use"
+      "description": "Location of the TM to create or use",
+      "x-path": { "type": "directory", "role": "input", "resourceKind": "tm" }
     },
     "makeTMX": {
       "type": "boolean",
@@ -73,7 +74,8 @@
     "tmxPath": {
       "type": "string",
       "default": "",
-      "description": "Full path of the new TMX document to create"
+      "description": "Full path of the new TMX document to create",
+      "x-path": { "type": "file", "role": "output", "accepts": ["tmx"] }
     },
     "sendTMX": {
       "type": "boolean",
@@ -94,7 +96,8 @@
     "existingTm": {
       "type": "string",
       "default": "",
-      "description": "Location of the TM to lookup"
+      "description": "Location of the TM to lookup",
+      "x-path": { "type": "directory", "role": "input", "resourceKind": "tm" }
     },
     "segment": {
       "type": "boolean",
@@ -104,7 +107,8 @@
     "srxPath": {
       "type": "string",
       "default": "",
-      "description": "Full path of the segmentation rules file to use"
+      "description": "Full path of the segmentation rules file to use",
+      "x-path": { "type": "file", "role": "input", "resourceKind": "srx", "accepts": ["srx"] }
     }
   }
 }

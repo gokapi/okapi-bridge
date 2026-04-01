@@ -55,7 +55,8 @@
       "type": "string",
       "default": "",
       "description": "Full path of the single output document to generate",
-      "title": "Output path"
+      "title": "Output path",
+      "x-path": { "type": "file", "role": "output" }
     },
     "outputFormat": {
       "type": "string",

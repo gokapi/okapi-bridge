@@ -1,0 +1,435 @@
+{
+  "$comment": "Parameter titles and descriptions extracted from Okapi help HTML documentation. Produced by Claude Code one-shot extraction from /Users/asgeirf/src/okapi/Okapi/help/",
+  "filters": {
+    "okf_json": {
+      "extractStandalone": {
+        "title": "Extract standalone strings",
+        "description": "Extract string values that are not directly associated with a key name."
+      },
+      "extractAllPairs": {
+        "title": "Extract all key/string pairs",
+        "description": "Extract all strings that have a key associated. If an exception regular expression is defined, strings with keys matching it are excluded."
+      },
+      "exceptions": {
+        "title": "Key exception pattern",
+        "description": "Regular expression matching keys that should have the inverse extraction behavior."
+      },
+      "useCodeFinder": {
+        "title": "Use inline code finder",
+        "description": "Enable detection of inline codes within extracted text using the defined regular expression rules."
+      },
+      "codeFinderRules": {
+        "title": "Inline code rules",
+        "description": "Regular expression rules defining patterns in extracted text that should be treated as inline codes."
+      }
+    },
+    "okf_html": {
+      "useCodeFinder": {
+        "title": "Use inline code finder",
+        "description": "Enable detection of inline codes within extracted text using the defined regular expression rules."
+      },
+      "codeFinderRules": {
+        "title": "Inline code rules",
+        "description": "Regular expression rules defining patterns in extracted text that should be treated as inline codes."
+      }
+    }
+  },
+  "steps": {
+    "quality-check": {
+      "outputPath": {
+        "title": "Report file path",
+        "description": "Full path of the HTML report file to generate. You can use the variable ${rootDir} in the path."
+      },
+      "outputType": {
+        "title": "Report output type",
+        "description": "Format of the quality check report output."
+      },
+      "autoOpen": {
+        "title": "Open report after completion",
+        "description": "Automatically open the report file after the quality check process is complete."
+      },
+      "includeTextContainers": {
+        "title": "Include text containers",
+        "description": "Include text container elements in the quality check verification."
+      },
+      "useGenericCodes": {
+        "title": "Use generic codes",
+        "description": "Use generic inline code representation when comparing codes between source and target."
+      },
+      "leadingWS": {
+        "title": "Check leading whitespace",
+        "description": "Flag text units where the leading whitespace characters differ between source and target."
+      },
+      "trailingWS": {
+        "title": "Check trailing whitespace",
+        "description": "Flag text units where the trailing whitespace characters differ between source and target."
+      },
+      "emptyTarget": {
+        "title": "Warn on empty target",
+        "description": "Flag segments where the target translation is empty while the source is not."
+      },
+      "emptySource": {
+        "title": "Warn on non-empty target with empty source",
+        "description": "Flag segments where the target is not empty while its source is empty."
+      },
+      "targetSameAsSource": {
+        "title": "Warn if target is same as source",
+        "description": "Flag segments where the target translation is identical to the source text. Inline codes are excluded from comparison."
+      },
+      "targetSameAsSourceForSameLanguage": {
+        "title": "Warn if target equals source for same language",
+        "description": "Flag segments where the target is the same as the source when source and target languages are identical."
+      },
+      "targetSameAsSourceWithCodes": {
+        "title": "Include codes in same-as-source comparison",
+        "description": "Include inline codes when comparing source and target for the target-same-as-source check."
+      },
+      "targetSameAsSourceWithNumbers": {
+        "title": "Include numbers in same-as-source comparison",
+        "description": "Include numeric values when comparing source and target for the target-same-as-source check."
+      },
+      "codeDifference": {
+        "title": "Warn on code differences",
+        "description": "Verify that the target content has the same inline codes as the source. Reports missing and extra codes."
+      },
+      "guessOpenClose": {
+        "title": "Guess open/close code pairing",
+        "description": "Attempt to guess which inline codes are opening and closing pairs when comparing source and target."
+      },
+      "strictCodeOrder": {
+        "title": "Strict code order",
+        "description": "Require inline codes to appear in the same order in target as in source."
+      },
+      "checkXliffSchema": {
+        "title": "Check XLIFF schema",
+        "description": "Validate the input document against an XLIFF schema."
+      },
+      "xliffSchemaType": {
+        "title": "XLIFF schema type",
+        "description": "The XLIFF schema version to validate against."
+      },
+      "checkPatterns": {
+        "title": "Check source/target patterns",
+        "description": "Verify that each source pattern has its corresponding expected part in the target."
+      },
+      "checkWithLT": {
+        "title": "Use LanguageTool",
+        "description": "Run verifications provided by a LanguageTool server. May increase processing time significantly."
+      },
+      "serverURL": {
+        "title": "LanguageTool server URL",
+        "description": "URL of the LanguageTool server for grammar and style checking."
+      },
+      "ltBilingualMode": {
+        "title": "LanguageTool bilingual mode",
+        "description": "Auto-translate error messages from LanguageTool into a different language."
+      },
+      "saveSession": {
+        "title": "Save session",
+        "description": "Save the quality check session for later review."
+      },
+      "sessionPath": {
+        "title": "Session file path",
+        "description": "Full path for saving the quality check session file."
+      },
+      "doubledWord": {
+        "title": "Warn on doubled words",
+        "description": "Flag target segments with sequential repetition of the same word. Case-insensitive."
+      },
+      "doubledWordExceptions": {
+        "title": "Doubled word exceptions",
+        "description": "Semicolon-separated list of words allowed to be repeated sequentially."
+      },
+      "corruptedCharacters": {
+        "title": "Warn on corrupted characters",
+        "description": "Check for patterns indicating corrupted characters, such as UTF-8 opened as ISO-8859-1."
+      },
+      "scope": {
+        "title": "Verification scope",
+        "description": "Which entries to process: all, only approved, or only non-approved."
+      },
+      "checkMaxCharLength": {
+        "title": "Check maximum character length",
+        "description": "Flag target text longer than a given percentage of source text character length."
+      },
+      "maxCharLengthBreak": {
+        "title": "Max length: long text threshold",
+        "description": "Character count above which text is considered 'long' for max length checking."
+      },
+      "maxCharLengthAbove": {
+        "title": "Max length: percentage for long text",
+        "description": "Maximum allowed percentage of source length for long text."
+      },
+      "maxCharLengthBelow": {
+        "title": "Max length: percentage for short text",
+        "description": "Maximum allowed percentage of source length for short text."
+      },
+      "checkMinCharLength": {
+        "title": "Check minimum character length",
+        "description": "Flag target text shorter than a given percentage of source text character length."
+      },
+      "minCharLengthBreak": {
+        "title": "Min length: long text threshold",
+        "description": "Character count above which text is considered 'long' for min length checking."
+      },
+      "minCharLengthAbove": {
+        "title": "Min length: percentage for long text",
+        "description": "Minimum allowed percentage of source length for long text."
+      },
+      "minCharLengthBelow": {
+        "title": "Min length: percentage for short text",
+        "description": "Minimum allowed percentage of source length for short text."
+      },
+      "checkStorageSize": {
+        "title": "Check storage size",
+        "description": "Verify the byte storage size of the target text against defined limits."
+      },
+      "checkAbsoluteMaxCharLength": {
+        "title": "Check absolute maximum character length",
+        "description": "Flag target text exceeding an absolute maximum character count."
+      },
+      "absoluteMaxCharLength": {
+        "title": "Absolute maximum character length",
+        "description": "The absolute maximum number of characters allowed in the target text."
+      },
+      "checkAllowedCharacters": {
+        "title": "Check allowed characters",
+        "description": "Check target characters against a character set encoding and/or allowed characters list."
+      },
+      "checkCharacters": {
+        "title": "Check character set",
+        "description": "Warn if a character is not included in the specified character set encoding."
+      },
+      "charset": {
+        "title": "Character set encoding",
+        "description": "Character set encoding name (e.g., ISO-8859-1) to check target text against."
+      },
+      "extraCharsAllowed": {
+        "title": "Extra allowed characters",
+        "description": "Regular expression matching characters to allow even if not in the specified encoding."
+      },
+      "checkTerms": {
+        "title": "Check terminology",
+        "description": "Verify that glossary terminology is used correctly in the translation."
+      },
+      "termsPath": {
+        "title": "Terminology file path",
+        "description": "Path to the terminology/glossary file."
+      },
+      "stringMode": {
+        "title": "String matching mode",
+        "description": "How terminology strings should be matched in source and target text."
+      },
+      "betweenCodes": {
+        "title": "Match between codes",
+        "description": "Restrict terminology matching to text between inline codes only."
+      },
+      "showFullPath": {
+        "title": "Show full file path",
+        "description": "Show the full file path in the report instead of just the filename."
+      },
+      "checkBlacklist": {
+        "title": "Check blacklisted terms",
+        "description": "Check target text against a list of forbidden terms."
+      },
+      "allowBlacklistSub": {
+        "title": "Allow blacklist substring matches",
+        "description": "Allow blacklisted terms to match as substrings within words."
+      },
+      "blacklistSrc": {
+        "title": "Check blacklist in source",
+        "description": "Also check the source text for blacklisted terms."
+      },
+      "blacklistPath": {
+        "title": "Blacklist file path",
+        "description": "Path to the file containing forbidden terms."
+      },
+      "showOnlyPatternDescription": {
+        "title": "Show only pattern description",
+        "description": "Show only the description of matched patterns in the report, not the pattern itself."
+      },
+      "patternCount": {
+        "title": "Number of patterns",
+        "description": "Number of source/target pattern pairs to check."
+      },
+      "extraCodesAllowed": {
+        "title": "Extra codes allowed",
+        "description": "Number of extra inline codes allowed in target beyond what is in source."
+      },
+      "missingCodesAllowed": {
+        "title": "Missing codes allowed",
+        "description": "Number of source inline codes allowed to be missing from the target."
+      },
+      "typesToIgnore": {
+        "title": "Code types to ignore",
+        "description": "Semicolon-separated list of inline code types to exclude from code checking."
+      }
+    },
+    "search-and-replace": {
+      "regEx": {
+        "title": "Use regular expressions",
+        "description": "Enable regular expression mode for search patterns."
+      },
+      "dotAll": {
+        "title": "Dot also matches line-feed",
+        "description": "Change the meaning of '.' so that it matches every character including \\n."
+      },
+      "ignoreCase": {
+        "title": "Ignore case",
+        "description": "Ignore case differences when matching."
+      },
+      "multiLine": {
+        "title": "Multiline mode",
+        "description": "Change the meaning of ^ and $ so they match at the beginning and end of any line."
+      },
+      "target": {
+        "title": "Process target",
+        "description": "Apply search and replace to the target text."
+      },
+      "source": {
+        "title": "Process source",
+        "description": "Apply search and replace to the source text."
+      },
+      "replaceALL": {
+        "title": "Replace all occurrences",
+        "description": "Replace all occurrences of the search pattern, not just the first match."
+      },
+      "replacementsPath": {
+        "title": "Replacements file path",
+        "description": "Path to a file containing saved search and replace rules."
+      },
+      "logPath": {
+        "title": "Log file path",
+        "description": "Path to the file where operations are logged."
+      },
+      "saveLog": {
+        "title": "Save log",
+        "description": "Save a log of all operations performed."
+      },
+      "count": {
+        "title": "Count matches only",
+        "description": "Count matches without performing replacements."
+      }
+    },
+    "segmentation": {
+      "segmentSource": {
+        "title": "Segment source text",
+        "description": "Segment the source text using SRX segmentation rules."
+      },
+      "segmentTarget": {
+        "title": "Segment target text",
+        "description": "Segment existing target text using SRX segmentation rules."
+      },
+      "renumberCodes": {
+        "title": "Renumber codes",
+        "description": "Renumber inline codes after segmentation to maintain sequential numbering."
+      },
+      "checkSegments": {
+        "title": "Verify segment alignment",
+        "description": "Verify that each source segment has a corresponding target segment."
+      },
+      "trimSrcLeadingWS": {
+        "title": "Trim source leading whitespace",
+        "description": "Remove leading whitespace from source segments."
+      },
+      "trimSrcTrailingWS": {
+        "title": "Trim source trailing whitespace",
+        "description": "Remove trailing whitespace from source segments."
+      },
+      "trimTrgLeadingWS": {
+        "title": "Trim target leading whitespace",
+        "description": "Remove leading whitespace from target segments."
+      },
+      "trimTrgTrailingWS": {
+        "title": "Trim target trailing whitespace",
+        "description": "Remove trailing whitespace from target segments."
+      },
+      "forceSegmentedOutput": {
+        "title": "Force segmented output",
+        "description": "Force output to always be in segmented form."
+      },
+      "overwriteSegmentation": {
+        "title": "Overwrite existing segmentation",
+        "description": "Re-segment already segmented text units."
+      },
+      "deepenSegmentation": {
+        "title": "Deepen segmentation",
+        "description": "Apply additional segmentation within existing segments."
+      },
+      "treatIsolatedCodesAsWhitespace": {
+        "title": "Treat isolated codes as whitespace",
+        "description": "Treat isolated inline codes as whitespace during segmentation."
+      },
+      "doNotSegmentIfHasTarget": {
+        "title": "Skip segmentation if target exists",
+        "description": "Do not segment a text unit if it already has a target translation."
+      }
+    },
+    "leveraging": {
+      "leverage": {
+        "title": "Enable leveraging",
+        "description": "Enable looking up existing translations from a translation resource."
+      },
+      "resourceClassName": {
+        "title": "Translation resource",
+        "description": "The translation resource connector class for leveraging."
+      },
+      "noQueryThreshold": {
+        "title": "No-query threshold",
+        "description": "Minimum score threshold below which the resource is not queried."
+      },
+      "threshold": {
+        "title": "Minimum match score",
+        "description": "Minimum match score (percentage) at or above which a translation is accepted."
+      },
+      "fillTarget": {
+        "title": "Fill target with leveraged translation",
+        "description": "Fill the target with the leveraged translation when a match is found."
+      },
+      "fillTargetThreshold": {
+        "title": "Fill target threshold",
+        "description": "Minimum match score required to fill the target."
+      },
+      "fillIfTargetIsEmpty": {
+        "title": "Fill only if target is empty",
+        "description": "Only fill with leveraged translation if the target is currently empty."
+      },
+      "fillIfTargetIsSameAsSource": {
+        "title": "Fill if target is same as source",
+        "description": "Fill with leveraged translation if target text is identical to source."
+      },
+      "downgradeIdenticalBestMatches": {
+        "title": "Downgrade identical best matches",
+        "description": "Downgrade score when translation is identical to source."
+      },
+      "makeTMX": {
+        "title": "Generate TMX document",
+        "description": "Create a TMX document with all matched entries."
+      },
+      "tmxPath": {
+        "title": "TMX output path",
+        "description": "Path for the generated TMX document."
+      },
+      "useMTPrefix": {
+        "title": "Add MT prefix to source",
+        "description": "Add an MT-specific prefix to ensure the entry is used as fuzzy match only."
+      },
+      "useTargetPrefix": {
+        "title": "Add prefix to target",
+        "description": "Add a prefix to the leveraged target translation."
+      },
+      "targetPrefix": {
+        "title": "Target prefix text",
+        "description": "The prefix string to add to the leveraged translation."
+      },
+      "targetPrefixThreshold": {
+        "title": "Target prefix threshold",
+        "description": "Maximum match score below which the target prefix is added."
+      },
+      "copySourceOnNoText": {
+        "title": "Copy source when no text",
+        "description": "Copy source into target when there is no translatable text to leverage."
+      }
+    }
+  }
+}

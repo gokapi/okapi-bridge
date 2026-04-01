@@ -39,7 +39,8 @@
   "properties": {
     "xsltPath": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "x-path": { "type": "file", "role": "input", "accepts": ["xsl", "xslt"] }
     },
     "paramList": {
       "type": "string",

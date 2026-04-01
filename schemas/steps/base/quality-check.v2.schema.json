@@ -50,7 +50,8 @@
     },
     "outputPath": {
       "type": "string",
-      "default": "${rootDir}/qa-report.html"
+      "default": "${rootDir}/qa-report.html",
+      "x-path": { "type": "file", "role": "output", "accepts": ["html"] }
     },
     "outputType": {
       "type": "integer",
@@ -134,7 +135,8 @@
     },
     "sessionPath": {
       "type": "string",
-      "default": "${rootDir}/qa-session.qcs"
+      "default": "${rootDir}/qa-session.qcs",
+      "x-path": { "type": "file", "role": "output", "accepts": ["qcs"] }
     },
     "doubledWord": {
       "type": "boolean",
@@ -218,7 +220,8 @@
     },
     "termsPath": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "x-path": { "type": "file", "role": "input", "resourceKind": "termbase" }
     },
     "stringMode": {
       "type": "boolean",
@@ -246,7 +249,8 @@
     },
     "blacklistPath": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "x-path": { "type": "file", "role": "input" }
     },
     "showOnlyPatternDescription": {
       "type": "boolean",

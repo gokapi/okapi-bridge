@@ -37,7 +37,8 @@
       "type": "string",
       "default": "",
       "description": "Full path of directory of the TM where to import",
-      "title": "Directory of the TM where to import"
+      "title": "Directory of the TM where to import",
+      "x-path": { "type": "directory", "role": "input", "resourceKind": "tm" }
     },
     "overwriteSameSource": {
       "type": "boolean",

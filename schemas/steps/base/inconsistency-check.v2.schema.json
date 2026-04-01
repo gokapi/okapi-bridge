@@ -54,7 +54,8 @@
     "outputPath": {
       "type": "string",
       "default": "${rootDir}/inconsistency-report.xml",
-      "title": "Path of the report file:"
+      "title": "Path of the report file:",
+      "x-path": { "type": "file", "role": "output", "accepts": ["xml"] }
     },
     "displayOption": {
       "type": "string",

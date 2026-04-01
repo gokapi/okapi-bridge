@@ -32,7 +32,8 @@
       "type": "string",
       "default": "",
       "description": "Full path of the XML Schema.",
-      "title": "Path of the XML Schema"
+      "title": "Path of the XML Schema",
+      "x-path": { "type": "file", "role": "input", "accepts": ["xsd"] }
     },
     "validate": {
       "type": "boolean",

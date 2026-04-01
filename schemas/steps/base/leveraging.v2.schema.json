@@ -84,7 +84,8 @@
     },
     "tmxPath": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "x-path": { "type": "file", "role": "output", "resourceKind": "tm", "accepts": ["tmx"] }
     },
     "useMTPrefix": {
       "type": "boolean",

@@ -1,0 +1,304 @@
+{
+  "$comment": "Parameter metadata extracted from Okapi SWT UI Res.properties + Editor.java. Includes title, widget type, groups, conditional visibility, and enum options. Produced by Claude Code one-shot from /Users/asgeirf/src/okapi/Okapi/okapi-ui/",
+  "filters": {
+    "okf_json": {
+      "groups": [
+        { "id": "standaloneStrings", "label": "Stand-alone strings", "tab": "Options" },
+        { "id": "keyValuePairs", "label": "Strings with keys", "tab": "Options" },
+        { "id": "encodingSettings", "label": "Encoding settings", "tab": "Content Processing" },
+        { "id": "contentSettings", "label": "Content settings", "tab": "Content Processing" }
+      ],
+      "parameters": {
+        "extractIsolatedStrings": {
+          "title": "Extract strings without associated key",
+          "description": "Extract stand-alone strings that have no associated key",
+          "widget": "checkbox",
+          "group": "standaloneStrings"
+        },
+        "extractAllPairs": {
+          "title": "Extract all key/string pairs",
+          "description": "Extract all key/string pairs; when disabled, no key/string pairs are extracted",
+          "widget": "radio",
+          "group": "keyValuePairs",
+          "options": [
+            { "value": true, "label": "Extract all key/string pairs" },
+            { "value": false, "label": "Do not extract key/string pairs" }
+          ]
+        },
+        "exceptions": {
+          "title": "Key exception pattern",
+          "description": "Regular expression matching keys to except from the extraction rule",
+          "widget": "text",
+          "group": "keyValuePairs"
+        },
+        "useKeyAsName": {
+          "title": "Use the key as the resname",
+          "description": "Use the JSON key as the resource name (resname) in the extracted translation unit",
+          "widget": "checkbox",
+          "group": "keyValuePairs"
+        },
+        "useFullKeyPath": {
+          "title": "Use the full key path",
+          "description": "Use the full path of nested keys as the resource name",
+          "widget": "checkbox",
+          "group": "keyValuePairs",
+          "enables": ["useLeadingSlashOnKeyPath"]
+        },
+        "useLeadingSlashOnKeyPath": {
+          "title": "Include leading \"/\" on key path",
+          "description": "Include a leading slash on the full key path used as the resource name",
+          "widget": "checkbox",
+          "group": "keyValuePairs"
+        },
+        "useIdStack": {
+          "title": "Use the full path of IDs for resname and TextUnit Metadata",
+          "widget": "checkbox",
+          "group": "keyValuePairs"
+        },
+        "noteRules": {
+          "title": "Note rules",
+          "description": "Regex matching keys that are notes, values appear as <note> in XLIFF",
+          "widget": "text",
+          "group": "keyValuePairs"
+        },
+        "idRules": {
+          "title": "ID rules",
+          "description": "Regex matching keys which are IDs (resname in XLIFF), overrides \"use key as resname\"",
+          "widget": "text",
+          "group": "keyValuePairs"
+        },
+        "extractionRules": {
+          "title": "Extraction rules",
+          "description": "Regex matching keys for which values are extracted (overrides extraction exceptions)",
+          "widget": "text",
+          "group": "keyValuePairs"
+        },
+        "genericMetaRules": {
+          "title": "Generic metadata rules",
+          "description": "Regex matching keys for which values are added as TextUnit Metadata",
+          "widget": "text",
+          "group": "keyValuePairs"
+        },
+        "maxwidthRules": {
+          "title": "Maxwidth rules",
+          "description": "Regex matching keys that are numbers, extracted as maxwidth property in XLIFF",
+          "widget": "text",
+          "group": "keyValuePairs"
+        },
+        "maxwidthSizeUnit": {
+          "title": "Maxwidth size unit",
+          "description": "The size-unit property to use when maxwidth properties are extracted",
+          "widget": "text",
+          "group": "keyValuePairs"
+        },
+        "escapeForwardSlashes": {
+          "title": "Escape forward slashes",
+          "widget": "checkbox",
+          "group": "encodingSettings"
+        },
+        "useCodeFinder": {
+          "title": "Find inline codes by patterns defined below",
+          "description": "Use pattern-based inline code finder for content processing",
+          "widget": "radio",
+          "group": "contentSettings",
+          "enables": ["codeFinderRules"],
+          "disables": ["subfilter", "subfilterRules"]
+        },
+        "subfilter": {
+          "title": "Sub-filter",
+          "description": "Process text content with this sub-filter (e.g. \"okf_html\"; leave blank for no sub-filtering)",
+          "widget": "text",
+          "group": "contentSettings"
+        },
+        "subfilterRules": {
+          "title": "Sub-filter rules",
+          "description": "Regex matching keys for which values should be processed with the sub-filter",
+          "widget": "text",
+          "group": "contentSettings"
+        },
+        "codeFinderRules": {
+          "title": "Inline code finder rules",
+          "description": "Rules defining patterns to be recognized as inline codes within extracted text",
+          "widget": "codeFinderRules",
+          "group": "contentSettings"
+        }
+      }
+    },
+    "okf_markdown": {
+      "groups": [],
+      "parameters": {
+        "translateUrls": { "title": "Translate Hyperlink URLs extracted as a subflow", "widget": "checkbox" },
+        "urlToTranslatePattern": { "title": "REGEX Pattern for Translatable URLs", "widget": "text" },
+        "translateCodeBlocks": { "title": "Translate Fenced Code Blocks", "widget": "checkbox" },
+        "translateIndentedCodeBlocks": { "title": "Translate Indented Code Blocks", "widget": "checkbox" },
+        "translateInlineCodeBlocks": { "title": "Translate Inline Code Blocks", "widget": "checkbox" },
+        "translateHeaderMetadata": { "title": "Translate YAML Metadata Header", "widget": "checkbox" },
+        "translateImageAltText": { "title": "Translate Image Alt Text", "widget": "checkbox" },
+        "generateHeaderAnchors": { "title": "Generate anchors based on header text", "widget": "checkbox" },
+        "parseMdx": { "title": "Parse MDX expressions using regex (Experimental)", "widget": "checkbox" },
+        "htmlEntitiesToEscape": { "title": "Characters to escape as HTML entities", "widget": "text" },
+        "unescapeBackslashCharacters": { "title": "Support backslash escaping of punctuation", "widget": "checkbox" },
+        "charactersToEscape": { "title": "Punctuation characters to escape", "widget": "text" },
+        "htmlSubfilter": { "title": "HTML subfilter configuration ID", "widget": "text" },
+        "yamlSubfilter": { "title": "YAML subfilter configuration ID", "widget": "text" },
+        "nonTranslateBlocks": { "title": "Non-translatable block quotes", "widget": "text" },
+        "useCodeFinder": { "title": "Has inline codes as defined below", "widget": "checkbox", "enables": ["codeFinderRules"] },
+        "codeFinderRules": { "title": "Inline code finder rules", "widget": "codeFinderRules" }
+      }
+    },
+    "okf_po": {
+      "groups": [
+        { "id": "processingMode", "label": "Processing mode", "tab": "Options" },
+        { "id": "options", "label": "Options", "tab": "Options" },
+        { "id": "inlineCodes", "label": "Inline Codes", "tab": "Inline Codes" }
+      ],
+      "parameters": {
+        "bilingualMode": {
+          "title": "Bilingual mode (msgid is the source text)",
+          "widget": "radio",
+          "group": "processingMode",
+          "options": [
+            { "value": true, "label": "Bilingual mode (msgid is the source text)" },
+            { "value": false, "label": "Monolingual mode (msgid is an ID)" }
+          ],
+          "enables": ["makeID"]
+        },
+        "makeID": { "title": "Generate identifiers from the source text", "widget": "checkbox", "group": "processingMode" },
+        "protectApproved": { "title": "Protect approved entries (not empty and not fuzzy)", "widget": "checkbox", "group": "options" },
+        "includeMsgContextInNote": { "title": "Include 'msgctxt' value in note data", "widget": "checkbox", "group": "options" },
+        "subfilter": { "title": "Sub-filter for text content processing", "widget": "text", "group": "options" },
+        "useCodeFinder": { "title": "Has inline codes as defined below", "widget": "checkbox", "group": "inlineCodes", "enables": ["codeFinderRules"] },
+        "codeFinderRules": { "title": "Inline code finder rules", "widget": "codeFinderRules", "group": "inlineCodes" }
+      }
+    },
+    "okf_properties": {
+      "groups": [
+        { "id": "keyFiltering", "label": "Key filtering", "tab": "Options" },
+        { "id": "options", "label": "Options", "tab": "Options" },
+        { "id": "inlineCodes", "label": "Inline Codes", "tab": "Inline Codes" },
+        { "id": "output", "label": "Extended characters", "tab": "Output" }
+      ],
+      "parameters": {
+        "useKeyCondition": { "title": "Use the following key condition", "widget": "checkbox", "group": "keyFiltering", "enables": ["extractOnlyMatchingKey", "keyCondition"] },
+        "extractOnlyMatchingKey": {
+          "title": "Extract only items with a key matching the given expression",
+          "widget": "radio",
+          "group": "keyFiltering",
+          "options": [
+            { "value": true, "label": "Extract only matching keys" },
+            { "value": false, "label": "Do not extract matching keys" }
+          ]
+        },
+        "keyCondition": { "title": "Key condition expression", "widget": "text", "group": "keyFiltering" },
+        "subfilter": { "title": "Sub-filter for content processing", "widget": "text", "group": "options" },
+        "extraComments": { "title": "Recognize additional comment markers", "widget": "checkbox", "group": "options" },
+        "commentsAreNotes": { "title": "Extract comments to note properties", "widget": "checkbox", "group": "options" },
+        "convertLFandTab": { "title": "Convert \\n and \\t to line-break and tab", "widget": "checkbox", "group": "options" },
+        "idLikeResname": { "title": "Use the key value for the text-unit ID", "widget": "checkbox", "group": "options" },
+        "useJavaEscapes": { "title": "Use Java Properties escaping conventions", "widget": "checkbox", "group": "options" },
+        "useCodeFinder": { "title": "Has inline codes as defined below", "widget": "checkbox", "group": "inlineCodes", "enables": ["codeFinderRules"] },
+        "codeFinderRules": { "title": "Inline code finder rules", "widget": "codeFinderRules", "group": "inlineCodes" },
+        "escapeExtendedChars": { "title": "Escape all extended characters (\\uHHHH notation)", "widget": "checkbox", "group": "output" }
+      }
+    },
+    "okf_regex": {
+      "groups": [
+        { "id": "rules", "label": "Rules", "tab": "Rules" },
+        { "id": "strings", "label": "Strings", "tab": "Options" },
+        { "id": "contentType", "label": "Content type", "tab": "Options" },
+        { "id": "subFiltering", "label": "Sub Filtering", "tab": "Options" }
+      ],
+      "parameters": {
+        "oneLevelGroups": { "title": "Auto-close previous section when a new one starts", "widget": "checkbox", "group": "rules" },
+        "startString": { "title": "Beginning of string", "widget": "text", "group": "strings" },
+        "endString": { "title": "End of string", "widget": "text", "group": "strings" },
+        "useBSlashEscape": { "title": "Escaped characters use back-slash prefix", "widget": "checkbox", "group": "strings" },
+        "useDoubleCharEscape": { "title": "Escaped characters are doubled", "widget": "checkbox", "group": "strings" },
+        "removeBSlashEscape": { "title": "Escaped characters are unescaped on import", "widget": "checkbox", "group": "strings" },
+        "mimeType": { "title": "MIME type for the document", "widget": "text", "group": "contentType" },
+        "subFilter": { "title": "Sub-filter name", "widget": "text", "group": "subFiltering" }
+      }
+    },
+    "okf_ts": {
+      "groups": [
+        { "id": "xmlCharacters", "label": "XML invalid characters", "tab": "Options" },
+        { "id": "inlineCodes", "label": "Inline Codes", "tab": "Inline Codes" }
+      ],
+      "parameters": {
+        "decodeByteValues": { "title": "Convert byte values to raw characters", "widget": "checkbox", "group": "xmlCharacters" },
+        "useCodeFinder": { "title": "Has inline codes as defined below", "widget": "checkbox", "group": "inlineCodes", "enables": ["codeFinderRules"] },
+        "codeFinderRules": { "title": "Inline code finder rules", "widget": "codeFinderRules", "group": "inlineCodes" }
+      }
+    },
+    "okf_xliff": {
+      "groups": [
+        { "id": "basicOptions", "label": "Basic Options", "tab": "Options" },
+        { "id": "iwsOptions", "label": "IWS Options", "tab": "Options" },
+        { "id": "contentProcessing", "label": "Content Processing", "tab": "Content Processing" }
+      ],
+      "parameters": {
+        "fallbackToID": { "title": "Use trans-unit id for text unit name if no resname", "widget": "checkbox", "group": "basicOptions" },
+        "ignoreInputSegmentation": { "title": "Ignore segmentation information in input", "widget": "checkbox", "group": "basicOptions" },
+        "alwaysUseSegSource": { "title": "Always use seg-source content", "widget": "checkbox", "group": "basicOptions" },
+        "useSdlXliffWriter": { "title": "Use SDLXLIFF Writer", "widget": "checkbox", "group": "basicOptions" },
+        "escapeGT": { "title": "Escape greater-than characters", "widget": "checkbox", "group": "basicOptions" },
+        "addTargetLanguage": { "title": "Add target-language attribute if not present", "widget": "checkbox", "group": "basicOptions" },
+        "overrideTargetLanguage": { "title": "Override target language of XLIFF document", "widget": "checkbox", "group": "basicOptions" },
+        "allowEmptyTargets": { "title": "Allow empty <target> elements", "widget": "checkbox", "group": "basicOptions" },
+        "preserveSpaceByDefault": { "title": "Preserve whitespace by default", "widget": "checkbox", "group": "basicOptions" },
+        "inlineCdata": { "title": "Preserve CDATA sections", "widget": "checkbox", "group": "basicOptions" },
+        "skipNoMrkSegSource": { "title": "Skip seg-sources with no marked segments", "widget": "checkbox", "group": "basicOptions" },
+        "outputSegmentationType": {
+          "title": "Type of output segmentation",
+          "widget": "select",
+          "group": "basicOptions",
+          "options": [
+            { "value": 0, "label": "Segment only if input is segmented" },
+            { "value": 1, "label": "Always segment" },
+            { "value": 2, "label": "Never segment" },
+            { "value": 3, "label": "Segment regardless of input" }
+          ]
+        },
+        "includeIts": { "title": "Include ITS markup", "widget": "checkbox", "group": "basicOptions" },
+        "addAltTrans": { "title": "Allow addition of new <alt-trans> elements", "widget": "checkbox", "group": "basicOptions" },
+        "useCustomParser": { "title": "Use a custom XML stream parser", "widget": "checkbox", "group": "basicOptions", "enables": ["factoryClass"] },
+        "factoryClass": { "title": "Factory class for custom XML stream parser", "widget": "text", "group": "basicOptions" },
+        "useTranslationTargetState": { "title": "Update state attribute of translated XLIFF", "widget": "checkbox", "group": "basicOptions" },
+        "alwaysAddTargets": { "title": "Add <target> elements for monolingual XLIFF", "widget": "checkbox", "group": "basicOptions" },
+        "forceUniqueIds": { "title": "Rewrite TU IDs to enforce uniqueness", "widget": "checkbox", "group": "basicOptions" },
+        "xtmAttributes": { "title": "Read XTM attributes from TUs as metadata", "widget": "checkbox", "group": "basicOptions" },
+        "useIwsXliffWriter": {
+          "title": "Use IWSXLIFF Writer",
+          "widget": "checkbox",
+          "group": "iwsOptions",
+          "enables": ["iwsBlockFinished", "iwsTransStatusValue", "iwsTransTypeValue", "iwsRemoveTmOrigin", "iwsBlockLockStatus", "iwsBlockTmScore", "iwsBlockTmScoreValue", "iwsIncludeMultipleExact", "iwsBlockMultipleExact"]
+        },
+        "iwsBlockFinished": { "title": "Set Finished Segments as translate=\"no\"", "widget": "checkbox", "group": "iwsOptions" },
+        "iwsTransStatusValue": { "title": "Default translation_status value", "widget": "text", "group": "iwsOptions" },
+        "iwsTransTypeValue": { "title": "Default translation_type value", "widget": "text", "group": "iwsOptions" },
+        "iwsRemoveTmOrigin": { "title": "Remove tm_origin attribute", "widget": "checkbox", "group": "iwsOptions" },
+        "iwsBlockLockStatus": { "title": "Set locked Finished Segments as translate=\"no\"", "widget": "checkbox", "group": "iwsOptions" },
+        "iwsBlockTmScore": { "title": "Set segments with matching tm_score as translate=\"no\"", "widget": "checkbox", "group": "iwsOptions", "enables": ["iwsBlockTmScoreValue", "iwsIncludeMultipleExact"] },
+        "iwsBlockTmScoreValue": { "title": "Value of tm_score to match", "widget": "text", "group": "iwsOptions" },
+        "iwsIncludeMultipleExact": { "title": "Include segments with multiple_exact regardless of tm_score", "widget": "checkbox", "group": "iwsOptions" },
+        "iwsBlockMultipleExact": { "title": "Set Finished multiple_exact segments as translate=\"no\"", "widget": "checkbox", "group": "iwsOptions" },
+        "cdataSubfilter": { "title": "Sub-filter for CDATA content", "widget": "text", "group": "contentProcessing" },
+        "pcdataSubfilter": { "title": "Sub-filter for PCDATA content", "widget": "text", "group": "contentProcessing" },
+        "useCodeFinder": { "title": "Find inline codes by patterns defined below", "widget": "checkbox", "group": "contentProcessing", "enables": ["codeFinderRules"] },
+        "codeFinderRules": { "title": "Inline code finder rules", "widget": "codeFinderRules", "group": "contentProcessing" }
+      }
+    }
+  },
+  "steps": {
+    "x-s-l-transform": {
+      "groups": [],
+      "parameters": {
+        "xsltPath": { "title": "Path of the XSLT template to apply", "widget": "text" },
+        "paramList": { "title": "Parameters (one per line, format: name=value)", "widget": "text" },
+        "useCustomTransformer": { "title": "Use custom transformer and XPath factory classes", "widget": "checkbox", "enables": ["factoryClass", "xpathClass"] },
+        "factoryClass": { "title": "Transformer factory class", "widget": "text" },
+        "xpathClass": { "title": "XPath factory class", "widget": "text" }
+      }
+    }
+  }
+}

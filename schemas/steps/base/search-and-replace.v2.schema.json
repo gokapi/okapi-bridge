@@ -72,11 +72,13 @@
     },
     "replacementsPath": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "x-path": { "type": "file", "role": "input" }
     },
     "logPath": {
       "type": "string",
-      "default": "${rootDir}/replacementsLog.txt"
+      "default": "${rootDir}/replacementsLog.txt",
+      "x-path": { "type": "file", "role": "output", "accepts": ["txt"] }
     },
     "saveLog": {
       "type": "boolean",

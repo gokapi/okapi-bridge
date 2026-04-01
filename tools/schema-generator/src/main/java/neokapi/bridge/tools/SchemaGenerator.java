@@ -4,7 +4,6 @@ import neokapi.bridge.model.FilterInfo;
 import neokapi.bridge.util.FilterRegistry;
 import neokapi.bridge.util.StepInfo;
 import neokapi.bridge.util.StepRegistry;
-import neokapi.bridge.util.StepSchemaGenerator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -41,12 +40,16 @@ public class SchemaGenerator {
     private final SchemaTransformer transformer;
     private final JsonObject groupings;
     private final JsonObject commonDefs;
+    private final JsonObject resMetadata;
+    private final JsonObject helpMetadata;
 
     public SchemaGenerator() {
         this.introspector = new ParameterIntrospector();
         this.transformer = new SchemaTransformer();
         this.groupings = loadClasspathJson("groupings.json");
         this.commonDefs = loadClasspathJson("common.defs.json");
+        this.resMetadata = loadClasspathJson("res-metadata.json");
+        this.helpMetadata = loadClasspathJson("help-metadata.json");
     }
 
     private JsonObject loadClasspathJson(String resourceName) {
@@ -247,8 +250,7 @@ public class SchemaGenerator {
 
         JsonObject schema = new JsonObject();
         schema.addProperty("$schema", "http://json-schema.org/draft-07/schema#");
-        schema.addProperty("title", info.getDisplayName() + " Filter");
-        schema.addProperty("description", "Configuration for the Okapi " + info.getDisplayName() + " Filter");
+        schema.addProperty("title", info.getDisplayName());
         schema.addProperty("type", "object");
 
         JsonObject filterMeta = new JsonObject();
@@ -288,7 +290,10 @@ public class SchemaGenerator {
         }
         schema.add("properties", properties);
         schema.addProperty("additionalProperties", false);
-        
+
+        // Enrich properties missing title/description from supplementary metadata
+        enrichFromSupplementaryMetadata(properties, filterId, "filters");
+
         // Add $defs for YAML-config filters that use element/attribute rules
         if (needsYamlDefs) {
             schema.add("$defs", transformer.generateYamlConfigDefs());
@@ -298,6 +303,72 @@ public class SchemaGenerator {
         schema = transformer.restructureIntoHierarchy(schema, filterId, groupings, commonDefs);
 
         return schema;
+    }
+
+    /**
+     * Enrich schema properties with metadata from supplementary files.
+     * Priority: res-metadata.json first, then help-metadata.json.
+     * Only fills in values that are missing — never overwrites existing metadata.
+     *
+     * Applies: title, description, x-editor (widget), x-showIf (enables/disables),
+     * and enum options from the enriched res-metadata format.
+     */
+    private void enrichFromSupplementaryMetadata(JsonObject properties, String componentId, String category) {
+        if (properties == null || properties.size() == 0) return;
+
+        // Try res-metadata first (has widget/group/enables), then help-metadata (title/desc only)
+        JsonObject[] sources = { resMetadata, helpMetadata };
+        for (JsonObject source : sources) {
+            if (source == null || !source.has(category)) continue;
+            JsonObject categoryObj = source.getAsJsonObject(category);
+            if (categoryObj == null || !categoryObj.has(componentId)) continue;
+
+            // res-metadata uses { groups: [...], parameters: {...} } format
+            // help-metadata uses flat { paramName: {...} } format
+            JsonObject paramsMeta = categoryObj.getAsJsonObject(componentId);
+            if (paramsMeta == null) continue;
+
+            // Check if this is the enriched format with "parameters" key
+            if (paramsMeta.has("parameters")) {
+                paramsMeta = paramsMeta.getAsJsonObject("parameters");
+            }
+            if (paramsMeta == null) continue;
+
+            for (String paramName : properties.keySet()) {
+                if (!paramsMeta.has(paramName)) continue;
+                JsonObject meta = paramsMeta.getAsJsonObject(paramName);
+                JsonObject prop = properties.getAsJsonObject(paramName);
+                if (prop == null || meta == null) continue;
+
+                // Title and description (never overwrite)
+                if (!prop.has("title") && meta.has("title")) {
+                    prop.addProperty("title", meta.get("title").getAsString());
+                }
+                if (!prop.has("description") && meta.has("description")) {
+                    prop.addProperty("description", meta.get("description").getAsString());
+                }
+
+                // Widget type → x-editor
+                if (!prop.has("x-editor") && meta.has("widget")) {
+                    JsonObject editor = new JsonObject();
+                    editor.addProperty("widget", meta.get("widget").getAsString());
+                    prop.add("x-editor", editor);
+                }
+
+                // Conditional visibility (enables/disables)
+                if (meta.has("enables") && !prop.has("x-showIf")) {
+                    prop.add("x-enables", meta.getAsJsonArray("enables"));
+                }
+                if (meta.has("disables")) {
+                    prop.add("x-disables", meta.getAsJsonArray("disables"));
+                }
+
+                // Enum options from radio/select widgets
+                if (meta.has("options") && !prop.has("x-presets")) {
+                    prop.add("x-options", meta.getAsJsonArray("options"));
+                }
+            }
+        }
     }
 
     /**

@@ -675,8 +675,9 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
     }
 
     /**
-     * Inject runtime parameters (@StepParameterMapping) for source/target locale.
-     * Okapi steps use annotated setter methods for runtime parameters like locales.
+     * Inject runtime parameters (@StepParameterMapping) for locales and directories.
+     * Okapi steps use annotated setter methods for runtime parameters like locales,
+     * root directory, and input root directory.
      */
     private void injectStepRuntimeParams(net.sf.okapi.common.pipeline.BasePipelineStep step, StepHeader header) {
         try {
@@ -686,12 +687,18 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             // Get StepParameterType enum constants.
             Object sourceLocaleType = null;
             Object targetLocaleType = null;
+            Object rootDirType = null;
+            Object inputRootDirType = null;
             for (Object constant : spmType.getEnumConstants()) {
                 String name = ((Enum<?>) constant).name();
                 if ("SOURCE_LOCALE".equals(name)) {
                     sourceLocaleType = constant;
                 } else if ("TARGET_LOCALE".equals(name)) {
                     targetLocaleType = constant;
+                } else if ("ROOT_DIRECTORY".equals(name)) {
+                    rootDirType = constant;
+                } else if ("INPUT_ROOT_DIRECTORY".equals(name)) {
+                    inputRootDirType = constant;
                 }
             }
 
@@ -709,6 +716,10 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
                     method.invoke(step, net.sf.okapi.common.LocaleId.fromString(header.getSourceLocale()));
                 } else if (paramType.equals(targetLocaleType) && !header.getTargetLocale().isEmpty()) {
                     method.invoke(step, net.sf.okapi.common.LocaleId.fromString(header.getTargetLocale()));
+                } else if (paramType.equals(rootDirType) && !header.getRootDirectory().isEmpty()) {
+                    method.invoke(step, header.getRootDirectory());
+                } else if (paramType.equals(inputRootDirType) && !header.getInputRootDirectory().isEmpty()) {
+                    method.invoke(step, header.getInputRootDirectory());
                 }
             }
         } catch (ClassNotFoundException e) {

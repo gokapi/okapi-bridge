@@ -44,7 +44,8 @@
       "type": "string",
       "default": "aligned.tmx",
       "description": "Full path of the output TMX file",
-      "title": "TMX output path"
+      "title": "TMX output path",
+      "x-path": { "type": "file", "role": "output", "accepts": ["tmx"] }
     },
     "generateTMX": {
       "type": "boolean",
@@ -66,7 +67,8 @@
       "type": "string",
       "default": "",
       "description": "Full path of the SRX document to use for the source",
-      "title": "SRX path for the source"
+      "title": "SRX path for the source",
+      "x-path": { "type": "file", "role": "input", "resourceKind": "srx", "accepts": ["srx"] }
     },
     "segmentTarget": {
       "type": "boolean",
@@ -82,7 +84,8 @@
       "type": "string",
       "default": "",
       "description": "Full path of the SRX document to use for the target",
-      "title": "SRX path for the target"
+      "title": "SRX path for the target",
+      "x-path": { "type": "file", "role": "input", "resourceKind": "srx", "accepts": ["srx"] }
     },
     "collapseWhitespace": {
       "type": "boolean",

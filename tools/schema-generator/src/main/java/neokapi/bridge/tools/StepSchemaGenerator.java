@@ -1,13 +1,19 @@
-package neokapi.bridge.util;
+package neokapi.bridge.tools;
 
+import neokapi.bridge.util.StepInfo;
+
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import net.sf.okapi.common.IParameters;
 import net.sf.okapi.common.ParametersDescription;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +29,8 @@ import java.util.List;
  * - Event handler methods (overridden handle* methods)
  * - Marker interfaces (e.g., ILoadsResources)
  * - I/O classification based on parameter mappings
+ *
+ * Build-time only — not part of the runtime bridge plugin.
  */
 public class StepSchemaGenerator {
 
@@ -30,6 +38,10 @@ public class StepSchemaGenerator {
     private static final String[] MARKER_INTERFACES = {
             "net.sf.okapi.common.ILoadsResources"
     };
+
+    /** Cached supplementary metadata (loaded lazily from classpath). */
+    private static volatile JsonObject helpMetadata;
+    private static volatile boolean helpMetadataLoaded;
 
     /**
      * Generate a JSON Schema object for a step using pure Okapi vocabulary.
@@ -64,10 +76,82 @@ public class StepSchemaGenerator {
         // Generate properties from the Parameters class.
         JsonObject properties = generateProperties(info);
         if (properties != null && properties.size() > 0) {
+            // Enrich from supplementary metadata for properties still missing title/description.
+            enrichFromSupplementaryMetadata(properties, stepId);
             schema.add("properties", properties);
         }
 
         return schema;
+    }
+
+    /**
+     * Enrich properties with metadata from help-metadata.json (classpath resource).
+     * Applies title, description, widget, enables/disables, and enum options.
+     * Only fills in values that are missing — never overwrites existing metadata.
+     */
+    private static void enrichFromSupplementaryMetadata(JsonObject properties, String stepId) {
+        JsonObject meta = getHelpMetadata();
+        if (meta == null || !meta.has("steps")) return;
+        JsonObject steps = meta.getAsJsonObject("steps");
+        if (steps == null || !steps.has(stepId)) return;
+        JsonObject stepMeta = steps.getAsJsonObject(stepId);
+        if (stepMeta == null) return;
+
+        // Check for enriched format with "parameters" key
+        if (stepMeta.has("parameters")) {
+            stepMeta = stepMeta.getAsJsonObject("parameters");
+        }
+        if (stepMeta == null) return;
+
+        for (String paramName : properties.keySet()) {
+            if (!stepMeta.has(paramName)) continue;
+            JsonObject paramMeta = stepMeta.getAsJsonObject(paramName);
+            JsonObject prop = properties.getAsJsonObject(paramName);
+            if (prop == null || paramMeta == null) continue;
+
+            if (!prop.has("title") && paramMeta.has("title")) {
+                prop.addProperty("title", paramMeta.get("title").getAsString());
+            }
+            if (!prop.has("description") && paramMeta.has("description")) {
+                prop.addProperty("description", paramMeta.get("description").getAsString());
+            }
+            if (!prop.has("x-editor") && paramMeta.has("widget")) {
+                JsonObject editor = new JsonObject();
+                editor.addProperty("widget", paramMeta.get("widget").getAsString());
+                prop.add("x-editor", editor);
+            }
+            if (paramMeta.has("enables")) {
+                prop.add("x-enables", paramMeta.getAsJsonArray("enables"));
+            }
+        }
+    }
+
+    /**
+     * Lazily load help-metadata.json from classpath.
+     */
+    private static JsonObject getHelpMetadata() {
+        if (!helpMetadataLoaded) {
+            synchronized (StepSchemaGenerator.class) {
+                if (!helpMetadataLoaded) {
+                    helpMetadata = loadClasspathJson("help-metadata.json");
+                    helpMetadataLoaded = true;
+                }
+            }
+        }
+        return helpMetadata;
+    }
+
+    private static JsonObject loadClasspathJson(String resourceName) {
+        InputStream is = StepSchemaGenerator.class.getClassLoader().getResourceAsStream(resourceName);
+        if (is == null) {
+            return null;
+        }
+        try (InputStreamReader reader = new InputStreamReader(is, StandardCharsets.UTF_8)) {
+            return new Gson().fromJson(reader, JsonObject.class);
+        } catch (Exception e) {
+            System.err.println("[schema-gen] Failed to load " + resourceName + ": " + e.getMessage());
+            return null;
+        }
     }
 
     /**
@@ -108,7 +192,7 @@ public class StepSchemaGenerator {
             classifyIO(xStep, parameterMappings, eventHandlers);
 
         } catch (ClassNotFoundException e) {
-            System.err.println("[bridge] Could not load step class for metadata: " + info.getClassName());
+            System.err.println("[schema-gen] Could not load step class for metadata: " + info.getClassName());
         }
 
         return xStep;
@@ -141,7 +225,7 @@ public class StepSchemaGenerator {
         } catch (ClassNotFoundException e) {
             // @StepParameterMapping not available in this Okapi version
         } catch (Exception e) {
-            System.err.println("[bridge] Error extracting parameter mappings from "
+            System.err.println("[schema-gen] Error extracting parameter mappings from "
                     + stepClass.getName() + ": " + e.getMessage());
         }
 
@@ -191,20 +275,14 @@ public class StepSchemaGenerator {
 
     /**
      * Classify step I/O based on parameter mappings and event handlers.
-     * - If step has INPUT_RAWDOC mapping: inputType = "raw-document"
-     * - If step only has filter event handlers: inputType = "filter-events"
-     * - If step has OUTPUT_URI mapping: outputType = "file"
-     * - Otherwise: outputType = "filter-events"
      */
     private static void classifyIO(JsonObject xStep, List<String> mappings, List<String> handlers) {
-        // Input classification
         if (mappings.contains("INPUT_RAWDOC")) {
             xStep.addProperty("inputType", "raw-document");
         } else {
             xStep.addProperty("inputType", "filter-events");
         }
 
-        // Output classification
         if (mappings.contains("OUTPUT_URI")) {
             xStep.addProperty("outputType", "file");
         } else {
@@ -221,7 +299,6 @@ public class StepSchemaGenerator {
         }
 
         try {
-            // Instantiate the parameters class.
             Object paramsObj = info.getParametersClass().getDeclaredConstructor().newInstance();
             if (!(paramsObj instanceof IParameters)) {
                 return null;
@@ -229,10 +306,8 @@ public class StepSchemaGenerator {
             IParameters params = (IParameters) paramsObj;
             params.reset();
 
-            // Try to get ParametersDescription from the step for display names.
             ParametersDescription paramsDesc = getParametersDescription(info);
 
-            // Get the serialized form (ParametersString #v1 format).
             String serialized = params.toString();
             if (serialized == null || serialized.trim().isEmpty()) {
                 return null;
@@ -240,23 +315,20 @@ public class StepSchemaGenerator {
 
             return parseParametersString(serialized, paramsDesc);
         } catch (Exception e) {
-            System.err.println("[bridge] Could not generate properties for step "
+            System.err.println("[schema-gen] Could not generate properties for step "
                     + info.getClassName() + ": " + e.getMessage());
             return null;
         }
     }
 
-    /**
-     * Try to get a ParametersDescription from the step's Parameters object.
-     */
     private static ParametersDescription getParametersDescription(StepInfo info) {
         if (info.getParametersClass() == null) {
             return null;
         }
         try {
             Object paramsObj = info.getParametersClass().getDeclaredConstructor().newInstance();
-            if (paramsObj instanceof net.sf.okapi.common.IParameters) {
-                return ((net.sf.okapi.common.IParameters) paramsObj).getParametersDescription();
+            if (paramsObj instanceof IParameters) {
+                return ((IParameters) paramsObj).getParametersDescription();
             }
         } catch (Exception e) {
             // Not all parameters provide descriptions
@@ -266,10 +338,6 @@ public class StepSchemaGenerator {
 
     /**
      * Parse a ParametersString (#v1 format) to discover parameter names and types.
-     * The #v1 format uses lines like:
-     *   paramName.b=true     (boolean)
-     *   paramName.i=42       (integer)
-     *   paramName=value      (string)
      */
     private static JsonObject parseParametersString(String serialized, ParametersDescription paramsDesc) {
         JsonObject properties = new JsonObject();
@@ -289,7 +357,6 @@ public class StepSchemaGenerator {
             String rawKey = line.substring(0, eq).trim();
             String rawValue = line.substring(eq + 1).trim();
 
-            // Determine type from suffix.
             String paramName;
             String paramType;
             Object defaultValue;
@@ -315,7 +382,6 @@ public class StepSchemaGenerator {
             JsonObject prop = new JsonObject();
             prop.addProperty("type", paramType);
 
-            // Set default value.
             if (defaultValue instanceof Boolean) {
                 prop.add("default", new JsonPrimitive((Boolean) defaultValue));
             } else if (defaultValue instanceof Integer) {
@@ -324,7 +390,6 @@ public class StepSchemaGenerator {
                 prop.add("default", new JsonPrimitive((String) defaultValue));
             }
 
-            // Add description from ParametersDescription if available.
             if (paramsDesc != null) {
                 try {
                     net.sf.okapi.common.ParameterDescriptor pd = paramsDesc.get(paramName);
