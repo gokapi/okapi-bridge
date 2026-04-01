@@ -18,6 +18,7 @@ STEP_COMPOSITE_DIR="$REPO_ROOT/schemas/steps/composite"
 STEP_BASE_DIR="$REPO_ROOT/schemas/steps/base"
 VERSIONS_FILE="$REPO_ROOT/schemas/versions.json"
 HTML_DIR="$DOCS_DIR/raw/html"
+MODEL="${MODEL:-sonnet}"
 
 # Check prerequisites
 if ! command -v claude &> /dev/null; then
@@ -376,6 +377,7 @@ WIKI CONTENT:
 $wiki_content"
     
     if raw_result=$(echo "$full_prompt" | claude --print --dangerously-skip-permissions \
+        --model "$MODEL" \
         --output-format json \
         --json-schema "$SCHEMA_JSON" \
         2>/dev/null); then
