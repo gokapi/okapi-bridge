@@ -14,8 +14,10 @@ RAW_DIR="$DOCS_DIR/raw"
 PARSED_DIR="$DOCS_DIR/parsed"
 JSON_SCHEMA="$SCRIPT_DIR/filter-doc-schema.json"
 COMPOSITE_DIR="$REPO_ROOT/schemas/filters/composite"
+STEP_COMPOSITE_DIR="$REPO_ROOT/schemas/steps/composite"
 STEP_BASE_DIR="$REPO_ROOT/schemas/steps/base"
 VERSIONS_FILE="$REPO_ROOT/schemas/versions.json"
+HTML_DIR="$DOCS_DIR/raw/html"
 
 # Check prerequisites
 if ! command -v claude &> /dev/null; then
@@ -173,7 +175,7 @@ get_composite_schema() {
     fi
 }
 
-# Resolve the latest step schema file for a step ID
+# Resolve the latest step schema file for a step ID (prefer composite over base)
 get_step_schema() {
     local step_id="$1"
     if [ ! -f "$VERSIONS_FILE" ]; then
@@ -182,9 +184,15 @@ get_step_schema() {
     local latest_version
     latest_version=$(jq -r --arg id "$step_id" '.steps[$id].versions[-1].version // empty' "$VERSIONS_FILE" 2>/dev/null)
     if [ -n "$latest_version" ]; then
-        local schema_file="$STEP_BASE_DIR/${step_id}.v${latest_version}.schema.json"
-        if [ -f "$schema_file" ]; then
-            echo "$schema_file"
+        # Prefer composite, fall back to base
+        local composite_file="$STEP_COMPOSITE_DIR/${step_id}.v${latest_version}.schema.json"
+        if [ -f "$composite_file" ]; then
+            echo "$composite_file"
+            return
+        fi
+        local base_file="$STEP_BASE_DIR/${step_id}.v${latest_version}.schema.json"
+        if [ -f "$base_file" ]; then
+            echo "$base_file"
         fi
     fi
 }
@@ -239,7 +247,19 @@ Rules for filter-level fields:
 - "limitations": Array of concise markdown statements from the Limitations section
 - "processingNotes": Array of concise markdown statements about processing behavior
 - "examples": Worked examples. Use "config" for configuration snippets (as fenced code blocks with language),
-  "input" for input content, "output" for expected output. Use fenced code blocks with appropriate language tags.'
+  "input" for input content, "output" for expected output. Use fenced code blocks with appropriate language tags.
+
+Rules for "propertySuggestions":
+- Only populate for properties listed in the PROPERTIES NEEDING ENRICHMENT section
+- Suggest "title" (concise human label, 2-6 words) and/or "description" (one sentence)
+- Infer from the wiki content, HTML help, or parameter name semantics
+- Key by EXACT property name from the schema
+
+Rules for "fullDoc":
+- A complete self-contained markdown documentation page
+- Structure: # {Filter Name}\n\n{overview}\n\n## Parameters\n\n### {Group} (if grouped)\n\n#### {Param Title}\n{help + notes merged}\n\n## Limitations\n\n## Notes\n\n## Examples
+- Include ALL parameters, not just documented ones — use the title/description from schema for undocumented ones
+- Suitable for rendering in a documentation viewer or help panel'
 
 echo "Parsing filter documentation with Claude CLI..."
 echo ""
@@ -314,9 +334,43 @@ $stripped_schema"
 No schema available. Infer camelCase Java property names from the wiki content."
     fi
     
+    # Resolve HTML help content (from Okapi source)
+    html_context=""
+    # Map filter basename to help directory name
+    filter_help_name=$(echo "$basename" | sed 's/-filter$//')
+    html_file="$HTML_DIR/filters/${filter_help_name}.html"
+    if [ -f "$html_file" ]; then
+        html_context="
+
+OKAPI HELP HTML (SWT editor help — may contain parameter descriptions not in the wiki):
+$(cat "$html_file")"
+    fi
+
+    # Extract properties missing title/description from the schema
+    missing_context=""
+    if [ -n "$composite_file" ]; then
+        missing_props=$(jq -r '
+          [.properties // {} | to_entries[] |
+           select(.value.title == null or .value.description == null) |
+           .key + " (missing: " +
+             (if .value.title == null and .value.description == null then "title, description"
+              elif .value.title == null then "title"
+              else "description" end) + ")"
+          ] | join("\n")
+        ' "$composite_file" 2>/dev/null || true)
+        if [ -n "$missing_props" ]; then
+            missing_context="
+
+PROPERTIES NEEDING ENRICHMENT (provide propertySuggestions for these):
+$missing_props"
+        fi
+    fi
+
     # Call Claude CLI with --json-schema for guaranteed well-formed output
     full_prompt="$EXTRACTION_PROMPT
 $schema_context
+$html_context
+$missing_context
 
 WIKI CONTENT:
 $wiki_content"
@@ -409,7 +463,19 @@ Rules for step-level fields:
 - "overview": 2-4 sentence markdown overview
 - "limitations": Array of concise markdown statements
 - "processingNotes": Array of concise markdown statements
-- "examples": Worked examples with "config", "input", "output" as fenced code blocks'
+- "examples": Worked examples with "config", "input", "output" as fenced code blocks
+
+Rules for "propertySuggestions":
+- Only populate for properties listed in the PROPERTIES NEEDING ENRICHMENT section
+- Suggest "title" (concise human label, 2-6 words) and/or "description" (one sentence)
+- Infer from the wiki content, HTML help, or parameter name semantics
+- Key by EXACT property name from the schema
+
+Rules for "fullDoc":
+- A complete self-contained markdown documentation page
+- Structure: # {Step Name}\n\n{overview}\n\n## Parameters\n\n#### {Param Title}\n{help + notes merged}\n\n## Limitations\n\n## Notes\n\n## Examples
+- Include ALL parameters — use schema title/description for undocumented ones
+- Suitable for rendering in a documentation viewer or help panel'
 
 echo ""
 echo "Parsing step documentation with Claude CLI..."
@@ -476,9 +542,51 @@ $stripped_schema"
 No schema available for this step. Infer camelCase Java property names from the wiki content."
         fi
 
+        # Resolve HTML help content (from Okapi source)
+        html_context=""
+        # Step HTML names: remove hyphens, append "step" (e.g., quality-check → qualitycheckstep.html)
+        step_html_name=$(echo "$step_id" | tr -d '-')
+        html_file="$HTML_DIR/steps/${step_html_name}step.html"
+        if [ -f "$html_file" ]; then
+            html_content=$(cat "$html_file")
+            # For quality-check, also include the shared parameterseditor.html
+            if [ "$step_id" = "quality-check" ] && [ -f "$HTML_DIR/steps/parameterseditor.html" ]; then
+                html_content="$html_content
+
+--- SHARED PARAMETERS EDITOR HELP ---
+$(cat "$HTML_DIR/steps/parameterseditor.html")"
+            fi
+            html_context="
+
+OKAPI HELP HTML (SWT editor help — may contain parameter descriptions not in the wiki):
+$html_content"
+        fi
+
+        # Extract properties missing title/description from the schema
+        missing_context=""
+        if [ -n "$schema_file" ]; then
+            missing_props=$(jq -r '
+              [.properties // {} | to_entries[] |
+               select(.value.title == null or .value.description == null) |
+               .key + " (missing: " +
+                 (if .value.title == null and .value.description == null then "title, description"
+                  elif .value.title == null then "title"
+                  else "description" end) + ")"
+              ] | join("\n")
+            ' "$schema_file" 2>/dev/null || true)
+            if [ -n "$missing_props" ]; then
+                missing_context="
+
+PROPERTIES NEEDING ENRICHMENT (provide propertySuggestions for these):
+$missing_props"
+            fi
+        fi
+
         # Call Claude CLI
         full_prompt="$STEP_EXTRACTION_PROMPT
 $schema_context
+$html_context
+$missing_context
 
 WIKI CONTENT:
 $wiki_content"

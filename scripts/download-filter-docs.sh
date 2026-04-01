@@ -200,6 +200,56 @@ for page in "${ADDITIONAL_PAGES[@]}"; do
     sleep 0.2
 done
 
+# --- Copy local Okapi help HTML (if OKAPI_SOURCE is set) ---
+
+OKAPI_SOURCE="${OKAPI_SOURCE:-}"
+html_filter_count=0
+html_step_count=0
+
+if [ -d "${OKAPI_SOURCE}/help" ]; then
+    echo ""
+    echo "Copying local Okapi help HTML from $OKAPI_SOURCE/help/..."
+
+    mkdir -p "$OUTPUT_DIR/raw/html/filters"
+    mkdir -p "$OUTPUT_DIR/raw/html/steps"
+
+    # Copy filter help HTML (help/filters/{name}/ui/index.html → html/filters/{name}.html)
+    for filter_dir in "$OKAPI_SOURCE"/help/filters/*/; do
+        [ -d "$filter_dir" ] || continue
+        filter_name=$(basename "$filter_dir")
+        if [ -f "$filter_dir/ui/index.html" ]; then
+            # Concatenate all HTML files in the filter's ui/ directory
+            cat "$filter_dir"/ui/*.html > "$OUTPUT_DIR/raw/html/filters/${filter_name}.html"
+            echo "  ✓ filter: $filter_name"
+            ((html_filter_count++))
+        fi
+    done
+
+    # Copy step help HTML (help/steps/{name}step.html → html/steps/{name}step.html)
+    for step_html in "$OKAPI_SOURCE"/help/steps/*.html; do
+        [ -f "$step_html" ] || continue
+        step_name=$(basename "$step_html")
+        [ "$step_name" = "index.html" ] && continue
+        cp "$step_html" "$OUTPUT_DIR/raw/html/steps/$step_name"
+        echo "  ✓ step: $step_name"
+        ((html_step_count++))
+    done
+
+    # Copy shared help files that multiple steps reference
+    if [ -f "$OKAPI_SOURCE/help/lib/ui/verification/parameterseditor.html" ]; then
+        cp "$OKAPI_SOURCE/help/lib/ui/verification/parameterseditor.html" \
+           "$OUTPUT_DIR/raw/html/steps/parameterseditor.html"
+        echo "  ✓ shared: parameterseditor.html (quality check params)"
+    fi
+
+    echo "  HTML: $html_filter_count filters, $html_step_count steps"
+else
+    if [ -n "$OKAPI_SOURCE" ]; then
+        echo ""
+        echo "Warning: OKAPI_SOURCE=$OKAPI_SOURCE but help/ directory not found"
+    fi
+fi
+
 # Create manifest with download metadata
 cat > "$OUTPUT_DIR/manifest.json" << EOF
 {
@@ -209,6 +259,9 @@ cat > "$OUTPUT_DIR/manifest.json" << EOF
   "filterFailed": $filter_failed,
   "stepCount": $step_success,
   "stepFailed": $step_failed,
+  "htmlFilterCount": $html_filter_count,
+  "htmlStepCount": $html_step_count,
+  "okapiSource": "${OKAPI_SOURCE:-null}",
   "filters": [
 $(printf '    "%s"' "${FILTER_PAGES[0]}")
 $(printf ',\n    "%s"' "${FILTER_PAGES[@]:1}")
@@ -227,8 +280,12 @@ echo "  Steps:   $step_success downloaded, $step_failed failed"
 echo "  Output:  $OUTPUT_DIR/"
 echo ""
 echo "Files created:"
-echo "  $OUTPUT_DIR/raw/*.wiki          - Filter wikitext source"
-echo "  $OUTPUT_DIR/raw/steps/*.wiki    - Step wikitext source"
-echo "  $OUTPUT_DIR/manifest.json       - Download metadata"
+echo "  $OUTPUT_DIR/raw/*.wiki              - Filter wikitext source"
+echo "  $OUTPUT_DIR/raw/steps/*.wiki        - Step wikitext source"
+if [ $html_filter_count -gt 0 ] || [ $html_step_count -gt 0 ]; then
+echo "  $OUTPUT_DIR/raw/html/filters/*.html - Filter help HTML (from Okapi source)"
+echo "  $OUTPUT_DIR/raw/html/steps/*.html   - Step help HTML (from Okapi source)"
+fi
+echo "  $OUTPUT_DIR/manifest.json           - Download metadata"
 echo ""
 echo "Next: Run 'make parse-filter-docs' to extract structured data"

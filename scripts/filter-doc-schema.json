@@ -84,6 +84,21 @@
         "required": ["help"]
       },
       "description": "Per-parameter documentation keyed by the JSON Schema property name. For grouped properties, use dot-path (e.g. 'extraction.extractAll')."
+    },
+    "propertySuggestions": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string", "description": "Suggested concise human label (2-6 words, no trailing period)" },
+          "description": { "type": "string", "description": "Suggested one-sentence description of what this parameter does" }
+        }
+      },
+      "description": "Title and/or description suggestions for schema properties that are missing them. Only include properties listed in the PROPERTIES NEEDING ENRICHMENT section."
+    },
+    "fullDoc": {
+      "type": "string",
+      "description": "Complete self-contained markdown documentation page for this filter/step. Suitable for rendering in a UI help panel or docs site. Structure: # Title, overview paragraph, ## Parameters (grouped), ## Limitations, ## Notes, ## Examples."
     }
   },
   "required": ["filterName", "overview", "parameters"]

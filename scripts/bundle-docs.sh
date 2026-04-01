@@ -28,7 +28,9 @@ rm -rf "$OUTPUT_DIR"
 mkdir -p "$OUTPUT_DIR/filters" "$OUTPUT_DIR/steps"
 
 ALIASES="{}"
+SUGGESTIONS="{}"
 filter_count=0
+md_count=0
 
 for json_file in "$PARSED_DIR"/okf_*.json; do
     [ ! -f "$json_file" ] && continue
@@ -44,6 +46,19 @@ for json_file in "$PARSED_DIR"/okf_*.json; do
     filter_id=$(basename "$json_file" .json)
     cp "$json_file" "$OUTPUT_DIR/filters/${filter_id}.json"
     ((filter_count++))
+
+    # Extract fullDoc as markdown file
+    full_doc=$(jq -r '.fullDoc // empty' "$json_file")
+    if [ -n "$full_doc" ]; then
+        echo "$full_doc" > "$OUTPUT_DIR/filters/${filter_id}.md"
+        ((md_count++))
+    fi
+
+    # Collect property suggestions
+    suggestions=$(jq -c '.propertySuggestions // empty' "$json_file")
+    if [ -n "$suggestions" ] && [ "$suggestions" != "null" ] && [ "$suggestions" != "{}" ]; then
+        SUGGESTIONS=$(echo "$SUGGESTIONS" | jq --arg id "$filter_id" --argjson s "$suggestions" '.[$id] = $s')
+    fi
 done
 
 step_count=0
@@ -54,7 +69,27 @@ if [ -d "$PARSED_DIR/steps" ]; then
         step_id=$(basename "$json_file" .json)
         cp "$json_file" "$OUTPUT_DIR/steps/${step_id}.json"
         ((step_count++))
+
+        # Extract fullDoc as markdown file
+        full_doc=$(jq -r '.fullDoc // empty' "$json_file")
+        if [ -n "$full_doc" ]; then
+            echo "$full_doc" > "$OUTPUT_DIR/steps/${step_id}.md"
+            ((md_count++))
+        fi
+
+        # Collect property suggestions
+        suggestions=$(jq -c '.propertySuggestions // empty' "$json_file")
+        if [ -n "$suggestions" ] && [ "$suggestions" != "null" ] && [ "$suggestions" != "{}" ]; then
+            SUGGESTIONS=$(echo "$SUGGESTIONS" | jq --arg id "$step_id" --argjson s "$suggestions" '.[$id] = $s')
+        fi
     done
+fi
+
+# Write aggregated property suggestions
+if [ "$(echo "$SUGGESTIONS" | jq 'length')" -gt 0 ]; then
+    echo "$SUGGESTIONS" | jq '.' > "$OUTPUT_DIR/property-suggestions.json"
+    suggestion_count=$(echo "$SUGGESTIONS" | jq '[.[] | length] | add // 0')
+    echo "  Property suggestions: $suggestion_count across $(echo "$SUGGESTIONS" | jq 'length') components"
 fi
 
 # Build the concepts section (hand-curated cross-cutting documentation)
@@ -132,4 +167,5 @@ jq -n \
 echo "Created $OUTPUT_DIR/"
 echo "  Filters: $filter_count (docs/filters/)"
 echo "  Steps:   $step_count (docs/steps/)"
+echo "  Markdown: $md_count (.md files)"
 echo "  Aliases: $(echo "$ALIASES" | jq 'length')"

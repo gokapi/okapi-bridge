@@ -45,6 +45,7 @@ help:
 	@echo ""
 	@echo "Documentation:"
 	@echo "  make download-filter-docs  Download filter and step docs from Okapi wiki"
+	@echo "                             Add OKAPI_SOURCE=/path/to/Okapi to include help HTML"
 	@echo "  make parse-filter-docs     Parse docs into structured JSON (uses Claude CLI)"
 	@echo "  make bundle-docs           Bundle parsed docs into docs.json for plugin release"
 	@echo "  make bundle-filter-docs    Bundle parsed docs into filter-docs-bundle.json (legacy)"
@@ -261,7 +262,7 @@ FILTER_DOCS_DIR := filter-docs
 
 # Download filter documentation from Okapi wiki
 download-filter-docs:
-	@./scripts/download-filter-docs.sh $(FILTER_DOCS_DIR)
+	@OKAPI_SOURCE=$(OKAPI_SOURCE) ./scripts/download-filter-docs.sh $(FILTER_DOCS_DIR)
 
 # Parse filter docs into structured JSON using Claude CLI
 parse-filter-docs:
@@ -281,6 +282,10 @@ bundle-docs:
 # Bundle parsed docs into a single JSON file for UI consumption (legacy)
 bundle-filter-docs:
 	@./scripts/bundle-filter-docs.sh $(FILTER_DOCS_DIR)
+
+# Apply property suggestions from docs to overrides (review diff before committing)
+apply-suggestions:
+	@./scripts/apply-property-suggestions.sh $(FILTER_DOCS_DIR)
 
 # Clean downloaded docs
 clean-filter-docs:
