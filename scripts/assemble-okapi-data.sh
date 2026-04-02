@@ -89,14 +89,16 @@ echo "  Filters: $FILTER_COUNT"
 # --- Steps ---
 
 STEP_COUNT=0
-jq -r --arg ov "${OKAPI_VERSION}" '
+STEP_LIST=$(jq -r --arg ov "${OKAPI_VERSION}" '
   .steps // {} | to_entries[] |
   .key as $s |
   [.value.versions[] | select(.okapiVersions | index($ov))] |
   max_by(.version) | select(.) |
   "\($s) \(.version)"
-' schemas/versions.json | {
+' schemas/versions.json 2>/dev/null || true)
+echo "$STEP_LIST" | {
   while read -r step_id version; do
+    [ -z "$step_id" ] && continue
     # Prefer composite (merged with overrides), fall back to base
     src="schemas/steps/composite/${step_id}.v${version}.schema.json"
     if [ ! -f "$src" ]; then
@@ -120,7 +122,7 @@ jq -r --arg ov "${OKAPI_VERSION}" '
   done
   true
 } || true
-STEP_COUNT=$(ls -1d "$OUTPUT_DIR/steps"/*/ 2>/dev/null | wc -l | tr -d ' ')
+STEP_COUNT=$(find "$OUTPUT_DIR/steps" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l | tr -d ' ')
 echo "  Steps: $STEP_COUNT"
 
 # --- Shared docs ---
