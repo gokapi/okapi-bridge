@@ -214,7 +214,8 @@
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
-      "x-widget": "simplifierRulesEditor"
+      "x-widget": "simplifierRulesEditor",
+      "title": "Simplifier Rules"
     }
   },
   "additionalProperties": false,
@@ -223,5 +224,5 @@
   "x-baseVersion": 2,
   "x-introducedInOkapi": "1.42.0",
   "x-baseHash": "bba56f61a3f2",
-  "x-compositeHash": "fdd34c0b1331"
+  "x-compositeHash": "b54d451c9a2e"
 }

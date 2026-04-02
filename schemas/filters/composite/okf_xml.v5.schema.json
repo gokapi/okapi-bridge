@@ -108,7 +108,8 @@
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
-      "x-widget": "simplifierRulesEditor"
+      "x-widget": "simplifierRulesEditor",
+      "title": "Simplifier Rules"
     },
     "path": {
       "type": "string",
@@ -122,5 +123,5 @@
   "x-baseVersion": 8,
   "x-introducedInOkapi": "1.47.0",
   "x-baseHash": "4d063b7bc8fb",
-  "x-compositeHash": "d83d04c3648a"
+  "x-compositeHash": "ef6c8a873fc9"
 }

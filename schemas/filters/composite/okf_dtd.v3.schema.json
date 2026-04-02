@@ -36,16 +36,19 @@
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
       "type": "boolean",
+      "title": "Move Boundary Codes",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
       "type": "boolean",
+      "title": "Merge Adjacent Codes",
       "description": "Merge consecutive inline codes into a single placeholder"
     },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
-      "x-widget": "simplifierRulesEditor"
+      "x-widget": "simplifierRulesEditor",
+      "title": "Simplifier Rules"
     }
   },
   "additionalProperties": false,
@@ -54,5 +57,5 @@
   "x-baseVersion": 3,
   "x-introducedInOkapi": "1.48.0",
   "x-baseHash": "46daa29a2f55",
-  "x-compositeHash": "25367878ab71"
+  "x-compositeHash": "e16846cda8c9"
 }

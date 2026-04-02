@@ -247,7 +247,7 @@
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
       "type": "boolean",
-      "title": "Move Boundary Codes to Skeleton",
+      "title": "Move Boundary Codes",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
@@ -262,5 +262,5 @@
   "x-baseVersion": 4,
   "x-introducedInOkapi": "1.48.0",
   "x-baseHash": "b6d401ec60dc",
-  "x-compositeHash": "97b8280a5c3e"
+  "x-compositeHash": "6ecad5869e7c"
 }

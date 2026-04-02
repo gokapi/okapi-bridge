@@ -37,7 +37,8 @@
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
-      "x-widget": "simplifierRulesEditor"
+      "x-widget": "simplifierRulesEditor",
+      "title": "Simplifier Rules"
     }
   },
   "additionalProperties": false,
@@ -46,5 +47,5 @@
   "x-baseVersion": 2,
   "x-introducedInOkapi": "1.46.0",
   "x-baseHash": "f11cfe564c78",
-  "x-compositeHash": "fae190332ccf"
+  "x-compositeHash": "02a5dda78ec2"
 }

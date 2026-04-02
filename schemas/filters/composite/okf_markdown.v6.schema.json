@@ -218,6 +218,7 @@
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
           "x-flattenPath": "codeFinderRules",
+          "title": "Code Finder Rules",
           "description": "Regex patterns to identify inline codes in translatable text",
           "x-editor": {
             "widget": "codeFinderRules"
@@ -226,16 +227,19 @@
         "mergeAdjacent": {
           "type": "boolean",
           "description": "Merge consecutive inline codes into a single placeholder",
-          "x-flattenPath": "mergeAdjacentCodes"
+          "x-flattenPath": "mergeAdjacentCodes",
+          "title": "Merge Adjacent Codes"
         },
         "moveBoundaryCodes": {
           "type": "boolean",
           "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)",
-          "x-flattenPath": "moveLeadingAndTrailingCodesToSkeleton"
+          "x-flattenPath": "moveLeadingAndTrailingCodesToSkeleton",
+          "title": "Move Boundary Codes"
         },
         "simplifierRules": {
           "$ref": "#/$defs/simplifierRules",
           "x-flattenPath": "simplifierRules",
+          "title": "Simplifier Rules",
           "description": "Rules for simplifying inline code representation"
         }
       }
@@ -283,5 +287,5 @@
   "x-baseVersion": 6,
   "x-introducedInOkapi": "1.47.0",
   "x-baseHash": "6d8288d260e1",
-  "x-compositeHash": "60a8aa2ac738"
+  "x-compositeHash": "65c2b829bb3d"
 }

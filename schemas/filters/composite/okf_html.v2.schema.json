@@ -2459,16 +2459,19 @@
         "mergeAdjacent": {
           "type": "boolean",
           "description": "Merge consecutive inline codes into a single placeholder",
-          "x-flattenPath": "mergeAdjacentCodes"
+          "x-flattenPath": "mergeAdjacentCodes",
+          "title": "Merge Adjacent Codes"
         },
         "moveBoundaryCodes": {
           "type": "boolean",
           "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)",
-          "x-flattenPath": "moveLeadingAndTrailingCodesToSkeleton"
+          "x-flattenPath": "moveLeadingAndTrailingCodesToSkeleton",
+          "title": "Move Boundary Codes"
         },
         "simplifierRules": {
           "$ref": "#/$defs/simplifierRules",
           "x-flattenPath": "simplifierRules",
+          "title": "Simplifier Rules",
           "description": "Rules for simplifying inline code representation"
         }
       }
@@ -2516,5 +2519,5 @@
   "x-baseVersion": 8,
   "x-introducedInOkapi": "1.40.0",
   "x-baseHash": "c7e375e47f05",
-  "x-compositeHash": "4e681fb2a203"
+  "x-compositeHash": "19ad2bbd2295"
 }

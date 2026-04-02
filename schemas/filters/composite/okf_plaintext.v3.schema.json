@@ -214,11 +214,12 @@
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
-      "x-widget": "simplifierRulesEditor"
+      "x-widget": "simplifierRulesEditor",
+      "title": "Simplifier Rules"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
       "type": "boolean",
-      "title": "Move Boundary Codes to Skeleton",
+      "title": "Move Boundary Codes",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "mergeAdjacentCodes": {
@@ -233,5 +234,5 @@
   "x-baseVersion": 3,
   "x-introducedInOkapi": "1.48.0",
   "x-baseHash": "d8b2c2f130be",
-  "x-compositeHash": "e429c7b85762"
+  "x-compositeHash": "c13ae6a85ce5"
 }

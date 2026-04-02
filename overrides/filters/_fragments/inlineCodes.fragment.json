@@ -7,19 +7,24 @@
       "description": "Pattern-based detection of inline codes (placeholders, variables, tags) within translatable text."
     },
     "useCodeFinder": {
+      "title": "Enable Inline Code Detection",
       "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)"
     },
     "codeFinderRules": {
+      "title": "Code Finder Rules",
       "widget": "codeFinderRules",
       "description": "Regex patterns to identify inline codes in translatable text"
     },
     "mergeAdjacentCodes": {
+      "title": "Merge Adjacent Codes",
       "description": "Merge consecutive inline codes into a single placeholder"
     },
     "moveLeadingAndTrailingCodesToSkeleton": {
+      "title": "Move Boundary Codes",
       "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
     },
     "simplifierRules": {
+      "title": "Simplifier Rules",
       "description": "Rules for simplifying inline code representation"
     }
   }

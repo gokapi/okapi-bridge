@@ -419,30 +419,34 @@
           "type": "boolean",
           "default": false,
           "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)",
-          "x-flattenPath": "useCodeFinder"
+          "x-flattenPath": "useCodeFinder",
+          "title": "Enable Inline Code Detection"
         },
         "rules": {
           "$ref": "#/$defs/codeFinderRules",
           "x-flattenPath": "codeFinderRules",
+          "title": "Extraction Rules",
           "description": "Ordered list of regex-based rules with actions and capturing group assignments.",
           "x-editor": {
             "widget": "codeFinderRules"
-          },
-          "title": "Extraction Rules"
+          }
         },
         "mergeAdjacent": {
           "type": "boolean",
           "description": "Merge consecutive inline codes into a single placeholder",
-          "x-flattenPath": "mergeAdjacentCodes"
+          "x-flattenPath": "mergeAdjacentCodes",
+          "title": "Merge Adjacent Codes"
         },
         "moveBoundaryCodes": {
           "type": "boolean",
           "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)",
-          "x-flattenPath": "moveLeadingAndTrailingCodesToSkeleton"
+          "x-flattenPath": "moveLeadingAndTrailingCodesToSkeleton",
+          "title": "Move Boundary Codes"
         },
         "simplifierRules": {
           "$ref": "#/$defs/simplifierRules",
           "x-flattenPath": "simplifierRules",
+          "title": "Simplifier Rules",
           "description": "Rules for simplifying inline code representation"
         }
       }
@@ -491,5 +495,5 @@
   "x-baseVersion": 7,
   "x-introducedInOkapi": "1.47.0",
   "x-baseHash": "59c37b3e580c",
-  "x-compositeHash": "ceb2c0aa4ec3"
+  "x-compositeHash": "a4e63e1f6f99"
 }
