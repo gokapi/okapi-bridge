@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://neokapi.github.io/schemas/filters/okf_html.v7.schema.json",
-  "version": 7,
+  "$id": "https://neokapi.github.io/schemas/filters/okf_html.v5.schema.json",
+  "version": 5,
   "title": "HTML/XHTML Filter",
   "type": "object",
   "x-filter": {
@@ -2559,9 +2559,9 @@
     }
   },
   "x-kind": "OkfHtmlFilterConfig",
-  "x-apiVersion": "v7",
-  "x-baseVersion": 13,
-  "x-introducedInOkapi": "1.47.0",
+  "x-apiVersion": "v5",
+  "x-baseVersion": 11,
+  "x-introducedInOkapi": "1.45.0",
   "x-baseHash": "8a947d9b16fc",
   "x-compositeHash": "c517a6cc5cc1"
 }

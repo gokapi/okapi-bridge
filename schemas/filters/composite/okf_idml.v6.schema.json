@@ -34,7 +34,7 @@
     },
     "extraction": {
       "type": "object",
-      "description": "Extraction settings",
+      "title": "Extraction settings",
       "properties": {
         "extractNotes": {
           "type": "boolean",
@@ -131,7 +131,7 @@
     },
     "formatting": {
       "type": "object",
-      "description": "Formatting tolerance thresholds",
+      "title": "Formatting tolerance thresholds",
       "properties": {
         "ignoreCharacterKerning": {
           "type": "boolean",
@@ -290,8 +290,8 @@
   },
   "x-kind": "OkfIdmlFilterConfig",
   "x-apiVersion": "v6",
-  "x-baseVersion": 6,
-  "x-introducedInOkapi": "1.46.0",
-  "x-baseHash": "41980d6c6d26",
-  "x-compositeHash": "207a69f5078c"
+  "x-baseVersion": 9,
+  "x-introducedInOkapi": "1.47.0",
+  "x-baseHash": "e65093277ba8",
+  "x-compositeHash": "bec5e1a1d464"
 }

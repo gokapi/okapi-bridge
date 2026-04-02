@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://neokapi.github.io/schemas/filters/okf_idml.v4.schema.json",
-  "version": 4,
+  "$id": "https://neokapi.github.io/schemas/filters/okf_idml.v1.schema.json",
+  "version": 1,
   "title": "IDML Filter",
   "type": "object",
   "x-filter": {
@@ -27,11 +27,6 @@
     "serializationFormat": "stringParameters"
   },
   "properties": {
-    "inlineCodes": {
-      "$ref": "#/$defs/inlineCodes",
-      "title": "Inline Codes",
-      "description": "Pattern-based detection of inline codes (placeholders, variables, tags) within translatable text."
-    },
     "extraction": {
       "type": "object",
       "description": "Extraction settings",
@@ -57,13 +52,6 @@
           "description": "Include custom text variables in the extraction.",
           "title": "Extract Custom Text Variables"
         },
-        "extractExternalHyperlinks": {
-          "type": "boolean",
-          "default": false,
-          "x-flattenPath": "extractExternalHyperlinks",
-          "description": "Extract external hyperlink URLs for translation.",
-          "title": "Extract External Hyperlinks"
-        },
         "extractHiddenLayers": {
           "type": "boolean",
           "default": false,
@@ -77,13 +65,6 @@
           "x-flattenPath": "extractHiddenPasteboardItems",
           "description": "Include hidden pasteboard items in the extraction.",
           "title": "Extract Hidden Pasteboard Items"
-        },
-        "extractHyperlinkTextSourcesInline": {
-          "type": "boolean",
-          "default": false,
-          "x-flattenPath": "extractHyperlinkTextSourcesInline",
-          "description": "Extract hyperlink text sources as inline elements.",
-          "title": "Extract Hyperlink Sources Inline"
         },
         "extractIndexTopics": {
           "type": "boolean",
@@ -112,13 +93,6 @@
           "x-flattenPath": "skipDiscretionaryHyphens",
           "description": "Omit discretionary (soft) hyphens from extracted text.",
           "title": "Skip Discretionary Hyphens"
-        },
-        "specialCharacterPattern": {
-          "type": "boolean",
-          "default": false,
-          "x-flattenPath": "specialCharacterPattern",
-          "description": "Pattern matching characters treated as inline codes.",
-          "title": "Special Character Pattern"
         },
         "maxAttributeSize": {
           "type": "integer",
@@ -210,98 +184,13 @@
           "description": "Baseline shift max"
         }
       }
-    },
-    "extractMathZones": {
-      "type": "boolean",
-      "default": true,
-      "title": "Extract Math Zones",
-      "description": "Include math zone content in the extraction."
-    },
-    "excludedStyleConfigurations": {
-      "type": "boolean",
-      "default": false
     }
   },
   "additionalProperties": false,
-  "$defs": {
-    "inlineCodes": {
-      "type": "object",
-      "description": "Inline code detection and handling",
-      "properties": {
-        "enabled": {
-          "type": "boolean",
-          "default": false,
-          "description": "Enable pattern-based detection of inline codes (placeholders, tags, etc.)",
-          "x-flattenPath": "useCodeFinder"
-        },
-        "rules": {
-          "$ref": "#/$defs/codeFinderRules",
-          "x-flattenPath": "codeFinderRules",
-          "description": "Regex patterns to identify inline codes in translatable text",
-          "x-editor": {
-            "widget": "codeFinderRules"
-          }
-        },
-        "mergeAdjacent": {
-          "type": "boolean",
-          "description": "Merge consecutive inline codes into a single code.",
-          "x-flattenPath": "mergeAdjacentCodes",
-          "title": "Merge Adjacent Codes"
-        },
-        "moveBoundaryCodes": {
-          "type": "boolean",
-          "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)",
-          "x-flattenPath": "moveLeadingAndTrailingCodesToSkeleton"
-        },
-        "simplifierRules": {
-          "$ref": "#/$defs/simplifierRules",
-          "x-flattenPath": "simplifierRules",
-          "description": "Rules for simplifying inline code representation"
-        }
-      }
-    },
-    "codeFinderRules": {
-      "type": "object",
-      "description": "Regex patterns for inline code detection",
-      "properties": {
-        "rules": {
-          "type": "array",
-          "description": "List of regex patterns to detect inline codes",
-          "items": {
-            "type": "object",
-            "properties": {
-              "pattern": {
-                "type": "string",
-                "description": "Regex pattern for inline code detection"
-              }
-            },
-            "required": [
-              "pattern"
-            ]
-          }
-        },
-        "sample": {
-          "type": "string",
-          "description": "Sample text to test patterns against"
-        },
-        "useAllRulesWhenTesting": {
-          "type": "boolean",
-          "default": true,
-          "description": "Test all rules together or individually"
-        }
-      },
-      "x-okapiFormat": "inlineCodeFinder"
-    },
-    "simplifierRules": {
-      "type": "string",
-      "description": "Rules for simplifying inline code representation",
-      "x-widget": "simplifierRulesEditor"
-    }
-  },
   "x-kind": "OkfIdmlFilterConfig",
-  "x-apiVersion": "v4",
-  "x-baseVersion": 7,
-  "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "7479dd20df56",
-  "x-compositeHash": "de4bbd32566c"
+  "x-apiVersion": "v1",
+  "x-baseVersion": 4,
+  "x-introducedInOkapi": "1.44.0",
+  "x-baseHash": "ee1b0bc0c85f",
+  "x-compositeHash": "86aa5d5a4eb7"
 }

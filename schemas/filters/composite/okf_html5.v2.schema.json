@@ -30,22 +30,32 @@
     "serializationFormat": "xml-its"
   },
   "properties": {
+    "path": {
+      "type": "string",
+      "title": "ITS Parameters File",
+      "description": "Path to an ITS 2.0 rules document that overrides the default HTML5 processing behavior"
+    },
     "simplifierRules": {
       "type": "string",
       "description": "Rules for simplifying inline code representation",
       "x-widget": "simplifierRulesEditor"
     },
-    "path": {
-      "type": "string",
-      "title": "ITS Parameters File",
-      "description": "Path to an ITS 2.0 rules document that overrides the default HTML5 processing behavior"
+    "moveLeadingAndTrailingCodesToSkeleton": {
+      "type": "boolean",
+      "title": "Move Boundary Codes to Skeleton",
+      "description": "Move inline codes at segment boundaries to the skeleton (non-translatable)"
+    },
+    "mergeAdjacentCodes": {
+      "type": "boolean",
+      "title": "Merge Adjacent Codes",
+      "description": "Merge consecutive inline codes into a single placeholder"
     }
   },
   "additionalProperties": false,
   "x-kind": "OkfHtml5FilterConfig",
   "x-apiVersion": "v2",
-  "x-baseVersion": 2,
-  "x-introducedInOkapi": "1.44.0",
-  "x-baseHash": "9274e6d742f6",
-  "x-compositeHash": "b7a02fed8b98"
+  "x-baseVersion": 3,
+  "x-introducedInOkapi": "1.48.0",
+  "x-baseHash": "95543ca38863",
+  "x-compositeHash": "d14b8ca536d7"
 }

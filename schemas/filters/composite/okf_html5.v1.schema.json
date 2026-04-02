@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://neokapi.github.io/schemas/filters/okf_html5.v3.schema.json",
-  "version": 3,
+  "$id": "https://neokapi.github.io/schemas/filters/okf_html5.v1.schema.json",
+  "version": 1,
   "title": "HTML5-ITS Filter",
   "type": "object",
   "x-filter": {
@@ -43,9 +43,9 @@
   },
   "additionalProperties": false,
   "x-kind": "OkfHtml5FilterConfig",
-  "x-apiVersion": "v3",
-  "x-baseVersion": 4,
-  "x-introducedInOkapi": "1.47.0",
+  "x-apiVersion": "v1",
+  "x-baseVersion": 2,
+  "x-introducedInOkapi": "1.44.0",
   "x-baseHash": "9274e6d742f6",
   "x-compositeHash": "b7a02fed8b98"
 }

@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://neokapi.github.io/schemas/filters/okf_idml.v4.schema.json",
-  "version": 4,
+  "$id": "https://neokapi.github.io/schemas/filters/okf_idml.v3.schema.json",
+  "version": 3,
   "title": "IDML Filter",
   "type": "object",
   "x-filter": {
@@ -210,16 +210,6 @@
           "description": "Baseline shift max"
         }
       }
-    },
-    "extractMathZones": {
-      "type": "boolean",
-      "default": true,
-      "title": "Extract Math Zones",
-      "description": "Include math zone content in the extraction."
-    },
-    "excludedStyleConfigurations": {
-      "type": "boolean",
-      "default": false
     }
   },
   "additionalProperties": false,
@@ -299,9 +289,9 @@
     }
   },
   "x-kind": "OkfIdmlFilterConfig",
-  "x-apiVersion": "v4",
-  "x-baseVersion": 7,
-  "x-introducedInOkapi": "1.48.0",
-  "x-baseHash": "7479dd20df56",
-  "x-compositeHash": "de4bbd32566c"
+  "x-apiVersion": "v3",
+  "x-baseVersion": 6,
+  "x-introducedInOkapi": "1.46.0",
+  "x-baseHash": "41980d6c6d26",
+  "x-compositeHash": "207a69f5078c"
 }

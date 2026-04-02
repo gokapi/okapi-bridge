@@ -337,21 +337,26 @@ regenerate_composites() {
         local base_version
         base_version=$(basename "$base_file" | sed 's/.*\.v\([0-9]*\)\.schema\.json/\1/')
 
-        # Look up okapiVersions from versions.json by version number
-        local okapi_versions
-        okapi_versions=$(jq -c --arg f "$filter" --argjson v "$base_version" '
-            [.filters[$f].versions[]? | select(.baseVersion == $v) | .okapiVersions[]?] | unique
-        ' "$VERSIONS_FILE")
+        # Look up composite version and okapiVersions from versions.json by baseVersion
+        local version_info
+        version_info=$(jq -c --arg f "$filter" --argjson bv "$base_version" '
+            .filters[$f].versions[]? | select(.baseVersion == $bv) | {version, okapiVersions}
+        ' "$VERSIONS_FILE" | head -1)
 
-        if [[ "$okapi_versions" == "[]" || "$okapi_versions" == "null" ]]; then
+        if [[ -z "$version_info" || "$version_info" == "null" ]]; then
             continue
         fi
+
+        local composite_version
+        composite_version=$(echo "$version_info" | jq -r '.version')
+        local okapi_versions
+        okapi_versions=$(echo "$version_info" | jq -c '.okapiVersions')
 
         local base_hash
         base_hash=$("$SCRIPT_DIR/compute-hash.sh" "$base_file")
 
-        # Generate composite (merge base + override)
-        local composite_output="$COMPOSITE_DIR/${filter}.v${base_version}.schema.json"
+        # Generate composite named by composite version (not base version)
+        local composite_output="$COMPOSITE_DIR/${filter}.v${composite_version}.schema.json"
         "$SCRIPT_DIR/merge-schema.sh" "$base_file" "$override_file" "$composite_output" 2>/dev/null || \
             cp "$base_file" "$composite_output"
 
@@ -364,11 +369,12 @@ regenerate_composites() {
 
         local kind
         kind=$(filter_to_kind "$filter")
-        local api_version="v${base_version}"
+        local api_version="v${composite_version}"
 
         # Add version metadata (reorder so $schema, $id, version come first)
         local tmp_output="/tmp/${filter}.composite.json"
-        jq --argjson v "$base_version" \
+        jq --argjson v "$composite_version" \
+           --argjson bv "$base_version" \
            --arg bh "$base_hash" \
            --arg ch "$composite_hash" \
            --arg intro "$introduced_in" \
@@ -382,7 +388,7 @@ regenerate_composites() {
             } + del(."$schema", ."$id", ."$version", .["x-schemaVersion"]) + {
                 "x-kind": $k,
                 "x-apiVersion": $av,
-                "x-baseVersion": $v,
+                "x-baseVersion": $bv,
                 "x-introducedInOkapi": $intro,
                 "x-baseHash": $bh,
                 "x-compositeHash": $ch
