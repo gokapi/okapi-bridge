@@ -1,0 +1,96 @@
+{
+  "$id": "merging",
+  "title": "Rainbow Translation Kit Merging",
+  "type": "object",
+  "description": "Post-process a Rainbow translation kit. Expects: filter events. Sends back: filter events or raw documents.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.rainbowkit.postprocess.MergingStep",
+    "parameterMappings": [
+      "FILTER_CONFIGURATION_MAPPER",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleStartDocument"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "preserveSegmentation": {
+      "type": "boolean",
+      "default": false,
+      "title": "Preserve the segmentation for the next steps",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Restore segmentation in text units for use by subsequent pipeline steps"
+    },
+    "returnRawDocument": {
+      "type": "boolean",
+      "default": false,
+      "title": "Return raw documents instead of filter events",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Send raw document events instead of filter events to downstream steps"
+    },
+    "forceTargetLocale": {
+      "type": "boolean",
+      "default": false,
+      "title": "Specify the target locale from the tool instead of the manifest",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Use the target locale from the pipeline instead of the manifest file"
+    },
+    "overrideOutputPath": {
+      "type": "string",
+      "default": "",
+      "title": "Override the output path (leave empty to use the path from the manifest)",
+      "x-editor": {
+        "widget": "text",
+        "layout": {
+          "vertical": true
+        },
+        "text": {
+          "allowEmpty": true
+        }
+      },
+      "description": "Directory for merged output; leave empty to use the manifest default"
+    },
+    "copyCodeMetadata": {
+      "type": "boolean",
+      "default": true,
+      "title": "Copy the code metadata from the original file",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Copy inline code metadata from the original file to the merged output"
+    },
+    "skipOriginalTargetCodeMetadata": {
+      "type": "boolean",
+      "default": false,
+      "title": "Skip the original target when copying code metadata",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    }
+  }
+}

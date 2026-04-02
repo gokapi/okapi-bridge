@@ -1,0 +1,239 @@
+{
+  "$id": "batch-translation",
+  "title": "Batch Translation",
+  "type": "object",
+  "description": "Creates translations from an external program for a given input document. Expects: raw document. Sends back: raw document.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.batchtranslation.BatchTranslationStep",
+    "parameterMappings": [
+      "BATCH_INPUT_COUNT",
+      "FILTER_CONFIGURATION_MAPPER",
+      "INPUT_ROOT_DIRECTORY",
+      "ROOT_DIRECTORY",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleEndBatchItem",
+      "handleRawDocument",
+      "handleStartBatch",
+      "handleStartBatchItem"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "command": {
+      "type": "string",
+      "default": "",
+      "title": "Command line",
+      "description": "Command line to execute the batch translation",
+      "x-editor": {
+        "widget": "text",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "origin": {
+      "type": "string",
+      "default": "",
+      "title": "Origin identifier",
+      "description": "String that identifies the origin of the translation",
+      "x-editor": {
+        "widget": "text",
+        "text": {
+          "allowEmpty": true
+        }
+      }
+    },
+    "markAsMT": {
+      "type": "boolean",
+      "default": true,
+      "title": "Mark the generated translation as machine translation results",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Marks generated TM entries as machine translation by setting creationId to \"MT!\""
+    },
+    "makeTM": {
+      "type": "boolean",
+      "default": false,
+      "title": "Import into the following Pensieve TM:",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Imports translated entries into a Pensieve TM, creating it if necessary"
+    },
+    "tmDirectory": {
+      "type": "string",
+      "default": "",
+      "description": "Location of the TM to create or use",
+      "x-editor": {
+        "widget": "folder",
+        "enabledBy": {
+          "parameter": "makeTM",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "folder": {
+          "browseTitle": "TM Directory"
+        }
+      },
+      "title": "Pensieve TM directory"
+    },
+    "makeTMX": {
+      "type": "boolean",
+      "default": false,
+      "title": "Create the following TMX document:",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Creates a TMX document with all translated entries across all input documents"
+    },
+    "tmxPath": {
+      "type": "string",
+      "default": "",
+      "description": "Full path of the new TMX document to create",
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "makeTMX",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "TMX Path",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "TMX Documents (*.tmx)",
+              "extensions": "*.tmx"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      },
+      "title": "TMX output path"
+    },
+    "sendTMX": {
+      "type": "boolean",
+      "default": false,
+      "title": "Send the TMX document to the next step",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "makeTMX",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Sends the generated TMX document to the next step instead of the original input document"
+    },
+    "blockSize": {
+      "type": "integer",
+      "default": 1000,
+      "title": "Block size",
+      "description": "Maximum number of text units to process together",
+      "minimum": 1,
+      "x-editor": {
+        "widget": "spin"
+      }
+    },
+    "checkExistingTm": {
+      "type": "boolean",
+      "default": false,
+      "title": "Check for existing entries in an existing Pensieve TM:",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Skips entries that already have translations in an existing Pensieve TM"
+    },
+    "existingTm": {
+      "type": "string",
+      "default": "",
+      "description": "Location of the TM to lookup",
+      "x-editor": {
+        "widget": "folder",
+        "enabledBy": {
+          "parameter": "checkExistingTm",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "folder": {
+          "browseTitle": "TM Directory"
+        }
+      },
+      "title": "Existing TM directory"
+    },
+    "segment": {
+      "type": "boolean",
+      "default": false,
+      "title": "Segment the text units, using the following SRX rules:",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Segments text units into sentences using SRX rules before translation"
+    },
+    "srxPath": {
+      "type": "string",
+      "default": "",
+      "description": "Full path of the segmentation rules file to use",
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "segment",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "SRX Path",
+          "filters": [
+            {
+              "name": "SRX Documents (*.srx)",
+              "extensions": "*.srx"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      },
+      "title": "SRX rules path"
+    }
+  }
+}

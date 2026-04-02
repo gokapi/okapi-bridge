@@ -204,10 +204,20 @@ public class SchemaGenerator {
         JsonObject existingProps = schema.has("properties")
                 ? schema.getAsJsonObject("properties") : new JsonObject();
 
+        // Known bare stems from array-encoded parameters (collapsed by StepSchemaGenerator).
+        // These appear in introspection but are serialization artifacts, not real parameters.
+        // Known bare stems from array-encoded parameters (collapsed by StepSchemaGenerator).
+        // These appear in introspection results but are serialization artifacts —
+        // the actual data lives in the collapsed "patterns" array property.
+        java.util.Set<String> arrayStems = java.util.Set.of(
+                "usePattern", "fromSourcePattern", "singlePattern", "severityPattern",
+                "sourcePattern", "targetPattern", "descPattern", "patternCount");
+
         // Build enriched properties using the transformer.
         JsonObject enrichedProps = new JsonObject();
         for (Map.Entry<String, ParameterIntrospector.ParamInfo> entry : params.entrySet()) {
             String paramName = entry.getKey();
+            if (arrayStems.contains(paramName)) continue;
             ParameterIntrospector.ParamInfo paramInfo = entry.getValue();
 
             JsonObject propSchema = transformer.transformParameter(paramName, paramInfo);
@@ -230,9 +240,13 @@ public class SchemaGenerator {
 
         // Include any params from #v1 that introspection missed (e.g. nested
         // keys like "codeFinderRules.rule0" that the introspector doesn't see).
+        // Skip array properties and invalid property names.
         for (Map.Entry<String, com.google.gson.JsonElement> entry : existingProps.entrySet()) {
-            if (!enrichedProps.has(entry.getKey())) {
-                enrichedProps.add(entry.getKey(), entry.getValue());
+            String key = entry.getKey();
+            if (!enrichedProps.has(key)) {
+                // Skip invalid names and array-collapsed properties (patterns, rules arrays)
+                if (!key.matches("[a-zA-Z_][a-zA-Z0-9_]*")) continue;
+                enrichedProps.add(key, entry.getValue());
             }
         }
 

@@ -1,0 +1,293 @@
+{
+  "$id": "translation-comparison",
+  "title": "Translation Comparison",
+  "type": "object",
+  "description": "Compare the translated text units between several documents. Expects: filter events. Sends back: filter events.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.translationcomparison.TranslationComparisonStep",
+    "parameterMappings": [
+      "FILTER_CONFIGURATION_MAPPER",
+      "INPUT_ROOT_DIRECTORY",
+      "INPUT_URI",
+      "ROOT_DIRECTORY",
+      "SECOND_INPUT_RAWDOC",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE",
+      "THIRD_INPUT_RAWDOC"
+    ],
+    "eventHandlers": [
+      "handleEndBatch",
+      "handleEndDocument",
+      "handleStartBatch",
+      "handleStartDocument",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "generateTMX": {
+      "type": "boolean",
+      "default": false,
+      "title": "Generate a TMX output document",
+      "description": "Generates an output document in TMX",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "tmxPath": {
+      "type": "string",
+      "default": "comparison.tmx",
+      "title": "TMX output path",
+      "description": "Full path of the output TMX file",
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "generateTMX",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "TMX Document",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "TMX Documents (*.tmx)",
+              "extensions": "*.tmx"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
+    },
+    "generateHTML": {
+      "type": "boolean",
+      "default": true,
+      "title": "Generate output tables in HTML",
+      "description": "Generates output tables in HTML",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "genericCodes": {
+      "type": "boolean",
+      "default": true,
+      "title": "Use generic representation (e.g. <1>...</1>) for the inline codes",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "generateHTML",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Uses generic numbered tags (e.g. <1>...</1>) instead of original inline codes in the HTML report"
+    },
+    "autoOpen": {
+      "type": "boolean",
+      "default": true,
+      "title": "Opens the first HTML output after completion",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "generateHTML",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Opens the first HTML result file in the default browser after completion"
+    },
+    "target2Suffix": {
+      "type": "string",
+      "default": "-t2",
+      "title": "Suffix for target language code of document 2",
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "generateTMX",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Suffix appended to the target language code for document 2 entries in TMX output"
+    },
+    "target3Suffix": {
+      "type": "string",
+      "default": "-t3",
+      "title": "Suffix for target language code of document 3",
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "generateTMX",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Suffix appended to the target language code for document 3 entries in TMX output"
+    },
+    "document1Label": {
+      "type": "string",
+      "default": "Trans1",
+      "title": "Label for the document 1",
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "generateHTML",
+          "enabledWhenSelected": true
+        }
+      },
+      "description": "Label used in reports to identify the base translation"
+    },
+    "document2Label": {
+      "type": "string",
+      "default": "Trans2",
+      "title": "Label for the document 2",
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "generateHTML",
+          "enabledWhenSelected": true
+        }
+      },
+      "description": "Label used in reports to identify the second translation"
+    },
+    "document3Label": {
+      "type": "string",
+      "default": "Trans3",
+      "title": "Label for the document 3",
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "generateHTML",
+          "enabledWhenSelected": true
+        }
+      },
+      "description": "Label used in reports to identify the optional third translation"
+    },
+    "caseSensitive": {
+      "type": "boolean",
+      "default": true,
+      "title": "Take into account case differences",
+      "description": "Takes into account case differences",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "whitespaceSensitive": {
+      "type": "boolean",
+      "default": true,
+      "title": "Take into account whitespace differences",
+      "description": "Takes into account whitespace differences",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "punctuationSensitive": {
+      "type": "boolean",
+      "default": true,
+      "title": "Take into account punctuation differences",
+      "description": "Takes into account punctuation differences",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "useDataLog": {
+      "type": "boolean",
+      "default": false,
+      "title": "Append the average results to a log",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Appends average comparison scores to a tab-delimited log file after each run"
+    },
+    "dataLogPath": {
+      "type": "string",
+      "default": "",
+      "title": "Log file",
+      "description": "Full path for the log file",
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "useDataLog",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Data Log File",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "Tab-Delimited Files (*.txt;*.log)",
+              "extensions": "*.txt|*.log"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
+    },
+    "altTransOrigin": {
+      "type": "string",
+      "default": "BING",
+      "title": "Value in origin attribute",
+      "description": "Value of the origin attribute of the alt-trans to use",
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "useAltTrans",
+          "enabledWhenSelected": true
+        }
+      }
+    },
+    "useAltTrans": {
+      "type": "boolean",
+      "default": false,
+      "title": "Use alt-trans for document 1",
+      "description": "Use the XLIFF alt-trans of the trans-unit",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    }
+  }
+}

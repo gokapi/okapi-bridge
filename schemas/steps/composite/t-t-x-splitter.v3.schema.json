@@ -1,0 +1,37 @@
+{
+  "$id": "t-t-x-splitter",
+  "title": "TTX Splitter",
+  "type": "object",
+  "description": "Splits a TTX document into several ones of roughly equal word count. Expects: raw document. Sends back: raw document.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.ttxsplitter.TTXSplitterStep",
+    "parameterMappings": [
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleRawDocument",
+      "handleStartBatch",
+      "handleStartBatchItem"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "partCount": {
+      "type": "integer",
+      "default": 2,
+      "title": "Number of output files",
+      "minimum": 2,
+      "maximum": 999,
+      "x-editor": {
+        "widget": "spin",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "The number of output files to create from one input document, split by roughly equal word count."
+    }
+  }
+}

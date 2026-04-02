@@ -1,0 +1,86 @@
+{
+  "$id": "patterns-checker",
+  "title": "Pattern (regex) Quality Check",
+  "type": "object",
+  "description": "Compare source and target for pattern differences. Expects: filter events. Sends back: filter events.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.patternschecker.PatternsCheckerStep",
+    "parameterMappings": [
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleStartBatch",
+      "handleStartDocument",
+      "handleStartSubDocument",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "checkPatterns": {
+      "type": "boolean",
+      "default": true
+    },
+    "patternCount": {
+      "type": "boolean",
+      "default": false
+    },
+    "usePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "fromSourcePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "severityPattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "sourcePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "targetPattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "descPattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "fromSource": {
+            "type": "boolean"
+          },
+          "single": {
+            "type": "boolean"
+          },
+          "severity": {
+            "type": "integer"
+          },
+          "source": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Array of patterns encoded from indexed flat parameters."
+    }
+  }
+}

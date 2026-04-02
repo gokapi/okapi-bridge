@@ -1,0 +1,259 @@
+{
+  "$id": "m-s-batch-translation",
+  "title": "Microsoft Batch Translation",
+  "type": "object",
+  "description": "Annotates text units with Microsoft Translator matches or/and creates a TM from them. Expects: filter events. Sends back: filter events.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.msbatchtranslation.MSBatchTranslationStep",
+    "parameterMappings": [
+      "BATCH_INPUT_COUNT",
+      "INPUT_ROOT_DIRECTORY",
+      "ROOT_DIRECTORY",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleStartBatch"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "azureKey": {
+      "type": "string",
+      "default": "",
+      "title": "Azure Key",
+      "description": "Microsoft Azure subscription key",
+      "x-editor": {
+        "widget": "text",
+        "text": {
+          "password": true
+        }
+      }
+    },
+    "category": {
+      "type": "string",
+      "default": "",
+      "title": "Category",
+      "description": "Category code if accessing a trained system",
+      "x-editor": {
+        "widget": "text",
+        "text": {
+          "allowEmpty": true
+        }
+      }
+    },
+    "configPath": {
+      "type": "string",
+      "default": "",
+      "title": "Engine mapping",
+      "description": "Full path of the properties file listing the engines",
+      "x-editor": {
+        "widget": "path",
+        "path": {
+          "browseTitle": "Config Path",
+          "allowEmpty": true,
+          "filters": [
+            {
+              "name": "MS HUB Config (*.properties)",
+              "extensions": "*.properties"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
+    },
+    "annotate": {
+      "type": "boolean",
+      "default": true,
+      "title": "Annotate the text units with the translations",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Adds translation match annotations to text units for use by subsequent steps"
+    },
+    "makeTmx": {
+      "type": "boolean",
+      "default": false,
+      "title": "Generate a TMX document",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Creates a TMX translation memory document from the translation results"
+    },
+    "tmxPath": {
+      "type": "string",
+      "default": "${rootDir}/tmFromMS.tmx",
+      "description": "Full path of the new TMX document to create",
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "makeTmx",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "TMX Path",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "TMX Documents (*.tmx)",
+              "extensions": "*.tmx"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      },
+      "title": "TMX Output Path"
+    },
+    "markAsMT": {
+      "type": "boolean",
+      "default": true,
+      "title": "Mark the generated translation as machine translation results",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "makeTmx",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Marks generated TM entries with a machine translation origin indicator (e.g., creationId=\"MT!\")"
+    },
+    "maxEvents": {
+      "type": "integer",
+      "default": 20,
+      "title": "Events buffer",
+      "description": "Number of events to store before sending a query",
+      "minimum": 1,
+      "maximum": 999,
+      "x-editor": {
+        "widget": "spin"
+      }
+    },
+    "maxMatches": {
+      "type": "integer",
+      "default": 1,
+      "title": "Maximum matches",
+      "description": "Maximum number of matches allowed",
+      "minimum": 1,
+      "maximum": 100,
+      "x-editor": {
+        "widget": "spin"
+      }
+    },
+    "threshold": {
+      "type": "integer",
+      "default": 80,
+      "title": "Threshold",
+      "description": "Score below which matches are not retained",
+      "minimum": 1,
+      "maximum": 100,
+      "x-editor": {
+        "widget": "spin"
+      }
+    },
+    "fillTarget": {
+      "type": "boolean",
+      "default": true,
+      "title": "Fill the target with the best translation candidate",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Copies the best-scoring translation candidate into empty target segments"
+    },
+    "fillTargetThreshold": {
+      "type": "integer",
+      "default": 95,
+      "title": "Fill threshold",
+      "description": "Fill the target when the best candidate is equal or above this score",
+      "minimum": 1,
+      "maximum": 100,
+      "x-editor": {
+        "widget": "spin",
+        "enabledBy": {
+          "parameter": "fillTarget",
+          "enabledWhenSelected": true
+        }
+      }
+    },
+    "onlyWhenWithoutCandidate": {
+      "type": "boolean",
+      "default": true,
+      "title": "Query only entries without existing candidate",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Sends only text units without existing translation candidates to the MT engine"
+    },
+    "sendTmx": {
+      "type": "boolean",
+      "default": false,
+      "title": "Send the TMX document to the next step",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "makeTmx",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Passes the generated TMX document as input to the next pipeline step instead of filter events"
+    },
+    "useTargetPrefix": {
+      "type": "boolean",
+      "default": false,
+      "title": "Add a prefix to the translation candidate copied in the target",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "fillTarget",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Prepends a prefix string to translation candidates copied into the target"
+    },
+    "targetPrefix": {
+      "type": "string",
+      "default": "!MT__",
+      "title": "Target prefix",
+      "description": "Text to use as the target prefix",
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "useTargetPrefix",
+          "enabledWhenSelected": true
+        }
+      }
+    }
+  }
+}

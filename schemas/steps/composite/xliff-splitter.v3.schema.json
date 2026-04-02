@@ -1,0 +1,107 @@
+{
+  "$id": "xliff-splitter",
+  "title": "XLIFF Splitter",
+  "type": "object",
+  "description": "Split an XLIFF document into separate files for each <file> element. Expects: raw document. Sends back: raw document.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.xliffsplitter.XliffSplitterStep",
+    "parameterMappings": [
+      "OUTPUT_URI",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleRawDocument",
+      "handleStartBatch",
+      "handleStartBatchItem"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "file"
+  },
+  "properties": {
+    "translation_type": {
+      "type": "boolean",
+      "default": false
+    },
+    "translation_status": {
+      "type": "boolean",
+      "default": false
+    },
+    "bigFile": {
+      "type": "boolean",
+      "default": false,
+      "title": "Process Large Files",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Use a stream-based parser to handle very large XLIFF files that would not fit in memory with the default DOM parser."
+    },
+    "fileMarker": {
+      "type": "string",
+      "default": "_PART",
+      "title": "File Marker",
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "bigFile",
+          "enabledWhenSelected": true
+        }
+      },
+      "description": "Marker string appended to generated filenames before the numeric counter (e.g. '_PART' produces 'file_PART1.xlf')."
+    },
+    "updateSDLTranslationStatus": {
+      "type": "boolean",
+      "default": false,
+      "title": "Update WorldServer Translation Status",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Update translation_type and translation_status flags in <iws:status> elements (WorldServer XLIFF-specific)."
+    },
+    "translationTypeValue": {
+      "type": "string",
+      "default": "manual_translation",
+      "title": "Value for 'translation_type'",
+      "description": "Value to set for the translation_type attribute.",
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "updateSDLTranslationStatus",
+          "enabledWhenSelected": true
+        }
+      }
+    },
+    "translationStatusValue": {
+      "type": "string",
+      "default": "finished",
+      "title": "Value for 'translation_status'",
+      "description": "Value to set for the translation_status attribute.",
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "updateSDLTranslationStatus",
+          "enabledWhenSelected": true
+        }
+      }
+    },
+    "restoreOriginalNames": {
+      "type": "boolean",
+      "default": false,
+      "title": "Restore Original File Names",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Use original file names for split output documents instead of generated numbered names."
+    }
+  }
+}

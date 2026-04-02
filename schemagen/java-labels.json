@@ -1,0 +1,40 @@
+{
+  "okf_commaseparatedvalues": {
+    "numColumns": {
+      "title": "Number of columns"
+    }
+  },
+  "okf_fixedwidthcolumns": {
+    "numColumns": {
+      "title": "Fixed number of columns"
+    }
+  },
+  "okf_po": {
+    "inlineCodes": {
+      "title": "Inline Codes"
+    }
+  },
+  "okf_properties": {
+    "inlineCodes": {
+      "title": "Inline Codes"
+    }
+  },
+  "okf_ts": {
+    "inlineCodes": {
+      "title": "Inline Codes"
+    }
+  },
+  "okf_ttx": {
+    "mode": {
+      "title": "Extraction mode"
+    },
+    "output": {
+      "title": "Escape the greater-than characters in output"
+    }
+  },
+  "okf_xini": {
+    "segmentation": {
+      "title": "Use Okapi segmentation for output"
+    }
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "$id": "sentence-aligner",
+  "title": "Sentence Alignment",
+  "type": "object",
+  "description": "Aligns sentences within text units (paragraphs). Produces sentence alignments as bilingual text units or a TMX file.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.sentencealigner.SentenceAlignerStep",
+    "parameterMappings": [
+      "FILTER_CONFIGURATION_MAPPER",
+      "SECOND_INPUT_RAWDOC",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleEndBatch",
+      "handleEndDocument",
+      "handlePipelineParameters",
+      "handleStartBatch",
+      "handleStartDocument",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "generateTMX": {
+      "type": "boolean",
+      "default": true,
+      "title": "Generate the following TMX document:",
+      "description": "If generateTMX is false generate bilingual TextUnits, otherwise (true) output a TMX file",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "tmxOutputPath": {
+      "type": "string",
+      "default": "aligned.tmx",
+      "title": "TMX output path",
+      "description": "Full path of the output TMX file",
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "generateTMX",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "TMX Document to Generate",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "TMX Documents (*.tmx)",
+              "extensions": "*.tmx"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
+    },
+    "collapseWhitespace": {
+      "type": "boolean",
+      "default": false,
+      "title": "Collapse whitspace",
+      "description": "Collapse whitespace (space, newline etc.) to a single space before segmentation and alignment",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "outputOneTOneMatchesOnly": {
+      "type": "boolean",
+      "default": false,
+      "title": "Output 1-1 matches only",
+      "description": "Ouput only 1-1 sentence aligned matches",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "segmentSource": {
+      "type": "boolean",
+      "default": true,
+      "title": "Segment Source Content",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Segment the source content before alignment, overriding any existing segmentation"
+    },
+    "useCustomSourceRules": {
+      "type": "boolean",
+      "default": false,
+      "title": "Custom Source Segmentation Rules",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "segmentSource",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Use a custom SRX file for source segmentation instead of the built-in default rules"
+    },
+    "customSourceRulesPath": {
+      "type": "string",
+      "default": "",
+      "title": "SRX path for the source",
+      "description": "Full path of the SRX document to use for the source",
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "useCustomSourceRules",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Segmentation Rules for Source",
+          "filters": [
+            {
+              "name": "SRX Documents (*.srx)",
+              "extensions": "*.srx"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
+    },
+    "segmentTarget": {
+      "type": "boolean",
+      "default": true,
+      "title": "Segment Target Content",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Segment the target content before alignment, overriding any existing segmentation"
+    },
+    "useCustomTargetRules": {
+      "type": "boolean",
+      "default": false,
+      "title": "Custom Target Segmentation Rules",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "segmentTarget",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Use a custom SRX file for target segmentation instead of the built-in default rules"
+    },
+    "customTargetRulesPath": {
+      "type": "string",
+      "default": "",
+      "title": "SRX path for the target",
+      "description": "Full path of the SRX document to use for the target",
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "useCustomTargetRules",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "withLabel": false,
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Segmentation Rules for Target",
+          "filters": [
+            {
+              "name": "SRX Documents (*.srx)",
+              "extensions": "*.srx"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
+    },
+    "forceSimpleOneToOneAlignment": {
+      "type": "boolean",
+      "default": false,
+      "title": "Force Simple One to One Alignment",
+      "description": "If the number of sentences are the same then align one to one. Otherwise collapse the sentences and align",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    }
+  }
+}

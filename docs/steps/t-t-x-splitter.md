@@ -1,0 +1,36 @@
+# TTX Splitter
+
+Splits a single TTX document into a given number of smaller documents of roughly equal size, based on the total source word count of the original input. The output files are written to the same location as the input document with an extra marker and number appended to the filename. This naming convention is used by the **TTX Joiner Step** to reassemble the split files later.
+
+## Parameters
+
+#### Number of output files (`partCount`)
+
+Controls how many output files are created from one input document. The step calculates roughly equal word-count splits based on the total source word count of the original TTX file.
+
+The output files are written alongside the input document with an extra marker and sequential number appended to the filename. This naming convention is required by the **TTX Joiner Step** to reassemble the parts.
+
+**Default:** 2
+
+> **Note:** The split is based on source word count, so individual files may differ slightly in segment count.
+
+## Limitations
+
+- Works only on **segmented** TTX files.
+- The received event is passed through unaltered — the split documents are output as separate files alongside the original.
+
+## Notes
+
+- Output files are written to the same directory as the input document with an appended marker and number suffix.
+- The filename convention used by the splitter is required by the **TTX Joiner Step** to reassemble documents.
+- Split size is calculated from total source word count, aiming for roughly equal parts.
+
+## Examples
+
+### Split a TTX into 3 parts
+
+Splitting a segmented TTX file with 3000 source words into 3 output files. Each output file will contain approximately 1000 source words.
+
+```yaml
+partCount: 3
+```

@@ -1,0 +1,278 @@
+{
+  "$id": "term-extraction",
+  "title": "Term Extraction",
+  "type": "object",
+  "description": "Extract a list of possible terms found in the source content. Expects: filter events. Sends back: filter events.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.termextraction.TermExtractionStep",
+    "parameterMappings": [
+      "INPUT_ROOT_DIRECTORY",
+      "ROOT_DIRECTORY",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleEndBatch",
+      "handleStartBatch",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "outputPath": {
+      "type": "string",
+      "default": "${rootDir}/terms.txt",
+      "title": "Output path",
+      "description": "Full path of the output file",
+      "x-editor": {
+        "widget": "path",
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Output File to Generate",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "Text Files (*.txt)",
+              "extensions": "*.txt"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
+    },
+    "autoOpen": {
+      "type": "boolean",
+      "default": false,
+      "title": "Open the result file after completion",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Automatically open the result file in the default application after completion"
+    },
+    "minWordsPerTerm": {
+      "type": "integer",
+      "default": 1,
+      "title": "Minimum number of words per term",
+      "description": "A term will be made up at least of that many words",
+      "minimum": 1,
+      "maximum": 999,
+      "x-editor": {
+        "widget": "spin",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        }
+      }
+    },
+    "maxWordsPerTerm": {
+      "type": "integer",
+      "default": 3,
+      "title": "Maximum number of words per term",
+      "description": "A term will be made up at the most of that many words",
+      "minimum": 1,
+      "maximum": 999,
+      "x-editor": {
+        "widget": "spin",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        }
+      }
+    },
+    "minOccurrences": {
+      "type": "integer",
+      "default": 2,
+      "title": "Minimum number of occurrences per term",
+      "description": "A term will have at least that many occurrences",
+      "minimum": 1,
+      "maximum": 999,
+      "x-editor": {
+        "widget": "spin",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        }
+      }
+    },
+    "stopWordsPath": {
+      "type": "string",
+      "default": "",
+      "title": "Path of the file with stop words (leave empty for default)",
+      "description": "Full path of the file containing stop words",
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Stop Words File",
+          "allowEmpty": true,
+          "filters": [
+            {
+              "name": "Text Files (*.txt)",
+              "extensions": "*.txt"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
+    },
+    "notStartWordsPath": {
+      "type": "string",
+      "default": "",
+      "title": "Path of the file with not-start words (leave empty for default)",
+      "description": "Full path of the file containing not-start words",
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Not-Start Words File",
+          "allowEmpty": true,
+          "filters": [
+            {
+              "name": "Text Files (*.txt)",
+              "extensions": "*.txt"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
+    },
+    "notEndWordsPath": {
+      "type": "string",
+      "default": "",
+      "title": "Path of the file with not-end words (leave empty for default)",
+      "description": "Full path of the file containing not-end words",
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Not-End Words File",
+          "allowEmpty": true,
+          "filters": [
+            {
+              "name": "Text Files (*.txt)",
+              "extensions": "*.txt"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
+    },
+    "keepCase": {
+      "type": "boolean",
+      "default": false,
+      "title": "Preserve case differences",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Treat words with different casing as distinct tokens (e.g. 'Term' vs 'term')"
+    },
+    "removeSubTerms": {
+      "type": "boolean",
+      "default": false,
+      "title": "Remove entries that seem to be sub-strings of longer entries",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "useStatistics",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Remove candidate terms that are sub-sequences of longer retained terms"
+    },
+    "sortByOccurrence": {
+      "type": "boolean",
+      "default": false,
+      "title": "Sort the results by the number of occurrences",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Sort output by occurrence count instead of alphabetically"
+    },
+    "useTerminologyAnnotations": {
+      "type": "boolean",
+      "default": true,
+      "title": "Use Terminology annotations",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Include terms from ITS Terminology annotations attached to text units"
+    },
+    "useTextAnalysisAnnotations": {
+      "type": "boolean",
+      "default": true,
+      "title": "Use Text Analysis annotations",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Include terms from Text Analysis annotation spans on source content"
+    },
+    "useStatistics": {
+      "type": "boolean",
+      "default": true,
+      "title": "Use tokens-grouping statistics",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Find term candidates using frequency-based statistical analysis of word sequences"
+    }
+  }
+}

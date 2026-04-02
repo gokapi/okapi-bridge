@@ -1,0 +1,83 @@
+{
+  "$id": "image-modification",
+  "title": "Image Modification",
+  "type": "object",
+  "description": "Create a modified copy of image files. Expects: image raw document. Sends back: image raw document.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.imagemodification.ImageModificationStep",
+    "parameterMappings": [
+      "OUTPUT_URI",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleRawDocument",
+      "handleStartBatchItem"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "file"
+  },
+  "properties": {
+    "scaleWidth": {
+      "type": "integer",
+      "default": 50,
+      "title": "Percentage of the original width",
+      "description": "Width percentage (must be greater than 0.",
+      "minimum": 1,
+      "maximum": 1000,
+      "x-editor": {
+        "widget": "spin"
+      }
+    },
+    "scaleHeight": {
+      "type": "integer",
+      "default": 50,
+      "title": "Percentage of the original height",
+      "description": "Height percentage (must be greater than 0.",
+      "minimum": 1,
+      "maximum": 1000,
+      "x-editor": {
+        "widget": "spin"
+      }
+    },
+    "format": {
+      "type": "string",
+      "default": "",
+      "title": "Output format",
+      "description": "Format of the output files.",
+      "enum": [
+        "",
+        "png",
+        "jpg",
+        "bmp",
+        "gif"
+      ],
+      "x-enumLabels": [
+        "<Same format as the original>",
+        "PNG (Portable Network Graphics)",
+        "JPEG (Joint Photographic Experts Group)",
+        "BMP Bitmap",
+        "GIF (Graphics Interchange Format)"
+      ],
+      "x-editor": {
+        "widget": "select",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "makeGray": {
+      "type": "boolean",
+      "default": false,
+      "title": "Convert to gray scale",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Convert the image colors into a set of grays."
+    }
+  }
+}

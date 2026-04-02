@@ -1,0 +1,330 @@
+{
+  "$id": "quality-check",
+  "title": "Quality Check",
+  "type": "object",
+  "description": "Compare source and target for quality. Expects: filter events or raw documents. Sends back: filter events or raw document.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.qualitycheck.QualityCheckStep",
+    "parameterMappings": [
+      "FILTER_CONFIGURATION_MAPPER",
+      "ROOT_DIRECTORY",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleEndBatch",
+      "handleRawDocument",
+      "handleStartBatch",
+      "handleStartBatchItem",
+      "handleStartDocument",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    ".qccfg": {
+      "type": "boolean",
+      "default": false
+    },
+    "None": {
+      "type": "boolean",
+      "default": false
+    },
+    "Transitional": {
+      "type": "boolean",
+      "default": false
+    },
+    "Strict": {
+      "type": "boolean",
+      "default": false
+    },
+    "outputPath": {
+      "type": "string",
+      "default": "${rootDir}/qa-report.html"
+    },
+    "outputType": {
+      "type": "integer",
+      "default": 0
+    },
+    "autoOpen": {
+      "type": "boolean",
+      "default": true
+    },
+    "leadingWS": {
+      "type": "boolean",
+      "default": true
+    },
+    "trailingWS": {
+      "type": "boolean",
+      "default": true
+    },
+    "emptyTarget": {
+      "type": "boolean",
+      "default": true
+    },
+    "emptySource": {
+      "type": "boolean",
+      "default": true
+    },
+    "targetSameAsSource": {
+      "type": "boolean",
+      "default": true
+    },
+    "targetSameAsSourceForSameLanguage": {
+      "type": "boolean",
+      "default": true
+    },
+    "targetSameAsSourceWithCodes": {
+      "type": "boolean",
+      "default": true
+    },
+    "targetSameAsSourceWithNumbers": {
+      "type": "boolean",
+      "default": true
+    },
+    "codeDifference": {
+      "type": "boolean",
+      "default": true
+    },
+    "guessOpenClose": {
+      "type": "boolean",
+      "default": true
+    },
+    "strictCodeOrder": {
+      "type": "boolean",
+      "default": false
+    },
+    "checkXliffSchema": {
+      "type": "boolean",
+      "default": true
+    },
+    "xliffSchemaType": {
+      "type": "string",
+      "default": "Transitional"
+    },
+    "checkPatterns": {
+      "type": "boolean",
+      "default": true
+    },
+    "patternCount": {
+      "type": "boolean",
+      "default": false
+    },
+    "usePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "fromSourcePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "singlePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "severityPattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "sourcePattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "targetPattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "descPattern": {
+      "type": "boolean",
+      "default": false
+    },
+    "showOnlyPatternDescription": {
+      "type": "boolean",
+      "default": false
+    },
+    "checkWithLT": {
+      "type": "boolean",
+      "default": false
+    },
+    "serverURL": {
+      "type": "string",
+      "default": "http://localhost:8081/"
+    },
+    "ltBilingualMode": {
+      "type": "boolean",
+      "default": false
+    },
+    "saveSession": {
+      "type": "boolean",
+      "default": true
+    },
+    "sessionPath": {
+      "type": "string",
+      "default": "${rootDir}/qa-session.qcs"
+    },
+    "doubledWord": {
+      "type": "boolean",
+      "default": true
+    },
+    "doubledWordExceptions": {
+      "type": "string",
+      "default": "sie;vous;nous"
+    },
+    "checkStorageSize": {
+      "type": "boolean",
+      "default": true
+    },
+    "checkMaxCharLength": {
+      "type": "boolean",
+      "default": true
+    },
+    "maxCharLengthBreak": {
+      "type": "integer",
+      "default": 20
+    },
+    "maxCharLengthAbove": {
+      "type": "integer",
+      "default": 200
+    },
+    "maxCharLengthBelow": {
+      "type": "integer",
+      "default": 350
+    },
+    "checkMinCharLength": {
+      "type": "boolean",
+      "default": true
+    },
+    "minCharLengthBreak": {
+      "type": "integer",
+      "default": 20
+    },
+    "minCharLengthAbove": {
+      "type": "integer",
+      "default": 45
+    },
+    "minCharLengthBelow": {
+      "type": "integer",
+      "default": 30
+    },
+    "checkAbsoluteMaxCharLength": {
+      "type": "boolean",
+      "default": false
+    },
+    "absoluteMaxCharLength": {
+      "type": "integer",
+      "default": 255
+    },
+    "checkCharacters": {
+      "type": "boolean",
+      "default": false
+    },
+    "checkAllowedCharacters": {
+      "type": "boolean",
+      "default": true
+    },
+    "charset": {
+      "type": "string",
+      "default": "ISO-8859-1"
+    },
+    "extraCharsAllowed": {
+      "type": "string",
+      "default": ""
+    },
+    "corruptedCharacters": {
+      "type": "boolean",
+      "default": true
+    },
+    "scope": {
+      "type": "integer",
+      "default": 0
+    },
+    "extraCodesAllowed": {
+      "type": "array",
+      "default": 0
+    },
+    "missingCodesAllowed": {
+      "type": "array",
+      "default": 0
+    },
+    "checkTerms": {
+      "type": "boolean",
+      "default": false
+    },
+    "termsPath": {
+      "type": "string",
+      "default": ""
+    },
+    "checkBlacklist": {
+      "type": "boolean",
+      "default": false
+    },
+    "allowBlacklistSub": {
+      "type": "boolean",
+      "default": false
+    },
+    "blacklistSrc": {
+      "type": "boolean",
+      "default": false
+    },
+    "blacklistPath": {
+      "type": "string",
+      "default": ""
+    },
+    "stringMode": {
+      "type": "boolean",
+      "default": false
+    },
+    "betweenCodes": {
+      "type": "boolean",
+      "default": false
+    },
+    "typesToIgnore": {
+      "type": "string",
+      "default": "mrk;x-df-s;"
+    },
+    "showFullPath": {
+      "type": "boolean",
+      "default": true
+    },
+    "includeTextContainers": {
+      "type": "boolean",
+      "default": false
+    },
+    "useGenericCodes": {
+      "type": "boolean",
+      "default": false
+    },
+    "patterns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "fromSource": {
+            "type": "boolean"
+          },
+          "single": {
+            "type": "boolean"
+          },
+          "severity": {
+            "type": "integer"
+          },
+          "source": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "description": "Array of patterns encoded from indexed flat parameters."
+    }
+  }
+}

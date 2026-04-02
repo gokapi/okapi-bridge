@@ -1,0 +1,61 @@
+{
+  "$id": "char-listing",
+  "title": "Used Characters Listing",
+  "type": "object",
+  "description": "Generate a list of all the characters in the source content of a set of documents. Expects: filter events. Sends back: filter events.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.charlisting.CharListingStep",
+    "parameterMappings": [
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleEndBatch",
+      "handleStartBatch",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "outputPath": {
+      "type": "string",
+      "default": "charlist.txt",
+      "title": "Path of the result file",
+      "description": "Full path of the result file.",
+      "x-editor": {
+        "widget": "path",
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Result File",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "Text Files (*.txt)",
+              "extensions": "*.txt"
+            },
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      }
+    },
+    "autoOpen": {
+      "type": "boolean",
+      "default": true,
+      "title": "Open the result file after completion",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Automatically open the result file in the default editor after processing completes."
+    }
+  }
+}

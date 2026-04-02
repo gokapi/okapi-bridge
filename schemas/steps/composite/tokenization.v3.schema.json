@@ -1,0 +1,163 @@
+{
+  "$id": "tokenization",
+  "title": "Tokenization Step",
+  "type": "object",
+  "description": "Extracts tokens from the text units content of a document. Expects: filter events. Sends back: filter events.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.tokenization.TokenizationStep",
+    "parameterMappings": [
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleStartDocument",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "tokenizeSource": {
+      "type": "boolean",
+      "default": true,
+      "title": "Tokenize Source",
+      "description": "Create selected tokens for source locale",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "tokenizeTargets": {
+      "type": "boolean",
+      "default": false,
+      "title": "Tokenize Targets",
+      "description": "Create selected tokens for target locales",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "filteredLocales": {
+      "type": "string",
+      "default": "",
+      "title": "Locales to Filter",
+      "description": "Locale names or patterns used that are excluded from tokenization",
+      "x-editor": {
+        "widget": "text",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "filterLocales": {
+      "type": "string"
+    },
+    "WORD": {
+      "type": "boolean",
+      "default": false,
+      "title": "WORD",
+      "description": "A run of characters constituting a word of the given language."
+    },
+    "HYPHENATED_WORD": {
+      "type": "boolean",
+      "default": false,
+      "title": "HYPHENATED_WORD",
+      "description": "A word including hyphens of various types"
+    },
+    "NUMBER": {
+      "type": "boolean",
+      "default": false,
+      "title": "NUMBER",
+      "description": "Numbers, including any commas or points symbols."
+    },
+    "WHITESPACE": {
+      "type": "boolean",
+      "default": false,
+      "title": "WHITESPACE",
+      "description": "Whitespace characters as defined by the Unicode Consortium standards."
+    },
+    "PUNCTUATION": {
+      "type": "boolean",
+      "default": false,
+      "title": "PUNCTUATION",
+      "description": "Punctuation characters as defined by the Unicode Consortium standards."
+    },
+    "DATE": {
+      "type": "boolean",
+      "default": false,
+      "title": "DATE",
+      "description": "Dates in the format MM/DD/YYYY."
+    },
+    "TIME": {
+      "type": "boolean",
+      "default": false,
+      "title": "TIME",
+      "description": "Time separated by either \":\" or \".\" (24 hour, 12 hour with AM or PM)."
+    },
+    "CURRENCY": {
+      "type": "boolean",
+      "default": false,
+      "title": "CURRENCY",
+      "description": "Sums in various currencies"
+    },
+    "ABBREVIATION": {
+      "type": "boolean",
+      "default": false,
+      "title": "ABBREVIATION",
+      "description": "Limited types of English abbreviations like pct in 3.3pct, U.S., USD."
+    },
+    "MARKUP": {
+      "type": "boolean",
+      "default": false,
+      "title": "MARKUP",
+      "description": "A run that begins with \"<\" and ends with \">\" like in HTML and XML."
+    },
+    "EMAIL": {
+      "type": "boolean",
+      "default": false,
+      "title": "EMAIL",
+      "description": "E-mail addresses."
+    },
+    "INTERNET": {
+      "type": "boolean",
+      "default": false,
+      "title": "INTERNET",
+      "description": "An Internet address (URI or IP): http://www.somesite.org/foo/index.html, 192.168.0.5."
+    },
+    "EMOTICON": {
+      "type": "boolean",
+      "default": false,
+      "title": "EMOTICON",
+      "description": "Emoticon sequences like \":-)\"."
+    },
+    "EMOJI": {
+      "type": "boolean",
+      "default": false,
+      "title": "EMOJI",
+      "description": "All emoji characters defined in Unicode"
+    },
+    "OTHER_SYMBOL": {
+      "type": "boolean",
+      "default": false,
+      "title": "OTHER_SYMBOL",
+      "description": "Various Unicode symbols (mathematical, technical, etc.)."
+    },
+    "KANA": {
+      "type": "boolean",
+      "default": false,
+      "title": "KANA",
+      "description": "Hiragana, Katakana (Japanese)."
+    },
+    "IDEOGRAM": {
+      "type": "boolean",
+      "default": false,
+      "title": "IDEOGRAM",
+      "description": "Ideograms as defined by the Unicode Consortium standards."
+    }
+  }
+}

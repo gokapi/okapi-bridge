@@ -1,0 +1,107 @@
+{
+  "$id": "word-count",
+  "title": "Word Count",
+  "type": "object",
+  "description": "Count the number of words in the text units of a set of documents or/and in its parts. Expects: filter events. Sends back: filter events.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.wordcount.WordCountStep",
+    "parameterMappings": [
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "countInTextUnits": {
+      "type": "boolean",
+      "default": true,
+      "title": "Text units",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "countInBatch": {
+      "type": "boolean",
+      "default": true,
+      "title": "Batches",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Set word count annotation aggregated per batch."
+    },
+    "countInBatchItems": {
+      "type": "boolean",
+      "default": true,
+      "title": "Batch items",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Set word count annotation per batch item."
+    },
+    "countInDocuments": {
+      "type": "boolean",
+      "default": false,
+      "title": "Documents",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Set word count annotation per document."
+    },
+    "countInSubDocuments": {
+      "type": "boolean",
+      "default": false,
+      "title": "Sub-documents",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Set word count annotation per sub-document."
+    },
+    "countInGroups": {
+      "type": "boolean",
+      "default": false,
+      "title": "Groups",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Set word count annotation per group."
+    },
+    "bufferSize": {
+      "type": "integer",
+      "default": 0,
+      "title": "Text Buffer Size",
+      "x-editor": {
+        "widget": "spin",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Size of the internal text buffer used during word counting (0 for default)."
+    },
+    "simplifierRules": {
+      "type": "string",
+      "description": "Simplifier rules for code type normalization",
+      "x-widget": "simplifierRulesEditor"
+    }
+  }
+}

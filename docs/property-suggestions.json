@@ -1,0 +1,1883 @@
+{
+  "okf_archive": {
+    "identification": {
+      "title": "File Identification",
+      "description": "Settings for identifying and matching files within the archive."
+    }
+  },
+  "okf_dtd": {
+    "useCodeFinder": {
+      "title": "Use Code Finder",
+      "description": "Enable regular expression-based inline code detection in extracted text."
+    },
+    "codeFinderRules": {
+      "title": "Code Finder Rules",
+      "description": "Regular expressions in #v1 format defining patterns to treat as inline codes."
+    }
+  },
+  "okf_html": {
+    "useCodeFinder": {
+      "title": "Use Code Finder",
+      "description": "Enable regular expression-based inline code detection in extracted text."
+    },
+    "codeFinderRules": {
+      "title": "Code Finder Rules",
+      "description": "Regular expression rules in Okapi #v1 format for identifying inline codes."
+    },
+    "escapeCharacters": {
+      "title": "Escape Characters as Entities",
+      "description": "Characters to output as HTML named character entity references."
+    },
+    "inlineCdata": {
+      "title": "Inline CDATA",
+      "description": "Treat CDATA sections as inline elements instead of breaking text flow."
+    },
+    "quoteModeDefined": {
+      "title": "Custom Quote Mode Enabled",
+      "description": "Enable the custom quoteMode setting for quote/apostrophe escaping."
+    },
+    "quoteMode": {
+      "title": "Quote Escape Mode",
+      "description": "Controls how quote and apostrophe characters are escaped in output."
+    },
+    "cleanupHtml": {
+      "title": "Clean Up HTML",
+      "description": "Automatically fix common HTML syntax errors such as unquoted attributes."
+    }
+  },
+  "okf_html5": {
+    "path": {
+      "title": "ITS Parameters File",
+      "description": "Path to an ITS 2.0 rules document that overrides the default HTML5 processing behavior"
+    }
+  },
+  "okf_idml": {
+    "maxAttributeSize": {
+      "title": "Maximum Attribute Size",
+      "description": "Size in MB for the attribute buffer (default 4 MB)."
+    },
+    "specialCharacterPattern": {
+      "title": "Special Character Pattern",
+      "description": "Pattern matching characters treated as inline codes."
+    },
+    "untagXmlStructures": {
+      "title": "Untag XML Structures",
+      "description": "Skip embedded XML structural information when extracting."
+    },
+    "mergeAdjacentCodes": {
+      "title": "Merge Adjacent Codes",
+      "description": "Merge consecutive inline codes into a single code."
+    },
+    "extractNotes": {
+      "title": "Extract Notes",
+      "description": "Extract the content of Note elements."
+    },
+    "extractMasterSpreads": {
+      "title": "Extract Master Spreads",
+      "description": "Extract content from master spreads if they exist."
+    },
+    "extractHiddenLayers": {
+      "title": "Extract Hidden Layers",
+      "description": "Include hidden layers in the extraction."
+    },
+    "extractHiddenPasteboardItems": {
+      "title": "Extract Hidden Pasteboard Items",
+      "description": "Include hidden pasteboard items in the extraction."
+    },
+    "skipDiscretionaryHyphens": {
+      "title": "Skip Discretionary Hyphens",
+      "description": "Omit discretionary (soft) hyphens from extracted text."
+    },
+    "extractBreaksInline": {
+      "title": "Extract Breaks Inline",
+      "description": "Treat break elements as inline codes within text units."
+    },
+    "extractHyperlinkTextSourcesInline": {
+      "title": "Extract Hyperlink Sources Inline",
+      "description": "Extract hyperlink text sources as inline elements."
+    },
+    "extractCustomTextVariables": {
+      "title": "Extract Custom Text Variables",
+      "description": "Include custom text variables in the extraction."
+    },
+    "extractIndexTopics": {
+      "title": "Extract Index Topics",
+      "description": "Include index topic entries in the extraction."
+    },
+    "extractExternalHyperlinks": {
+      "title": "Extract External Hyperlinks",
+      "description": "Extract external hyperlink URLs for translation."
+    },
+    "extractMathZones": {
+      "title": "Extract Math Zones",
+      "description": "Include math zone content in the extraction."
+    },
+    "excludedStyles": {
+      "title": "Excluded Styles",
+      "description": "Styles whose content is excluded from extraction."
+    },
+    "ignoreCharacterKerning": {
+      "title": "Ignore Character Kerning",
+      "description": "Prevent kerning differences from creating separate inline codes."
+    },
+    "ignoreCharacterTracking": {
+      "title": "Ignore Character Tracking",
+      "description": "Prevent tracking differences from creating separate inline codes."
+    },
+    "ignoreCharacterLeading": {
+      "title": "Ignore Character Leading",
+      "description": "Prevent leading differences from creating separate inline codes."
+    },
+    "ignoreCharacterBaselineShift": {
+      "title": "Ignore Character Baseline Shift",
+      "description": "Prevent baseline shift differences from creating separate inline codes."
+    }
+  },
+  "okf_json": {
+    "maxwidthSizeUnit": {
+      "title": "Max Width Size Unit",
+      "description": "The size-unit attribute value used for XLIFF length restriction elements."
+    }
+  },
+  "okf_markdown": {
+    "translateUrls": {
+      "title": "Translate Hyperlink URLs",
+      "description": "Extract URLs in link and image statements as translatable subflows."
+    },
+    "urlToTranslatePattern": {
+      "title": "Translatable URL Pattern",
+      "description": "Regex pattern to filter which URLs are extracted when URL translation is enabled."
+    },
+    "translateCodeBlocks": {
+      "title": "Translate Fenced Code Blocks",
+      "description": "Expose contents of fenced code blocks for translation."
+    },
+    "translateIndentedCodeBlocks": {
+      "title": "Translate Indented Code Blocks",
+      "description": "Expose contents of indented code blocks for translation."
+    },
+    "translateInlineCodeBlocks": {
+      "title": "Translate Inline Code Blocks",
+      "description": "Expose contents of backtick-delimited inline code for translation."
+    },
+    "translateImageAltText": {
+      "title": "Translate Image Alt Text",
+      "description": "Extract image alt text from Markdown and HTML img tags for translation."
+    },
+    "generateHeaderAnchors": {
+      "title": "Generate Header Anchors",
+      "description": "Automatically generate named anchors for headings to preserve link targets."
+    },
+    "parseMdx": {
+      "title": "Parse MDX Expressions",
+      "description": "Parse out multi-line MDX export blocks as non-translatable skeleton."
+    },
+    "htmlEntitesToEscape": {
+      "title": "HTML Entities to Escape",
+      "description": "Characters to encode as HTML entities on export."
+    },
+    "unescapeBackslashCharacters": {
+      "title": "Support Backslash Escaping",
+      "description": "Parse backslash-escaped punctuation in source documents."
+    },
+    "charactersToEscape": {
+      "title": "Characters to Escape",
+      "description": "Punctuation characters to backslash-escape on export."
+    },
+    "htmlSubfilter": {
+      "title": "HTML Subfilter Configuration",
+      "description": "Custom HTML filter configuration ID for processing HTML within Markdown."
+    },
+    "yamlSubfilter": {
+      "title": "YAML Subfilter Configuration",
+      "description": "Custom YAML filter configuration ID for processing YAML metadata headers."
+    },
+    "nonTranslateBlocks": {
+      "title": "Non-Translatable Block Quotes",
+      "description": "Comma-separated prefixes identifying block quotes to exclude from translation."
+    },
+    "useCodeFinder": {
+      "title": "Use Code Finder",
+      "description": "Enable the Inline Code Finder for identifying inline codes in translatable text."
+    }
+  },
+  "okf_messageformat": {
+    "addPluralForms": {
+      "title": "Add Plural Forms",
+      "description": "Add missing plural forms based on the target locale's CLDR plural rules."
+    },
+    "normalize": {
+      "title": "Normalize Variants",
+      "description": "Move leading and trailing text into each complex argument variant for complete phrases."
+    },
+    "prettyPrint": {
+      "title": "Pretty Print",
+      "description": "Format output with indentation and line breaks for readability."
+    }
+  },
+  "okf_mif": {
+    "extractVariables": {
+      "title": "Extract Variables",
+      "description": "Extract the definitions of FrameMaker variables for translation."
+    },
+    "extractIndexMarkers": {
+      "title": "Extract Index Markers",
+      "description": "Extract index marker text from extractable pages as separate text units."
+    },
+    "extractLinks": {
+      "title": "Extract Links",
+      "description": "Extract hypertext link URLs from extractable pages as separate text units."
+    },
+    "extractBodyPages": {
+      "title": "Body Pages",
+      "description": "Extract translatable text from body pages."
+    },
+    "extractHiddenPages": {
+      "title": "Hidden Pages",
+      "description": "Extract translatable text from hidden pages."
+    },
+    "extractMasterPages": {
+      "title": "Master Pages",
+      "description": "Extract translatable text from master pages."
+    },
+    "extractReferencePages": {
+      "title": "Reference Pages",
+      "description": "Extract translatable text from reference pages."
+    },
+    "useCodeFinder": {
+      "title": "Use Inline Code Rules",
+      "description": "Apply regular expressions to convert matched text patterns into inline codes."
+    }
+  },
+  "okf_odf": {
+    "extractNotes": {
+      "title": "Extract Notes",
+      "description": "Extract the content of annotation elements as translatable text"
+    },
+    "extractReferences": {
+      "title": "Extract References",
+      "description": "Extract the content of bookmark reference elements as translatable text"
+    },
+    "extractMetadata": {
+      "title": "Extract Metadata",
+      "description": "Extract translatable metadata from meta.xml"
+    },
+    "encodeCharEntityReferenceGlyphs": {
+      "title": "Encode Character Entity Reference Glyphs",
+      "description": "Encode special glyphs as character entity references in the output"
+    }
+  },
+  "okf_openxml": {
+    "ignoreWhitespaceStyles": {
+      "title": "Ignore Whitespace Styles",
+      "description": "Ignore whitespace character formatting and treat it as equivalent to consequential styles during aggressive tag cleanup."
+    },
+    "preserveAsciiAndHighAnsiFontCategoriesOnDetection": {
+      "title": "Preserve Font Categories on Detection",
+      "description": "Preserve ASCII and HighAnsi run font categories when merging consequential runs."
+    },
+    "removeEmbeddedExcel": {
+      "title": "Remove Embedded Excel Package",
+      "description": "Remove the embedded Excel data package and its references from chart parts when extracting cached chart values."
+    },
+    "translateWordGraphicName": {
+      "title": "Translate Word Graphic Names",
+      "description": "Expose @name attributes of drawings and word art in Word documents for translation."
+    },
+    "translateWordGraphicDescription": {
+      "title": "Translate Word Graphic Descriptions",
+      "description": "Expose @descr attributes of drawings and word art in Word documents for translation."
+    },
+    "translatePowerpointGraphicName": {
+      "title": "Translate PowerPoint Graphic Names",
+      "description": "Expose @name attributes of drawings and word art in PowerPoint presentations for translation."
+    },
+    "translatePowerpointGraphicDescription": {
+      "title": "Translate PowerPoint Graphic Descriptions",
+      "description": "Expose @descr attributes of drawings and word art in PowerPoint presentations for translation."
+    },
+    "translatePowerpointCachedChartStrings": {
+      "title": "Translate Cached Chart Strings",
+      "description": "Expose pre-rendered chart string values stored in PowerPoint chart XML for translation."
+    },
+    "translatePowerpointCachedChartNumbers": {
+      "title": "Translate Cached Chart Numbers",
+      "description": "Expose cached chart numbers and format codes in PowerPoint for translation."
+    },
+    "treatExcelSourceColumnStylesForExclusion": {
+      "title": "Apply Source Column Styles for Exclusion",
+      "description": "Use source column cell styles when evaluating color-based exclusion rules in Excel."
+    },
+    "extractExcelSourceAndTargetColumnsJoined": {
+      "title": "Join Source and Target Columns",
+      "description": "Join source and target columns in a row during extraction rather than extracting them separately."
+    },
+    "extractExcelWorksheetsExplicitlySpecified": {
+      "title": "Extract Only Specified Worksheets",
+      "description": "Only extract worksheets whose names match patterns defined in the Worksheet Configurations."
+    },
+    "extractExcelCellsExplicitlySpecified": {
+      "title": "Extract Only Specified Cells",
+      "description": "Only extract cells explicitly specified in the Worksheet Configurations."
+    }
+  },
+  "okf_phpcontent": {
+    "inlineCodes.mergeAdjacent": {
+      "title": "Merge Adjacent Codes",
+      "description": "Merge consecutive inline codes into a single placeholder to simplify translatable segments."
+    },
+    "inlineCodes.moveBoundaryCodes": {
+      "title": "Move Boundary Codes to Skeleton",
+      "description": "Move inline codes at segment boundaries out of the translatable text into the non-translatable skeleton."
+    }
+  },
+  "okf_properties": {
+    "useLd": {
+      "title": "Use Localization Directives",
+      "description": "Enable recognition of localization directives in comments to override default extraction behavior."
+    },
+    "localizeOutside": {
+      "title": "Extract Outside Directives",
+      "description": "Extract translatable items that are not within the scope of a localization directive."
+    },
+    "useKeyCondition": {
+      "title": "Enable Key Condition",
+      "description": "Filter entries for extraction based on a regex condition applied to their keys."
+    },
+    "extractOnlyMatchingKey": {
+      "title": "Extract Only Matching Keys",
+      "description": "When enabled, extract only entries whose keys match the condition; otherwise exclude matching keys."
+    },
+    "keyCondition": {
+      "title": "Key Condition Pattern",
+      "description": "Regular expression pattern to test against property keys for extraction filtering."
+    },
+    "extraComments": {
+      "title": "Additional Comment Markers",
+      "description": "Recognize semicolon and double-slash comment styles in addition to standard # and ! markers."
+    },
+    "commentsAreNotes": {
+      "title": "Comments as Notes",
+      "description": "Attach preceding comments to each entry as translator notes."
+    },
+    "idLikeResname": {
+      "title": "Use Key as Text Unit ID",
+      "description": "Use the property key value as the text unit ID in addition to the resource name."
+    },
+    "escapeExtendedChars": {
+      "title": "Escape Extended Characters",
+      "description": "Convert all characters above U+007F to \\uHHHH escape sequences in the output."
+    },
+    "useJavaEscapes": {
+      "title": "Retain Java Escapes",
+      "description": "Keep Java property escape sequences in extracted text instead of resolving them."
+    },
+    "convertLFandTab": {
+      "title": "Convert \\n and \\t",
+      "description": "Convert \\n and \\t escape sequences to actual line-breaks and tabs during processing."
+    }
+  },
+  "okf_rainbowkit": {
+    "openManifestBeforeProcessing": {
+      "title": "Open Manifest Before Processing",
+      "description": "Open the manifest file for review or modification before processing the translation kit."
+    }
+  },
+  "okf_regex": {
+    "preserveWhiteSpaces": {
+      "title": "Preserve White Spaces",
+      "description": "Preserve all white spaces in extracted text instead of collapsing and trimming them."
+    },
+    "hasInlineCodes": {
+      "title": "Has Inline Codes",
+      "description": "Enable conversion of text patterns into inline codes."
+    },
+    "autoCloseSection": {
+      "title": "Auto-Close Sections",
+      "description": "Automatically close the previous section when a new one starts."
+    },
+    "dotAll": {
+      "title": "Dot Matches Line-Feed",
+      "description": "Enable the dot operator to match line-feed characters."
+    },
+    "multiLine": {
+      "title": "Multi-Line Mode",
+      "description": "Make ^ and $ match at line terminators, not just start and end of input."
+    },
+    "ignoreCase": {
+      "title": "Ignore Case",
+      "description": "Ignore letter case differences when matching patterns."
+    },
+    "useLocDir": {
+      "title": "Use Localization Directives",
+      "description": "Recognize and process localization directives in the input."
+    },
+    "extractOutsideLocDir": {
+      "title": "Extract Outside Directives",
+      "description": "Extract translatable items that are not within the scope of a localization directive."
+    },
+    "startString": {
+      "title": "Beginning of String",
+      "description": "Character(s) marking the start of a string for string extraction."
+    },
+    "endString": {
+      "title": "End of String",
+      "description": "Character(s) marking the end of a string for string extraction."
+    },
+    "useBackSlashEscape": {
+      "title": "Backslash Escape",
+      "description": "Use backslash prefix to escape characters in strings."
+    },
+    "useDoubleCharEscape": {
+      "title": "Double Character Escape",
+      "description": "Use character doubling to escape characters in strings."
+    },
+    "mimeType": {
+      "title": "Document MIME Type",
+      "description": "MIME type used to identify the document format during extraction."
+    },
+    "rules": {
+      "title": "Extraction Rules",
+      "description": "Ordered list of regex-based rules with actions and capturing group assignments."
+    }
+  },
+  "okf_simplification": {
+    "filterConfigurationId": {
+      "title": "Filter Configuration ID",
+      "description": "The configuration ID of the internal filter to wrap (e.g., okf_xmlstream, okf_html)."
+    },
+    "simplifyResources": {
+      "title": "Simplify Resources",
+      "description": "Flatten resources by removing references, making them standalone text units."
+    },
+    "simplifyCodes": {
+      "title": "Simplify Codes",
+      "description": "Merge adjacent inline codes and move leading/trailing codes to skeleton."
+    }
+  },
+  "okf_table": {
+    "simplifierRules": {
+      "title": "Simplifier Rules",
+      "description": "Rules for simplifying inline code representation in extracted segments"
+    }
+  },
+  "okf_tmx": {
+    "readAllTargets": {
+      "title": "Read All Target Entries",
+      "description": "Read all target <tuv> elements into the text unit instead of only the selected target."
+    },
+    "consolidateDpSkeleton": {
+      "title": "Consolidate Document Part Skeleton",
+      "description": "Group all document part skeleton into a single resource to reduce pipeline events."
+    },
+    "exitOnInvalidTu": {
+      "title": "Exit on Invalid TUs",
+      "description": "Stop processing when encountering invalid <tu> elements instead of skipping them."
+    },
+    "segmentationType": {
+      "title": "Segment Creation Mode",
+      "description": "Controls whether and when segments are created for extracted <tu> entries based on segtype."
+    },
+    "escapeGt": {
+      "title": "Escape Greater-Than Characters",
+      "description": "Escape all > characters as &gt; in the output."
+    },
+    "duplicatePropertyValueSeparator": {
+      "title": "Duplicate Property Separator",
+      "description": "String used to separate values when duplicate TMX properties are found."
+    }
+  },
+  "okf_transifex": {
+    "openProjectFile": {
+      "title": "Open Project File Before Processing",
+      "description": "Opens the .txp project file in an editor dialog before processing, allowing resource selection and settings review."
+    },
+    "host": {
+      "title": "Host URL",
+      "description": "The URL of the Transifex server where the project is hosted."
+    },
+    "username": {
+      "title": "Username",
+      "description": "Transifex username for authentication."
+    },
+    "password": {
+      "title": "Password",
+      "description": "Password for the Transifex user account."
+    },
+    "projectId": {
+      "title": "Project ID",
+      "description": "The identifier of the Transifex project to work with."
+    },
+    "protectApproved": {
+      "title": "Protect Approved Entries",
+      "description": "Marks non-empty, non-fuzzy entries as non-translatable to protect approved translations."
+    },
+    "sourceLocale": {
+      "title": "Source Locale",
+      "description": "Fall-back source locale code used when not specified by the calling application."
+    },
+    "targetLocale": {
+      "title": "Target Locale",
+      "description": "Fall-back target locale code used when not specified by the calling application."
+    }
+  },
+  "okf_ts": {
+    "convertByteValues": {
+      "title": "Convert Byte Elements",
+      "description": "Convert <byte value=\"[value]\"/> elements to raw characters instead of treating them as inline codes."
+    },
+    "useCodeFinder": {
+      "title": "Has Inline Codes",
+      "description": "Enable pattern-based inline code detection using the defined regular expressions."
+    }
+  },
+  "okf_ttx": {
+    "extractionMode": {
+      "title": "Extraction Mode",
+      "description": "Controls how existing segments affect text extraction — auto-detect, existing only, or extract all."
+    },
+    "escapeGT": {
+      "title": "Escape Greater-Than Characters",
+      "description": "Escape all > characters as &gt; in the output."
+    }
+  },
+  "okf_txml": {
+    "allowEmptyOutputTarget": {
+      "title": "Allow Empty Target Segments",
+      "description": "Allow empty translations to be written as-is in output; when disabled, source text is copied into empty targets."
+    }
+  },
+  "okf_vignette": {
+    "elementNames": {
+      "title": "Attribute Elements to Extract",
+      "description": "Comma-separated list of name attribute values for the <attribute> elements to extract."
+    },
+    "filterConfigurations": {
+      "title": "Filter Configurations",
+      "description": "Comma-separated list of filter configurations corresponding to each extractable element."
+    },
+    "monolingual": {
+      "title": "Monolingual Mode",
+      "description": "Process all importContentInstance elements without requiring source/target pairing."
+    },
+    "sourceIdName": {
+      "title": "Source ID Element Name",
+      "description": "Name attribute value of the element containing the source ID that pairs source and target blocks."
+    },
+    "localeIdName": {
+      "title": "Locale ID Element Name",
+      "description": "Name attribute value of the element containing the locale identifier for a content block."
+    }
+  },
+  "okf_wiki": {
+    "preserveWhitespace": {
+      "title": "Preserve Whitespace",
+      "description": "Prevents collapsing of consecutive whitespace characters in extracted text."
+    },
+    "customCodes": {
+      "title": "Custom Inline Codes",
+      "description": "Defines custom regex patterns to be treated as inline codes during extraction."
+    }
+  },
+  "okf_xliff": {
+    "xtmAttributes": {
+      "title": "XTM Attributes",
+      "description": "Process XTM-specific attributes in the XLIFF document."
+    }
+  },
+  "okf_xliff2": {
+    "maxValidation": {
+      "title": "Maximum Validation",
+      "description": "Perform maximum validation of the XLIFF 2.x format when parsing."
+    },
+    "needsSegmentation": {
+      "title": "Needs Segmentation",
+      "description": "Resegment units marked with canSegment=\"yes\" that do not already have a target."
+    }
+  },
+  "okf_xmlstream": {
+    "editorTitle": {
+      "title": "Editor Title",
+      "description": "Title displayed in the parameters editor UI"
+    },
+    "taggedConfig": {
+      "title": "Tagged Configuration",
+      "description": "Internal parsed configuration object for element and attribute rules"
+    },
+    "path": {
+      "title": "Configuration File Path",
+      "description": "Path to an external YAML configuration file"
+    }
+  },
+  "okf_yaml": {
+    "extraction.excludeKeys": {
+      "title": "Key Exception Pattern",
+      "description": "Regular expression for keys that behave opposite to the default extraction mode."
+    },
+    "extraction.includeIsolatedStrings": {
+      "title": "Extract Isolated Strings",
+      "description": "Extract string values that are not directly associated with a key."
+    },
+    "output.subFilterProcessLiteralAsBlock": {
+      "title": "Sub-filter Literal Blocks",
+      "description": "Process YAML literal block scalars through the configured sub-filter."
+    }
+  },
+  "b-o-m-conversion": {
+    "removeBOM": {
+      "title": "Remove BOM If Present",
+      "description": "Remove the Byte-Order-Mark from input files if detected; when disabled, adds a BOM if not already present."
+    },
+    "alsoNonUTF8": {
+      "title": "Remove UTF-16 BOMs Also",
+      "description": "Also remove the BOM from UTF-16 files, not just UTF-8."
+    }
+  },
+  "batch-translation": {
+    "markAsMT": {
+      "description": "Marks generated TM entries as machine translation by setting creationId to \"MT!\""
+    },
+    "makeTM": {
+      "description": "Imports translated entries into a Pensieve TM, creating it if necessary"
+    },
+    "tmDirectory": {
+      "title": "Pensieve TM directory"
+    },
+    "makeTMX": {
+      "description": "Creates a TMX document with all translated entries across all input documents"
+    },
+    "tmxPath": {
+      "title": "TMX output path"
+    },
+    "sendTMX": {
+      "description": "Sends the generated TMX document to the next step instead of the original input document"
+    },
+    "checkExistingTm": {
+      "description": "Skips entries that already have translations in an existing Pensieve TM"
+    },
+    "existingTm": {
+      "title": "Existing TM directory"
+    },
+    "segment": {
+      "description": "Segments text units into sentences using SRX rules before translation"
+    },
+    "srxPath": {
+      "title": "SRX rules path"
+    }
+  },
+  "char-listing": {
+    "autoOpen": {
+      "description": "Automatically open the result file in the default editor after processing completes."
+    }
+  },
+  "character-count": {
+    "countInBatch": {
+      "description": "Add character count annotation aggregated per batch"
+    },
+    "countInBatchItems": {
+      "description": "Add character count annotation for each batch item"
+    },
+    "countInDocuments": {
+      "description": "Add character count annotation for each document"
+    },
+    "countInSubDocuments": {
+      "description": "Add character count annotation for each sub-document"
+    },
+    "countInGroups": {
+      "description": "Add character count annotation for each group"
+    },
+    "bufferSize": {
+      "description": "Size of the internal text buffer used during counting (0 for default)"
+    }
+  },
+  "cleanup": {
+    "normalizeQuotes": {
+      "description": "Replace all quotation marks with straight double quotes and apostrophes with single straight quotes."
+    },
+    "checkCharacters": {
+      "description": "Detect and remove text units containing common corrupt character strings."
+    },
+    "matchRegexExpressions": {
+      "description": "Mark segments matching built-in regular expressions for removal. This option is not currently used."
+    },
+    "matchUserRegex": {
+      "description": "Remove text units containing text that matches user-defined regular expressions."
+    },
+    "pruneTextUnit": {
+      "description": "Remove text units marked for removal or that have no target text."
+    },
+    "normalizePunctuations": {
+      "description": "Standardize spaces around punctuation marks to English writing style conventions."
+    },
+    "keepCrNlIntact": {
+      "description": "Preserve CR and NL characters instead of normalizing them to spaces."
+    }
+  },
+  "codes-removal": {
+    "stripSource": {
+      "description": "Apply the selected removal action to the source text of each text unit"
+    },
+    "stripTarget": {
+      "description": "Apply the selected removal action to the target text of each text unit"
+    },
+    "includeNonTranslatable": {
+      "description": "Apply the removal action even to text units marked as non-translatable"
+    },
+    "replaceWithSpace": {
+      "description": "Replace line-break inline codes with spaces instead of removing them entirely (only when removing both marker and content)"
+    }
+  },
+  "create-target": {
+    "copyContent": {
+      "description": "Copy the source text into the newly created target container."
+    },
+    "copyProperties": {
+      "description": "Copy the source properties (metadata) into the created target."
+    },
+    "overwriteExisting": {
+      "description": "Overwrite existing target content and/or properties with source values."
+    },
+    "createOnNonTranslatable": {
+      "description": "Create a target container even for non-translatable text units."
+    }
+  },
+  "desegmentation": {
+    "desegmentSource": {
+      "description": "Joins all segments of each source text unit into a single content."
+    },
+    "desegmentTarget": {
+      "description": "Joins all segments of each target text unit into a single content, if a target exists."
+    },
+    "renumberCodes": {
+      "description": "Restores original code IDs that were renumbered during segmentation."
+    }
+  },
+  "encoding-conversion": {
+    "unescapeNCR": {
+      "title": "Unescape Numeric Character References",
+      "description": "Un-escape numeric character references (e.g., &#xE1;) when reading the input document."
+    },
+    "unescapeCER": {
+      "title": "Unescape Character Entity References",
+      "description": "Un-escape HTML character entity references (e.g., &aacute;) when reading the input document."
+    },
+    "unescapeJava": {
+      "title": "Unescape Java-style Notation",
+      "description": "Un-escape Java-style \\uXXXX escape sequences when reading the input document."
+    },
+    "escapeAll": {
+      "title": "Escape All Extended Characters",
+      "description": "Escape all extended (non-ASCII) characters, not just those unsupported by the output encoding."
+    },
+    "escapeNotation": {
+      "title": "Escape Notation",
+      "description": "Select the notation format used when escaping characters in the output (NCR, CER, Java-style, or user-defined)."
+    },
+    "userFormat": {
+      "title": "User-Defined Format",
+      "description": "Java format expression (e.g., %d, %x) used for escaping when user-defined notation is selected."
+    },
+    "useBytes": {
+      "title": "Use Byte Values",
+      "description": "Use byte values of the output encoding instead of Unicode code points in the user-defined format."
+    },
+    "BOMonUTF8": {
+      "title": "BOM on UTF-8 Output",
+      "description": "Add a Byte-Order-Mark (BOM) at the beginning of UTF-8 output files."
+    },
+    "reportUnsupported": {
+      "title": "Report Unsupported Characters",
+      "description": "Log all characters not supported by the output encoding."
+    }
+  },
+  "enrycher": {
+    "baseUrl": {
+      "description": "Endpoint URL of the Enrycher Web service to use for disambiguation annotations"
+    }
+  },
+  "extraction-verification": {
+    "compareSkeleton": {
+      "title": "Compare Skeleton",
+      "description": "Include skeleton (non-extractable) parts of events in the verification comparison."
+    },
+    "stepEnabled": {
+      "title": "Perform Extraction Verification",
+      "description": "Enable or disable the verification step; when disabled, the document passes through unmodified."
+    },
+    "allEvents": {
+      "title": "Verify All Events",
+      "description": "Compare all filter events between extractions, not just text units."
+    },
+    "limit": {
+      "title": "Maximum Warnings Per Document",
+      "description": "Maximum number of verification warnings allowed per document before stopping or moving on."
+    },
+    "interrupt": {
+      "title": "Interrupt on Warning Limit",
+      "description": "Stop the pipeline when the maximum number of warnings is reached for a document."
+    }
+  },
+  "extraction": {
+    "writerClass": {
+      "title": "Package Format",
+      "description": "Java class of the package writer that determines the translation kit output format (e.g., XLIFF, PO, OmegaT)."
+    },
+    "packageName": {
+      "title": "Package Name",
+      "description": "Name of the package directory to create inside the output root."
+    },
+    "packageDirectory": {
+      "title": "Output Root Directory",
+      "description": "Root directory where the translation package will be created; supports ${inputRootDir} and locale variables."
+    },
+    "supportFiles": {
+      "title": "Support Material Files",
+      "description": "Additional files to include in the package as support material for translators."
+    },
+    "message": {
+      "title": "Package Message",
+      "description": "Optional message or instructions to include with the translation package."
+    },
+    "outputManifest": {
+      "title": "Output Manifest",
+      "description": "Generate a manifest file required for merging the translated kit back into the original format."
+    },
+    "createZip": {
+      "title": "Create ZIP Package",
+      "description": "Create a ZIP archive (.rkp) of the generated translation package."
+    },
+    "sendOutput": {
+      "title": "Send Output to Next Step",
+      "description": "Send prepared files as raw documents to the next pipeline step instead of the original filter events."
+    }
+  },
+  "format-conversion": {
+    "singleOutput": {
+      "title": "Single Output Document",
+      "description": "Generates one combined output document for all input documents instead of one per input"
+    },
+    "autoExtensions": {
+      "title": "Append Format Extension",
+      "description": "Output paths are the input paths with the new format extension appended (e.g., .tmx, .po)"
+    },
+    "useGenericCodes": {
+      "title": "Generic Inline Codes",
+      "description": "Replaces original inline codes with generic placeholders like <N>, </N>, and <N/>"
+    },
+    "skipEntriesWithoutText": {
+      "title": "Skip Empty Entries",
+      "description": "Suppresses output of entries that contain no text (empty or inline-codes only)"
+    },
+    "approvedEntriesOnly": {
+      "title": "Approved Entries Only",
+      "description": "Restricts output to entries with the target approved property set to yes"
+    },
+    "overwriteSameSource": {
+      "title": "Overwrite Same Source",
+      "description": "For Pensieve TM output, replaces existing entries when the source text matches"
+    }
+  },
+  "full-width-conversion": {
+    "toHalfWidth": {
+      "title": "Convert to Half-Width",
+      "description": "Convert full-width characters to half-width or ASCII equivalents; when false, converts in the opposite direction."
+    },
+    "asciiOnly": {
+      "title": "ASCII Only",
+      "description": "When converting to full-width, restrict conversion to ASCII characters only."
+    },
+    "katakanaOnly": {
+      "title": "Katakana Only",
+      "description": "When converting to full-width, restrict conversion to Japanese Katakana and associated punctuation only."
+    },
+    "includeSLA": {
+      "title": "Include Squared Latin Abbreviations",
+      "description": "Also convert Squared Latin Abbreviations from the CJK Compatibility block to non-CJK character sequences."
+    },
+    "includeLLS": {
+      "title": "Include Letter-Like Symbols",
+      "description": "Also convert characters from the Letter-Like Symbols block to character sequences."
+    },
+    "includeKatakana": {
+      "title": "Include Katakana",
+      "description": "Also convert Japanese Katakana and associated punctuation to half-width forms."
+    },
+    "normalizeOutput": {
+      "title": "Normalize Output (NFC)",
+      "description": "Apply Unicode NFC normalization to the output text after conversions."
+    }
+  },
+  "id-based-copy": {
+    "markAsTranslateNo": {
+      "description": "When enabled, matched text units in the destination file are marked as non-translatable after the reference text is copied."
+    },
+    "markAsApproved": {
+      "description": "When enabled, the 'approved' property of matched target entries is set to 'yes' after copying."
+    }
+  },
+  "image-modification": {
+    "makeGray": {
+      "description": "Convert the image colors into a set of grays."
+    }
+  },
+  "inconsistency-check": {
+    "checkInconststencies": {
+      "title": "Check Inconsistencies",
+      "description": "Enable or disable inconsistency checking; allows the step to be toggled off without removing it from the pipeline."
+    },
+    "checkPerFile": {
+      "title": "Per-File Checking",
+      "description": "Process each input file individually instead of comparing segments across all documents, reducing memory usage."
+    },
+    "outputPath": {
+      "title": "Report File Path",
+      "description": "Full path of the XML report file to generate; supports ${rootDir} and ${inputRootDir} variables."
+    },
+    "displayOption": {
+      "title": "Inline Code Display",
+      "description": "Controls how inline codes are represented in the report: original codes, generic markers, or plain text."
+    },
+    "autoOpen": {
+      "title": "Auto-Open Report",
+      "description": "Automatically open the generated report file in the default application after processing completes."
+    }
+  },
+  "leveraging": {
+    "leverage": {
+      "title": "Leverage Text Units",
+      "description": "Enable leveraging of text units with existing translations."
+    },
+    "resourceClassName": {
+      "title": "Translation Resource",
+      "description": "Java class name of the translation resource connector (TM or MT engine)."
+    },
+    "noQueryThreshold": {
+      "title": "No-Query Threshold",
+      "description": "Skip query if an existing candidate scores at or above this value (101 = always query)."
+    },
+    "threshold": {
+      "title": "Minimum Match Score",
+      "description": "Accept only matches with a score equal to or above this threshold."
+    },
+    "fillTarget": {
+      "title": "Fill Target with Translation",
+      "description": "Copy the best translation candidate into the target content."
+    },
+    "fillTargetThreshold": {
+      "title": "Fill Target Threshold",
+      "description": "Minimum match score required to copy the best candidate into the target."
+    },
+    "fillIfTargetIsEmpty": {
+      "title": "Only If Target Is Empty",
+      "description": "Fill the target only when it has no existing content."
+    },
+    "fillIfTargetIsSameAsSource": {
+      "title": "Also If Target Equals Source",
+      "description": "Also fill the target when its content is identical to the source."
+    },
+    "downgradeIdenticalBestMatches": {
+      "title": "Downgrade Identical Exact Matches",
+      "description": "Reduce score by 1% when multiple identical exact matches are returned."
+    },
+    "makeTMX": {
+      "title": "Generate TMX Document",
+      "description": "Create a TMX file with all leveraged matches."
+    },
+    "tmxPath": {
+      "title": "TMX Output Path",
+      "description": "File path for the generated TMX document."
+    },
+    "useMTPrefix": {
+      "title": "Add MT Prefix to Source",
+      "description": "Add an MT-specific prefix to the source text for MT-origin entries."
+    },
+    "useTargetPrefix": {
+      "title": "Add Prefix to Translation",
+      "description": "Add a prefix to leveraged translations based on match score."
+    },
+    "targetPrefix": {
+      "title": "Target Prefix Text",
+      "description": "Prefix string to prepend to leveraged translations."
+    },
+    "targetPrefixThreshold": {
+      "title": "Prefix Score Threshold",
+      "description": "Add the prefix when the match score is equal to or below this value."
+    },
+    "copySourceOnNoText": {
+      "title": "Copy Source If No Text",
+      "description": "Copy source into target when the source has no translatable text."
+    }
+  },
+  "m-s-batch-translation": {
+    "tmxPath": {
+      "title": "TMX Output Path"
+    },
+    "markAsMT": {
+      "description": "Marks generated TM entries with a machine translation origin indicator (e.g., creationId=\"MT!\")"
+    },
+    "makeTmx": {
+      "description": "Creates a TMX translation memory document from the translation results"
+    },
+    "annotate": {
+      "description": "Adds translation match annotations to text units for use by subsequent steps"
+    },
+    "fillTarget": {
+      "description": "Copies the best-scoring translation candidate into empty target segments"
+    },
+    "onlyWhenWithoutCandidate": {
+      "description": "Sends only text units without existing translation candidates to the MT engine"
+    },
+    "sendTmx": {
+      "description": "Passes the generated TMX document as input to the next pipeline step instead of filter events"
+    },
+    "useTargetPrefix": {
+      "description": "Prepends a prefix string to translation candidates copied into the target"
+    }
+  },
+  "merging": {
+    "preserveWhitespace": {
+      "description": "Preserve whitespace from the original content during merging"
+    },
+    "preserveSegmentation": {
+      "description": "Restore segmentation in text units for use by subsequent pipeline steps"
+    },
+    "returnRawDocument": {
+      "description": "Send raw document events instead of filter events to downstream steps"
+    },
+    "forceTargetLocale": {
+      "description": "Use the target locale from the pipeline instead of the manifest file"
+    },
+    "overrideOutputPath": {
+      "description": "Directory for merged output; leave empty to use the manifest default"
+    },
+    "copyCodeMetadata": {
+      "description": "Copy inline code metadata from the original file to the merged output"
+    }
+  },
+  "quality-check": {
+    "includeTextContainers": {
+      "title": "Include Text Containers",
+      "description": "Include non-segment text parts (inter-segment content) in quality checks."
+    },
+    "useGenericCodes": {
+      "title": "Use Generic Codes",
+      "description": "Replace specific inline code content with generic placeholders before comparison."
+    },
+    "outputPath": {
+      "title": "Report Output Path",
+      "description": "Path of the HTML report file to generate."
+    },
+    "outputType": {
+      "title": "Report Output Type",
+      "description": "Format of the generated quality check report."
+    },
+    "autoOpen": {
+      "title": "Open Report After Completion",
+      "description": "Automatically open the report file after processing."
+    },
+    "leadingWS": {
+      "title": "Check Leading Whitespace"
+    },
+    "trailingWS": {
+      "title": "Check Trailing Whitespace"
+    },
+    "emptyTarget": {
+      "title": "Check Empty Target"
+    },
+    "emptySource": {
+      "title": "Check Empty Source",
+      "description": "Flag segments where the source is empty but the target is not."
+    },
+    "targetSameAsSource": {
+      "title": "Check Target Same as Source",
+      "description": "Flag segments where the target translation is identical to the source."
+    },
+    "targetSameAsSourceForSameLanguage": {
+      "title": "Check Same-as-Source for Same Language",
+      "description": "Apply the target-same-as-source check even when source and target languages match."
+    },
+    "targetSameAsSourceWithCodes": {
+      "title": "Include Codes in Comparison",
+      "description": "Include inline codes when comparing source and target for identity."
+    },
+    "targetSameAsSourceWithNumbers": {
+      "title": "Include Numbers in Comparison",
+      "description": "Include numeric values when comparing source and target for identity."
+    },
+    "codeDifference": {
+      "title": "Check Code Differences",
+      "description": "Verify that target segments have the same inline codes as source segments."
+    },
+    "guessOpenClose": {
+      "title": "Guess Open/Close Codes",
+      "description": "Infer whether inline codes are opening or closing when not explicitly marked."
+    },
+    "strictCodeOrder": {
+      "title": "Strict Code Order",
+      "description": "Also flag code differences when codes appear in a different order."
+    },
+    "checkXliffSchema": {
+      "title": "Validate XLIFF Schema",
+      "description": "Validate input against an XLIFF schema."
+    },
+    "xliffSchemaType": {
+      "title": "XLIFF Schema Type",
+      "description": "XLIFF schema validation level: Transitional or Strict."
+    },
+    "checkPatterns": {
+      "title": "Check Patterns",
+      "description": "Verify that source patterns have expected corresponding content in the target."
+    },
+    "checkWithLT": {
+      "title": "Check with LanguageTool",
+      "description": "Run additional grammar/style checks using a LanguageTool server."
+    },
+    "serverURL": {
+      "title": "LanguageTool Server URL",
+      "description": "URL of the LanguageTool server instance."
+    },
+    "ltBilingualMode": {
+      "title": "Bilingual Mode",
+      "description": "Auto-translate LanguageTool error messages into another language."
+    },
+    "saveSession": {
+      "title": "Save Session",
+      "description": "Save the QA session to a file for later review in CheckMate."
+    },
+    "sessionPath": {
+      "title": "Session File Path",
+      "description": "Path for the saved QA session file."
+    },
+    "doubledWord": {
+      "title": "Check Doubled Words",
+      "description": "Flag target segments with consecutive repeated words."
+    },
+    "doubledWordExceptions": {
+      "title": "Doubled Word Exceptions",
+      "description": "Semicolon-separated words allowed to be repeated."
+    },
+    "corruptedCharacters": {
+      "title": "Check Corrupted Characters",
+      "description": "Detect patterns indicating encoding corruption in target text."
+    },
+    "scope": {
+      "title": "Processing Scope",
+      "description": "Which entries to process: all, approved only, or non-approved only."
+    },
+    "checkMaxCharLength": {
+      "title": "Check Maximum Length",
+      "description": "Flag targets longer than a percentage of source character length."
+    },
+    "maxCharLengthBreak": {
+      "title": "Max Length Short Text %",
+      "description": "Maximum length percentage for short text."
+    },
+    "maxCharLengthAbove": {
+      "title": "Max Length Short/Long Threshold",
+      "description": "Character count above which text is considered long for max length check."
+    },
+    "maxCharLengthBelow": {
+      "title": "Max Length Long Text %",
+      "description": "Maximum length percentage for long text."
+    },
+    "checkMinCharLength": {
+      "title": "Check Minimum Length",
+      "description": "Flag targets shorter than a percentage of source character length."
+    },
+    "minCharLengthBreak": {
+      "title": "Min Length Short Text %",
+      "description": "Minimum length percentage for short text."
+    },
+    "minCharLengthAbove": {
+      "title": "Min Length Short/Long Threshold",
+      "description": "Character count above which text is considered long for min length check."
+    },
+    "minCharLengthBelow": {
+      "title": "Min Length Long Text %",
+      "description": "Minimum length percentage for long text."
+    },
+    "checkStorageSize": {
+      "title": "Check Storage Size",
+      "description": "Verify target fits within the storage size defined by the document format."
+    },
+    "checkAbsoluteMaxCharLength": {
+      "title": "Check Absolute Max Length",
+      "description": "Flag targets exceeding an absolute character count limit."
+    },
+    "absoluteMaxCharLength": {
+      "title": "Absolute Max Characters",
+      "description": "Maximum number of characters allowed in any target segment."
+    },
+    "checkAllowedCharacters": {
+      "title": "Check Allowed Characters",
+      "description": "Enable character-level validation of target text."
+    },
+    "checkCharacters": {
+      "title": "Check Against Charset",
+      "description": "Validate target characters against a specific charset encoding."
+    },
+    "charset": {
+      "title": "Character Set Encoding",
+      "description": "Charset encoding to validate target text against."
+    },
+    "extraCharsAllowed": {
+      "title": "Extra Allowed Characters",
+      "description": "Regex matching additional characters to allow beyond the charset."
+    },
+    "checkTerms": {
+      "title": "Check Terminology",
+      "description": "Verify terminology using a glossary or termbase file."
+    },
+    "termsPath": {
+      "title": "Termbase Path",
+      "description": "Path to the termbase file for terminology verification."
+    },
+    "stringMode": {
+      "title": "String Match Mode",
+      "description": "Use string-based matching instead of word-boundary matching for terms."
+    },
+    "betweenCodes": {
+      "title": "Check Between Codes Only",
+      "description": "Restrict terminology checking to text between inline codes."
+    },
+    "showFullPath": {
+      "title": "Show Full File Path",
+      "description": "Display full file paths in the report instead of filenames only."
+    },
+    "checkBlacklist": {
+      "title": "Check Blacklist",
+      "description": "Check target text against a list of forbidden terms."
+    },
+    "allowBlacklistSub": {
+      "title": "Allow Substring Matching",
+      "description": "Allow substring matches when checking blacklisted terms."
+    },
+    "blacklistSrc": {
+      "title": "Check Source Blacklist",
+      "description": "Also check the source text against the blacklist."
+    },
+    "blacklistPath": {
+      "title": "Blacklist File Path",
+      "description": "Path to the file containing forbidden terms."
+    },
+    "showOnlyPatternDescription": {
+      "title": "Show Pattern Description Only",
+      "description": "Show only the pattern description in reports instead of full match details."
+    },
+    "typesToIgnore": {
+      "title": "Code Types to Ignore",
+      "description": "Semicolon-separated list of inline code types to skip during verification."
+    },
+    "patternCount": {
+      "title": "Pattern Count",
+      "description": "Number of pattern rules defined."
+    },
+    "usePattern0": {
+      "title": "Enable Pattern 0",
+      "description": "Enable pattern rule #0 (opening parenthesis)."
+    },
+    "fromSourcePattern0": {
+      "title": "Pattern 0 Direction",
+      "description": "Search source first then verify target (true) or vice versa (false)."
+    },
+    "singlePattern0": {
+      "title": "Pattern 0 Single Match",
+      "description": "Expect only a single occurrence for pattern #0."
+    },
+    "severityPattern0": {
+      "title": "Pattern 0 Severity",
+      "description": "Warning severity level for pattern rule #0."
+    },
+    "sourcePattern0": {
+      "title": "Pattern 0 Source Regex",
+      "description": "Regular expression to match in source for pattern #0."
+    },
+    "targetPattern0": {
+      "title": "Pattern 0 Target Regex",
+      "description": "Expected pattern in target for pattern #0, or <same>."
+    },
+    "descPattern0": {
+      "title": "Pattern 0 Description",
+      "description": "Human-readable description of pattern rule #0."
+    },
+    "usePattern1": {
+      "title": "Enable Pattern 1",
+      "description": "Enable pattern rule #1 (closing parenthesis)."
+    },
+    "fromSourcePattern1": {
+      "title": "Pattern 1 Direction",
+      "description": "Search source first then verify target (true) or vice versa (false)."
+    },
+    "singlePattern1": {
+      "title": "Pattern 1 Single Match",
+      "description": "Expect only a single occurrence for pattern #1."
+    },
+    "severityPattern1": {
+      "title": "Pattern 1 Severity",
+      "description": "Warning severity level for pattern rule #1."
+    },
+    "sourcePattern1": {
+      "title": "Pattern 1 Source Regex",
+      "description": "Regular expression to match in source for pattern #1."
+    },
+    "targetPattern1": {
+      "title": "Pattern 1 Target Regex",
+      "description": "Expected pattern in target for pattern #1, or <same>."
+    },
+    "descPattern1": {
+      "title": "Pattern 1 Description",
+      "description": "Human-readable description of pattern rule #1."
+    },
+    "usePattern2": {
+      "title": "Enable Pattern 2",
+      "description": "Enable pattern rule #2 (bracketing characters)."
+    },
+    "fromSourcePattern2": {
+      "title": "Pattern 2 Direction",
+      "description": "Search source first then verify target (true) or vice versa (false)."
+    },
+    "singlePattern2": {
+      "title": "Pattern 2 Single Match",
+      "description": "Expect only a single occurrence for pattern #2."
+    },
+    "severityPattern2": {
+      "title": "Pattern 2 Severity",
+      "description": "Warning severity level for pattern rule #2."
+    },
+    "sourcePattern2": {
+      "title": "Pattern 2 Source Regex",
+      "description": "Regular expression to match in source for pattern #2."
+    },
+    "targetPattern2": {
+      "title": "Pattern 2 Target Regex",
+      "description": "Expected pattern in target for pattern #2, or <same>."
+    },
+    "descPattern2": {
+      "title": "Pattern 2 Description",
+      "description": "Human-readable description of pattern rule #2."
+    },
+    "usePattern3": {
+      "title": "Enable Pattern 3",
+      "description": "Enable pattern rule #3 (email addresses)."
+    },
+    "fromSourcePattern3": {
+      "title": "Pattern 3 Direction",
+      "description": "Search source first then verify target (true) or vice versa (false)."
+    },
+    "singlePattern3": {
+      "title": "Pattern 3 Single Match",
+      "description": "Expect only a single occurrence for pattern #3."
+    },
+    "severityPattern3": {
+      "title": "Pattern 3 Severity",
+      "description": "Warning severity level for pattern rule #3."
+    },
+    "sourcePattern3": {
+      "title": "Pattern 3 Source Regex",
+      "description": "Regular expression to match in source for pattern #3."
+    },
+    "targetPattern3": {
+      "title": "Pattern 3 Target Regex",
+      "description": "Expected pattern in target for pattern #3, or <same>."
+    },
+    "descPattern3": {
+      "title": "Pattern 3 Description",
+      "description": "Human-readable description of pattern rule #3."
+    },
+    "usePattern4": {
+      "title": "Enable Pattern 4",
+      "description": "Enable pattern rule #4 (URLs)."
+    },
+    "fromSourcePattern4": {
+      "title": "Pattern 4 Direction",
+      "description": "Search source first then verify target (true) or vice versa (false)."
+    },
+    "singlePattern4": {
+      "title": "Pattern 4 Single Match",
+      "description": "Expect only a single occurrence for pattern #4."
+    },
+    "severityPattern4": {
+      "title": "Pattern 4 Severity",
+      "description": "Warning severity level for pattern rule #4."
+    },
+    "sourcePattern4": {
+      "title": "Pattern 4 Source Regex",
+      "description": "Regular expression to match in source for pattern #4."
+    },
+    "targetPattern4": {
+      "title": "Pattern 4 Target Regex",
+      "description": "Expected pattern in target for pattern #4, or <same>."
+    },
+    "descPattern4": {
+      "title": "Pattern 4 Description",
+      "description": "Human-readable description of pattern rule #4."
+    },
+    "usePattern5": {
+      "title": "Enable Pattern 5",
+      "description": "Enable pattern rule #5 (IP addresses)."
+    },
+    "fromSourcePattern5": {
+      "title": "Pattern 5 Direction",
+      "description": "Search source first then verify target (true) or vice versa (false)."
+    },
+    "singlePattern5": {
+      "title": "Pattern 5 Single Match",
+      "description": "Expect only a single occurrence for pattern #5."
+    },
+    "severityPattern5": {
+      "title": "Pattern 5 Severity",
+      "description": "Warning severity level for pattern rule #5."
+    },
+    "sourcePattern5": {
+      "title": "Pattern 5 Source Regex",
+      "description": "Regular expression to match in source for pattern #5."
+    },
+    "targetPattern5": {
+      "title": "Pattern 5 Target Regex",
+      "description": "Expected pattern in target for pattern #5, or <same>."
+    },
+    "descPattern5": {
+      "title": "Pattern 5 Description",
+      "description": "Human-readable description of pattern rule #5."
+    },
+    "usePattern6": {
+      "title": "Enable Pattern 6",
+      "description": "Enable pattern rule #6 (printf codes)."
+    },
+    "fromSourcePattern6": {
+      "title": "Pattern 6 Direction",
+      "description": "Search source first then verify target (true) or vice versa (false)."
+    },
+    "singlePattern6": {
+      "title": "Pattern 6 Single Match",
+      "description": "Expect only a single occurrence for pattern #6."
+    },
+    "severityPattern6": {
+      "title": "Pattern 6 Severity",
+      "description": "Warning severity level for pattern rule #6."
+    },
+    "sourcePattern6": {
+      "title": "Pattern 6 Source Regex",
+      "description": "Regular expression to match in source for pattern #6."
+    },
+    "targetPattern6": {
+      "title": "Pattern 6 Target Regex",
+      "description": "Expected pattern in target for pattern #6, or <same>."
+    },
+    "descPattern6": {
+      "title": "Pattern 6 Description",
+      "description": "Human-readable description of pattern rule #6."
+    },
+    "usePattern7": {
+      "title": "Enable Pattern 7",
+      "description": "Enable pattern rule #7 (tripled letters)."
+    },
+    "fromSourcePattern7": {
+      "title": "Pattern 7 Direction",
+      "description": "Search source first then verify target (true) or vice versa (false)."
+    },
+    "singlePattern7": {
+      "title": "Pattern 7 Single Match",
+      "description": "Expect only a single occurrence for pattern #7."
+    },
+    "severityPattern7": {
+      "title": "Pattern 7 Severity",
+      "description": "Warning severity level for pattern rule #7."
+    },
+    "sourcePattern7": {
+      "title": "Pattern 7 Source Regex",
+      "description": "Regular expression to match in source for pattern #7."
+    },
+    "targetPattern7": {
+      "title": "Pattern 7 Target Regex",
+      "description": "Expected pattern in target for pattern #7, or <same>."
+    },
+    "descPattern7": {
+      "title": "Pattern 7 Description",
+      "description": "Human-readable description of pattern rule #7."
+    },
+    "extraCodesAllowed": {
+      "title": "Extra Codes Allowed",
+      "description": "Number of extra inline codes allowed in target without warning."
+    },
+    "missingCodesAllowed": {
+      "title": "Missing Codes Allowed",
+      "description": "Number of missing inline codes allowed from target without warning."
+    }
+  },
+  "r-t-f-conversion": {
+    "bomOnUTF8": {
+      "description": "Add a Byte-Order-Mark at the beginning of the file when the output encoding is UTF-8."
+    },
+    "updateEncoding": {
+      "description": "Automatically update encoding declarations in XML and HTML output files to match the output encoding."
+    }
+  },
+  "remove-target": {
+    "tusForTargetRemoval": {
+      "title": "Text Unit IDs for Removal",
+      "description": "Comma-delimited list of text unit IDs whose targets should be removed; empty removes all targets."
+    },
+    "targetLocalesToKeep": {
+      "title": "Target Locales to Keep",
+      "description": "Comma-delimited list of target locales to preserve; targets with other locales are removed."
+    },
+    "filterBasedOnIds": {
+      "title": "Filter by IDs",
+      "description": "When true, filter text units by ID; when false, filter by target locale."
+    },
+    "removeTUIfNoTarget": {
+      "title": "Remove Empty Text Units",
+      "description": "Remove the text unit entirely if it has no remaining targets after removal."
+    }
+  },
+  "search-and-replace": {
+    "regEx": {
+      "title": "Use Regular Expressions",
+      "description": "Enable Java regular expression mode for all search patterns."
+    },
+    "dotAll": {
+      "title": "Dot Also Matches Line-Feed",
+      "description": "Make the period character match every character including line-feed."
+    },
+    "ignoreCase": {
+      "title": "Ignore Case Differences",
+      "description": "Ignore case when matching search patterns."
+    },
+    "multiLine": {
+      "title": "Multiline Mode",
+      "description": "Make ^ and $ match at the beginning and end of each line."
+    },
+    "target": {
+      "title": "Replace in Target Content",
+      "description": "Perform search and replace on the target content of text units."
+    },
+    "source": {
+      "title": "Replace in Source Content",
+      "description": "Perform search and replace on the source content of text units."
+    },
+    "replaceALL": {
+      "title": "Replace All Instances",
+      "description": "Replace all matches found instead of only the first match."
+    },
+    "replacementsPath": {
+      "title": "Replacements File Path",
+      "description": "Path to a tab-delimited UTF-8 file with search and replacement pairs."
+    },
+    "logPath": {
+      "title": "Replacement Log File Path",
+      "description": "Path where the log of performed replacements will be saved."
+    },
+    "saveLog": {
+      "title": "Save Replacement Log",
+      "description": "Save a log of all replacements performed to the specified file."
+    },
+    "count": {
+      "title": "Replacement Count",
+      "description": "Total number of replacements performed."
+    }
+  },
+  "segmentation": {
+    "segmentSource": {
+      "title": "Segment Source Text",
+      "description": "Segment the source text of text units using SRX rules."
+    },
+    "segmentTarget": {
+      "title": "Segment Target Text",
+      "description": "Segment existing target text using SRX rules for the processed locales."
+    },
+    "renumberCodes": {
+      "title": "Renumber Code IDs",
+      "description": "Renumber inline code IDs in each segment to start at 1."
+    },
+    "checkSegments": {
+      "title": "Verify Segment Alignment",
+      "description": "Verify that target segments match source segments when target content exists."
+    },
+    "trimSrcLeadingWS": {
+      "title": "Trim Source Leading Whitespace",
+      "description": "Maximum leading whitespace characters to trim from source segments (-1 for default)."
+    },
+    "trimSrcTrailingWS": {
+      "title": "Trim Source Trailing Whitespace",
+      "description": "Maximum trailing whitespace characters to trim from source segments (-1 for default)."
+    },
+    "trimTrgLeadingWS": {
+      "title": "Trim Target Leading Whitespace",
+      "description": "Maximum leading whitespace characters to trim from target segments (-1 for default)."
+    },
+    "trimTrgTrailingWS": {
+      "title": "Trim Target Trailing Whitespace",
+      "description": "Maximum trailing whitespace characters to trim from target segments (-1 for default)."
+    },
+    "forceSegmentedOutput": {
+      "title": "Force Segmented Output",
+      "description": "Force output formats to show segmentation regardless of filter configuration."
+    },
+    "overwriteSegmentation": {
+      "title": "Overwrite Existing Segmentation",
+      "description": "Re-segment already-segmented text units, replacing previous segmentation."
+    },
+    "deepenSegmentation": {
+      "title": "Deepen Existing Segmentation",
+      "description": "Keep existing segmentation but split segments further using the current SRX rules."
+    },
+    "treatIsolatedCodesAsWhitespace": {
+      "title": "Treat Isolated Codes as Whitespace",
+      "description": "Treat isolated inline codes as whitespace during segmentation."
+    },
+    "doNotSegmentIfHasTarget": {
+      "title": "Skip Segmentation if Target Exists",
+      "description": "Do not segment text units that already have target content."
+    }
+  },
+  "sentence-aligner": {
+    "segmentSource": {
+      "title": "Segment Source Content",
+      "description": "Segment the source content before alignment, overriding any existing segmentation"
+    },
+    "useCustomSourceRules": {
+      "title": "Custom Source Segmentation Rules",
+      "description": "Use a custom SRX file for source segmentation instead of the built-in default rules"
+    },
+    "segmentTarget": {
+      "title": "Segment Target Content",
+      "description": "Segment the target content before alignment, overriding any existing segmentation"
+    },
+    "useCustomTargetRules": {
+      "title": "Custom Target Segmentation Rules",
+      "description": "Use a custom SRX file for target segmentation instead of the built-in default rules"
+    }
+  },
+  "t-m-import": {
+    "overwriteSameSource": {
+      "description": "Replace all existing TM entries that have the same source text as the imported entry"
+    }
+  },
+  "t-t-x-joiner": {
+    "suffix": {
+      "description": "Marker text appended to the output filename to distinguish joined files from the original split parts."
+    }
+  },
+  "t-t-x-splitter": {
+    "partCount": {
+      "description": "The number of output files to create from one input document, split by roughly equal word count."
+    }
+  },
+  "term-extraction": {
+    "autoOpen": {
+      "description": "Automatically open the result file in the default application after completion"
+    },
+    "keepCase": {
+      "description": "Treat words with different casing as distinct tokens (e.g. 'Term' vs 'term')"
+    },
+    "removeSubTerms": {
+      "description": "Remove candidate terms that are sub-sequences of longer retained terms"
+    },
+    "sortByOccurrence": {
+      "description": "Sort output by occurrence count instead of alphabetically"
+    },
+    "useTerminologyAnnotations": {
+      "description": "Include terms from ITS Terminology annotations attached to text units"
+    },
+    "useTextAnalysisAnnotations": {
+      "description": "Include terms from Text Analysis annotation spans on source content"
+    },
+    "useStatistics": {
+      "description": "Find term candidates using frequency-based statistical analysis of word sequences"
+    }
+  },
+  "text-modification": {
+    "type": {
+      "title": "Type of Change",
+      "description": "Select the kind of text modification to apply to each text unit."
+    },
+    "addPrefix": {
+      "title": "Add Prefix",
+      "description": "Add a prefix string at the start of each text unit."
+    },
+    "prefix": {
+      "title": "Prefix Text",
+      "description": "The prefix text to prepend to each text unit."
+    },
+    "addSuffix": {
+      "title": "Add Suffix",
+      "description": "Add a suffix string at the end of each text unit."
+    },
+    "suffix": {
+      "title": "Suffix Text",
+      "description": "The suffix text to append to each text unit."
+    },
+    "applyToExistingTarget": {
+      "title": "Modify Existing Translations",
+      "description": "Apply modifications also to text units that already have a translation."
+    },
+    "addName": {
+      "title": "Append Item Name",
+      "description": "Append the name of each text unit at the end of its value."
+    },
+    "addID": {
+      "title": "Append Extraction ID",
+      "description": "Append the extraction ID of each text unit at the end of its value."
+    },
+    "markSegments": {
+      "title": "Mark Segment Boundaries",
+      "description": "Add '[' and ']' delimiters around segments within each text unit."
+    },
+    "applyToBlankEntries": {
+      "title": "Modify Blank Entries",
+      "description": "Apply modifications also to text units without text content."
+    },
+    "expand": {
+      "title": "Expand Text",
+      "description": "Expand text length to simulate translation growth for UI testing."
+    },
+    "script": {
+      "title": "Replacement Script",
+      "description": "Script variant used for character replacement modes."
+    }
+  },
+  "tokenization": {
+    "OTHER_SYMBOL": {
+      "description": "Various Unicode symbols (mathematical, technical, etc.)."
+    }
+  },
+  "translation-comparison": {
+    "autoOpen": {
+      "description": "Opens the first HTML result file in the default browser after completion"
+    },
+    "genericCodes": {
+      "description": "Uses generic numbered tags (e.g. <1>...</1>) instead of original inline codes in the HTML report"
+    },
+    "target2Suffix": {
+      "description": "Suffix appended to the target language code for document 2 entries in TMX output"
+    },
+    "target3Suffix": {
+      "description": "Suffix appended to the target language code for document 3 entries in TMX output"
+    },
+    "document1Label": {
+      "description": "Label used in reports to identify the base translation"
+    },
+    "document2Label": {
+      "description": "Label used in reports to identify the second translation"
+    },
+    "document3Label": {
+      "description": "Label used in reports to identify the optional third translation"
+    },
+    "useDataLog": {
+      "description": "Appends average comparison scores to a tab-delimited log file after each run"
+    }
+  },
+  "uri-conversion": {
+    "conversionType": {
+      "title": "Conversion Direction",
+      "description": "Whether to un-escape (decode) or escape (encode) URI sequences."
+    },
+    "updateAll": {
+      "title": "Escape All Extended Characters",
+      "description": "Convert all non-ASCII characters to URI escape sequences."
+    },
+    "escapeList": {
+      "title": "Characters to Escape",
+      "description": "The set of characters to convert to URI escape sequences."
+    }
+  },
+  "whitespace-correction": {
+    "punctuation": {
+      "title": "Punctuation Types",
+      "description": "Punctuation categories to apply whitespace correction to, with full-width CJK to ASCII conversion."
+    },
+    "whitespace": {
+      "title": "Whitespace Characters",
+      "description": "Unicode whitespace character categories considered during spacing adjustment."
+    }
+  },
+  "word-count": {
+    "countInBatch": {
+      "description": "Set word count annotation aggregated per batch."
+    },
+    "countInBatchItems": {
+      "description": "Set word count annotation per batch item."
+    },
+    "countInDocuments": {
+      "description": "Set word count annotation per document."
+    },
+    "countInSubDocuments": {
+      "description": "Set word count annotation per sub-document."
+    },
+    "countInGroups": {
+      "description": "Set word count annotation per group."
+    },
+    "bufferSize": {
+      "title": "Text Buffer Size",
+      "description": "Size of the internal text buffer used during word counting (0 for default)."
+    }
+  },
+  "x-m-l-analysis": {
+    "autoOpen": {
+      "description": "Automatically open the result file after the process is complete."
+    }
+  },
+  "x-m-l-validation": {
+    "validate": {
+      "title": "Validate Document Structure",
+      "description": "Perform DTD, W3C, or RelaxNG schema validation in addition to the well-formedness check."
+    },
+    "useFoundDTD": {
+      "title": "Use DTD From Input Documents",
+      "description": "Use DTD declarations found in the input documents for validation."
+    }
+  },
+  "x-s-l-transform": {
+    "xsltPath": {
+      "title": "XSLT Template Path",
+      "description": "Full path of the XSLT template to apply on input documents."
+    },
+    "paramList": {
+      "title": "Template Parameters",
+      "description": "Parameters passed to the XSLT template, one per line in name=value format."
+    },
+    "useCustomTransformer": {
+      "title": "Use Custom Transformer",
+      "description": "Use custom XSLT transformer and XPath factory classes instead of JVM defaults."
+    },
+    "factoryClass": {
+      "title": "Transformer Factory Class",
+      "description": "Fully qualified class name of the TransformerFactory implementation to use."
+    },
+    "xpathClass": {
+      "title": "XPath Factory Class",
+      "description": "Fully qualified class name of the XPathFactory implementation to use."
+    },
+    "passOnOutput": {
+      "title": "Pass Output to Next Step",
+      "description": "Pass the transformation output as the raw document for subsequent pipeline steps."
+    }
+  },
+  "xliff-joiner": {
+    "inputFileMarker": {
+      "description": "Marker text in input filenames used to identify and group split XLIFF files for joining."
+    },
+    "outputFileMarker": {
+      "description": "Marker text used to generate the output filename(s) by replacing the input marker and index."
+    }
+  },
+  "xliff-splitter": {
+    "bigFile": {
+      "title": "Process Large Files",
+      "description": "Use a stream-based parser to handle very large XLIFF files that would not fit in memory with the default DOM parser."
+    },
+    "fileMarker": {
+      "title": "File Marker",
+      "description": "Marker string appended to generated filenames before the numeric counter (e.g. '_PART' produces 'file_PART1.xlf')."
+    },
+    "updateSDLTranslationStatus": {
+      "title": "Update WorldServer Translation Status",
+      "description": "Update translation_type and translation_status flags in <iws:status> elements (WorldServer XLIFF-specific)."
+    },
+    "restoreOriginalNames": {
+      "title": "Restore Original File Names",
+      "description": "Use original file names for split output documents instead of generated numbered names."
+    }
+  }
+}

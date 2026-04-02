@@ -1,0 +1,70 @@
+{
+  "$id": "r-t-f-conversion",
+  "title": "RTF Conversion",
+  "type": "object",
+  "description": "Remove the RTF layer from a text-based file. Expects: raw document. Sends back: raw document.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.rtfconversion.RTFConversionStep",
+    "parameterMappings": [
+      "OUTPUT_ENCODING",
+      "OUTPUT_URI",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleRawDocument",
+      "handleStartBatch"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "file"
+  },
+  "properties": {
+    "lineBreak": {
+      "type": "string",
+      "default": "\n",
+      "title": "Type of line-break to use",
+      "description": "Select the type of line-break to use in the output.",
+      "enum": [
+        "\r\n",
+        "\n",
+        "\r"
+      ],
+      "x-enumLabels": [
+        "DOS/Windows (Carriage-Return + Line-Feed, \\r\\n, 0x0D+0x0A)",
+        "Unix/Linux (Line-Feed, \\n, 0x0A)",
+        "Macintosh (Carriage-Return, \\r, 0x0D)"
+      ],
+      "x-editor": {
+        "widget": "select",
+        "layout": {
+          "vertical": true
+        }
+      }
+    },
+    "bomOnUTF8": {
+      "type": "boolean",
+      "default": true,
+      "title": "Use Byte-Order-Mark for UTF-8 output",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Add a Byte-Order-Mark at the beginning of the file when the output encoding is UTF-8."
+    },
+    "updateEncoding": {
+      "type": "boolean",
+      "default": true,
+      "title": "Try to update the encoding declarations (when detected)",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Automatically update encoding declarations in XML and HTML output files to match the output encoding."
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "$id": "extraction-verification",
+  "title": "Extraction Verification",
+  "type": "object",
+  "description": "Verifies a raw document can be extracted, merged, then extracted again and produces the same set of events during both extractions. Expects: raw document. Sends back: unmodified raw document.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.common.ExtractionVerificationStep",
+    "parameterMappings": [
+      "FILTER_CONFIGURATION_ID",
+      "FILTER_CONFIGURATION_MAPPER",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleRawDocument"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "compareSkeleton": {
+      "type": "boolean",
+      "default": true,
+      "title": "Compare Skeleton",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "stepEnabled",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Include skeleton (non-extractable) parts of events in the verification comparison."
+    },
+    "stepEnabled": {
+      "type": "boolean",
+      "default": true,
+      "title": "Perform Extraction Verification",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Enable or disable the verification step; when disabled, the document passes through unmodified."
+    },
+    "allEvents": {
+      "type": "boolean",
+      "default": true,
+      "title": "Verify All Events",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "stepEnabled",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Compare all filter events between extractions, not just text units."
+    },
+    "limit": {
+      "type": "integer",
+      "default": 10,
+      "title": "Maximum Warnings Per Document",
+      "x-editor": {
+        "widget": "text",
+        "enabledBy": {
+          "parameter": "stepEnabled",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Maximum number of verification warnings allowed per document before stopping or moving on."
+    },
+    "interrupt": {
+      "type": "boolean",
+      "default": false,
+      "title": "Interrupt on Warning Limit",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "stepEnabled",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Stop the pipeline when the maximum number of warnings is reached for a document."
+    },
+    "monolingual": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

@@ -380,7 +380,9 @@ public class StepSchemaGenerator {
         java.util.Set<String> excludeKeys = new java.util.LinkedHashSet<>();
         java.util.Map<String, JsonObject> arrayProperties = new java.util.LinkedHashMap<>();
 
-        // Known array-encoded parameter groups in Okapi:
+        // Known array-encoded parameter groups in Okapi.
+        // The collapseCompoundArray method also excludes the bare stems
+        // (e.g. "usePattern" without index) and the count key.
         collapseCompoundArray(entries, excludeKeys, arrayProperties,
                 "patterns",                                        // output property name
                 "patternCount",                                    // count key
@@ -420,7 +422,36 @@ public class StepSchemaGenerator {
             String rawValue = entry[2];
 
             // Skip keys consumed by array detection
-            if (excludeKeys.contains(paramName)) continue;
+            if (excludeKeys.contains(paramName)) {
+                System.err.println("[schema-gen] Excluded by array detection: " + paramName);
+                continue;
+            }
+
+            // Skip invalid property names (enum values, file extensions, regex patterns
+            // that leak from default values during #v1 serialization)
+            if (!paramName.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
+                continue;
+            }
+
+            // Skip bare stems of collapsed arrays (e.g. "usePattern" without index).
+            // These appear as default buffer entries in the #v1 output but are not
+            // real parameters — the data lives in the collapsed array property.
+            boolean isBareArrayStem = false;
+            for (String arrayName : arrayProperties.keySet()) {
+                // Array name "patterns" → stems end with "Pattern"
+                // Array name "rules" → stems are "use", "search", "replace"
+                // Check if this param name matches any stem from a collapsed array
+                for (String[] e2 : entries) {
+                    if (excludeKeys.contains(e2[0]) && e2[0].startsWith(paramName)
+                            && e2[0].length() > paramName.length()
+                            && Character.isDigit(e2[0].charAt(paramName.length()))) {
+                        isBareArrayStem = true;
+                        break;
+                    }
+                }
+                if (isBareArrayStem) break;
+            }
+            if (isBareArrayStem) continue;
 
             // Regular parameter
             Object defaultValue;
@@ -503,6 +534,7 @@ public class StepSchemaGenerator {
         excludeKeys.add(countKey);
         for (String stem : stems) {
             excludeKeys.add(stem); // bare stem (e.g. "usePattern" without index)
+            System.err.println("[schema-gen] Added stem to exclude: " + stem);
         }
         for (String[] entry : entries) {
             for (String stem : stems) {

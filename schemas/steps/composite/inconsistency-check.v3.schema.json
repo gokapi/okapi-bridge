@@ -1,0 +1,136 @@
+{
+  "$id": "inconsistency-check",
+  "title": "Inconsistency Check",
+  "type": "object",
+  "description": "Checks for source entries that are the same but have different translations or target entries that are the same but have different sources. Expects: filter events. Sends back: filter events.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.inconsistencycheck.InconsistencyCheckStep",
+    "parameterMappings": [
+      "INPUT_ROOT_DIRECTORY",
+      "ROOT_DIRECTORY",
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleEndBatch",
+      "handleEndDocument",
+      "handleStartBatch",
+      "handleStartDocument",
+      "handleStartSubDocument",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "checkInconststencies": {
+      "type": "boolean",
+      "default": true,
+      "title": "Check Inconsistencies",
+      "x-editor": {
+        "widget": "checkbox",
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Enable or disable inconsistency checking; allows the step to be toggled off without removing it from the pipeline."
+    },
+    "checkPerFile": {
+      "type": "boolean",
+      "default": false,
+      "title": "Per-File Checking",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "checkInconststencies",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Process each input file individually instead of comparing segments across all documents, reducing memory usage."
+    },
+    "outputPath": {
+      "type": "string",
+      "default": "${rootDir}/inconsistency-report.xml",
+      "title": "Report File Path",
+      "x-editor": {
+        "widget": "path",
+        "enabledBy": {
+          "parameter": "checkInconststencies",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        },
+        "path": {
+          "browseTitle": "Inconsistency Report File",
+          "forSaveAs": true,
+          "filters": [
+            {
+              "name": "All Files (*.*)",
+              "extensions": "*.*"
+            }
+          ]
+        }
+      },
+      "description": "Full path of the XML report file to generate; supports ${rootDir} and ${inputRootDir} variables."
+    },
+    "displayOption": {
+      "type": "string",
+      "default": "generic",
+      "title": "Inline Code Display",
+      "enum": [
+        "original",
+        "generic",
+        "plain"
+      ],
+      "x-enumLabels": [
+        "Original codes",
+        "Generic markers",
+        "Plain text"
+      ],
+      "x-editor": {
+        "widget": "dropdown",
+        "enabledBy": {
+          "parameter": "checkInconststencies",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Controls how inline codes are represented in the report: original codes, generic markers, or plain text."
+    },
+    "autoOpen": {
+      "type": "boolean",
+      "default": true,
+      "title": "Auto-Open Report",
+      "x-editor": {
+        "widget": "checkbox",
+        "enabledBy": {
+          "parameter": "checkInconststencies",
+          "enabledWhenSelected": true
+        },
+        "layout": {
+          "vertical": true
+        }
+      },
+      "description": "Automatically open the generated report file in the default application after processing completes."
+    },
+    "original": {
+      "type": "boolean",
+      "default": false
+    },
+    "generic": {
+      "type": "boolean",
+      "default": false
+    },
+    "plain": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

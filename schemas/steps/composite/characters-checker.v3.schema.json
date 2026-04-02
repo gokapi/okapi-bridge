@@ -1,0 +1,50 @@
+{
+  "$id": "characters-checker",
+  "title": "Characters Checker",
+  "type": "object",
+  "description": "Compare source and target for character inconsistencies. Expects: filter events. Sends back: filter events.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.characterschecker.CharactersCheckerStep",
+    "parameterMappings": [
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleStartBatch",
+      "handleStartDocument",
+      "handleStartSubDocument",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "checkCharacters": {
+      "type": "boolean",
+      "default": false,
+      "title": "Warn if a character is not included in the following character set encoding"
+    },
+    "checkAllowedCharacters": {
+      "type": "boolean",
+      "default": true,
+      "title": "Verify the ITS Allowed Characters property"
+    },
+    "charset": {
+      "type": "string",
+      "default": "ISO-8859-1",
+      "title": "Character Set Encoding",
+      "description": "Name of the character set encoding to check against (e.g. ISO-8859-1)."
+    },
+    "extraCharsAllowed": {
+      "type": "string",
+      "default": "",
+      "title": "Allow the characters matching the following regular expression pattern"
+    },
+    "corruptedCharacters": {
+      "type": "boolean",
+      "default": true,
+      "title": "Warn if some possibly corrupted characters are found in the target entry"
+    }
+  }
+}

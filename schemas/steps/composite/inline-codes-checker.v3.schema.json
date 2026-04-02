@@ -1,0 +1,49 @@
+{
+  "$id": "inline-codes-checker",
+  "title": "Inline Codes Checker",
+  "type": "object",
+  "description": "Compare source and target for inline code differences. Expects: filter events. Sends back: filter events.",
+  "x-step": {
+    "class": "net.sf.okapi.steps.inlinescodeschecker.InlineCodesCheckerStep",
+    "parameterMappings": [
+      "SOURCE_LOCALE",
+      "TARGET_LOCALE"
+    ],
+    "eventHandlers": [
+      "handleStartBatch",
+      "handleStartDocument",
+      "handleStartSubDocument",
+      "handleTextUnit"
+    ],
+    "interfaces": [],
+    "inputType": "filter-events",
+    "outputType": "filter-events"
+  },
+  "properties": {
+    "codeDifference": {
+      "type": "boolean",
+      "default": true,
+      "title": "Warn if there is a code difference between source and target segments"
+    },
+    "guessOpenClose": {
+      "type": "boolean",
+      "default": true,
+      "title": "Try to guess opening/closing types for placeholder codes"
+    },
+    "extraCodesAllowed": {
+      "type": "boolean",
+      "default": false,
+      "title": "Codes allowed to be extra in the target"
+    },
+    "missingCodesAllowed": {
+      "type": "boolean",
+      "default": false,
+      "title": "Codes allowed to be missing from the target"
+    },
+    "typesToIgnore": {
+      "type": "string",
+      "default": "mrk;x-df-s;",
+      "title": "List of the inline code types to ignore"
+    }
+  }
+}
