@@ -62,7 +62,7 @@
           "default": ".+",
           "title": "Translatable URL Pattern",
           "x-editor": {
-            "widget": "text"
+            "widget": "regex"
           },
           "x-flattenPath": "urlToTranslatePattern",
           "description": "Regex pattern to filter which URLs are extracted when URL translation is enabled."
@@ -292,5 +292,5 @@
   "x-baseVersion": 8,
   "x-introducedInOkapi": "1.47.0",
   "x-baseHash": "0aa93e2c0250",
-  "x-compositeHash": "4c89ed75986b"
+  "x-compositeHash": "2b1a43f70a79"
 }

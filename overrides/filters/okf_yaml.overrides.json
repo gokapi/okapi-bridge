@@ -51,6 +51,9 @@
     "output.subFilterProcessLiteralAsBlock": {
       "title": "Sub-filter Literal Blocks",
       "description": "Process YAML literal block scalars through the configured sub-filter."
+    },
+    "excludeKeys": {
+      "widget": "regex"
     }
   }
 }

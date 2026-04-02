@@ -4,6 +4,9 @@
     "_fragments/inlineCodes.fragment.json"
   ],
   "fields": {
-    "(^(?=.+))(.*?)$": {}
+    "(^(?=.+))(.*?)$": {},
+    "rule": {
+      "widget": "regex"
+    }
   }
 }

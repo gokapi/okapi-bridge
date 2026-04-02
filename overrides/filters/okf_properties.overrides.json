@@ -26,7 +26,8 @@
     },
     "keyCondition": {
       "title": "Key Condition Pattern",
-      "description": "Regular expression pattern to test against property keys for extraction filtering."
+      "description": "Regular expression pattern to test against property keys for extraction filtering.",
+      "widget": "regex"
     },
     "extraComments": {
       "title": "Additional Comment Markers",

@@ -42,7 +42,10 @@
       "type": "string",
       "default": "",
       "title": "Allow the characters matching the following regular expression pattern",
-      "description": "Regular expression matching characters to allow beyond the character set."
+      "description": "Regular expression matching characters to allow beyond the character set.",
+      "x-editor": {
+        "widget": "regex"
+      }
     },
     "corruptedCharacters": {
       "type": "boolean",

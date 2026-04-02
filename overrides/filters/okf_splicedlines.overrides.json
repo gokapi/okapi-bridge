@@ -3,5 +3,10 @@
   "title": "Plain Text (Spliced Lines)",
   "$include": [
     "_fragments/inlineCodes.fragment.json"
-  ]
+  ],
+  "fields": {
+    "splicer": {
+      "widget": "regex"
+    }
+  }
 }

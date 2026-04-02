@@ -60,7 +60,7 @@
             "enabledWhenSelected": true
           },
           "x-editor": {
-            "widget": "text"
+            "widget": "regex"
           }
         },
         "extraCharsAllowed": {
@@ -73,7 +73,7 @@
             "enabledWhenSelected": true
           },
           "x-editor": {
-            "widget": "text"
+            "widget": "regex"
           }
         },
         "corruptedCharacters": {

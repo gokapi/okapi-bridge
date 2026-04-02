@@ -173,7 +173,7 @@
           "default": ".*text.*",
           "title": "Key Condition Pattern",
           "x-editor": {
-            "widget": "text"
+            "widget": "regex"
           },
           "x-flattenPath": "keyCondition",
           "description": "Regular expression pattern to test against property keys for extraction filtering."
@@ -410,5 +410,5 @@
   "x-baseVersion": 10,
   "x-introducedInOkapi": "1.47.0",
   "x-baseHash": "2d7276d164f5",
-  "x-compositeHash": "ba7a3660ba27"
+  "x-compositeHash": "55f2d79fe22f"
 }

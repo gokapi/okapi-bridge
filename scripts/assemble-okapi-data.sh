@@ -90,11 +90,12 @@ echo "  Filters: $FILTER_COUNT"
 # --- Steps ---
 
 STEP_COUNT=0
-STEP_LIST=$(jq -r --arg ov "${OKAPI_VERSION}" '
+STEP_LIST=$(jq -r '
   .steps // {} | to_entries[] |
   .key as $s |
-  [.value.versions[] | select(.okapiVersions | index($ov))] |
-  max_by(.version) | select(.) |
+  # Always use the latest composite version (richest metadata)
+  .value.versions | max_by(.version) |
+  select(.) |
   "\($s) \(.version)"
 ' schemas/versions.json 2>/dev/null || true)
 echo "$STEP_LIST" | {

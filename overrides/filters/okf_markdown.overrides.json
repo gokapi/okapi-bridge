@@ -65,6 +65,9 @@
     "useCodeFinder": {
       "title": "Use Code Finder",
       "description": "Enable the Inline Code Finder for identifying inline codes in translatable text."
+    },
+    "urlPattern": {
+      "widget": "regex"
     }
   }
 }

@@ -101,7 +101,10 @@
           "type": "string",
           "default": "\\",
           "x-flattenPath": "splicer",
-          "description": "Line splicer pattern"
+          "description": "Line splicer pattern",
+          "x-editor": {
+            "widget": "regex"
+          }
         },
         "createPlaceholders": {
           "type": "boolean",
@@ -238,5 +241,5 @@
   "x-baseVersion": 1,
   "x-introducedInOkapi": "0.38",
   "x-baseHash": "798f2f25ab9c",
-  "x-compositeHash": "776bde7370a6"
+  "x-compositeHash": "585d5bd35c7b"
 }

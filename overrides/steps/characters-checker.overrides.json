@@ -16,7 +16,8 @@
     },
     "extraCharsAllowed": {
       "title": "Allow the characters matching the following regular expression pattern",
-      "description": "Regular expression matching characters to allow beyond the character set."
+      "description": "Regular expression matching characters to allow beyond the character set.",
+      "widget": "regex"
     },
     "charset": {
       "title": "Character Set Encoding",

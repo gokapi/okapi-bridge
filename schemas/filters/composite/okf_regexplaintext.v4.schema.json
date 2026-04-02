@@ -84,7 +84,10 @@
           "type": "string",
           "default": "(^(?=.+))(.*?)$",
           "x-flattenPath": "rule",
-          "description": "Extraction regex rule"
+          "description": "Extraction regex rule",
+          "x-editor": {
+            "widget": "regex"
+          }
         },
         "sourceGroup": {
           "type": "integer",
@@ -240,5 +243,5 @@
   "x-baseVersion": 4,
   "x-introducedInOkapi": "1.47.0",
   "x-baseHash": "82b34b98ae26",
-  "x-compositeHash": "c4bc0cec987c"
+  "x-compositeHash": "83eabeeb992e"
 }

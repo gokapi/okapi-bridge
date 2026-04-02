@@ -24,7 +24,8 @@
     },
     "userRegex": {
       "title": "User Defined Regex",
-      "description": "Custom regular expression pattern for matching segments to mark for removal."
+      "description": "Custom regular expression pattern for matching segments to mark for removal.",
+      "widget": "regex"
     }
   }
 }

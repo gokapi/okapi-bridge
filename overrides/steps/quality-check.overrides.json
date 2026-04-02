@@ -344,7 +344,7 @@
       "title": "Character Set Encoding",
       "description": "Name of the character set encoding to validate against (e.g. ISO-8859-1). Leave empty to use only the regex pattern below.",
       "group": "characters",
-      "widget": "text",
+      "widget": "regex",
       "enabledBy": {
         "parameter": "checkCharacters",
         "enabledWhenSelected": true
@@ -354,7 +354,7 @@
       "title": "Extra Allowed Characters (Regex)",
       "description": "Regular expression matching additional characters to allow beyond the charset. These characters pass validation even if not in the charset.",
       "group": "characters",
-      "widget": "text",
+      "widget": "regex",
       "enabledBy": {
         "parameter": "checkCharacters",
         "enabledWhenSelected": true

@@ -55,7 +55,10 @@
           "default": "",
           "x-flattenPath": "exceptions",
           "description": "Regular expression for keys that behave opposite to the default extraction mode.",
-          "title": "Key Exception Pattern"
+          "title": "Key Exception Pattern",
+          "x-editor": {
+            "widget": "regex"
+          }
         }
       }
     },
@@ -212,5 +215,5 @@
   "x-baseVersion": 4,
   "x-introducedInOkapi": "1.47.0",
   "x-baseHash": "45a07e8f4e29",
-  "x-compositeHash": "7e90c252c796"
+  "x-compositeHash": "586a8b8808a4"
 }

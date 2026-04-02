@@ -70,7 +70,7 @@
       "default": "",
       "title": "User Defined Regex",
       "x-editor": {
-        "widget": "text",
+        "widget": "regex",
         "layout": {
           "vertical": true
         },

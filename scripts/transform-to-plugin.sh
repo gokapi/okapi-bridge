@@ -106,6 +106,7 @@ def rename_ui_extensions:
        elif $ed.widget == "folder" then .["ui:widget"] = "folder-picker" | .["ui:widget-options"] = ($ed.folder // {} | with_entries(select(.value != null)))
        elif $ed.widget == "checkList" then .["ui:widget"] = "checklist" | .["ui:widget-options"] = ($ed.checkList // {} | with_entries(select(.value != null)))
        elif $ed.widget == "select" then .["ui:widget"] = "select"
+       elif $ed.widget then .["ui:widget"] = $ed.widget
        else . end) |
       # enabledBy → ui:enabled
       (if $ed.enabledBy then
