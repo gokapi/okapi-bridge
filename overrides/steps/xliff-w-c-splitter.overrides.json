@@ -1,0 +1,9 @@
+{
+  "$schema": "https://neokapi.dev/schemas/editorHints.schema.json",
+  "fields": {
+    "threshold": {
+      "title": "Maximum Word Count Per Part",
+      "description": "Maximum word count threshold for splitting XLIFF files into parts."
+    }
+  }
+}

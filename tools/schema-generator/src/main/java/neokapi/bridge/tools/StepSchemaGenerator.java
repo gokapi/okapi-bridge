@@ -429,7 +429,7 @@ public class StepSchemaGenerator {
 
             // Skip invalid property names (enum values, file extensions, regex patterns
             // that leak from default values during #v1 serialization)
-            if (!paramName.matches("[a-zA-Z_][a-zA-Z0-9_]*")) {
+            if (!paramName.matches("[a-zA-Z][a-zA-Z0-9_]*")) {
                 continue;
             }
 

@@ -3,6 +3,10 @@
   "fields": {
     "OTHER_SYMBOL": {
       "description": "Various Unicode symbols (mathematical, technical, etc.)."
+    },
+    "filterLocales": {
+      "title": "Locales to Filter",
+      "description": "Locale names or patterns excluded from tokenization."
     }
   }
 }

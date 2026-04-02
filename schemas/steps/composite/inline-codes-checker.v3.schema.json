@@ -23,27 +23,32 @@
     "codeDifference": {
       "type": "boolean",
       "default": true,
-      "title": "Warn if there is a code difference between source and target segments"
+      "title": "Warn if there is a code difference between source and target segments",
+      "description": "Verify target has the same inline codes as source."
     },
     "guessOpenClose": {
       "type": "boolean",
       "default": true,
-      "title": "Try to guess opening/closing types for placeholder codes"
+      "title": "Try to guess opening/closing types for placeholder codes",
+      "description": "Guess which inline codes are opening and closing pairs."
     },
     "extraCodesAllowed": {
       "type": "boolean",
       "default": false,
-      "title": "Codes allowed to be extra in the target"
+      "title": "Codes allowed to be extra in the target",
+      "description": "Number of extra inline codes allowed in target beyond source."
     },
     "missingCodesAllowed": {
       "type": "boolean",
       "default": false,
-      "title": "Codes allowed to be missing from the target"
+      "title": "Codes allowed to be missing from the target",
+      "description": "Number of source inline codes allowed to be missing from target."
     },
     "typesToIgnore": {
       "type": "string",
       "default": "mrk;x-df-s;",
-      "title": "List of the inline code types to ignore"
+      "title": "List of the inline code types to ignore",
+      "description": "Semicolon-separated list of inline code types to exclude from checking."
     }
   }
 }

@@ -19,6 +19,14 @@
     "bufferSize": {
       "title": "Text Buffer Size",
       "description": "Size of the internal text buffer used during word counting (0 for default)."
+    },
+    "countInTextUnits": {
+      "title": "Text Units",
+      "description": "Create word count annotations for text unit resources."
+    },
+    "simplifierRules": {
+      "title": "Simplifier Rules",
+      "description": "Code simplifier rules for simplifying inline codes before counting."
     }
   }
 }

@@ -55,7 +55,9 @@
       }
     },
     "filterLocales": {
-      "type": "string"
+      "type": "string",
+      "title": "Locales to Filter",
+      "description": "Locale names or patterns excluded from tokenization."
     },
     "WORD": {
       "type": "boolean",

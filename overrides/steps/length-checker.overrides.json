@@ -3,34 +3,44 @@
   "title": "Length Checker",
   "fields": {
     "checkMaxCharLength": {
-      "title": "Warn if a target is longer than the given percentage of the character length of its source"
+      "title": "Warn if a target is longer than the given percentage of the character length of its source",
+      "description": "Flag target text longer than a given percentage of source character length."
     },
     "maxCharLengthBreak": {
-      "title": "Character length above which a text is considered \"long\""
+      "title": "Character length above which a text is considered \"long\"",
+      "description": "Character count above which text is considered long for max length checking."
     },
     "maxCharLengthAbove": {
-      "title": "Percentage for \"long\" text"
+      "title": "Percentage for \"long\" text",
+      "description": "Maximum allowed percentage of source length for long text."
     },
     "maxCharLengthBelow": {
-      "title": "Percentage for \"short\" text"
+      "title": "Percentage for \"short\" text",
+      "description": "Maximum allowed percentage of source length for short text."
     },
     "checkMinCharLength": {
-      "title": "Warn if a target is shorter than the given percentage of the character length of its source"
+      "title": "Warn if a target is shorter than the given percentage of the character length of its source",
+      "description": "Flag target text shorter than a given percentage of source character length."
     },
     "minCharLengthBreak": {
-      "title": "Character length above which a text is considered \"long\""
+      "title": "Character length above which a text is considered \"long\"",
+      "description": "Character count above which text is considered long for min length checking."
     },
     "minCharLengthAbove": {
-      "title": "Percentage for \"long\" text"
+      "title": "Percentage for \"long\" text",
+      "description": "Minimum allowed percentage of source length for long text."
     },
     "minCharLengthBelow": {
-      "title": "Percentage for \"short\" text"
+      "title": "Percentage for \"short\" text",
+      "description": "Minimum allowed percentage of source length for short text."
     },
     "checkStorageSize": {
-      "title": "Warn if a source or target text unit does not fit its ITS Storage Size property"
+      "title": "Warn if a source or target text unit does not fit its ITS Storage Size property",
+      "description": "Verify byte storage size of target text against ITS limits."
     },
     "checkAbsoluteMaxCharLength": {
-      "title": "Warn if a target is longer than"
+      "title": "Warn if a target is longer than",
+      "description": "Flag target text exceeding an absolute maximum character count."
     },
     "absoluteMaxCharLength": {
       "title": "Absolute Maximum Character Length",

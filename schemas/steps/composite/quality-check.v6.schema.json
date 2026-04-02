@@ -24,22 +24,6 @@
     "outputType": "filter-events"
   },
   "properties": {
-    ".qccfg": {
-      "type": "boolean",
-      "default": false
-    },
-    "None": {
-      "type": "boolean",
-      "default": false
-    },
-    "Transitional": {
-      "type": "boolean",
-      "default": false
-    },
-    "Strict": {
-      "type": "boolean",
-      "default": false
-    },
     "outputPath": {
       "type": "string",
       "default": "${rootDir}/qa-report.html",

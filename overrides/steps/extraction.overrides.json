@@ -32,6 +32,10 @@
     "sendOutput": {
       "title": "Send Output to Next Step",
       "description": "Send prepared files as raw documents to the next pipeline step instead of the original filter events."
+    },
+    "writerOptions": {
+      "title": "Writer Options",
+      "description": "Package writer-specific options controlling the selected output format."
     }
   }
 }

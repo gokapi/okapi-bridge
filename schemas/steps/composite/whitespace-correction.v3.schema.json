@@ -38,7 +38,8 @@
         "layout": {
           "vertical": true
         }
-      }
+      },
+      "description": "Correct whitespace after full stops (periods) in target text."
     },
     "comma": {
       "type": "boolean",
@@ -49,7 +50,8 @@
         "layout": {
           "vertical": true
         }
-      }
+      },
+      "description": "Correct whitespace after commas in target text."
     },
     "exclamationPoint": {
       "type": "boolean",
@@ -60,7 +62,8 @@
         "layout": {
           "vertical": true
         }
-      }
+      },
+      "description": "Correct whitespace after exclamation marks in target text."
     },
     "questionMark": {
       "type": "boolean",
@@ -71,7 +74,8 @@
         "layout": {
           "vertical": true
         }
-      }
+      },
+      "description": "Correct whitespace after question marks in target text."
     },
     "verticalWhitespace": {
       "type": "boolean",
@@ -82,7 +86,8 @@
         "layout": {
           "vertical": true
         }
-      }
+      },
+      "description": "Include vertical whitespace (line feeds, carriage returns) in whitespace to be deleted."
     },
     "nonbreakingWhitespace": {
       "type": "boolean",
@@ -93,7 +98,8 @@
         "layout": {
           "vertical": true
         }
-      }
+      },
+      "description": "Include non-breaking space characters in whitespace to be deleted."
     },
     "horizontalTabs": {
       "type": "boolean",
@@ -104,7 +110,8 @@
         "layout": {
           "vertical": true
         }
-      }
+      },
+      "description": "Include horizontal tab characters in whitespace to be deleted."
     },
     "space": {
       "type": "boolean",
@@ -115,7 +122,8 @@
         "layout": {
           "vertical": true
         }
-      }
+      },
+      "description": "Include standard space characters in whitespace to be deleted."
     },
     "other": {
       "type": "boolean",
@@ -126,7 +134,8 @@
         "layout": {
           "vertical": true
         }
-      }
+      },
+      "description": "Include all other whitespace characters in whitespace to be deleted."
     }
   }
 }

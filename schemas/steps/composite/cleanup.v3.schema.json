@@ -68,7 +68,7 @@
     "userRegex": {
       "type": "string",
       "default": "",
-      "title": "User defined regex string",
+      "title": "User Defined Regex",
       "x-editor": {
         "widget": "text",
         "layout": {
@@ -77,7 +77,8 @@
         "text": {
           "allowEmpty": true
         }
-      }
+      },
+      "description": "Custom regular expression pattern for matching segments to mark for removal."
     },
     "pruneTextUnit": {
       "type": "boolean",

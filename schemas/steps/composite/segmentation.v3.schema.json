@@ -44,19 +44,27 @@
     },
     "sourceSrxPath": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Source SRX Rules Path",
+      "description": "Path to the SRX segmentation rules file for segmenting source text."
     },
     "targetSrxPath": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Target SRX Rules Path",
+      "description": "Path to the SRX segmentation rules file for segmenting target text."
     },
     "sourceSrx": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Source SRX Content",
+      "description": "Inline SRX segmentation rules content for the source language, as an alternative to a file path."
     },
     "targetSrx": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Target SRX Content",
+      "description": "Inline SRX segmentation rules content for the target language, as an alternative to a file path."
     },
     "renumberCodes": {
       "type": "boolean",

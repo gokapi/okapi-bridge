@@ -23,7 +23,8 @@
     "checkPatterns": {
       "type": "boolean",
       "default": true,
-      "title": "Verify that the following source patterns are translated as expected"
+      "title": "Verify that the following source patterns are translated as expected",
+      "description": "Enable verification of source/target pattern consistency using regex rules."
     },
     "patterns": {
       "type": "array",
@@ -53,7 +54,8 @@
           }
         }
       },
-      "description": "Array of patterns encoded from indexed flat parameters."
+      "description": "Regex pattern pairs for verifying source-target consistency.",
+      "title": "Pattern Rules"
     }
   }
 }

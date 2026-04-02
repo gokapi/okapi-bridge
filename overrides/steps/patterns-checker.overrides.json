@@ -3,7 +3,8 @@
   "title": "Patterns Checker",
   "fields": {
     "checkPatterns": {
-      "title": "Verify that the following source patterns are translated as expected"
+      "title": "Verify that the following source patterns are translated as expected",
+      "description": "Enable verification of source/target pattern consistency using regex rules."
     },
     "fromSourcePattern0": {
       "title": "Search in the source then compare with the target (if single-pattern is not set)"
@@ -124,6 +125,10 @@
     },
     "descPattern7": {
       "title": "Description"
+    },
+    "patterns": {
+      "title": "Pattern Rules",
+      "description": "Regex pattern pairs for verifying source-target consistency."
     }
   }
 }

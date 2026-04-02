@@ -36,7 +36,9 @@
     },
     "writerOptions": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Writer Options",
+      "description": "Package writer-specific options controlling the selected output format."
     },
     "packageName": {
       "type": "string",

@@ -18,6 +18,14 @@
     },
     "bufferSize": {
       "description": "Size of the internal text buffer used during counting (0 for default)"
+    },
+    "countInTextUnits": {
+      "title": "Text Units",
+      "description": "Create character count annotations for text unit resources."
+    },
+    "simplifierRules": {
+      "title": "Simplifier Rules",
+      "description": "Code simplifier rules for simplifying inline codes before counting."
     }
   }
 }

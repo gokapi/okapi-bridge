@@ -1,0 +1,9 @@
+{
+  "$schema": "https://neokapi.dev/schemas/editorHints.schema.json",
+  "fields": {
+    "simplifierRules": {
+      "title": "Simplifier Rules",
+      "description": "Code simplifier rules for simplifying inline codes before scoping analysis."
+    }
+  }
+}

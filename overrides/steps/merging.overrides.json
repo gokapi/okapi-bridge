@@ -18,6 +18,10 @@
     },
     "copyCodeMetadata": {
       "description": "Copy inline code metadata from the original file to the merged output"
+    },
+    "skipOriginalTargetCodeMetadata": {
+      "title": "Skip Original Target Code Metadata",
+      "description": "Skip the original target's code metadata when copying during merge, to avoid overwriting translated codes."
     }
   }
 }

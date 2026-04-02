@@ -8,6 +8,42 @@
     "whitespace": {
       "title": "Whitespace Characters",
       "description": "Unicode whitespace character categories considered during spacing adjustment."
+    },
+    "comma": {
+      "title": "Comma",
+      "description": "Correct whitespace after commas in target text."
+    },
+    "exclamationPoint": {
+      "title": "Exclamation Point",
+      "description": "Correct whitespace after exclamation marks in target text."
+    },
+    "fullStop": {
+      "title": "Full Stop",
+      "description": "Correct whitespace after full stops (periods) in target text."
+    },
+    "horizontalTabs": {
+      "title": "Horizontal Tabs",
+      "description": "Include horizontal tab characters in whitespace to be deleted."
+    },
+    "nonbreakingWhitespace": {
+      "title": "Nonbreaking Whitespace",
+      "description": "Include non-breaking space characters in whitespace to be deleted."
+    },
+    "other": {
+      "title": "All Other Whitespace",
+      "description": "Include all other whitespace characters in whitespace to be deleted."
+    },
+    "questionMark": {
+      "title": "Question Mark",
+      "description": "Correct whitespace after question marks in target text."
+    },
+    "space": {
+      "title": "Standard White Space",
+      "description": "Include standard space characters in whitespace to be deleted."
+    },
+    "verticalWhitespace": {
+      "title": "Vertical White Space",
+      "description": "Include vertical whitespace (line feeds, carriage returns) in whitespace to be deleted."
     }
   }
 }

@@ -20,10 +20,11 @@
     "threshold": {
       "type": "integer",
       "default": 200000,
-      "title": "Maximum word-count per part:",
+      "title": "Maximum Word Count Per Part",
       "x-editor": {
         "widget": "text"
-      }
+      },
+      "description": "Maximum word count threshold for splitting XLIFF files into parts."
     }
   }
 }

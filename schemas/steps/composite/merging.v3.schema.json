@@ -84,13 +84,14 @@
     "skipOriginalTargetCodeMetadata": {
       "type": "boolean",
       "default": false,
-      "title": "Skip the original target when copying code metadata",
+      "title": "Skip Original Target Code Metadata",
       "x-editor": {
         "widget": "checkbox",
         "layout": {
           "vertical": true
         }
-      }
+      },
+      "description": "Skip the original target's code metadata when copying during merge, to avoid overwriting translated codes."
     }
   }
 }

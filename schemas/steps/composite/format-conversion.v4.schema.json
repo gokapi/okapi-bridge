@@ -19,34 +19,6 @@
     "outputType": "file"
   },
   "properties": {
-    "tmx": {
-      "type": "boolean",
-      "default": false
-    },
-    "po": {
-      "type": "boolean",
-      "default": false
-    },
-    "table": {
-      "type": "boolean",
-      "default": false
-    },
-    "pensieve": {
-      "type": "boolean",
-      "default": false
-    },
-    "corpus": {
-      "type": "boolean",
-      "default": false
-    },
-    "wordtable": {
-      "type": "boolean",
-      "default": false
-    },
-    "xliff": {
-      "type": "boolean",
-      "default": false
-    },
     "singleOutput": {
       "type": "boolean",
       "default": true,
@@ -140,7 +112,8 @@
     "formatOptions": {
       "type": "string",
       "default": "",
-      "title": "Format options"
+      "title": "Format Options",
+      "description": "Format-specific options for the selected output format writer."
     },
     "useGenericCodes": {
       "type": "boolean",

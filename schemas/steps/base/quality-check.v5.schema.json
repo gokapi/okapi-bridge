@@ -24,6 +24,10 @@
     "outputType": "filter-events"
   },
   "properties": {
+    ".qccfg": {
+      "type": "boolean",
+      "default": false
+    },
     "outputPath": {
       "type": "string",
       "default": "${rootDir}/qa-report.html"

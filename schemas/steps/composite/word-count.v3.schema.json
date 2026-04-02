@@ -18,13 +18,14 @@
     "countInTextUnits": {
       "type": "boolean",
       "default": true,
-      "title": "Text units",
+      "title": "Text Units",
       "x-editor": {
         "widget": "checkbox",
         "layout": {
           "vertical": true
         }
-      }
+      },
+      "description": "Create word count annotations for text unit resources."
     },
     "countInBatch": {
       "type": "boolean",
@@ -100,8 +101,9 @@
     },
     "simplifierRules": {
       "type": "string",
-      "description": "Simplifier rules for code type normalization",
-      "x-widget": "simplifierRulesEditor"
+      "description": "Code simplifier rules for simplifying inline codes before counting.",
+      "x-widget": "simplifierRulesEditor",
+      "title": "Simplifier Rules"
     }
   }
 }

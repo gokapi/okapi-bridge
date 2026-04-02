@@ -97,7 +97,9 @@
     },
     "monolingual": {
       "type": "boolean",
-      "default": false
+      "default": false,
+      "title": "Monolingual Mode",
+      "description": "Operate in monolingual mode for source-only documents."
     }
   }
 }

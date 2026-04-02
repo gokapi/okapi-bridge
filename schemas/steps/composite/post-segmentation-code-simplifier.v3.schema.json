@@ -43,7 +43,9 @@
     },
     "rules": {
       "type": "string",
-      "default": ""
+      "default": "",
+      "title": "Simplifier Rules",
+      "description": "Code simplifier rules in Okapi Code Simplifier Rule Format, applied after segmentation."
     }
   }
 }

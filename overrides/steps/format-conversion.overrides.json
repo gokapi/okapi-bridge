@@ -24,6 +24,10 @@
     "overwriteSameSource": {
       "title": "Overwrite Same Source",
       "description": "For Pensieve TM output, replaces existing entries when the source text matches"
+    },
+    "formatOptions": {
+      "title": "Format Options",
+      "description": "Format-specific options for the selected output format writer."
     }
   }
 }

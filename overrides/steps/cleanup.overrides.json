@@ -21,6 +21,10 @@
     },
     "keepCrNlIntact": {
       "description": "Preserve CR and NL characters instead of normalizing them to spaces."
+    },
+    "userRegex": {
+      "title": "User Defined Regex",
+      "description": "Custom regular expression pattern for matching segments to mark for removal."
     }
   }
 }

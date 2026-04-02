@@ -20,6 +20,10 @@
     "interrupt": {
       "title": "Interrupt on Warning Limit",
       "description": "Stop the pipeline when the maximum number of warnings is reached for a document."
+    },
+    "monolingual": {
+      "title": "Monolingual Mode",
+      "description": "Operate in monolingual mode for source-only documents."
     }
   }
 }

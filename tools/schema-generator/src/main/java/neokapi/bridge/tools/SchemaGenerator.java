@@ -206,18 +206,26 @@ public class SchemaGenerator {
 
         // Known bare stems from array-encoded parameters (collapsed by StepSchemaGenerator).
         // These appear in introspection but are serialization artifacts, not real parameters.
-        // Known bare stems from array-encoded parameters (collapsed by StepSchemaGenerator).
-        // These appear in introspection results but are serialization artifacts —
-        // the actual data lives in the collapsed "patterns" array property.
-        java.util.Set<String> arrayStems = java.util.Set.of(
+        // Known bare stems from array-encoded parameters (collapsed by StepSchemaGenerator)
+        // and leaked constant values (enum values, file extensions, attribute names).
+        // These appear in introspection results but are not real parameters.
+        java.util.Set<String> excludeFromEnrichment = java.util.Set.of(
+                // Array stems (collapsed into "patterns" array)
                 "usePattern", "fromSourcePattern", "singlePattern", "severityPattern",
-                "sourcePattern", "targetPattern", "descPattern", "patternCount");
+                "sourcePattern", "targetPattern", "descPattern", "patternCount",
+                // Leaked enum values
+                "None", "Transitional", "Strict",                    // xliffSchemaType values
+                "tmx", "po", "table", "pensieve", "corpus",         // format-conversion format constants
+                "wordtable", "xliff",                                // format-conversion format constants
+                "original", "generic", "plain",                      // inconsistency-check display options
+                "translation_type", "translation_status",            // xliff-splitter IWS attribute names
+                ".qccfg");                                           // quality-check file extension constant
 
         // Build enriched properties using the transformer.
         JsonObject enrichedProps = new JsonObject();
         for (Map.Entry<String, ParameterIntrospector.ParamInfo> entry : params.entrySet()) {
             String paramName = entry.getKey();
-            if (arrayStems.contains(paramName)) continue;
+            if (excludeFromEnrichment.contains(paramName)) continue;
             ParameterIntrospector.ParamInfo paramInfo = entry.getValue();
 
             JsonObject propSchema = transformer.transformParameter(paramName, paramInfo);

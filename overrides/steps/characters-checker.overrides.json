@@ -3,16 +3,20 @@
   "title": "Characters Checker",
   "fields": {
     "corruptedCharacters": {
-      "title": "Warn if some possibly corrupted characters are found in the target entry"
+      "title": "Warn if some possibly corrupted characters are found in the target entry",
+      "description": "Check for patterns indicating corrupted characters."
     },
     "checkAllowedCharacters": {
-      "title": "Verify the ITS Allowed Characters property"
+      "title": "Verify the ITS Allowed Characters property",
+      "description": "Check target characters against the ITS Allowed Characters property."
     },
     "checkCharacters": {
-      "title": "Warn if a character is not included in the following character set encoding"
+      "title": "Warn if a character is not included in the following character set encoding",
+      "description": "Warn if a character is not in the specified character set encoding."
     },
     "extraCharsAllowed": {
-      "title": "Allow the characters matching the following regular expression pattern"
+      "title": "Allow the characters matching the following regular expression pattern",
+      "description": "Regular expression matching characters to allow beyond the character set."
     },
     "charset": {
       "title": "Character Set Encoding",

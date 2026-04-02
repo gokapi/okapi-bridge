@@ -119,18 +119,6 @@
         }
       },
       "description": "Automatically open the generated report file in the default application after processing completes."
-    },
-    "original": {
-      "type": "boolean",
-      "default": false
-    },
-    "generic": {
-      "type": "boolean",
-      "default": false
-    },
-    "plain": {
-      "type": "boolean",
-      "default": false
     }
   }
 }

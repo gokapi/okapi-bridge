@@ -3,31 +3,40 @@
   "title": "General Checker",
   "fields": {
     "leadingWS": {
-      "title": "Warn if a target entry has a difference in leading white spaces"
+      "title": "Warn if a target entry has a difference in leading white spaces",
+      "description": "Flag text units where leading whitespace differs between source and target."
     },
     "trailingWS": {
-      "title": "Warn if a target entry has a difference in trailing white spaces"
+      "title": "Warn if a target entry has a difference in trailing white spaces",
+      "description": "Flag text units where trailing whitespace differs between source and target."
     },
     "emptyTarget": {
-      "title": "Warn if a target segment is empty when its source is not empty"
+      "title": "Warn if a target segment is empty when its source is not empty",
+      "description": "Flag segments where the target is empty while the source is not."
     },
     "emptySource": {
-      "title": "Warn if a target segment is not empty when its source is empty"
+      "title": "Warn if a target segment is not empty when its source is empty",
+      "description": "Flag segments where the target is not empty while the source is empty."
     },
     "targetSameAsSource": {
-      "title": "Warn if a target segment is the same as its source (for segments with text)"
+      "title": "Warn if a target segment is the same as its source (for segments with text)",
+      "description": "Flag segments where target is identical to source."
     },
     "targetSameAsSourceForSameLanguage": {
-      "title": "Verify for same language family (i.e. en vs. en-GB, or fr-FR vs. fr-CA)"
+      "title": "Verify for same language family (i.e. en vs. en-GB, or fr-FR vs. fr-CA)",
+      "description": "Flag segments where target equals source when source and target languages are identical."
     },
     "targetSameAsSourceWithCodes": {
-      "title": "Include the codes in the comparison"
+      "title": "Include the codes in the comparison",
+      "description": "Include inline codes when comparing source and target for same-as-source check."
     },
     "doubledWord": {
-      "title": "Warn on doubled words (e.g. \"is is\" in \"This is is an example\")"
+      "title": "Warn on doubled words (e.g. \"is is\" in \"This is is an example\")",
+      "description": "Flag target segments with sequential repetition of the same word."
     },
     "doubledWordExceptions": {
-      "title": "Exceptions (words separated by ';' e.g. \"vous;nous\")"
+      "title": "Exceptions (words separated by ';' e.g. \"vous;nous\")",
+      "description": "Semicolon-separated list of words allowed to be repeated sequentially."
     }
   }
 }

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://neokapi.dev/schemas/editorHints.schema.json",
+  "fields": {
+    "rules": {
+      "title": "Simplifier Rules",
+      "description": "Code simplifier rules in Okapi Code Simplifier Rule Format for inline code normalization."
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "$schema": "https://neokapi.dev/schemas/schema-versions.json",
-  "generatedAt": "2026-04-02T11:26:09Z",
+  "generatedAt": "2026-04-02T11:39:24Z",
   "filters": {
     "okf_archive": {
       "versions": [
@@ -3160,8 +3160,8 @@
             "1.47.0"
           ],
           "baseHash": "9828de555b2f",
-          "compositeHash": "b8dfad21e08c",
-          "overrideHash": "5aaf3fdb71cd"
+          "compositeHash": "34ab4d477154",
+          "overrideHash": "ed48ac0707e9"
         }
       ]
     },
@@ -3192,8 +3192,8 @@
             "1.47.0"
           ],
           "baseHash": "349811efc3d9",
-          "compositeHash": "d737f2bdfc2d",
-          "overrideHash": "1fdca6163e91"
+          "compositeHash": "dd6e4d8c54e3",
+          "overrideHash": "9b2b40445978"
         }
       ]
     },
@@ -3224,8 +3224,8 @@
             "1.47.0"
           ],
           "baseHash": "196b74804675",
-          "compositeHash": "77a1822e593d",
-          "overrideHash": "cb84cd2f6714"
+          "compositeHash": "5281c4303d40",
+          "overrideHash": "915c8fda35c7"
         }
       ]
     },
@@ -3256,8 +3256,8 @@
             "1.47.0"
           ],
           "baseHash": "b5b7a96388d8",
-          "compositeHash": "b5b7a96388d8",
-          "overrideHash": null
+          "compositeHash": "6fa9d2a9898c",
+          "overrideHash": "434335219935"
         }
       ]
     },
@@ -4312,8 +4312,8 @@
             "1.47.0"
           ],
           "baseHash": "17169549ded6",
-          "compositeHash": "1d3134813ebf",
-          "overrideHash": "a04447599178"
+          "compositeHash": "a0643ebba1b9",
+          "overrideHash": "199a741485b4"
         }
       ]
     },
@@ -4344,8 +4344,8 @@
             "1.47.0"
           ],
           "baseHash": "0bb1b7ca1e1d",
-          "compositeHash": "684192d92aeb",
-          "overrideHash": "5668bcf3e25e"
+          "compositeHash": "aa7981871fe6",
+          "overrideHash": "3b2d39b1a6ac"
         }
       ]
     },
@@ -4439,9 +4439,18 @@
           "okapiVersions": [
             "1.47.0"
           ],
-          "baseHash": "07db037deb86",
-          "compositeHash": "e13b5f8ba334",
-          "overrideHash": "460465bb8e4b"
+          "baseHash": "07db037deb86"
+        },
+        {
+          "version": 4,
+          "hash": "2a97ef73f09b",
+          "introducedInOkapi": "1.47.0",
+          "okapiVersions": [
+            "1.47.0"
+          ],
+          "baseHash": "2a97ef73f09b",
+          "compositeHash": "70b9576fe0bd",
+          "overrideHash": "55a78148c615"
         }
       ]
     },
@@ -5272,8 +5281,8 @@
             "1.47.0"
           ],
           "baseHash": "b9e3b1bf9a69",
-          "compositeHash": "8b387311822a",
-          "overrideHash": "4bb95e395fc0"
+          "compositeHash": "160b2b51cfae",
+          "overrideHash": "28ba829e0da3"
         }
       ]
     },
@@ -5399,8 +5408,17 @@
           "okapiVersions": [
             "1.47.0"
           ],
-          "baseHash": "cc3a8d15df18",
-          "compositeHash": "b6ab44a3be28",
+          "baseHash": "cc3a8d15df18"
+        },
+        {
+          "version": 4,
+          "hash": "1d7a00df94fa",
+          "introducedInOkapi": "1.47.0",
+          "okapiVersions": [
+            "1.47.0"
+          ],
+          "baseHash": "1d7a00df94fa",
+          "compositeHash": "b03bb551444f",
           "overrideHash": "ca5f834aa1b1"
         }
       ]
@@ -5432,8 +5450,8 @@
             "1.47.0"
           ],
           "baseHash": "2f08820de834",
-          "compositeHash": "811aba495eab",
-          "overrideHash": "f4fb45268d77"
+          "compositeHash": "657bc49f8c6a",
+          "overrideHash": "263f80413a1a"
         }
       ]
     },
@@ -5464,8 +5482,8 @@
             "1.47.0"
           ],
           "baseHash": "2b3030e89ce2",
-          "compositeHash": "c890778af28d",
-          "overrideHash": "2ff3e75934af"
+          "compositeHash": "7237c93aab89",
+          "overrideHash": "05cde35a5337"
         }
       ]
     },
@@ -5496,8 +5514,8 @@
             "1.47.0"
           ],
           "baseHash": "74ef3c42fc37",
-          "compositeHash": "d82fd54e744e",
-          "overrideHash": "e9441711235a"
+          "compositeHash": "428fbd0f9924",
+          "overrideHash": "1c71cc4acf9c"
         }
       ]
     },
@@ -5688,8 +5706,8 @@
             "1.47.0"
           ],
           "baseHash": "22235d5c6bbe",
-          "compositeHash": "c6344c562edd",
-          "overrideHash": "af958b9958bd"
+          "compositeHash": "762e9e69a692",
+          "overrideHash": "6ce77dcf23e9"
         }
       ]
     },
@@ -5761,8 +5779,8 @@
             "1.47.0"
           ],
           "baseHash": "9ba2ece65ba6",
-          "compositeHash": "09948163475b",
-          "overrideHash": "3f10bb537336"
+          "compositeHash": "69f131c49f24",
+          "overrideHash": "e7febda38287"
         }
       ]
     },
@@ -5857,8 +5875,8 @@
             "1.47.0"
           ],
           "baseHash": "dc5826f5139d",
-          "compositeHash": "dc5826f5139d",
-          "overrideHash": null
+          "compositeHash": "db42bb93b2f4",
+          "overrideHash": "63683efdd082"
         }
       ]
     },
@@ -5897,8 +5915,26 @@
           "okapiVersions": [
             "1.47.0"
           ],
-          "baseHash": "c2a7c4c13751",
-          "compositeHash": "c6d3952a541e",
+          "baseHash": "c2a7c4c13751"
+        },
+        {
+          "version": 5,
+          "hash": "386727b92849",
+          "introducedInOkapi": "1.47.0",
+          "okapiVersions": [
+            "1.47.0"
+          ],
+          "baseHash": "386727b92849"
+        },
+        {
+          "version": 6,
+          "hash": "4bb55f3a0814",
+          "introducedInOkapi": "1.47.0",
+          "okapiVersions": [
+            "1.47.0"
+          ],
+          "baseHash": "4bb55f3a0814",
+          "compositeHash": "7074bbefa6c1",
           "overrideHash": "4780e1a1a6cc"
         }
       ]
@@ -6154,8 +6190,8 @@
             "1.47.0"
           ],
           "baseHash": "d4808f97101a",
-          "compositeHash": "d4808f97101a",
-          "overrideHash": null
+          "compositeHash": "3f54503ed0f4",
+          "overrideHash": "94b3223c24cc"
         }
       ]
     },
@@ -6218,8 +6254,8 @@
             "1.47.0"
           ],
           "baseHash": "0985fdd4491d",
-          "compositeHash": "c4defc19e0f8",
-          "overrideHash": "09b406e1ef8a"
+          "compositeHash": "9882cae61915",
+          "overrideHash": "d0ace360cda8"
         }
       ]
     },
@@ -6538,8 +6574,8 @@
             "1.47.0"
           ],
           "baseHash": "cf01b7513256",
-          "compositeHash": "a0e05a9e393b",
-          "overrideHash": "c3dc1a73736f"
+          "compositeHash": "72c23126f4a3",
+          "overrideHash": "6cb912d9c1f6"
         }
       ]
     },
@@ -6666,8 +6702,8 @@
             "1.47.0"
           ],
           "baseHash": "3a97d8433b20",
-          "compositeHash": "5465ff8dfe3a",
-          "overrideHash": "acea0d2385fe"
+          "compositeHash": "db2997f694d9",
+          "overrideHash": "a75036554131"
         }
       ]
     },
@@ -6698,8 +6734,8 @@
             "1.47.0"
           ],
           "baseHash": "5089ab4645d5",
-          "compositeHash": "ae6c9bdc485d",
-          "overrideHash": "a3adadf3287f"
+          "compositeHash": "8f588fda8bcc",
+          "overrideHash": "089d3ff32d59"
         }
       ]
     },
@@ -6889,8 +6925,17 @@
           "okapiVersions": [
             "1.47.0"
           ],
-          "baseHash": "154de0404df5",
-          "compositeHash": "4cbc9f8f4a73",
+          "baseHash": "154de0404df5"
+        },
+        {
+          "version": 4,
+          "hash": "05d3c5d3d903",
+          "introducedInOkapi": "1.47.0",
+          "okapiVersions": [
+            "1.47.0"
+          ],
+          "baseHash": "05d3c5d3d903",
+          "compositeHash": "ecb81d21e657",
           "overrideHash": "156d5a3f631d"
         }
       ]
@@ -6922,8 +6967,8 @@
             "1.47.0"
           ],
           "baseHash": "85c3f0f8a518",
-          "compositeHash": "85c3f0f8a518",
-          "overrideHash": null
+          "compositeHash": "4ef4dde51e79",
+          "overrideHash": "c715fd3e8915"
         }
       ]
     }

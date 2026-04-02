@@ -64,6 +64,10 @@
     "copySourceOnNoText": {
       "title": "Copy Source If No Text",
       "description": "Copy source into target when the source has no translatable text."
+    },
+    "resourceParameters": {
+      "title": "Resource Parameters",
+      "description": "Parameters for the translation resource connector (TM or MT engine)."
     }
   }
 }
