@@ -338,44 +338,98 @@ public class StepSchemaGenerator {
 
     /**
      * Parse a ParametersString (#v1 format) to discover parameter names and types.
+     *
+     * Detects array-encoded parameters where Okapi serializes a List as indexed
+     * flat keys (e.g. usePattern0, usePattern1, ...) with a count key (patternCount).
+     * These are collapsed into a single array property with an items schema.
      */
     private static JsonObject parseParametersString(String serialized, ParametersDescription paramsDesc) {
-        JsonObject properties = new JsonObject();
-
-        String[] lines = serialized.split("\n");
-        for (String line : lines) {
+        // Phase 1: Parse all lines into (name, type, defaultValue) tuples
+        List<String[]> entries = new ArrayList<>(); // [paramName, type, rawValue]
+        for (String line : serialized.split("\n")) {
             line = line.trim();
-            if (line.isEmpty() || line.startsWith("#")) {
-                continue;
-            }
-
+            if (line.isEmpty() || line.startsWith("#")) continue;
             int eq = line.indexOf('=');
-            if (eq < 0) {
-                continue;
-            }
+            if (eq < 0) continue;
 
             String rawKey = line.substring(0, eq).trim();
             String rawValue = line.substring(eq + 1).trim();
 
             String paramName;
             String paramType;
-            Object defaultValue;
-
             if (rawKey.endsWith(".b")) {
                 paramName = rawKey.substring(0, rawKey.length() - 2);
                 paramType = "boolean";
-                defaultValue = Boolean.parseBoolean(rawValue);
             } else if (rawKey.endsWith(".i")) {
                 paramName = rawKey.substring(0, rawKey.length() - 2);
                 paramType = "integer";
-                try {
-                    defaultValue = Integer.parseInt(rawValue);
-                } catch (NumberFormatException e) {
-                    defaultValue = 0;
-                }
             } else {
                 paramName = rawKey;
                 paramType = "string";
+            }
+            entries.add(new String[]{paramName, paramType, rawValue});
+        }
+
+        // Phase 2: Collapse array-encoded parameters.
+        //
+        // Okapi's #v1 format encodes List<T> as indexed flat keys:
+        //   patternCount.i=8, usePattern0.b=true, sourcePattern0=..., etc.
+        //
+        // These are known, stable patterns in the Okapi library. We define them
+        // explicitly rather than trying to detect them heuristically.
+        java.util.Set<String> excludeKeys = new java.util.LinkedHashSet<>();
+        java.util.Map<String, JsonObject> arrayProperties = new java.util.LinkedHashMap<>();
+
+        // Known array-encoded parameter groups in Okapi:
+        collapseCompoundArray(entries, excludeKeys, arrayProperties,
+                "patterns",                                        // output property name
+                "patternCount",                                    // count key
+                new String[]{"usePattern", "fromSourcePattern", "singlePattern",
+                             "severityPattern", "sourcePattern", "targetPattern", "descPattern"},
+                new String[]{"boolean",    "boolean",           "boolean",
+                             "integer",    "string",            "string",         "string"},
+                new String[]{"enabled",    "fromSource",        "single",
+                             "severity",   "source",            "target",         "description"});
+
+        collapseSimpleArray(entries, excludeKeys, arrayProperties,
+                "extraCodesAllowed", "string");
+
+        collapseSimpleArray(entries, excludeKeys, arrayProperties,
+                "missingCodesAllowed", "string");
+
+        // search-and-replace: use0/search0/replace0 with "count" as length
+        collapseCompoundArray(entries, excludeKeys, arrayProperties,
+                "rules",                                           // output property name
+                "count",                                           // count key
+                new String[]{"use",     "search",  "replace"},
+                new String[]{"string",  "string",  "string"},
+                new String[]{"enabled", "search",  "replace"});
+
+        // Phase 3: Emit detected array properties first
+        JsonObject properties = new JsonObject();
+
+        // Add detected array properties
+        for (java.util.Map.Entry<String, JsonObject> ap : arrayProperties.entrySet()) {
+            properties.add(ap.getKey(), ap.getValue());
+        }
+
+        // Phase 4: Emit regular (non-indexed) parameters
+        for (String[] entry : entries) {
+            String paramName = entry[0];
+            String paramType = entry[1];
+            String rawValue = entry[2];
+
+            // Skip keys consumed by array detection
+            if (excludeKeys.contains(paramName)) continue;
+
+            // Regular parameter
+            Object defaultValue;
+            if ("boolean".equals(paramType)) {
+                defaultValue = Boolean.parseBoolean(rawValue);
+            } else if ("integer".equals(paramType)) {
+                try { defaultValue = Integer.parseInt(rawValue); }
+                catch (NumberFormatException e) { defaultValue = 0; }
+            } else {
                 defaultValue = rawValue;
             }
 
@@ -412,5 +466,105 @@ public class StepSchemaGenerator {
         }
 
         return properties;
+    }
+
+    /**
+     * Collapse a compound array encoded as indexed flat keys.
+     * E.g. patternCount=8, usePattern0=..., sourcePattern0=..., usePattern1=..., etc.
+     * becomes a single "patterns" array property with object items.
+     *
+     * Only adds to excludeKeys/arrayProperties if matching keys are actually found.
+     */
+    private static void collapseCompoundArray(
+            List<String[]> entries,
+            java.util.Set<String> excludeKeys,
+            java.util.Map<String, JsonObject> arrayProperties,
+            String arrayName,
+            String countKey,
+            String[] stems,      // e.g. {"usePattern", "sourcePattern", ...}
+            String[] types,      // e.g. {"boolean", "string", ...}
+            String[] fieldNames  // e.g. {"enabled", "source", ...}
+    ) {
+        // Check if any of the indexed keys exist
+        boolean found = false;
+        for (String[] entry : entries) {
+            for (String stem : stems) {
+                if (entry[0].startsWith(stem) && entry[0].length() > stem.length()
+                        && Character.isDigit(entry[0].charAt(stem.length()))) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) break;
+        }
+        if (!found) return;
+
+        // Exclude count key, all indexed keys, and the bare stems
+        excludeKeys.add(countKey);
+        for (String stem : stems) {
+            excludeKeys.add(stem); // bare stem (e.g. "usePattern" without index)
+        }
+        for (String[] entry : entries) {
+            for (String stem : stems) {
+                if (entry[0].startsWith(stem) && entry[0].length() > stem.length()
+                        && Character.isDigit(entry[0].charAt(stem.length()))) {
+                    excludeKeys.add(entry[0]);
+                }
+            }
+        }
+
+        // Build items schema
+        JsonObject itemsProps = new JsonObject();
+        for (int i = 0; i < stems.length; i++) {
+            JsonObject fieldSchema = new JsonObject();
+            fieldSchema.addProperty("type", types[i]);
+            itemsProps.add(fieldNames[i], fieldSchema);
+        }
+
+        JsonObject items = new JsonObject();
+        items.addProperty("type", "object");
+        items.add("properties", itemsProps);
+
+        JsonObject arrayProp = new JsonObject();
+        arrayProp.addProperty("type", "array");
+        arrayProp.add("items", items);
+        arrayProp.addProperty("description", "Array of " + arrayName + " encoded from indexed flat parameters.");
+
+        arrayProperties.put(arrayName, arrayProp);
+    }
+
+    /**
+     * Collapse a simple array encoded as indexed flat keys.
+     * E.g. extraCodesAllowed=0 (count), extraCodesAllowed0=..., extraCodesAllowed1=...
+     * becomes a single "extraCodesAllowed" array property with string items.
+     */
+    private static void collapseSimpleArray(
+            List<String[]> entries,
+            java.util.Set<String> excludeKeys,
+            java.util.Map<String, JsonObject> arrayProperties,
+            String stem,
+            String itemType
+    ) {
+        boolean found = false;
+        for (String[] entry : entries) {
+            if (entry[0].startsWith(stem) && entry[0].length() > stem.length()
+                    && Character.isDigit(entry[0].charAt(stem.length()))) {
+                found = true;
+                excludeKeys.add(entry[0]);
+            }
+        }
+        if (!found) return;
+
+        // The stem itself is the count key (integer)
+        excludeKeys.add(stem);
+
+        JsonObject items = new JsonObject();
+        items.addProperty("type", itemType);
+
+        JsonObject arrayProp = new JsonObject();
+        arrayProp.addProperty("type", "array");
+        arrayProp.add("items", items);
+
+        arrayProperties.put(stem, arrayProp);
     }
 }
