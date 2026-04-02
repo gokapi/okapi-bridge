@@ -14,7 +14,7 @@
 #     x-step             → toolMeta (from step-metadata.json)
 #     x-editor           → ui:widget + ui:widget-options + ui:enabled + ui:layout
 #     x-showIf           → ui:visible
-#     x-enumLabels       → ui:enum-labels
+#     x-enumLabels+enum  → options (consolidated labeled enum)
 #     x-enumDescriptions → ui:enum-descriptions
 #     x-flattenPath      → x-okapi-flatten-path
 #     x-okapiFormat      → x-okapi-format
@@ -22,6 +22,12 @@
 #     x-placeholder      → ui:placeholder
 #     x-widget           → ui:widget
 #     x-presets           → ui:presets
+#     x-path             → x-path (preserved, merged with path browse metadata)
+#     enables            → resolved to ui:enabled on target properties
+#     enabledBy           → ui:enabled (converted from simple to ConditionExpr)
+#     options            → options (passed through)
+#     group              → removed (use nested objects instead)
+#     layout             → ui:layout (consolidated)
 #
 # Usage: ./scripts/transform-to-plugin.sh <okapi-version> <bridge-version>
 
@@ -67,7 +73,13 @@ def rename_ui_extensions:
     (if has("x-widget") then .["ui:widget"] = .["x-widget"] | del(.["x-widget"]) else . end) |
     (if has("x-placeholder") then .["ui:placeholder"] = .["x-placeholder"] | del(.["x-placeholder"]) else . end) |
     (if has("x-presets") then .["ui:presets"] = .["x-presets"] | del(.["x-presets"]) else . end) |
-    (if has("x-enumLabels") then .["ui:enum-labels"] = .["x-enumLabels"] | del(.["x-enumLabels"]) else . end) |
+    # Consolidate enums: x-enumLabels + enum → options array
+    (if has("x-enumLabels") and has("enum") and ((.enum | length) == (.["x-enumLabels"] | length)) then
+      .options = ([.enum, .["x-enumLabels"]] | transpose | map({value: .[0], label: .[1]})) |
+      del(.enum) | del(.["x-enumLabels"])
+    elif has("x-enumLabels") then
+      del(.["x-enumLabels"])
+    else . end) |
     (if has("x-enumDescriptions") then .["ui:enum-descriptions"] = .["x-enumDescriptions"] | del(.["x-enumDescriptions"]) else . end) |
     (if has("x-flattenPath") then .["x-okapi-flatten-path"] = .["x-flattenPath"] | del(.["x-flattenPath"]) else . end) |
     (if has("x-okapiFormat") then .["x-okapi-format"] = .["x-okapiFormat"] | del(.["x-okapiFormat"]) else . end) |
@@ -116,6 +128,37 @@ def rename_ui_extensions:
       else . end) |
       del(.["x-editor"])
     else . end) |
+    # Consolidate standalone enabledBy → ui:enabled (from overrides, not x-editor)
+    (if has("enabledBy") and (has("ui:enabled") | not) then
+      .["ui:enabled"] = (
+        if .enabledBy.enabledWhenSelected then
+          {field: .enabledBy.parameter, eq: true}
+        else
+          {not: {field: .enabledBy.parameter, eq: true}}
+        end
+      ) | del(.enabledBy)
+    elif has("enabledBy") then del(.enabledBy)
+    else . end) |
+    # Consolidate standalone layout → ui:layout (from overrides)
+    (if has("layout") and (has("ui:layout") | not) then
+      .["ui:layout"] = (
+        .layout |
+        (if has("withLabel") then
+          if .withLabel == false then {hideLabel: true} else {} end
+        else {} end) +
+        (if .vertical then {vertical: true} else {} end)
+      ) | del(.layout) |
+      if .["ui:layout"] == {} then del(.["ui:layout"]) else . end
+    elif has("layout") then del(.layout)
+    else . end) |
+    # Merge path browse metadata into x-path (if both exist)
+    (if has("path") and has("x-path") then
+      .["x-path"] = .["x-path"] + .path | del(.path)
+    elif has("path") then
+      .["x-path"] = (.["x-path"] // {}) + .path | del(.path)
+    else . end) |
+    # Remove group field (use nested objects instead)
+    del(.group) |
     # Recurse into nested properties
     (if has("properties") then .properties |= map_values(rename_ui_extensions) else . end) |
     (if has("items") and (.items | type) == "object" then .items |= rename_ui_extensions else . end) |
@@ -173,7 +216,24 @@ for filter_dir in "$INPUT_DIR"/filters/*/; do
         (if has("$id") then .["$id"] = (.["$id"] | gsub("okapiframework\\.org"; "neokapi.dev")) else . end) |
         # Rename property extensions recursively
         (if has("properties") then .properties |= map_values(rename_ui_extensions) else . end) |
-        (if has("$defs") then .["$defs"] |= map_values(rename_ui_extensions) else . end)
+        (if has("$defs") then .["$defs"] |= map_values(rename_ui_extensions) else . end) |
+        # Resolve enables → ui:enabled on target properties
+        (if has("properties") then
+          (.properties | to_entries | map(select(.value | type == "object" and .enables != null)) |
+           map({master: .key, targets: .value.enables})) as $enables_list |
+          if ($enables_list | length) > 0 then
+            .properties |= (
+              reduce ($enables_list[]) as $e (.;
+                reduce ($e.targets[]) as $t (.;
+                  if has($t) and (.[$t] | type == "object") and (.[$t]["ui:enabled"] == null) then
+                    .[$t]["ui:enabled"] = {field: $e.master, eq: true}
+                  else . end
+                )
+              ) |
+              with_entries(if (.value | type == "object") then .value |= del(.enables) else . end)
+            )
+          else . end
+        else . end)
     ' "$schema_file" > "$OUTPUT_DIR/formats/${filter_id}/schema.json"
 
     # Extract presets into separate files
@@ -246,7 +306,24 @@ for step_dir in "$INPUT_DIR"/steps/*/; do
         (if has("x-groups") then .["ui:groups"] = .["x-groups"] | del(.["x-groups"]) else . end) |
         # Rename property extensions recursively
         (if has("properties") then .properties |= map_values(rename_ui_extensions) else . end) |
-        (if has("$defs") then .["$defs"] |= map_values(rename_ui_extensions) else . end)
+        (if has("$defs") then .["$defs"] |= map_values(rename_ui_extensions) else . end) |
+        # Resolve enables → ui:enabled on target properties
+        (if has("properties") then
+          (.properties | to_entries | map(select(.value | type == "object" and .enables != null)) |
+           map({master: .key, targets: .value.enables})) as $enables_list |
+          if ($enables_list | length) > 0 then
+            .properties |= (
+              reduce ($enables_list[]) as $e (.;
+                reduce ($e.targets[]) as $t (.;
+                  if has($t) and (.[$t] | type == "object") and (.[$t]["ui:enabled"] == null) then
+                    .[$t]["ui:enabled"] = {field: $e.master, eq: true}
+                  else . end
+                )
+              ) |
+              with_entries(if (.value | type == "object") then .value |= del(.enables) else . end)
+            )
+          else . end
+        else . end)
     ' "$schema_file" | jq --arg sid "$step_id" --slurpfile meta "$STEP_METADATA" '
         if $meta[0][$sid] then
             .toolMeta = $meta[0][$sid]
