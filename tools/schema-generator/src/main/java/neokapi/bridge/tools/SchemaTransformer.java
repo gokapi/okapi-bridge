@@ -800,13 +800,44 @@ public class SchemaTransformer {
             }
         }
 
+        // Generate x-groups from the restructured properties for UI tab ordering.
+        // Each nested object property becomes a group entry. Common groups go first,
+        // then filter-specific groups, then any ungrouped properties.
+        JsonArray xGroups = new JsonArray();
+        for (Map.Entry<String, JsonElement> entry : newProperties.entrySet()) {
+            if (entry.getValue().isJsonObject()) {
+                JsonObject propObj = entry.getValue().getAsJsonObject();
+                if (propObj.has("properties") || propObj.has("$ref")) {
+                    JsonObject group = new JsonObject();
+                    group.addProperty("id", entry.getKey());
+                    // Try title from property, then from $defs if it's a $ref
+                    String label = entry.getKey();
+                    if (propObj.has("title")) {
+                        label = propObj.get("title").getAsString();
+                    } else if (propObj.has("$ref")) {
+                        String ref = propObj.get("$ref").getAsString();
+                        String defName = ref.replace("#/$defs/", "");
+                        if (defs.has(defName) && defs.getAsJsonObject(defName).has("title")) {
+                            label = defs.getAsJsonObject(defName).get("title").getAsString();
+                        }
+                    }
+                    group.addProperty("label", label);
+                    JsonArray fields = new JsonArray();
+                    fields.add(entry.getKey());
+                    group.add("fields", fields);
+                    xGroups.add(group);
+                }
+            }
+        }
+        if (xGroups.size() > 0) {
+            flatSchema.add("x-groups", xGroups);
+        }
+
         // Update the schema
         flatSchema.add("properties", newProperties);
         if (defs.size() > 0) {
             flatSchema.add("$defs", defs);
         }
-        // Remove x-groups (hierarchy replaces it)
-        flatSchema.remove("x-groups");
 
         return flatSchema;
     }
