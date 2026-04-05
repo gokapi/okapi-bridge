@@ -10,28 +10,35 @@ on:
         type: string
         default: 'main'
 
+concurrency:
+  group: snapshot-build
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
 jobs:
   snapshot:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout okapi-bridge
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Java 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: '17'
 
-      - name: Restore shared Maven cache
-        uses: actions/cache/restore@v4
+      - name: Cache Maven repository
+        uses: actions/cache@v5
         with:
           path: ~/.m2/repository
-          key: maven-snapshot-no-exact-match
-          restore-keys: maven-okapi-
+          key: maven-snapshot-${{ hashFiles('pom.xml', 'bridge-core/pom.xml') }}
+          restore-keys: |
+            maven-snapshot-
+            maven-okapi-
 
       - name: Validate cached Okapi JARs
         run: |
@@ -62,7 +69,10 @@ jobs:
           echo "Okapi version: $version"
 
       - name: Build Okapi from source
+        id: okapi-build
         working-directory: okapi-source
+        env:
+          OKAPI_VERSION: ${{ steps.okapi-version.outputs.version }}
         run: |
           echo "::group::Install root pom"
           mvn -B install -N -DskipTests
@@ -73,8 +83,29 @@ jobs:
           echo "::endgroup::"
 
           echo "::group::Build core + filters"
-          mvn -B install -f okapi/pom.xml -DskipTests -T 1C
+          # Use -fae (fail-at-end) so partial builds still install successful modules.
+          # Okapi main may have broken modules — we want all working ones available.
+          if mvn -B install -f okapi/pom.xml -DskipTests -T 1C -fae 2>&1 | tee /tmp/okapi-build.log; then
+            echo "okapi_build_status=success" >> "$GITHUB_OUTPUT"
+          else
+            echo "::warning::Okapi build had failures (partial build — continuing with available modules)"
+            echo "okapi_build_status=partial" >> "$GITHUB_OUTPUT"
+
+            # Extract failed modules for the summary
+            FAILED=$(grep '\[ERROR\].*FAILURE' /tmp/okapi-build.log | sed 's/.*\] //' || true)
+            {
+              echo 'failed_modules<<EOF'
+              echo "$FAILED"
+              echo 'EOF'
+            } >> "$GITHUB_OUTPUT"
+          fi
           echo "::endgroup::"
+
+          # Verify okapi-core was installed (required for the bridge)
+          if [ ! -f "$HOME/.m2/repository/net/sf/okapi/okapi-core/$OKAPI_VERSION/okapi-core-$OKAPI_VERSION.jar" ]; then
+            echo "::error::okapi-core failed to build — cannot continue"
+            exit 1
+          fi
 
       - name: Install parent pom
         run: mvn -B install -N -DskipTests
@@ -112,6 +143,8 @@ jobs:
         env:
           OKAPI_VERSION: ${{ steps.okapi-version.outputs.version }}
           OKAPI_REF: ${{ inputs.okapi_ref || 'main' }}
+          OKAPI_BUILD_STATUS: ${{ steps.okapi-build.outputs.okapi_build_status }}
+          FAILED_MODULES: ${{ steps.okapi-build.outputs.failed_modules }}
         run: |
           JAR=$(ls "$SNAPSHOT_DIR"/target/neokapi-bridge-*-jar-with-dependencies.jar 2>/dev/null || echo "")
           JAR_SIZE=""
@@ -120,20 +153,44 @@ jobs:
             JAR_SIZE=$(du -h "$JAR" | cut -f1)
             FILTER_COUNT=$(java -jar "$JAR" --list-filters 2>/dev/null | wc -l | tr -d ' ' || echo "N/A")
           fi
-          cat >> "$GITHUB_STEP_SUMMARY" << EOF
+
+          BUILD_ICON="✅"
+          if [ "$OKAPI_BUILD_STATUS" = "partial" ]; then
+            BUILD_ICON="⚠️ partial"
+          elif [ "$OKAPI_BUILD_STATUS" != "success" ]; then
+            BUILD_ICON="❌ failed"
+          fi
+
+          cat >> "$GITHUB_STEP_SUMMARY" << 'SUMMARY'
           ## Snapshot Build Results
 
           | Field | Value |
           |-------|-------|
+          SUMMARY
+          cat >> "$GITHUB_STEP_SUMMARY" << EOF
           | Okapi Version | \`${OKAPI_VERSION}\` |
           | Okapi Ref | \`${OKAPI_REF}\` |
+          | Okapi Build | ${BUILD_ICON} |
           | Filter Count | ${FILTER_COUNT} |
           | JAR Size | ${JAR_SIZE} |
           EOF
 
+          if [ -n "$FAILED_MODULES" ]; then
+            cat >> "$GITHUB_STEP_SUMMARY" << EOF
+
+          <details><summary>Failed Okapi modules</summary>
+
+          \`\`\`
+          ${FAILED_MODULES}
+          \`\`\`
+
+          </details>
+          EOF
+          fi
+
       - name: Upload JAR
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: neokapi-bridge-snapshot
           path: ${{ env.SNAPSHOT_DIR }}/target/neokapi-bridge-*-jar-with-dependencies.jar
@@ -191,6 +248,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           OKAPI_VERSION: ${{ steps.okapi-version.outputs.version }}
+          OKAPI_REF: ${{ inputs.okapi_ref || 'main' }}
         run: |
           # Delete existing snapshot release if present
           gh release delete snapshot --yes 2>/dev/null || true
@@ -202,7 +260,7 @@ jobs:
             --notes "Automated snapshot build against unreleased Okapi \`${OKAPI_VERSION}\`.
 
           This is a pre-release for testing — not for production use.
-          Built from Okapi ref: \`${{ inputs.okapi_ref || 'main' }}\`" \
+          Built from Okapi ref: \`${OKAPI_REF}\`" \
             "${ARCHIVE_NAME}.tar.gz"
 
       - name: Update snapshot registry channel
