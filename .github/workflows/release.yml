@@ -179,9 +179,90 @@ jobs:
             okapi-bridge-*.tar.gz.sha256
             capabilities.json
 
+      - name: Upload jar-with-dependencies (for v2 packaging)
+        uses: actions/upload-artifact@v7
+        with:
+          name: jar-${{ matrix.okapi-version }}
+          path: okapi-releases/${{ matrix.okapi-version }}/target/neokapi-bridge-*-jar-with-dependencies.jar
+
+  package-v2:
+    # Mode-C plugin tarballs per (okapi-version, os, arch). Each tarball
+    # bundles the Go shim + the JAR + a Temurin JRE matching the bridge's
+    # required Java version (11 or 17, from okapi-releases/<v>/meta.json).
+    if: github.event_name == 'push'
+    needs: [setup, build]
+    strategy:
+      fail-fast: false
+      matrix:
+        okapi-version: ${{ fromJson(needs.setup.outputs.versions) }}
+        target:
+          - { os: linux,   arch: amd64, runner: ubuntu-latest }
+          - { os: linux,   arch: arm64, runner: ubuntu-latest }
+          - { os: darwin,  arch: amd64, runner: macos-latest }
+          - { os: darwin,  arch: arm64, runner: macos-latest }
+    runs-on: ${{ matrix.target.runner }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Set up Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: '1.23'
+
+      - name: Set up Java (host JRE for filter introspection)
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Download JAR for ${{ matrix.okapi-version }}
+        uses: actions/download-artifact@v8
+        with:
+          name: jar-${{ matrix.okapi-version }}
+          path: okapi-releases/${{ matrix.okapi-version }}/target/
+
+      - name: Build v2 plugin tarball
+        env:
+          OKAPI_VERSION: ${{ matrix.okapi-version }}
+          TARGET_OS: ${{ matrix.target.os }}
+          TARGET_ARCH: ${{ matrix.target.arch }}
+        run: |
+          ./scripts/package-release-v2.sh \
+            --okapi-version "$OKAPI_VERSION" \
+            --os "$TARGET_OS" \
+            --arch "$TARGET_ARCH" \
+            --bundle-jre
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Cosign sign-blob (keyless)
+        env:
+          COSIGN_EXPERIMENTAL: "true"
+        run: |
+          for tarball in dist/v2/*.tar.gz; do
+            cosign sign-blob --yes \
+              --output-signature "${tarball}.sig" \
+              --output-certificate "${tarball}.pem" \
+              "${tarball}"
+          done
+
+      - name: Upload v2 plugin artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: v2-${{ matrix.okapi-version }}-${{ matrix.target.os }}-${{ matrix.target.arch }}
+          path: |
+            dist/v2/*.tar.gz
+            dist/v2/*.tar.gz.sha256
+            dist/v2/*.sig
+            dist/v2/*.pem
+
   release:
-    needs: build
-    if: always() && !cancelled() && github.event_name == 'push'
+    needs: [build, package-v2]
+    # package-v2 may fail for one platform without blocking the release —
+    # any v2 tarballs that exist will still be uploaded.
+    if: always() && !cancelled() && github.event_name == 'push' && needs.build.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -198,6 +279,10 @@ jobs:
           files: |
             artifacts/okapi-bridge-*.tar.gz
             artifacts/okapi-bridge-*.tar.gz.sha256
+            artifacts/kapi-okapi-bridge_*.tar.gz
+            artifacts/kapi-okapi-bridge_*.tar.gz.sha256
+            artifacts/kapi-okapi-bridge_*.tar.gz.sig
+            artifacts/kapi-okapi-bridge_*.tar.gz.pem
           generate_release_notes: true
 
   publish-testdata:

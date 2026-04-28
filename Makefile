@@ -3,12 +3,12 @@
 
 SHELL := /bin/bash
 .PHONY: help list-upstream list-local add-release regenerate regenerate-all \
-        version-schemas build clean test generate-pom generate-all-poms \
+        version-schemas build clean test test-go generate-pom generate-all-poms \
         centralize regenerate-composites build-tools \
         download-filter-docs parse-filter-docs parse-filter-docs-force \
         bundle-filter-docs clean-filter-docs snapshot \
         verify-schemas update-readme-matrix \
-        assemble transform plugin \
+        assemble transform plugin plugin-v2 \
         release release-prepare release-perform
 
 # Configuration - derived from okapi-releases directory
@@ -34,13 +34,15 @@ help:
 	@echo "Plugin Pipeline:"
 	@echo "  make assemble V=1.47.0    Assemble okapi-data/ (pure Okapi vocabulary)"
 	@echo "  make transform V=1.47.0   Transform to neokapi plugin format (dist/plugin/)"
-	@echo "  make plugin V=1.47.0      Full pipeline: assemble + transform"
+	@echo "  make plugin V=1.47.0      Full pipeline: assemble + transform (legacy v1)"
+	@echo "  make plugin-v2 V=1.47.0   Build v2 manifest-driven plugin tarball (host platform)"
 	@echo ""
 	@echo "Build:"
 	@echo "  make build V=1.47.0       Build JAR for specific Okapi version"
 	@echo "  make snapshot V=1.49.0-SNAPSHOT  Build against locally-installed Okapi"
 	@echo "  make build-tools          Build schema generator tools (Java 17)"
-	@echo "  make test                 Run tests (bridge-core)"
+	@echo "  make test                 Run all tests (bridge-core + Go shim/manifest-gen)"
+	@echo "  make test-go              Run only Go tests (cmd/shim, cmd/manifest-gen)"
 	@echo "  make clean                Clean build artifacts"
 	@echo ""
 	@echo "Documentation:"
@@ -243,9 +245,27 @@ endif
 	echo "Built: $$(ls $$SNAPSHOT_DIR/target/neokapi-bridge-*-jar-with-dependencies.jar)" && \
 	echo "Test:  mvn -B test -pl bridge-core -Dokapi.version=$(V)"
 
-test:
+test: test-go
 	@echo "Running tests (bridge-core against Okapi $(LATEST_VERSION))..."
 	@mvn -B test -pl bridge-core -Dokapi.version=$(LATEST_VERSION)
+
+# Run Go unit tests for the shim and manifest-gen.
+test-go:
+	@echo "Running Go tests..."
+	@go test ./...
+
+# Build the v2 plugin tarball for the host platform (mode-c manifest-driven).
+# Requires `make build V=...` to have produced the JAR first.
+plugin-v2:
+ifndef V
+	$(error V is required. Usage: make plugin-v2 V=1.47.0)
+endif
+	@host_os=$$(uname -s | tr '[:upper:]' '[:lower:]' | sed 's/darwin/darwin/;s/linux/linux/'); \
+	host_arch=$$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/'); \
+	./scripts/package-release-v2.sh \
+	    --okapi-version $(V) \
+	    --os $$host_os \
+	    --arch $$host_arch
 
 clean:
 	@mvn -B clean 2>/dev/null || true

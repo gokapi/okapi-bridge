@@ -418,7 +418,11 @@ regenerate_composites() {
         else
             echo "  = $filter v$base_version (base only)"
         fi
-        ((composite_count++))
+        # NB: composite_count=$((... + 1)) (not ((composite_count++)))
+        # because under `set -e`, post-increment returns the *old* value
+        # and bash 4.4+ aborts when that is 0 (i.e. on first iteration).
+        # macOS bash 3.2 tolerates it, which is why this only fires in CI.
+        composite_count=$((composite_count + 1))
         done  # end base_files loop
     done  # end filters loop
 
