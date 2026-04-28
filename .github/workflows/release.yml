@@ -261,6 +261,7 @@ jobs:
           # legacy .sig + .pem pairs would require client-side stitching.
           for tarball in dist/v2/*.tar.gz; do
             cosign sign-blob --yes \
+              --new-bundle-format=true \
               --bundle "${tarball}.sigstore.json" \
               "${tarball}"
           done
