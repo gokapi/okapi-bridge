@@ -300,6 +300,73 @@ jobs:
             artifacts/kapi-okapi-bridge_*.tar.gz.sigstore.json
           generate_release_notes: true
 
+      # Push the new okapi-bridge plugin version into the
+      # neokapi/registry manifest-plugins.json so
+      # `kapi plugin install okapi-bridge` resolves to this build.
+      - name: Update neokapi/registry manifest-plugins.json
+        env:
+          REGISTRY_TOKEN: ${{ secrets.REGISTRY_TOKEN }}
+          REF_NAME: ${{ github.ref_name }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          VERSION="${REF_NAME#v}"
+          if [ -z "${REGISTRY_TOKEN:-}" ]; then
+            echo "REGISTRY_TOKEN not set; skipping registry update"
+            exit 0
+          fi
+
+          # Build the registry-update helper from the neokapi repo (it
+          # lives at scripts/registry-update there).
+          git clone --depth 1 https://github.com/neokapi/neokapi.git /tmp/neokapi
+          (cd /tmp/neokapi && go build -o /tmp/registry-update ./scripts/registry-update)
+
+          REPO_URL="https://github.com/${REPO}/releases/download/${REF_NAME}"
+          CERT_ID="https://github.com/${REPO}/.github/workflows/release.yml@refs/tags/${REF_NAME}"
+
+          git clone "https://x-access-token:${REGISTRY_TOKEN}@github.com/neokapi/registry.git" /tmp/registry
+
+          # Resolve all the per-(okapi,platform) tarballs and their
+          # sha256 sidecars from the artifacts dir, then register one
+          # registry entry per Okapi version with its 4 platform rows.
+          for okapi_ver in $(ls okapi-releases | sort -V); do
+            args=()
+            for plat in linux/amd64 linux/arm64 darwin/arm64 windows/amd64; do
+              os=${plat%/*}
+              arch=${plat#*/}
+              file="kapi-okapi-bridge_${okapi_ver}_${os}_${arch}.tar.gz"
+              sha_file="artifacts/${file}.sha256"
+              [ -f "$sha_file" ] || continue
+              sha=$(awk '{print $1}' "$sha_file")
+              args+=(
+                "--platform" "$plat"
+                "--url" "${REPO_URL}/${file}"
+                "--sha256" "$sha"
+                "--signature" "${REPO_URL}/${file}.sigstore.json"
+              )
+            done
+            [ ${#args[@]} -eq 0 ] && continue
+            /tmp/registry-update \
+              --registry /tmp/registry/manifest-plugins.json \
+              --plugin okapi-bridge \
+              --version "$okapi_ver" \
+              --channel stable \
+              --released "$(date -u +%Y-%m-%d)" \
+              --min-kapi-version 1.0.0 \
+              --cert-identity "$CERT_ID" \
+              --cert-oidc-issuer https://token.actions.githubusercontent.com \
+              "${args[@]}"
+          done
+
+          cd /tmp/registry
+          git config user.email "release-bot@neokapi.dev"
+          git config user.name "release-bot"
+          git add manifest-plugins.json
+          if ! git diff --staged --quiet; then
+            git commit -m "Register okapi-bridge ${REF_NAME}"
+            git push
+          fi
+
   publish-testdata:
     name: Trigger Okapi Test Data
     needs: [setup, release]
