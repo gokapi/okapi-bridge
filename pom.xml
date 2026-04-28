@@ -189,6 +189,12 @@
                                 <transformers>
                                     <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                         <mainClass>neokapi.bridge.OkapiBridgeServer</mainClass>
+                                        <manifestEntries>
+                                            <!-- OkapiBridgeServer.pluginVersion() reads this at
+                                                 runtime so the v2 plugin daemon's handshake JSON
+                                                 carries the actual bridge version. -->
+                                            <Implementation-Version>${project.version}</Implementation-Version>
+                                        </manifestEntries>
                                     </transformer>
                                     <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
                                 </transformers>

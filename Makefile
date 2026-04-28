@@ -41,8 +41,8 @@ help:
 	@echo "  make build V=1.47.0       Build JAR for specific Okapi version"
 	@echo "  make snapshot V=1.49.0-SNAPSHOT  Build against locally-installed Okapi"
 	@echo "  make build-tools          Build schema generator tools (Java 17)"
-	@echo "  make test                 Run all tests (bridge-core + Go shim/manifest-gen)"
-	@echo "  make test-go              Run only Go tests (cmd/shim, cmd/manifest-gen)"
+	@echo "  make test                 Run all tests (bridge-core + manifest-gen)"
+	@echo "  make test-go              Run only Go tests (cmd/manifest-gen)"
 	@echo "  make clean                Clean build artifacts"
 	@echo ""
 	@echo "Documentation:"
@@ -249,7 +249,7 @@ test: test-go
 	@echo "Running tests (bridge-core against Okapi $(LATEST_VERSION))..."
 	@mvn -B test -pl bridge-core -Dokapi.version=$(LATEST_VERSION)
 
-# Run Go unit tests for the shim and manifest-gen.
+# Run Go unit tests for manifest-gen.
 test-go:
 	@echo "Running Go tests..."
 	@go test ./...

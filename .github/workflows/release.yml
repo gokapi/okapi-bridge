@@ -187,8 +187,10 @@ jobs:
 
   package-v2:
     # Mode-C plugin tarballs per (okapi-version, os, arch). Each tarball
-    # bundles the Go shim + the JAR + a Temurin JRE matching the bridge's
-    # required Java version (11 or 17, from okapi-releases/<v>/meta.json).
+    # is built with `jpackage --type app-image`, bundling a native
+    # launcher + JRE built from JDK 17. jpackage requires running on
+    # the target OS — cross-build is unsupported — so the matrix is
+    # one runner per host architecture.
     if: github.event_name == 'push'
     needs: [setup, build]
     strategy:
@@ -197,20 +199,21 @@ jobs:
         okapi-version: ${{ fromJson(needs.setup.outputs.versions) }}
         target:
           - { os: linux,   arch: amd64, runner: ubuntu-latest }
-          - { os: linux,   arch: arm64, runner: ubuntu-latest }
-          - { os: darwin,  arch: amd64, runner: macos-latest }
+          - { os: linux,   arch: arm64, runner: ubuntu-24.04-arm }
+          - { os: darwin,  arch: amd64, runner: macos-13 }
           - { os: darwin,  arch: arm64, runner: macos-latest }
+          - { os: windows, arch: amd64, runner: windows-latest }
     runs-on: ${{ matrix.target.runner }}
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v6
 
-      - name: Set up Go
+      - name: Set up Go (manifest-gen)
         uses: actions/setup-go@v6
         with:
           go-version: '1.23'
 
-      - name: Set up Java (host JRE for filter introspection)
+      - name: Set up JDK 17 (jpackage source + bundled runtime image)
         uses: actions/setup-java@v5
         with:
           distribution: temurin
@@ -222,7 +225,8 @@ jobs:
           name: jar-${{ matrix.okapi-version }}
           path: okapi-releases/${{ matrix.okapi-version }}/target/
 
-      - name: Build v2 plugin tarball
+      - name: Build v2 plugin tarball (jpackage)
+        shell: bash
         env:
           OKAPI_VERSION: ${{ matrix.okapi-version }}
           TARGET_OS: ${{ matrix.target.os }}
@@ -231,13 +235,13 @@ jobs:
           ./scripts/package-release-v2.sh \
             --okapi-version "$OKAPI_VERSION" \
             --os "$TARGET_OS" \
-            --arch "$TARGET_ARCH" \
-            --bundle-jre
+            --arch "$TARGET_ARCH"
 
       - name: Install cosign
         uses: sigstore/cosign-installer@v3
 
       - name: Cosign sign-blob (keyless)
+        shell: bash
         env:
           COSIGN_EXPERIMENTAL: "true"
         run: |

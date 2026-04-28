@@ -15,8 +15,13 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.ServerChannel;
 import io.netty.channel.unix.DomainSocketAddress;
 
+import java.io.IOException;
 import java.net.SocketAddress;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -41,7 +46,29 @@ import java.util.concurrent.TimeUnit;
 public class OkapiBridgeServer {
 
     public static void main(String[] args) {
-        long idleTimeoutSeconds = 0;
+        // Plugin protocol v1 subcommands (#438). When invoked as the
+        // manifest-driven plugin binary, kapi calls one of:
+        //   kapi-okapi-bridge daemon   — Mode-C daemon, emits canonical handshake
+        //   kapi-okapi-bridge version  — print plugin version + exit
+        // The legacy --list-filters / --list-steps / --list-capabilities
+        // flags also still work for build-time introspection.
+        boolean daemonMode = false;
+        if (args.length > 0) {
+            switch (args[0]) {
+                case "version":
+                    System.out.println(pluginVersion());
+                    return;
+                case "daemon":
+                    daemonMode = true;
+                    // shift args so subsequent flag parsing ignores "daemon"
+                    args = trimFirst(args);
+                    break;
+                default:
+                    // fall through to legacy flag parsing
+            }
+        }
+
+        long idleTimeoutSeconds = daemonMode ? 300 : 0;
         long stuckTimeoutSeconds = 120;
         int concurrency = Runtime.getRuntime().availableProcessors();
 
@@ -77,17 +104,26 @@ public class OkapiBridgeServer {
                     new LocalContentResolver(), new LocalOutputWriter(),
                     concurrency, idleTimeoutSeconds, stuckTimeoutSeconds);
 
-            // Check for Unix domain socket path from Go parent process.
+            // Resolve the socket address. In daemon mode (kapi plugin
+            // protocol v1), self-allocate a per-PID socket if the env var
+            // is unset. Otherwise fall back to the legacy env var or TCP.
             String socketPath = System.getenv("NEOKAPI_BRIDGE_SOCKET");
+            if ((socketPath == null || socketPath.isEmpty()) && daemonMode) {
+                socketPath = defaultDaemonSocketPath();
+            }
             Server server;
             String address;
+            String handshakeSocket;
 
             if (socketPath != null && !socketPath.isEmpty()) {
                 server = createUnixSocketServer(service, socketPath);
                 address = socketPath;
+                handshakeSocket = socketPath;
             } else {
                 server = createTcpServer(service);
-                address = "localhost:" + server.getPort();
+                int port = server.getPort();
+                address = "localhost:" + port;
+                handshakeSocket = "tcp://" + address;
             }
 
             System.err.println("[bridge] gRPC server started on " + address);
@@ -98,8 +134,14 @@ public class OkapiBridgeServer {
                 System.err.println("[bridge] Stuck timeout: " + stuckTimeoutSeconds + "s");
             }
 
-            // Print address to stdout — the Go client reads this first line.
-            System.out.println(address);
+            if (daemonMode) {
+                // Plugin protocol v1 canonical handshake JSON.
+                String escaped = handshakeSocket.replace("\\", "\\\\").replace("\"", "\\\"");
+                System.out.println("{\"socket\":\"" + escaped + "\",\"version\":\"" + pluginVersion() + "\"}");
+            } else {
+                // Legacy mode: bare address line for the Go shim and tests.
+                System.out.println(address);
+            }
             System.out.flush();
 
             // Start parent process heartbeat (deadman's switch).
@@ -124,6 +166,46 @@ public class OkapiBridgeServer {
             e.printStackTrace(System.err);
             System.exit(1);
         }
+    }
+
+    /**
+     * Plugin version, read from the JAR's MANIFEST.MF Implementation-Version.
+     * jpackage's runtime image preserves this. Falls back to "0.0.0-dev" when
+     * the JAR is run from an IDE / unshaded build.
+     */
+    private static String pluginVersion() {
+        String v = OkapiBridgeServer.class.getPackage().getImplementationVersion();
+        return (v == null || v.isEmpty()) ? "0.0.0-dev" : v;
+    }
+
+    /**
+     * Generate a per-PID socket path under $TMPDIR (or %TEMP% on Windows).
+     * Used when running in daemon mode without a NEOKAPI_BRIDGE_SOCKET override.
+     */
+    private static String defaultDaemonSocketPath() {
+        String tmp = System.getProperty("java.io.tmpdir");
+        long pid = ProcessHandle.current().pid();
+        Path dir = Paths.get(tmp);
+        try {
+            Files.createDirectories(dir);
+        } catch (IOException ignored) {
+            // tmp dir always exists on every platform we ship to; the
+            // create call here just no-ops in practice.
+        }
+        return dir.resolve("kapi-okapi-bridge-" + pid + ".sock").toString();
+    }
+
+    /**
+     * Returns args[1..n] (drops the leading subcommand). Pure-Java equivalent
+     * of slicing args after we consume the daemon/version verb.
+     */
+    private static String[] trimFirst(String[] args) {
+        if (args.length <= 1) {
+            return new String[0];
+        }
+        String[] out = new String[args.length - 1];
+        System.arraycopy(args, 1, out, 0, out.length);
+        return out;
     }
 
     /**

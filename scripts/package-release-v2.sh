@@ -1,174 +1,142 @@
 #!/usr/bin/env bash
-# Package a v2 manifest-driven plugin tarball for one (okapi-version, os, arch).
+# Package the okapi-bridge plugin tarball for the host platform using
+# jpackage (JDK 14+ tool). Replaces the earlier Go-shim + bundle-jre.sh
+# pipeline (issue neokapi/neokapi#438 phase 8).
 #
 # Layout produced:
 #
 #   kapi-okapi-bridge_<okapi-version>_<os>_<arch>.tar.gz
 #   └── okapi-bridge/
-#       ├── manifest.json
-#       ├── kapi-okapi-bridge        (Go shim, statically linked)
-#       ├── jars/
-#       │   └── neokapi-bridge-jar-with-dependencies.jar
-#       └── jre/                      (optional — bundled Temurin JRE)
-#           └── bin/java
+#       ├── manifest.json                    # v2 manifest, declares formats[] + daemon block
+#       ├── (jpackage app-image structure with bundled JRE + JAR)
+#       └── ...
 #
-# Inputs are passed via flags. The script does NOT build the JAR — it
-# expects okapi-releases/<okapi-version>/target/neokapi-bridge-*.jar
-# already exists (Maven step in the workflow runs first).
+# Inputs (flags):
+#   --okapi-version <v>   Okapi Framework version (e.g. 1.47.0)
+#   --os <linux|darwin|windows>
+#   --arch <amd64|arm64>
 #
-# Usage:
-#   scripts/package-release-v2.sh \
-#     --okapi-version 1.47.0 \
-#     --java-version 11 \
-#     --os linux --arch amd64 \
-#     --plugin okapi-bridge \
-#     [--bundle-jre] \
-#     [--no-tarball]
-#
-# Outputs:
-#   dist/v2/<plugin-name>-<okapi-version>-<os>-<arch>/  (staging dir)
-#   dist/v2/kapi-okapi-bridge_<okapi-version>_<os>_<arch>.tar.gz
-#
-# Maps Go GOOS/GOARCH → Adoptium os/arch:
-#   GOOS    Adoptium os
-#   linux   linux
-#   darwin  mac
-#   windows windows
-#   GOARCH  Adoptium arch
-#   amd64   x64
-#   arm64   aarch64
+# Requires:
+#   - jpackage on PATH (JDK 17+ recommended; the bundled runtime image
+#     matches the JDK that ran jpackage)
+#   - The shaded JAR at
+#     okapi-releases/<v>/target/neokapi-bridge-<v>-jar-with-dependencies.jar
+#     (produced by `make build V=<v>`)
+#   - Go on PATH for the manifest-gen helper
+
 set -euo pipefail
 
 OKAPI_VERSION=""
-JAVA_VERSION=""
 OS=""
 ARCH=""
+
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --okapi-version) OKAPI_VERSION="$2"; shift 2 ;;
+    --os) OS="$2"; shift 2 ;;
+    --arch) ARCH="$2"; shift 2 ;;
+    *) echo "$0: unknown flag: $1" >&2; exit 2 ;;
+  esac
+done
+
+if [ -z "$OKAPI_VERSION" ] || [ -z "$OS" ] || [ -z "$ARCH" ]; then
+  echo "Usage: $0 --okapi-version <v> --os <linux|darwin|windows> --arch <amd64|arm64>" >&2
+  exit 2
+fi
+
 PLUGIN_NAME="okapi-bridge"
-BINARY_NAME="kapi-okapi-bridge"
-BUNDLE_JRE=0
-TARBALL=1
+LAUNCHER="kapi-okapi-bridge"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+JAR_DIR="$ROOT/okapi-releases/${OKAPI_VERSION}/target"
 
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        --okapi-version) OKAPI_VERSION="$2"; shift 2 ;;
-        --java-version) JAVA_VERSION="$2"; shift 2 ;;
-        --os) OS="$2"; shift 2 ;;
-        --arch) ARCH="$2"; shift 2 ;;
-        --plugin) PLUGIN_NAME="$2"; shift 2 ;;
-        --binary) BINARY_NAME="$2"; shift 2 ;;
-        --bundle-jre) BUNDLE_JRE=1; shift ;;
-        --no-tarball) TARBALL=0; shift ;;
-        *) echo "unknown flag: $1" >&2; exit 2 ;;
-    esac
-done
-
-for required_flag in OKAPI_VERSION OS ARCH; do
-    if [[ -z "${!required_flag}" ]]; then
-        echo "missing required flag: --${required_flag,,}" >&2
-        exit 2
-    fi
-done
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(dirname "$SCRIPT_DIR")"
-cd "$ROOT_DIR"
-
-# Look up java-version from meta.json if not supplied.
-if [[ -z "$JAVA_VERSION" ]]; then
-    META="okapi-releases/${OKAPI_VERSION}/meta.json"
-    if [[ ! -f "$META" ]]; then
-        echo "package-release-v2: --java-version not supplied and $META missing" >&2
-        exit 1
-    fi
-    JAVA_VERSION=$(jq -r '.javaVersion' "$META")
-    if [[ "$JAVA_VERSION" == "null" || -z "$JAVA_VERSION" ]]; then
-        echo "package-release-v2: javaVersion missing from $META" >&2
-        exit 1
-    fi
+# The shaded JAR is named after the bridge version (project.version),
+# not the Okapi version. Glob to find it without hard-coding the bridge
+# version into this script.
+JAR_PATH=$(ls "$JAR_DIR"/neokapi-bridge-*-jar-with-dependencies.jar 2>/dev/null | grep -v '^original-' | head -1)
+if [ -z "$JAR_PATH" ] || [ ! -f "$JAR_PATH" ]; then
+  echo "$0: shaded JAR not found in $JAR_DIR" >&2
+  echo "  Run \`make build V=$OKAPI_VERSION\` first." >&2
+  exit 1
 fi
+JAR_NAME=$(basename "$JAR_PATH")
 
-# Resolve GOOS/GOARCH → Adoptium taxonomy.
+DIST="$ROOT/dist/v2"
+WORK="$DIST/work-${OS}-${ARCH}-${OKAPI_VERSION}"
+rm -rf "$WORK"
+mkdir -p "$WORK" "$DIST"
+
+# jpackage --input copies *every* file from the input dir into the
+# app-image. Stage the shaded JAR in its own clean dir so we don't drag
+# Maven's intermediate artifacts (original-*.jar, classes/, etc.) along.
+JAR_STAGE="$WORK/jar"
+mkdir -p "$JAR_STAGE"
+cp "$JAR_PATH" "$JAR_STAGE/$JAR_NAME"
+
+echo ">> jpackage app-image (okapi $OKAPI_VERSION, $OS/$ARCH)..."
+# --type app-image emits a self-contained directory with native launcher,
+# bundled JRE (built from the JDK running jpackage), and the JAR.
+# jpackage requires the build to run on the target OS — cross-build is
+# not supported; the release matrix runs one job per host.
+jpackage \
+  --type app-image \
+  --name "$LAUNCHER" \
+  --input "$JAR_STAGE" \
+  --main-jar "$JAR_NAME" \
+  --main-class neokapi.bridge.OkapiBridgeServer \
+  --app-version "$OKAPI_VERSION" \
+  --java-options '-Xss512k' \
+  --dest "$WORK"
+
+# Reshape the app-image into the unified-plugin layout. The jpackage
+# output dir varies by platform; we move it to "okapi-bridge/" and
+# record the relative launcher path for the manifest.
 case "$OS" in
-    linux)   ADOPTIUM_OS="linux" ;;
-    darwin)  ADOPTIUM_OS="mac" ;;
-    windows) ADOPTIUM_OS="windows" ;;
-    *) echo "unsupported --os $OS" >&2; exit 2 ;;
+  darwin)
+    mv "$WORK/${LAUNCHER}.app" "$WORK/$PLUGIN_NAME"
+    BIN_REL="Contents/MacOS/$LAUNCHER"
+    ;;
+  linux)
+    mv "$WORK/$LAUNCHER" "$WORK/$PLUGIN_NAME"
+    BIN_REL="bin/$LAUNCHER"
+    ;;
+  windows)
+    mv "$WORK/$LAUNCHER" "$WORK/$PLUGIN_NAME"
+    BIN_REL="${LAUNCHER}.exe"
+    ;;
+  *)
+    echo "$0: unknown OS: $OS" >&2; exit 2 ;;
 esac
-case "$ARCH" in
-    amd64) ADOPTIUM_ARCH="x64" ;;
-    arm64) ADOPTIUM_ARCH="aarch64" ;;
-    *) echo "unsupported --arch $ARCH" >&2; exit 2 ;;
-esac
 
-JAR_DIR="okapi-releases/${OKAPI_VERSION}/target"
-JAR=$(ls "$JAR_DIR"/neokapi-bridge-*-jar-with-dependencies.jar 2>/dev/null | grep -v original- | head -n1 || true)
-if [[ -z "$JAR" ]]; then
-    echo "package-release-v2: no jar-with-dependencies in $JAR_DIR; build with 'make build V=$OKAPI_VERSION' first" >&2
-    exit 1
+# Probe the freshly built launcher for filter metadata. The launcher
+# runs under its own bundled JRE so this also smoke-tests the bundle.
+echo ">> introspecting filters..."
+LIST_FILTERS_JSON="$WORK/filters.json"
+"$WORK/$PLUGIN_NAME/$BIN_REL" --list-filters > "$LIST_FILTERS_JSON"
+
+# Build manifest-gen the first time.
+if [ ! -x "$WORK/manifest-gen" ]; then
+  (cd "$ROOT/cmd/manifest-gen" && go build -o "$WORK/manifest-gen" .)
 fi
 
-STAGE_DIR="dist/v2/${PLUGIN_NAME}-${OKAPI_VERSION}-${OS}-${ARCH}/${PLUGIN_NAME}"
-rm -rf "$STAGE_DIR"
-mkdir -p "$STAGE_DIR/jars"
+echo ">> generating v2 manifest.json..."
+"$WORK/manifest-gen" \
+  --okapi-version "$OKAPI_VERSION" \
+  --filters-json "$LIST_FILTERS_JSON" \
+  --plugin "$PLUGIN_NAME" \
+  --binary "$BIN_REL" \
+  --output "$WORK/$PLUGIN_NAME/manifest.json"
 
-# 1. Build the shim.
-SHIM_OUT="$STAGE_DIR/$BINARY_NAME"
-"$SCRIPT_DIR/build-shim.sh" \
-    --os "$OS" --arch "$ARCH" \
-    --okapi-version "$OKAPI_VERSION" \
-    --output "$SHIM_OUT"
-chmod +x "$SHIM_OUT"
+# Tarball the okapi-bridge/ dir + sha256 sidecar.
+TARBALL="$DIST/kapi-okapi-bridge_${OKAPI_VERSION}_${OS}_${ARCH}.tar.gz"
+rm -f "$TARBALL" "${TARBALL}.sha256"
+tar -czf "$TARBALL" -C "$WORK" "$PLUGIN_NAME"
 
-# 2. Stage the JAR.
-cp "$JAR" "$STAGE_DIR/jars/neokapi-bridge-jar-with-dependencies.jar"
-
-# 3. Generate the manifest from the live filter introspection.
-#    OkapiBridgeServer --list-filters runs against the host JRE, not the
-#    bundled one, so we just need any java on PATH that can load this jar.
-if ! command -v java >/dev/null 2>&1; then
-    echo "package-release-v2: java not on PATH; needed to introspect filters" >&2
-    exit 1
+if command -v sha256sum >/dev/null 2>&1; then
+  sha256sum "$TARBALL" | awk '{print $1}' > "${TARBALL}.sha256"
+else
+  shasum -a 256 "$TARBALL" | awk '{print $1}' > "${TARBALL}.sha256"
 fi
 
-FILTERS_JSON="$(mktemp)"
-trap 'rm -f "$FILTERS_JSON"' EXIT
-
-java -cp "$JAR" neokapi.bridge.OkapiBridgeServer --list-filters > "$FILTERS_JSON"
-
-go run ./cmd/manifest-gen \
-    --okapi-version "$OKAPI_VERSION" \
-    --filters-json "$FILTERS_JSON" \
-    --plugin "$PLUGIN_NAME" \
-    --binary "$BINARY_NAME" \
-    --output "$STAGE_DIR/manifest.json"
-
-# 4. Optionally bundle the JRE.
-if [[ "$BUNDLE_JRE" == "1" ]]; then
-    "$SCRIPT_DIR/bundle-jre.sh" \
-        --java-version "$JAVA_VERSION" \
-        --os "$ADOPTIUM_OS" \
-        --arch "$ADOPTIUM_ARCH" \
-        --output "$STAGE_DIR/jre"
-fi
-
-echo "package-release-v2: staged $STAGE_DIR" >&2
-
-# 5. Tarball.
-if [[ "$TARBALL" == "1" ]]; then
-    TARBALL_NAME="${BINARY_NAME}_${OKAPI_VERSION}_${OS}_${ARCH}.tar.gz"
-    TARBALL_PATH="dist/v2/$TARBALL_NAME"
-    rm -f "$TARBALL_PATH"
-    # Make the tar reproducible-ish: sorted, no owner/group metadata.
-    tar -C "$(dirname "$STAGE_DIR")" \
-        --no-xattrs \
-        --owner=0 --group=0 \
-        -czf "$TARBALL_PATH" \
-        "$PLUGIN_NAME" 2>/dev/null \
-        || tar -C "$(dirname "$STAGE_DIR")" -czf "$TARBALL_PATH" "$PLUGIN_NAME"
-
-    sha256sum "$TARBALL_PATH" > "$TARBALL_PATH.sha256" 2>/dev/null \
-        || shasum -a 256 "$TARBALL_PATH" > "$TARBALL_PATH.sha256"
-
-    echo "package-release-v2: wrote $TARBALL_PATH" >&2
-    echo "$TARBALL_PATH"
-fi
+echo ">> packaged $(basename "$TARBALL")"
+echo "  size:   $(du -h "$TARBALL" | awk '{print $1}')"
+echo "  sha256: $(cat "${TARBALL}.sha256")"
