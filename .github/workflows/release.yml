@@ -212,17 +212,15 @@ jobs:
         # versions_v2 excludes 0.* (jpackage rejects 0-major --app-version).
         okapi-version: ${{ fromJson(needs.setup.outputs.versions_v2) }}
         target:
-          - { os: linux,  arch: amd64, runner: ubuntu-latest }
-          - { os: linux,  arch: arm64, runner: ubuntu-24.04-arm }
-          - { os: darwin, arch: arm64, runner: macos-latest }
-          # darwin/amd64 (Intel Mac) is no longer in the matrix —
-          # macos-13 runners are scarce on GitHub Actions and Apple
-          # has dropped Intel from new product lines. Apple Silicon
-          # users get the native arm64 build; Intel Mac users can
-          # install via Rosetta or run the JAR directly.
-          # Windows is currently blocked by 122 schema files with NTFS-
-          # reserved characters (':') under okapi-releases/*/schemas/tools/.
-          # Once those are renamed, add { os: windows, arch: amd64, runner: windows-latest }.
+          - { os: linux,   arch: amd64, runner: ubuntu-latest }
+          - { os: linux,   arch: arm64, runner: ubuntu-24.04-arm }
+          - { os: darwin,  arch: arm64, runner: macos-latest }
+          - { os: windows, arch: amd64, runner: windows-latest }
+          # darwin/amd64 (Intel Mac) is intentionally not in the matrix —
+          # macos-13 runners are scarce on GitHub Actions and Apple has
+          # dropped Intel from new product lines. Apple Silicon users
+          # get the native arm64 build; Intel Mac users can install via
+          # Rosetta or run the JAR directly with their own JRE 17+.
     runs-on: ${{ matrix.target.runner }}
     timeout-minutes: 20
     steps:
