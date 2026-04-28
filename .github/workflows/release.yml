@@ -300,6 +300,11 @@ jobs:
             artifacts/kapi-okapi-bridge_*.tar.gz.sigstore.json
           generate_release_notes: true
 
+      - name: Set up Go (registry-update build)
+        uses: actions/setup-go@v6
+        with:
+          go-version: "1.23"
+
       # Push the new okapi-bridge plugin version into the
       # neokapi/registry manifest-plugins.json so
       # `kapi plugin install okapi-bridge` resolves to this build.
@@ -316,10 +321,13 @@ jobs:
             exit 0
           fi
 
-          # Build the registry-update helper from the neokapi repo (it
-          # lives at scripts/registry-update there).
-          git clone --depth 1 https://github.com/neokapi/neokapi.git /tmp/neokapi
-          (cd /tmp/neokapi && go build -o /tmp/registry-update ./scripts/registry-update)
+          # Use `go install` to fetch + build the registry-update helper
+          # from the public neokapi repo. Avoids the git-clone-with-stale-
+          # credentials trap (actions/checkout configures git to send the
+          # okapi-bridge job's token on every clone, which github.com
+          # rejects when the token doesn't grant access to the target
+          # repo). Go's module fetcher uses its own HTTPS path.
+          GOBIN=/tmp go install github.com/neokapi/neokapi/scripts/registry-update@main
 
           REPO_URL="https://github.com/${REPO}/releases/download/${REF_NAME}"
           CERT_ID="https://github.com/${REPO}/.github/workflows/release.yml@refs/tags/${REF_NAME}"
