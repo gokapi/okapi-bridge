@@ -73,6 +73,17 @@ mkdir -p "$JAR_STAGE"
 cp "$JAR_PATH" "$JAR_STAGE/$JAR_NAME"
 
 echo ">> jpackage app-image (okapi $OKAPI_VERSION, $OS/$ARCH)..."
+# jpackage rejects --app-version values whose first component is 0
+# ("The first number in an app-version cannot be zero or negative"),
+# but we still want to release tarballs for old Okapi versions like
+# 0.38. Remap 0.X to 1.0.X for jpackage's own metadata only — the
+# manifest's plugin version (set later by manifest-gen) keeps the
+# real Okapi version, which is what users see.
+JPACKAGE_VERSION="$OKAPI_VERSION"
+case "$JPACKAGE_VERSION" in
+  0.*) JPACKAGE_VERSION="1.0.${JPACKAGE_VERSION#0.}" ;;
+esac
+
 # --type app-image emits a self-contained directory with native launcher,
 # bundled JRE (built from the JDK running jpackage), and the JAR.
 # jpackage requires the build to run on the target OS — cross-build is
@@ -83,7 +94,7 @@ jpackage \
   --input "$JAR_STAGE" \
   --main-jar "$JAR_NAME" \
   --main-class neokapi.bridge.OkapiBridgeServer \
-  --app-version "$OKAPI_VERSION" \
+  --app-version "$JPACKAGE_VERSION" \
   --java-options '-Xss512k' \
   --dest "$WORK"
 
