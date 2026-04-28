@@ -380,37 +380,3 @@ jobs:
       okapi_version: ${{ needs.setup.outputs.latest }}
     secrets: inherit
 
-  update-registry:
-    needs: [setup, release]
-    if: always() && !cancelled() && needs.release.result == 'success'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-
-      - name: Download all artifacts
-        uses: actions/download-artifact@v8
-        with:
-          path: artifacts
-          merge-multiple: true
-
-      - name: Checkout registry
-        uses: actions/checkout@v6
-        with:
-          repository: neokapi/registry
-          token: ${{ secrets.NEOKAPI_GITHUB_TOKEN }}
-          path: registry
-
-      - name: Update plugins.json
-        env:
-          TAG: ${{ github.ref_name }}
-          OKAPI_LATEST: ${{ needs.setup.outputs.latest }}
-        run: ./scripts/update-registry.sh "$TAG" registry artifacts "$OKAPI_LATEST"
-
-      - name: Commit and push registry update
-        run: |
-          cd registry
-          git config user.name "neokapi-bot"
-          git config user.email "bot@neokapi.dev"
-          git add plugins.json
-          git commit -m "Update okapi to ${GITHUB_REF_NAME}"
-          git push
