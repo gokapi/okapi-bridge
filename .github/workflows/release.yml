@@ -17,6 +17,12 @@ concurrency:
 permissions:
   actions: write
   contents: write
+  # cosign keyless requires a fresh GitHub Actions OIDC token to mint a
+  # short-lived Fulcio cert. Without id-token: write, the sign-blob step
+  # uses a stale token from job start and Fulcio rejects it as expired
+  # for any matrix cell whose jpackage build runs longer than the token's
+  # 10-minute TTL.
+  id-token: write
 
 jobs:
   setup:
