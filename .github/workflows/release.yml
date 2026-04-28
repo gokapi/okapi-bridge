@@ -321,13 +321,9 @@ jobs:
             exit 0
           fi
 
-          # Build the registry-update helper from the neokapi repo. We
-          # configure git to use REGISTRY_TOKEN for github.com so the
-          # private repo clone (under Go's module cache) succeeds, and
-          # mark neokapi/* as GOPRIVATE so the proxy isn't asked.
-          git config --global url."https://x-access-token:${REGISTRY_TOKEN}@github.com/".insteadOf "https://github.com/"
-          export GOPRIVATE=github.com/neokapi/*
-          GOBIN=/tmp go install github.com/neokapi/neokapi/scripts/registry-update@main
+          # Build the registry-update helper. It lives in the public
+          # neokapi/registry repo so no auth is needed to fetch it.
+          GOBIN=/tmp go install github.com/neokapi/registry/tools/registry-update@main
 
           REPO_URL="https://github.com/${REPO}/releases/download/${REF_NAME}"
           CERT_ID="https://github.com/${REPO}/.github/workflows/release.yml@refs/tags/${REF_NAME}"
