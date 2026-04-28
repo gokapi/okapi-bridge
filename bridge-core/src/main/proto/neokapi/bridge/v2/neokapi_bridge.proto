@@ -48,31 +48,95 @@ message AnnotationEntry {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
-// Inline Markup
+// Inline Markup (RFC 0001 Run model)
 // ────────────────────────────────────────────────────────────────────────────
 
-// SpanMessage represents an inline markup element within a Fragment.
-message SpanMessage {
-  int32 span_type = 1;     // 0=Opening, 1=Closing, 2=Placeholder
-  string type = 2;          // Semantic type (e.g., "bold", "link")
-  string id = 3;
-  string data = 4;          // Original markup (e.g., "<b>")
-  string outer_data = 5;
-  bool deletable = 6;
-  bool cloneable = 7;
-  string original_id = 8;   // Original ID before merging/splitting
-  string display_text = 9;  // Human-readable display text
-  int32 flags = 10;         // Bitfield of span flags
-  string equiv_text = 11;   // Equivalent text representation
-  bool can_reorder = 12;    // Whether code can be reordered
-  map<string, AnnotationEntry> annotations = 13;
-  string sub_type = 14;   // Format-specific refinement (e.g., "html:b", "md:strong")
+// RunConstraints control whether an inline-code run may be dropped,
+// duplicated, or reordered by a translation.
+message RunConstraints {
+  bool deletable = 1;
+  bool cloneable = 2;
+  bool reorderable = 3;
 }
 
-// FragmentMessage represents text content with inline Spans.
-message FragmentMessage {
-  string coded_text = 1;
-  repeated SpanMessage spans = 2;
+// TextRunMessage is a plain text chunk.
+message TextRunMessage {
+  string text = 1;
+}
+
+// PlaceholderRunMessage is a self-closing inline code (variable,
+// conditional JSX expression, line break, icon, etc.).
+message PlaceholderRunMessage {
+  string id = 1;
+  string type = 2;      // Vocabulary key, e.g. "jsx:var", "jsx:node", "html:br".
+  string sub_type = 3;  // Fine-grained discriminator.
+  string data = 4;      // Original source slice, preserved verbatim.
+  string equiv = 5;     // Stable human-friendly identifier (variable name, tag name).
+  string disp = 6;      // Display label for chips.
+  RunConstraints constraints = 7;
+}
+
+// PcOpenRunMessage is the opening half of a paired inline code.
+message PcOpenRunMessage {
+  string id = 1;
+  string type = 2;
+  string sub_type = 3;
+  string data = 4;      // Raw opening source ("<span class=\"muted\">").
+  string equiv = 5;
+  string disp = 6;
+  RunConstraints constraints = 7;
+}
+
+// PcCloseRunMessage is the closing half of a paired inline code.
+// Shares id with its PcOpen inside the same runs scope.
+message PcCloseRunMessage {
+  string id = 1;
+  string type = 2;
+  string sub_type = 3;
+  string data = 4;      // Raw closing source ("</span>").
+  string equiv = 5;
+}
+
+// SubRunMessage is a reference to a subblock (sub-filter output).
+message SubRunMessage {
+  string id = 1;
+  string ref = 2;
+  string equiv = 3;
+}
+
+// PluralRunMessage is a structured plural construct. Keys of `forms`
+// are ICU plural forms: "zero", "one", "two", "few", "many", "other".
+message PluralRunMessage {
+  string pivot = 1;
+  map<string, RunList> forms = 2;
+}
+
+// SelectRunMessage is a structured select construct, symmetric to
+// PluralRunMessage but keyed by arbitrary case values.
+message SelectRunMessage {
+  string pivot = 1;
+  map<string, RunList> cases = 2;
+}
+
+// RunList is a repeated-field holder used by map values in
+// PluralRunMessage and SelectRunMessage (proto3 maps cannot have
+// repeated-message values directly).
+message RunList {
+  repeated RunMessage runs = 1;
+}
+
+// RunMessage is the discriminated-union inline-content primitive.
+// Exactly one of the oneof fields is present per Run.
+message RunMessage {
+  oneof kind {
+    TextRunMessage text = 1;
+    PlaceholderRunMessage ph = 2;
+    PcOpenRunMessage pc_open = 3;
+    PcCloseRunMessage pc_close = 4;
+    SubRunMessage sub = 5;
+    PluralRunMessage plural = 6;
+    SelectRunMessage select = 7;
+  }
 }
 
 // ────────────────────────────────────────────────────────────────────────────
@@ -82,7 +146,7 @@ message FragmentMessage {
 // SegmentMessage represents a single segment within a Block.
 message SegmentMessage {
   string id = 1;
-  FragmentMessage content = 2;
+  repeated RunMessage runs = 2;
   map<string, string> properties = 3;
 }
 
@@ -284,6 +348,16 @@ message ProcessResponse {
   }
 }
 
+// InlineStep configures a pipeline step to run inside the Process RPC.
+// When ProcessHeader.inline_steps is non-empty, the Java side pipes each
+// filter event through the step chain before streaming results to Go.
+// This eliminates Go↔Java round-trips for Okapi-native step processing.
+message InlineStep {
+  string step_class = 1;              // Fully-qualified Java class name
+  map<string, string> step_params = 2; // Step parameters (key-value)
+  map<string, string> param_types = 3; // Schema-derived types for correct Okapi suffixes
+}
+
 // ProcessHeader configures the Process RPC.
 message ProcessHeader {
   string filter_class = 1;
@@ -299,7 +373,10 @@ message ProcessHeader {
                                        // Java only sends parts matching these types;
                                        // all other events are written directly without
                                        // crossing the gRPC boundary.
-                                       // Values match PartMessage.part_type (e.g. 4 = Block).
+                                       // Values match PartMessage.part_type (e.g. 5 = Block).
+  repeated InlineStep inline_steps = 11; // Optional steps to run between filter and writer.
+                                          // Steps are applied in order to each filter event
+                                          // before it is streamed to Go or written to output.
 }
 
 // ProcessReadDone signals that all parts have been read from the document.
@@ -315,9 +392,9 @@ message ProcessComplete {
 message ShutdownRequest {}
 message ShutdownResponse {}
 
-// ───────────────────���────────────────────────��───────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 // ProcessStep RPC messages
-// ──────────────────────────────────────���─────────────────────────────────────
+// ────────────────────────────────────────────────────────────────────────────
 
 // StepRequest is sent by the client (Go) to the server (Java) for step processing.
 message StepRequest {
@@ -335,6 +412,9 @@ message StepHeader {
   string target_locale = 4;
   string root_directory = 5;          // Project root for ${rootDir} resolution
   string input_root_directory = 6;    // Input root for ${inputRootDir} resolution
+  map<string, string> param_types = 7; // Schema-derived types: {"regEx":"boolean","count":"integer"}
+                                       // Used by Java to apply correct Okapi parameter suffixes
+                                       // (.b for boolean, .i for integer, bare for string).
 }
 
 // StepResponse is sent by the server (Java) to the client (Go).

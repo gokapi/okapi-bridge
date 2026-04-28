@@ -156,17 +156,43 @@ public class StepRegistry {
      * Create a new instance of the specified step.
      */
     public static BasePipelineStep createStep(String stepClass) {
+        if (stepClass == null || stepClass.isEmpty()) {
+            return null;
+        }
+        // Accept either a derived step id ("word-count") or a fully-qualified
+        // Java class name. neokapi#451: clients should not have to hard-code
+        // FQCNs.
+        String resolved = resolveStepClass(stepClass);
         try {
-            Class<?> clazz = Class.forName(stepClass);
+            Class<?> clazz = Class.forName(resolved);
             Object instance = clazz.getDeclaredConstructor().newInstance();
             if (instance instanceof BasePipelineStep) {
                 return (BasePipelineStep) instance;
             }
             return null;
         } catch (Exception e) {
-            System.err.println("[bridge] Failed to instantiate step " + stepClass + ": " + e.getMessage());
+            System.err.println("[bridge] Failed to instantiate step " + resolved
+                    + " (from \"" + stepClass + "\"): " + e.getMessage());
             return null;
         }
+    }
+
+    /**
+     * Resolve a step id ("word-count") or a passthrough FQCN to a Java
+     * class name suitable for {@code Class.forName}. Strings containing
+     * a dot are treated as FQCNs unchanged.
+     */
+    private static String resolveStepClass(String stepClass) {
+        if (stepClass.indexOf('.') >= 0) {
+            return stepClass;
+        }
+        ensureInitialized();
+        for (StepInfo info : STEPS.values()) {
+            if (stepClass.equals(info.getStepId())) {
+                return info.getClassName();
+            }
+        }
+        return stepClass;
     }
 
     /**

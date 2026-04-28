@@ -755,8 +755,9 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
                 if (bm.getSourceCount() > 0) {
                     // Use the first segment's content as source text.
                     SegmentMessage firstSeg = bm.getSource(0);
-                    if (firstSeg.hasContent()) {
-                        String codedText = firstSeg.getContent().getCodedText();
+                    if (firstSeg.getRunsCount() > 0) {
+                        String codedText = ProtoAdapter.runsToFragment(firstSeg.getRunsList())
+                                .getCodedText();
                         tu.setSourceContent(new net.sf.okapi.common.resource.TextFragment(codedText));
                     }
                 }
@@ -767,9 +768,10 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
                             net.sf.okapi.common.IResource.CREATE_EMPTY);
                     if (te.getSegmentsCount() > 0) {
                         SegmentMessage tgtSeg = te.getSegments(0);
-                        if (tgtSeg.hasContent()) {
-                            target.setContent(new net.sf.okapi.common.resource.TextFragment(
-                                    tgtSeg.getContent().getCodedText()));
+                        if (tgtSeg.getRunsCount() > 0) {
+                            String tgtCoded = ProtoAdapter.runsToFragment(tgtSeg.getRunsList())
+                                    .getCodedText();
+                            target.setContent(new net.sf.okapi.common.resource.TextFragment(tgtCoded));
                         }
                     }
                 }
@@ -918,8 +920,8 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             if (target.getLocale().equals(locale)) {
                 List<FragmentDTO> fragments = new ArrayList<>(target.getSegmentsCount());
                 for (SegmentMessage seg : target.getSegmentsList()) {
-                    if (seg.hasContent()) {
-                        fragments.add(ProtoAdapter.fromProto(seg.getContent()));
+                    if (seg.getRunsCount() > 0) {
+                        fragments.add(ProtoAdapter.runsToFragment(seg.getRunsList()));
                     }
                 }
                 return fragments;
@@ -936,8 +938,8 @@ public class BridgeServiceImpl extends BridgeServiceGrpc.BridgeServiceImplBase {
             if (target.getLocale().equals(locale)) {
                 List<FragmentDTO> fragments = new ArrayList<>(target.getSegmentsCount());
                 for (SegmentMessage seg : target.getSegmentsList()) {
-                    if (seg.hasContent()) {
-                        fragments.add(ProtoAdapter.fromProto(seg.getContent()));
+                    if (seg.getRunsCount() > 0) {
+                        fragments.add(ProtoAdapter.runsToFragment(seg.getRunsList()));
                     }
                 }
                 return fragments;

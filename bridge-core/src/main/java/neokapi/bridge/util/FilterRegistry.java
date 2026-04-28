@@ -517,17 +517,50 @@ public class FilterRegistry {
      * @return new IFilter instance or null
      */
     public static IFilter createFilter(String filterClass) {
+        if (filterClass == null || filterClass.isEmpty()) {
+            return null;
+        }
+        // Accept both an Okapi short id ("okf_html") and a fully-qualified
+        // Java class name. The short-id path is what neokapi sends — see
+        // neokapi#451 for context. Resolution scans the discovered FILTERS
+        // (populated by ensureInitialized) for a FilterInfo whose id matches.
+        String resolved = resolveFilterClass(filterClass);
         try {
-            Class<?> clazz = Class.forName(filterClass);
+            Class<?> clazz = Class.forName(resolved);
             Object instance = clazz.getDeclaredConstructor().newInstance();
             if (instance instanceof IFilter) {
                 return (IFilter) instance;
             }
             return null;
         } catch (Exception e) {
-            System.err.println("[bridge] Failed to instantiate filter " + filterClass + ": " + e.getMessage());
+            System.err.println("[bridge] Failed to instantiate filter " + resolved
+                    + " (from \"" + filterClass + "\"): " + e.getMessage());
             return null;
         }
+    }
+
+    /**
+     * Resolve an Okapi short id ("okf_html") or a passthrough FQCN to a
+     * Java class name suitable for {@code Class.forName}.
+     *
+     * Resolution order:
+     *   1. If the input contains a dot, treat it as a FQCN unchanged.
+     *   2. Otherwise, ensure FILTERS is populated and look up the first
+     *      registered FilterInfo whose id equals the input.
+     *   3. Fall back to the input unchanged so the caller's error message
+     *      surfaces the original string.
+     */
+    private static String resolveFilterClass(String filterClass) {
+        if (filterClass.indexOf('.') >= 0) {
+            return filterClass;
+        }
+        ensureInitialized();
+        for (FilterInfo info : FILTERS.values()) {
+            if (filterClass.equals(info.getId())) {
+                return info.getFilterClass();
+            }
+        }
+        return filterClass;
     }
 
     /**
