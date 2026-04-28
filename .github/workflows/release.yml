@@ -260,15 +260,18 @@ jobs:
       - name: Install cosign
         uses: sigstore/cosign-installer@v3
 
-      - name: Cosign sign-blob (keyless)
+      - name: Cosign sign-blob (keyless, JSON bundle)
         shell: bash
         env:
           COSIGN_EXPERIMENTAL: "true"
         run: |
+          # Emit a Sigstore JSON bundle (.sigstore.json) carrying signature
+          # + signing certificate + Rekor entry in a single artifact. The
+          # kapi-side verifier (sigstore-go) consumes this bundle directly;
+          # legacy .sig + .pem pairs would require client-side stitching.
           for tarball in dist/v2/*.tar.gz; do
             cosign sign-blob --yes \
-              --output-signature "${tarball}.sig" \
-              --output-certificate "${tarball}.pem" \
+              --bundle "${tarball}.sigstore.json" \
               "${tarball}"
           done
 
@@ -279,8 +282,7 @@ jobs:
           path: |
             dist/v2/*.tar.gz
             dist/v2/*.tar.gz.sha256
-            dist/v2/*.sig
-            dist/v2/*.pem
+            dist/v2/*.sigstore.json
 
   release:
     needs: [build, package-v2]
@@ -305,8 +307,7 @@ jobs:
             artifacts/okapi-bridge-*.tar.gz.sha256
             artifacts/kapi-okapi-bridge_*.tar.gz
             artifacts/kapi-okapi-bridge_*.tar.gz.sha256
-            artifacts/kapi-okapi-bridge_*.tar.gz.sig
-            artifacts/kapi-okapi-bridge_*.tar.gz.pem
+            artifacts/kapi-okapi-bridge_*.tar.gz.sigstore.json
           generate_release_notes: true
 
   publish-testdata:
